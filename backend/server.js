@@ -39,6 +39,8 @@ app.use((req, res, next) => {
 
 // הגדרות בסיסיות
 app.use(cors());
+// The public lead intake keeps its own 2mb cap (the first body parser to run wins).
+app.use("/api/leads/intake", bodyParser.json({ limit: "2mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 

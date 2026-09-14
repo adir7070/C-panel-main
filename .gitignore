@@ -36,3 +36,7 @@ LOGO WHITE.png
 # AI/ML caches (huge)
 .fastembed_cache/
 *.onnx
+
+# Any other local env file (backend/.env.development included)
+.env.*
+!.env.example

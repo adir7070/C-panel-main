@@ -124,7 +124,7 @@ export function mountPanelSpa(app) {
   app.use("/assets", express.static(path.join(DIST, "assets"), { maxAge: "1y", immutable: true }));
   app.use(express.static(DIST, { maxAge: 0, etag: false }));
   // Client-side routes (/clients/…, the Cardcom return page, /products-review/…)
-  app.get(/^(?!\/(?:api|socket\.io|wow-beta|whoapp-api)(?:\/|$)).*/, (_req, res) => {
+  app.get(/^(?!\/(?:api|socket\.io|wow-beta|whoapp-api|assets|generated)(?:\/|$)).*/, (_req, res) => {
     res.sendFile(path.join(DIST, "index.html"));
   });
 }

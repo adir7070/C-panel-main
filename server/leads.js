@@ -248,6 +248,12 @@ leadsRouter.post("/api/leads/intake", async (req, res) => {
 const idRoute = (req, _res, next) => (/^[a-f0-9]{24}$/i.test(String(req.params.id)) ? next() : next("route"));
 /* GET /api/leads?page_id=… is the backend's Facebook-leads listing. */
 const fbLeadsRoute = (req, _res, next) => (req.query.page_id ? next("route") : next());
+/* Backend referral endpoints the SPA calls (src/api/admin.ts) have no auth of
+   their own in backend/routes/leads.routes.js — keep them behind the panel
+   login, then hand over to the backend router. */
+const toBackend = (_req, _res, next) => next("route");
+leadsRouter.get("/api/leads/referrals/admin", requireAuth, toBackend);
+leadsRouter.patch(["/api/leads/:id/referral-approve", "/api/leads/:id/referral-close"], requireAuth, toBackend);
 
 function escapeRx(s) {
   return String(s).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");

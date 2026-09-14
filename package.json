@@ -9,11 +9,12 @@
   "scripts": {
     "dev": "node scripts/dev.mjs",
     "build": "tsc -b && vite build",
-    "start": "node backend/server.js",
+    "start": "node --env-file-if-exists=.env backend/server.js",
     "heroku-postbuild": "npm run build && npm run install:backend",
     "lint": "eslint .",
     "preview": "vite preview",
-    "install:backend": "cd backend && PUPPETEER_SKIP_DOWNLOAD=true npm ci --omit=dev --no-audit --no-fund"
+    "install:backend": "cd backend && PUPPETEER_SKIP_DOWNLOAD=true npm ci --omit=dev --no-audit --no-fund",
+    "setup": "npm ci && cd backend && npm ci"
   },
   "dependencies": {
     "axios": "^1.15.2",
