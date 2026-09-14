@@ -57,6 +57,29 @@ so the lead shows up in "כל הלקוחות" and opens as a client with the א�
 pre-filled. Standalone mode (`LOCAL_AUTH=1`, no backend) still works for
 login + leads only.
 
+### Production (Heroku + Atlas)
+Both apps run on Heroku (region eu, heroku-24) against ONE MongoDB Atlas database:
+
+| process | Heroku app | origin | GitHub |
+|---|---|---|---|
+| this repo | `dashen-cpanel` | https://dashen-cpanel-b76c272f93dd.herokuapp.com | adir7070/C-panel-main |
+| backend | `dashen-server` | https://dashen-server-9b097b27a93a.herokuapp.com | adir7070/iconiq-server |
+
+- **Deploys:** Heroku's GitHub integration auto-deploys `main` of each repo; there are no GitHub Actions.
+- **Backend repo history:** adir7070/iconiq-server starts from a fresh history. The old IconiqMotion repo had the Iconiq production `.env` and Google/Facebook credential files committed. It is kept locally as the `iconiq-legacy` remote. Never push it anywhere.
+- **Database:** Atlas `cluster0.tjiqrcj`, database `dashen`. `MONGO_URI` must be identical on both apps and end in `/dashen`. Both apps call `db()` with no name, so a path-less URI silently uses `test`, and then the backend's `initAdmin` runs against an empty DB.
+- **C-panel config vars:**
+  - `LOCAL_AUTH=0`, `LOCAL_LEADS=1`, `LEADS_INTAKE_KEY`.
+  - `API_TARGET` and `VITE_SOCKET_URL` = the backend origin (no `/api`, no trailing slash).
+  - `VITE_*` values are baked in at build time: changing one needs a new push. Never set `VITE_API_BASE`.
+- **Backend config vars:**
+  - Values are the Dashen ones from `.env.development`, never the old Iconiq `.env`. In production the backend loads no `.env` file at all.
+  - Required: `MONGO_URI`, `SERVER_BASE_URL` and `BASE_URL` (backend origin), `CPANEL_BASE_URL` (C-panel origin), `DISABLE_WHOAPP=true`, `DISABLE_WOW_BETA=true`.
+  - Keep `AWS_MONGO_URI` and `PEER_SERVER_URL` unset.
+  - Chrome for PDFs comes from the `heroku-community/chrome-for-testing` buildpack (`PUPPETEER_EXECUTABLE_PATH`).
+- **Backend dynos:** run exactly ONE. Its node-cron jobs and timers have no locks.
+- **Legacy Make.com webhooks:** env-gated and off (`PURCHASE_WEBHOOK_URL`, `WEBHOOK_URL`, `CARDCOM_LEGACY_NOTIFY_URL`). In production the first admin is only created from `INIT_ADMIN_PASSWORD`.
+
 ### Leads (local)
 - Statuses: `new` חדש · `call_again` להתקשר שוב · `not_relevant` לא רלוונטי ·
   `in_process` בתהליך · `to_charge` לסלוק · `active_client` לקוח פעיל.
