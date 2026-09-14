@@ -4,7 +4,7 @@ import { fileURLToPath } from "url";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import { generateLocalAds, GENERATED_DIR } from "./server/localAdsPipeline.js";
 import { exchangeFacebookCode } from "./server/facebookOAuth.js";
-import { authRouter } from "./server/auth.js";
+import { authRouter, requireAuth } from "./server/auth.js";
 import { leadsRouter } from "./server/leads.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -46,7 +46,7 @@ if (LOCAL_LEADS) app.use(leadsRouter);
 // ── Local ad-generation pipeline (was: proxy to a Make.com webhook) ───
 // Runs the campaign.md prompt directly against OpenAI/Gemini using the
 // keys in .env and returns the finished ad copy + images synchronously.
-app.post("/api/local-ads/generate", express.json({ limit: "10mb" }), async (req, res) => {
+app.post("/api/local-ads/generate", requireAuth, express.json({ limit: "10mb" }), async (req, res) => {
   const { ANSWERS, BRAND_COLORS, NUM_ADS, LOGO, AVATAR } = req.body ?? {};
   console.log(`[local-ads] generating ${NUM_ADS} ads locally...`);
   try {

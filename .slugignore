@@ -1,0 +1,13 @@
+# Heroku slug excludes — dev/reference material the running app never reads.
+# campaign.md and server/prompts/ ARE read at runtime — never list them here.
+/מודעות לדוגמא שנעשו על ידי KLIQ-20260609T092728Z-3-001
+/.context-brain.db
+/.agents
+/.claude
+/.codex
+/.mcp.json
+/docs
+/WOW-ADS-MAKE-INTEGRATION.md
+/Social.md
+/new-pipe.md
+/AGENTS.md

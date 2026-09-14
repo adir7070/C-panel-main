@@ -205,7 +205,10 @@ export function ProductsTab({ phone, onGotoCharacterization, onGotoPersonalCatal
       };
       const res = await fetch("/api/local-ads/generate", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("cpanel_token") ?? ""}`,
+        },
         body: JSON.stringify(payload),
       });
       const json = await res.json();
