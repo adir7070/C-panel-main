@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{BUSINESS_NAME}} | השיווק של העסק שלך מתחיל חכם</title>
+<meta name="description" content="פוסטים, קמפיינים ולידים במקום אחד עם {{BUSINESS_NAME}}. האפליקציה שעוזרת לבעלי עסקים לנהל את השיווק, ליצור תוכן ולקבל יותר פניות, פשוט וברור. הורידו עכשיו.">
+<meta name="keywords" content="{{BUSINESS_NAME}}, קליק, שיווק לעסקים, אפליקציית שיווק, ניהול לידים, קמפיינים ממומנים, פוסטים לעסק, שיווק דיגיטלי, עסקים קטנים">
+<meta name="author" content="{{BUSINESS_NAME}}">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#0500C8">
+<link rel="canonical" href="{{WEBSITE_URL}}">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{BUSINESS_NAME}}">
+<meta property="og:locale" content="he_IL">
+<meta property="og:url" content="{{WEBSITE_URL}}">
+<meta property="og:title" content="{{BUSINESS_NAME}} | השיווק של העסק שלך מתחיל חכם">
+<meta property="og:description" content="פוסטים, קמפיינים ולידים במקום אחד. שיווק חכם לעסקים שרוצים להתקדם.">
+<meta property="og:image" content="{{WEBSITE_URL}}og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{BUSINESS_NAME}} אפליקציית השיווק לעסקים">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{BUSINESS_NAME}} | השיווק של העסק שלך מתחיל חכם">
+<meta name="twitter:description" content="פוסטים, קמפיינים ולידים במקום אחד. שיווק חכם לעסקים שרוצים להתקדם.">
+<meta name="twitter:image" content="{{WEBSITE_URL}}og-image.png">
+
+<!-- Icons & manifest -->
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "{{BUSINESS_NAME}}",
+  "alternateName": "קליק",
+  "description": "אפליקציית שיווק לעסקים קטנים ובינוניים: יצירת פוסטים ומודעות, ניהול קמפיינים ולידים ונתונים, חבילות ומטבעות וליווי אישי, הכל במקום אחד.",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "iOS, Android",
+  "inLanguage": "he",
+  "url": "{{WEBSITE_URL}}",
+  "image": "{{WEBSITE_URL}}og-image.png",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ILS" },
+  "downloadUrl": [
+    "https://play.google.com/store/apps/details?id=com.iconiqmedia.adsmanager",
+    "https://apps.apple.com/il/app/kliq/id6755148289"
+  ],
+  "publisher": { "@type": "Organization", "name": "{{BUSINESS_NAME}}", "url": "{{WEBSITE_URL}}" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: { ink:'#0500C8', electric:'#006BFF', cyan:'#00C8FF', turq:'#31E6C2', soft:'#F5F7FB', body:'#3A3A3A' },
+    fontFamily: { sans: ['Assistant','system-ui','sans-serif'] },
+    borderRadius: { xl2: '1.25rem' },
+  } },
+};
+</script>
+<style>
+  html{scroll-behavior:smooth}
+  body{font-family:'Assistant',system-ui,sans-serif;color:#3A3A3A;overflow-x:hidden}
+  .grad{background:linear-gradient(120deg,#0500C8 0%,#006BFF 55%,#00C8FF 100%)}
+  .grad-soft{background:linear-gradient(160deg,#EAF1FF 0%,#F6F9FF 48%,#E6FBF6 100%)}
+  .grad-text{background:linear-gradient(110deg,#0500C8,#006BFF 55%,#00C8FF);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .blob{position:absolute;border-radius:9999px;filter:blur(60px);z-index:0;pointer-events:none}
+  .phone{position:relative;border-radius:2.2rem;background:linear-gradient(160deg,#10174a,#05003a);padding:.42rem;box-shadow:0 36px 70px -22px rgba(5,0,200,.5),0 0 0 1px rgba(255,255,255,.1) inset}
+  .phone>img{display:block;width:100%;border-radius:1.85rem;aspect-ratio:704/1531;object-fit:cover}
+  .phone::after{content:"";position:absolute;top:.8rem;left:50%;transform:translateX(-50%);width:30%;height:.38rem;background:rgba(255,255,255,.5);border-radius:9999px;z-index:3}
+  .tilt-l{transform:perspective(2000px) rotateY(12deg) rotateX(4deg)}
+  .tilt-r{transform:perspective(2000px) rotateY(-12deg) rotateX(4deg)}
+  @media(max-width:1023px){.tilt-l,.tilt-r{transform:none}}
+  .fcard{position:absolute;z-index:20;background:#fff;border-radius:1rem;box-shadow:0 20px 45px -14px rgba(5,0,200,.28);padding:.65rem .85rem}
+  @media(max-width:767px){
+    /* on mobile the phone sits behind and every sticker floats centered OVER it */
+    .fcard{animation:none!important;left:50%!important;right:auto!important;transform:translateX(-50%) scale(.82)!important;transform-origin:center;white-space:nowrap;z-index:30!important}
+    .fcard[style*="top:"]{bottom:auto!important}
+    .fcard[style*="bottom:"]{top:auto!important}
+    .stage{overflow:visible}
+  }
+  .float{animation:fl 6s ease-in-out infinite}
+  @keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  [data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .7s,transform .7s cubic-bezier(.22,1,.36,1)}
+  [data-reveal].in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){[data-reveal]{opacity:1!important;transform:none!important}.float{animation:none}}
+  details[open] .faq-ico{transform:rotate(45deg)}
+  .badge-store{display:inline-flex;align-items:center;gap:.6rem;border-radius:1rem;background:#0b1020;padding:.6rem 1.1rem;color:#fff;box-shadow:0 14px 30px -10px rgba(5,0,200,.4);transition:transform .2s}
+  .badge-store:hover{transform:scale(1.05)}
+  .badge-store .bs-sub{font-size:.62rem;opacity:.8;line-height:1}
+  .badge-store .bs-main{font-size:1.02rem;font-weight:800;line-height:1.1}
+  /* ===== premium polish ===== */
+  .aurora{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+  .aurora i{position:absolute;border-radius:50%;filter:blur(80px);opacity:.55;animation:aur 16s ease-in-out infinite}
+  .aurora i:nth-child(1){width:38rem;height:38rem;background:radial-gradient(circle,#006BFF,transparent 60%);top:-14rem;right:-8rem}
+  .aurora i:nth-child(2){width:34rem;height:34rem;background:radial-gradient(circle,#31E6C2,transparent 60%);bottom:-14rem;left:-6rem;animation-delay:-8s}
+  .aurora i:nth-child(3){width:26rem;height:26rem;background:radial-gradient(circle,#00C8FF,transparent 60%);top:30%;left:35%;animation-delay:-4s;opacity:.4}
+  @keyframes aur{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-3rem,2.5rem) scale(1.18)}}
+  .grid-tex{position:absolute;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(#0500c80a 1px,transparent 1px),linear-gradient(90deg,#0500c80a 1px,transparent 1px);background-size:42px 42px;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,#000,transparent);mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,#000,transparent)}
+  .glow::before{content:"";position:absolute;inset:-12%;background:radial-gradient(circle,rgba(0,107,255,.5),rgba(49,230,194,.25) 45%,transparent 68%);filter:blur(45px);z-index:-1}
+  .glass{background:rgba(255,255,255,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.7)}
+  .gb{position:relative;isolation:isolate}
+  .gb::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;background:linear-gradient(135deg,#006BFF,#31E6C2);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .35s;z-index:-1}
+  .gb:hover::before{opacity:1}
+  .shimmer{background:linear-gradient(110deg,#0500C8,#006BFF,#00C8FF,#31E6C2,#006BFF,#0500C8);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 6s linear infinite}
+  @keyframes sh{to{background-position:200% center}}
+  .mq{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+  .mq-track{display:flex;gap:.85rem;width:max-content;animation:mq 32s linear infinite}
+  .mq:hover .mq-track{animation-play-state:paused}
+  @keyframes mq{to{transform:translateX(50%)}}
+  .lift{transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s}
+  .lift:hover{transform:translateY(-6px)}
+  @media(prefers-reduced-motion:reduce){.aurora i,.shimmer,.mq-track{animation:none}}
+  /* feature stage */
+  .stage{position:relative;display:flex;align-items:center;justify-content:center;padding:3.25rem 1.5rem;border-radius:2.25rem;overflow:hidden;isolation:isolate;box-shadow:0 30px 60px -30px rgba(5,0,200,.25)}
+  .stage .dots{position:absolute;inset:0;z-index:0;background-image:radial-gradient(#0500c818 1.5px,transparent 1.5px);background-size:22px 22px;-webkit-mask-image:radial-gradient(ellipse 65% 65% at 50% 50%,#000,transparent);mask-image:radial-gradient(ellipse 65% 65% at 50% 50%,#000,transparent)}
+  .stage .ring{position:absolute;border:2px dashed rgba(0,107,255,.25);border-radius:50%;z-index:0}
+  .num-badge{display:inline-grid;place-items:center;height:2.4rem;width:2.4rem;border-radius:.9rem;font-weight:800;color:#fff;background:linear-gradient(135deg,#006BFF,#31E6C2);box-shadow:0 10px 24px -8px rgba(0,107,255,.6)}
+  /* design pass: eyebrow pill, dividers, deco */
+  .eyebrow{display:inline-flex;align-items:center;gap:.5rem;border-radius:9999px;padding:.4rem 1rem;font-size:.8rem;font-weight:800;color:#006BFF;background:linear-gradient(135deg,rgba(0,107,255,.12),rgba(49,230,194,.16));border:1px solid rgba(0,107,255,.15)}
+  .sec{position:relative;overflow:hidden}
+  .deco{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .dotgrid{position:absolute;width:18rem;height:18rem;background-image:radial-gradient(#0500c814 1.4px,transparent 1.4px);background-size:20px 20px;-webkit-mask-image:radial-gradient(circle,#000,transparent 70%);mask-image:radial-gradient(circle,#000,transparent 70%)}
+  .wave{position:absolute;left:0;width:100%;line-height:0;z-index:1}
+  .wave svg{display:block;width:100%;height:auto}
+  .tl-line{position:absolute;right:1.25rem;top:1rem;bottom:1rem;width:3px;background:linear-gradient(#31E6C2,#006BFF,#0500C8);border-radius:9999px;opacity:.5}
+  .mq-track.rev{animation-direction:reverse}
+  .mq-slow .mq-track{animation-duration:46s}
+  .adtile{flex:0 0 auto;border-radius:1.1rem;overflow:hidden;box-shadow:0 18px 40px -18px rgba(5,0,200,.3);transition:transform .35s;border:3px solid #fff}
+  .adtile:hover{transform:scale(1.05) translateY(-4px)}
+  .adtile img{display:block;width:170px;height:170px;object-fit:cover}
+  @media(min-width:768px){.adtile img{width:210px;height:210px}}
+</style>
+</head>
+<body class="bg-white">
+
+<!-- ===== HEADER ===== -->
+<header class="sticky top-0 z-50 w-full bg-white/85 backdrop-blur border-b border-slate-100">
+  <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3 md:px-8">
+    <a href="#top" class="flex items-center gap-2 shrink-0">
+      <img src="{{LOGO_URL}}" alt="{{BUSINESS_NAME}}" class="h-10 w-auto rounded-lg">
+    </a>
+    <nav class="hidden items-center gap-6 text-sm font-semibold text-slate-600 lg:flex">
+      <a href="#solution" class="hover:text-ink transition">הפתרון</a>
+      <a href="#features" class="hover:text-ink transition">יכולות</a>
+      <a href="#how" class="hover:text-ink transition">איך זה עובד</a>
+      <a href="#fit" class="hover:text-ink transition">למי מתאים</a>
+      <a href="catalog.html" class="hover:text-ink transition">קטלוג</a>
+      <a href="#faq" class="hover:text-ink transition">שאלות</a>
+    </nav>
+    <div class="flex items-center gap-2">
+      <button id="navToggle" aria-label="תפריט" aria-expanded="false" class="grid h-10 w-10 place-items-center rounded-xl text-ink ring-1 ring-slate-200 lg:hidden"><svg id="navOpen" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg id="navClose" class="hidden" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      <a href="https://play.google.com/store/apps/details?id=com.iconiqmedia.adsmanager&pcampaignid=web_share" target="_blank" rel="noopener" aria-label="Google Play" class="grid h-10 w-10 place-items-center rounded-xl grad text-white shadow-md hover:scale-105 transition">
+        <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.6 1.9 13.3 12 3.6 22.1c-.36-.2-.6-.6-.6-1.06V2.96c0-.46.24-.86.6-1.06z" fill="#fff"/><path d="M16.9 8.4 13.3 12l3.6 3.6 3.6-2.06c.86-.5.86-1.74 0-2.24z" fill="#fff" opacity=".75"/><path d="m3.6 1.9 13.3 6.5L13.3 12z" fill="#fff" opacity=".9"/><path d="M3.6 22.1 13.3 12l3.6 3.6z" fill="#fff" opacity=".6"/></svg>
+      </a>
+      <a href="https://apps.apple.com/il/app/kliq/id6755148289?l=he" target="_blank" rel="noopener" aria-label="App Store" class="grid h-10 w-10 place-items-center rounded-xl bg-ink text-white shadow-md hover:scale-105 transition">
+        <svg width="20" height="20" viewBox="0 0 384 512" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+      </a>
+    </div>
+  </div>
+  <div id="mnav" class="hidden border-t border-slate-100 bg-white lg:hidden">
+    <nav class="mx-auto flex max-w-7xl flex-col px-5 text-base font-semibold text-slate-700">
+      <a href="#solution" class="border-b border-slate-100 py-3.5">הפתרון</a>
+      <a href="#features" class="border-b border-slate-100 py-3.5">יכולות</a>
+      <a href="#how" class="border-b border-slate-100 py-3.5">איך זה עובד</a>
+      <a href="#fit" class="border-b border-slate-100 py-3.5">למי מתאים</a>
+      <a href="catalog.html" class="border-b border-slate-100 py-3.5 text-ink font-extrabold">קטלוג</a>
+      <a href="#faq" class="py-3.5">שאלות</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ===== 1. HERO ===== -->
+<section class="relative grad-soft overflow-hidden">
+  <div class="aurora"><i></i><i></i><i></i></div>
+  <div class="grid-tex"></div>
+  <div class="relative mx-auto grid max-w-7xl items-center gap-10 px-5 py-16 md:px-8 lg:grid-cols-2 lg:py-28">
+    <div data-reveal class="text-center lg:text-right">
+      <span class="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-sm font-bold text-electric shadow-sm"><span class="relative flex h-2.5 w-2.5"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-turq opacity-75"></span><span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-turq"></span></span> שיווק חכם לעסקים</span>
+      <h1 class="mt-5 whitespace-nowrap font-extrabold leading-[1.1] tracking-tight text-ink text-[clamp(1.7rem,4.8vw,3.3rem)]">כל השיווק של העסק שלך<br><span class="shimmer">במקום אחד</span></h1>
+      <p class="mx-auto mt-5 max-w-xl text-lg text-slate-600 lg:mx-0">פוסטים, קמפיינים ולידים במקום אחד עם {{BUSINESS_NAME}}. האפליקציה שעוזרת לבעלי עסקים לנהל את השיווק, ליצור תוכן, לעקוב אחרי ביצועים ולקבל יותר פניות בצורה פשוטה וברורה.</p>
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+        <a href="https://play.google.com/store/apps/details?id=com.iconiqmedia.adsmanager&pcampaignid=web_share" target="_blank" rel="noopener" class="badge-store"><svg width="26" height="26" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.6 1.9 13.3 12 3.6 22.1c-.36-.2-.6-.6-.6-1.06V2.96c0-.46.24-.86.6-1.06z" fill="#00D4FF"/><path d="M16.9 8.4 13.3 12l3.6 3.6 3.6-2.06c.86-.5.86-1.74 0-2.24z" fill="#FFCE00"/><path d="m3.6 1.9 13.3 6.5L13.3 12z" fill="#00F076"/><path d="M3.6 22.1 13.3 12l3.6 3.6z" fill="#FF3A44"/></svg><span class="text-right"><span class="bs-sub block">הורידו ב‑</span><span class="bs-main block">Google Play</span></span></a>
+        <a href="https://apps.apple.com/il/app/kliq/id6755148289?l=he" target="_blank" rel="noopener" class="badge-store"><svg width="26" height="26" viewBox="0 0 384 512" fill="#fff"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg><span class="text-right"><span class="bs-sub block">הורידו ב‑</span><span class="bs-main block">App Store</span></span></a>
+      </div>
+      <!-- callback lead form -->
+      <div class="mt-7 max-w-md lg:mx-0 mx-auto" data-reveal>
+        <form id="leadForm" novalidate>
+          <div class="mb-3 flex items-center justify-center gap-2 text-right lg:justify-start">
+            <span class="grid h-8 w-8 shrink-0 place-items-center rounded-xl grad text-white"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+            <span class="text-lg font-extrabold text-ink">רוצים שאנחנו נחזור אליכם?</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <input id="leadName" name="name" type="text" autocomplete="name" required placeholder="שם" class="min-w-0 rounded-xl bg-white px-4 py-3 text-right text-base text-ink shadow-md shadow-electric/10 ring-1 ring-slate-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-electric">
+            <input id="leadPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="מספר טלפון" dir="ltr" class="min-w-0 rounded-xl bg-white px-4 py-3 text-right text-base text-ink shadow-md shadow-electric/10 ring-1 ring-slate-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-electric">
+          </div>
+          <button id="leadBtn" type="submit" class="mt-2 w-full rounded-xl grad px-5 py-3 font-extrabold text-white shadow-md shadow-electric/30 transition hover:opacity-90 active:scale-95">שלחו</button>
+          <p id="leadMsg" class="mt-2.5 hidden text-sm font-semibold"></p>
+        </form>
+      </div>
+    </div>
+    <div data-reveal class="relative flex items-center justify-center pt-6 lg:pt-0">
+      <div class="blob" style="width:22rem;height:22rem;background:#006BFF;opacity:.18;top:2rem;left:50%;transform:translateX(-50%)"></div>
+      <div class="phone tilt-r float hidden md:block" style="width:200px;margin-left:-3rem;z-index:1;animation-delay:.8s"><img src="{{SCREEN_ANALYTICS}}" alt="מסך הנתונים של {{BUSINESS_NAME}}"></div>
+      <div class="phone tilt-l glow relative z-10" style="width:260px">
+        <img src="{{SCREEN_HOME}}" alt="מסך הבית של אפליקציית {{BUSINESS_NAME}}">
+        <div class="fcard float text-right" style="top:14%;right:-2.5rem"><div class="flex items-center gap-2"><span class="grid h-8 w-8 place-items-center rounded-lg bg-turq/15 text-turq"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 17l5-5 4 4 8-8"/><path d="M16 4h5v5"/></svg></span><div><div class="text-[11px] text-slate-400">לידים החודש</div><div class="text-base font-extrabold text-ink" data-count="48" data-prefix="+">+48</div></div></div></div>
+        <div class="fcard float text-right" style="bottom:16%;left:-2.5rem;animation-delay:1.3s"><div class="flex items-center gap-2"><span class="grid h-8 w-8 place-items-center rounded-lg bg-electric/15 text-electric"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 3v18h18"/><path d="m7 14 3-4 3 3 4-6"/></svg></span><div><div class="text-[11px] text-slate-400">חשיפות</div><div class="text-base font-extrabold text-ink" data-count="3642">3,642</div></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 2. VALUE STRIP ===== -->
+<section class="border-y border-slate-100 bg-white py-8">
+  <div class="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-5 md:grid-cols-4 md:px-8" data-reveal>
+    <div class="flex items-center gap-3"><span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-soft text-electric"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 12h6M12 9v6"/></svg></span><div><div class="font-bold text-ink">הכל במקום אחד</div><div class="text-sm text-slate-500">בלי לקפוץ בין כלים</div></div></div>
+    <div class="flex items-center gap-3"><span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-soft text-electric"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13H11l-1 9 8.5-11H12z"/></svg></span><div><div class="font-bold text-ink">פשוט להתחיל</div><div class="text-sm text-slate-500">בכמה קליקים</div></div></div>
+    <div class="flex items-center gap-3"><span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-soft text-electric"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h10M4 12h16M4 18h7"/><circle cx="18" cy="6" r="2"/><circle cx="16" cy="18" r="2"/></svg></span><div><div class="font-bold text-ink">שליטה מלאה</div><div class="text-sm text-slate-500">תקציב ותוצאות</div></div></div>
+    <div class="flex items-center gap-3"><span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-soft text-electric"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a4 4 0 0 1 4 4c0 2-1.5 3-2 5h-4c-.5-2-2-3-2-5a4 4 0 0 1 4-4z"/><path d="M9 19h6M10 22h4"/></svg></span><div><div class="font-bold text-ink">ליווי אישי</div><div class="text-sm text-slate-500">לא לבד מול השיווק</div></div></div>
+  </div>
+</section>
+
+<!-- ===== OWNER SHOWCASE ===== -->
+<section class="sec bg-white py-16 md:py-24">
+  <div class="deco"><div class="dotgrid" style="top:3rem;left:3rem"></div><div class="blob" style="width:24rem;height:24rem;background:#31E6C2;opacity:.12;bottom:-6rem;right:-4rem"></div></div>
+  <div class="relative mx-auto grid max-w-6xl items-center gap-10 px-5 md:px-8 lg:grid-cols-2">
+    <div data-reveal class="text-center lg:text-right">
+      <span class="eyebrow">מערכת {{BUSINESS_NAME}}</span>
+      <h2 class="mt-4 text-3xl font-extrabold text-ink md:text-5xl">נבנתה לבעלי עסקים,<br><span class="grad-text">לא למומחי שיווק</span></h2>
+      <p class="mx-auto mt-4 max-w-xl text-lg text-slate-600 lg:mx-0">לא צריך לדעת לעצב, לכתוב או להבין באלגוריתמים. פותחים את {{BUSINESS_NAME}}, בוחרים מה רוצים לקדם והמערכת עושה את העבודה הכבדה. אתם רק מאשרים ורואים תוצאות.</p>
+      <ul class="mx-auto mt-6 grid max-w-md gap-3 text-right text-slate-700 lg:mx-0">
+        <li class="flex items-center gap-2.5"><span class="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-electric/10 text-electric"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg></span>ממשק פשוט בעברית, בלי עקומת למידה</li>
+        <li class="flex items-center gap-2.5"><span class="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-electric/10 text-electric"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg></span>תוצאות תוך דקות לא ימים</li>
+        <li class="flex items-center gap-2.5"><span class="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-electric/10 text-electric"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg></span>מנהל תיק אישי שמלווה אתכם לאורך הדרך</li>
+      </ul>
+    </div>
+    <div data-reveal class="relative">
+      <div class="glow"></div>
+      <div class="overflow-hidden rounded-3xl shadow-2xl shadow-electric/20 ring-1 ring-slate-100"><img src="{{OWNER_SHOP_IMAGE}}" alt="בעלת עסק משתמשת ב‑{{BUSINESS_NAME}}" loading="lazy" class="w-full"></div>
+      <div class="fcard glass float" style="bottom:-1rem;right:-0.5rem"><div class="flex items-center gap-2"><span class="grid h-9 w-9 place-items-center rounded-xl grad text-white"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 17l5-5 4 4 8-8"/><path d="M16 4h5v5"/></svg></span><div class="leading-tight"><div class="text-[11px] text-slate-400">צמיחה החודש</div><div class="text-base font-extrabold text-ink" data-count="32" data-prefix="+">+32%</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 3. PROBLEM (before / after) ===== -->
+<section class="sec bg-white py-16 md:py-24">
+  <div class="deco"><img src="{{BG_SPREAD_IMAGE}}" alt="" class="absolute inset-0 h-full w-full object-cover opacity-[0.08]"><div class="absolute inset-0 bg-gradient-to-b from-white via-white/70 to-white"></div></div>
+  <div class="relative mx-auto max-w-5xl px-5 md:px-8">
+    <div class="text-center" data-reveal>
+      <h2 class="text-3xl font-extrabold text-ink md:text-4xl">השיווק של העסק לא צריך להיות מסובך</h2>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-slate-600">הרבה בעלי עסקים מתפזרים בין כלים, מסכים והודעות בלי לדעת מה באמת עובד. ככה זה מרגיש לפני {{BUSINESS_NAME}}, וככה אחרי.</p>
+    </div>
+    <div class="mt-12 grid gap-6 md:grid-cols-2" data-reveal>
+      <div class="rounded-3xl border border-slate-200 bg-slate-50 p-7 md:p-8">
+        <div class="mb-5 inline-flex items-center gap-2 rounded-full bg-slate-200/70 px-4 py-1.5 text-sm font-bold text-slate-500">בלי {{BUSINESS_NAME}}</div>
+        <ul class="space-y-3.5 text-slate-500">
+          <li class="flex items-start gap-3"><span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-slate-200 text-slate-400"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>קופצים בין חמש אפליקציות שונות לכל פעולה</li>
+          <li class="flex items-start gap-3"><span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-slate-200 text-slate-400"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>לידים הולכים לאיבוד בין הודעות ומיילים</li>
+          <li class="flex items-start gap-3"><span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-slate-200 text-slate-400"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>מבזבזים תקציב בלי לדעת מה באמת עובד</li>
+          <li class="flex items-start gap-3"><span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-slate-200 text-slate-400"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>אין מי שמכוון מרגישים לבד מול השיווק</li>
+        </ul>
+      </div>
+      <div class="relative overflow-hidden rounded-3xl grad p-7 text-white shadow-2xl shadow-electric/30 md:p-8">
+        <div class="blob" style="width:16rem;height:16rem;background:#31E6C2;opacity:.3;bottom:-5rem;left:-3rem"></div>
+        <div class="relative">
+          <div class="mb-5 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-1.5 text-sm font-bold">עם {{BUSINESS_NAME}}</div>
+          <ul class="space-y-3.5">
+            <li class="flex items-start gap-3"><span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-turq/25 text-turq"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>כל הפעילות השיווקית במסך אחד מסודר</li>
+            <li class="flex items-start gap-3"><span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-turq/25 text-turq"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>כל ליד נשמר, מתויג ומנוהל עד הסגירה</li>
+            <li class="flex items-start gap-3"><span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-turq/25 text-turq"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>רואים בדיוק מה מביא תוצאות ושולטים בתקציב</li>
+            <li class="flex items-start gap-3"><span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-turq/25 text-turq"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>מנהל תיק אישי שמלווה אתכם בכל צעד</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 4. SOLUTION INTRO ===== -->
+<section id="solution" class="bg-soft py-16 md:py-24">
+  <div class="mx-auto grid max-w-6xl items-center gap-12 px-5 md:px-8 lg:grid-cols-2">
+    <div data-reveal class="text-center lg:text-right">
+      <span class="text-sm font-bold text-electric">הכל במקום אחד</span>
+      <h2 class="mt-2 text-3xl font-extrabold text-ink md:text-4xl">עם {{BUSINESS_NAME}} הכל נמצא במקום אחד</h2>
+      <p class="mx-auto mt-4 max-w-xl text-lg text-slate-600 lg:mx-0">{{BUSINESS_NAME}} מרכזת לבעל העסק את הכלים החשובים לשיווק במקום אחד: פוסטים לסושיאל, קמפיינים ממומנים, ניהול לידים, נתונים, גלריה ומעקב ביצועים. לא עוד מערכת פתרון שמרגיש פשוט.</p>
+      <ul class="mx-auto mt-6 max-w-md space-y-2 text-right text-slate-700 lg:mx-0">
+        <li class="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#31E6C2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> יותר לידים, פחות התעסקות</li>
+        <li class="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#31E6C2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> תמונה ברורה של מה עובד</li>
+        <li class="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#31E6C2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> שליטה מלאה בתקציב</li>
+      </ul>
+    </div>
+    <div data-reveal class="relative flex justify-center py-6">
+      <div class="blob" style="width:20rem;height:20rem;background:#006BFF;opacity:.2;top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+      <div class="phone glow float" style="width:250px"><img src="{{SCREEN_HOME}}" alt="לוח הבקרה של {{BUSINESS_NAME}}"></div>
+      <div class="fcard glass float text-right" style="top:6%;right:-1rem;animation-delay:.3s"><div class="flex items-center gap-2"><span class="grid h-7 w-7 place-items-center rounded-lg bg-electric/15 text-electric"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="m8 21 4-4 4 4"/></svg></span><span class="text-sm font-bold text-ink">פוסטים ותוכן</span></div></div>
+      <div class="fcard glass float text-right" style="top:44%;left:-2rem;animation-delay:1s"><div class="flex items-center gap-2"><span class="grid h-7 w-7 place-items-center rounded-lg bg-turq/20 text-turq"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg></span><span class="text-sm font-bold text-ink">קמפיינים</span></div></div>
+      <div class="fcard glass float text-right" style="bottom:8%;right:-1.5rem;animation-delay:1.6s"><div class="flex items-center gap-2"><span class="grid h-7 w-7 place-items-center rounded-lg bg-cyan/20 text-electric"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></span><span class="text-sm font-bold text-ink">לידים ונתונים</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 5. 4 CORE BENEFITS ===== -->
+<section id="features" class="bg-white py-16 md:py-24">
+  <div class="mx-auto max-w-7xl px-5 md:px-8">
+    <div class="text-center" data-reveal>
+      <h2 class="text-3xl font-extrabold text-ink md:text-4xl">כל מה שהעסק צריך כדי לשווק חכם</h2>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-slate-600">ארבעה כלים מרכזיים, מערכת אחת פשוטה.</p>
+    </div>
+    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div data-reveal class="gb lift rounded-xl2 bg-white p-7 shadow-sm ring-1 ring-slate-100 hover:shadow-2xl">
+        <div class="grid h-14 w-14 place-items-center rounded-2xl grad text-white shadow-lg shadow-electric/30"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="m8 21 4-4 4 4"/><path d="M7 9h7M7 13h4"/></svg></div>
+        <h3 class="mt-5 text-lg font-bold text-ink">יצירת פוסטים חכמה</h3>
+        <p class="mt-2 text-slate-600">יוצרים ומנהלים תוכן שיווקי לעסק בצורה פשוטה, מהגלריה או עם AI.</p>
+      </div>
+      <div data-reveal class="gb lift rounded-xl2 bg-white p-7 shadow-sm ring-1 ring-slate-100 hover:shadow-2xl">
+        <div class="grid h-14 w-14 place-items-center rounded-2xl grad text-white shadow-lg shadow-electric/30"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg></div>
+        <h3 class="mt-5 text-lg font-bold text-ink">קמפיינים ממומנים</h3>
+        <p class="mt-2 text-slate-600">מפעילים ומנהלים קמפיינים בצורה מסודרת עם מיקוד בקהל הנכון.</p>
+      </div>
+      <div data-reveal class="gb lift rounded-xl2 bg-white p-7 shadow-sm ring-1 ring-slate-100 hover:shadow-2xl">
+        <div class="grid h-14 w-14 place-items-center rounded-2xl grad text-white shadow-lg shadow-electric/30"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg></div>
+        <h3 class="mt-5 text-lg font-bold text-ink">ניהול לידים</h3>
+        <p class="mt-2 text-slate-600">רואים את כל הפניות במקום אחד, עוקבים ומנהלים את ההזדמנויות.</p>
+      </div>
+      <div data-reveal class="gb lift rounded-xl2 bg-white p-7 shadow-sm ring-1 ring-slate-100 hover:shadow-2xl">
+        <div class="grid h-14 w-14 place-items-center rounded-2xl grad text-white shadow-lg shadow-electric/30"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="13" y="7" width="3" height="10"/></svg></div>
+        <h3 class="mt-5 text-lg font-bold text-ink">נתונים ודשבורד</h3>
+        <p class="mt-2 text-slate-600">מבינים מה עובד, מה משתפר ומה הצעד הבא בתצוגה ברורה.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 6. FEATURE: CONTENT ===== -->
+<section class="bg-soft py-16 md:py-20">
+  <div class="mx-auto grid max-w-6xl items-center gap-12 px-5 md:px-8 lg:grid-cols-2">
+    <div data-reveal class="order-2 lg:order-1">
+      <div class="stage" style="background:linear-gradient(150deg,#E7EFFF,#E6FBF6)">
+        <div class="dots"></div>
+        <div class="ring" style="width:20rem;height:20rem;top:-4rem;right:-4rem"></div>
+        <div class="blob" style="width:15rem;height:15rem;background:#006BFF;opacity:.16;top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <div class="phone glow float relative z-10" style="width:212px"><img src="{{SCREEN_SOCIAL}}" alt="מסך יצירת פוסט וסושיאל"></div>
+        <div class="fcard glass float" style="top:13%;left:6%;animation-delay:.4s"><div class="flex items-center gap-2"><span class="grid h-7 w-7 place-items-center rounded-lg bg-turq/20 text-turq"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><div class="leading-tight"><div class="text-[11px] text-slate-400">פוסט פורסם</div><div class="text-sm font-extrabold text-ink">בהצלחה</div></div></div></div>
+        <div class="fcard glass float" style="bottom:15%;right:6%;animation-delay:1.2s"><div class="flex items-center gap-2"><span class="grid h-7 w-7 place-items-center rounded-lg bg-electric/15 text-electric"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div class="leading-tight"><div class="text-[11px] text-slate-400">מתוזמן</div><div class="text-sm font-extrabold text-ink">היום 19:00</div></div></div></div>
+      </div>
+    </div>
+    <div data-reveal class="order-1 lg:order-2 text-center lg:text-right">
+      <span class="inline-flex items-center gap-2 text-sm font-bold text-electric"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M7 9h7"/></svg> תוכן ופוסטים</span>
+      <h2 class="mt-2 text-3xl font-extrabold text-ink md:text-4xl">תוכן לעסק, מוכן לפרסום</h2>
+      <p class="mx-auto mt-4 max-w-xl text-lg text-slate-600 lg:mx-0">מעלים תמונה מהגלריה או יוצרים עם AI, מתאימים מסר וכותרת, ומפרסמים לסושיאל בלי להסתבך. כל הפוסטים מסודרים במקום אחד.</p>
+      <ul class="mx-auto mt-5 max-w-md space-y-2.5 text-right text-slate-700 lg:mx-0">
+        <li class="flex items-center gap-2.5"><svg width="18" height="18" class="shrink-0" viewBox="0 0 24 24" fill="none" stroke="#006BFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> גלריית תמונות חכמה + יצירת תוכן ב‑AI</li>
+        <li class="flex items-center gap-2.5"><svg width="18" height="18" class="shrink-0" viewBox="0 0 24 24" fill="none" stroke="#006BFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> כותרת וטקסט שמתנסחים אוטומטית לעסק שלך</li>
+        <li class="flex items-center gap-2.5"><svg width="18" height="18" class="shrink-0" viewBox="0 0 24 24" fill="none" stroke="#006BFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> תזמון ופרסום לפייסבוק ואינסטגרם ממסך אחד</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 7. FEATURE: CAMPAIGNS ===== -->
+<section class="bg-white py-16 md:py-20">
+  <div class="mx-auto grid max-w-6xl items-center gap-12 px-5 md:px-8 lg:grid-cols-2">
+    <div data-reveal class="text-center lg:text-right">
+      <span class="inline-flex items-center gap-2 text-sm font-bold text-electric"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg> קמפיינים וטרגוט</span>
+      <h2 class="mt-2 text-3xl font-extrabold text-ink md:text-4xl">קמפיינים שמגיעים לקהל הנכון</h2>
+      <p class="mx-auto mt-4 max-w-xl text-lg text-slate-600 lg:mx-0">בוחרים מטרה, אזור, קהל ותקציב בכמה קליקים. מקבלים תחזית חשיפות ופניות עוד לפני ההשקה, ומנהלים הכל ממסך אחד.</p>
+      <ul class="mx-auto mt-5 max-w-md space-y-2.5 text-right text-slate-700 lg:mx-0">
+        <li class="flex items-center gap-2.5"><svg width="18" height="18" class="shrink-0" viewBox="0 0 24 24" fill="none" stroke="#006BFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> מיקוד לפי אזור גאוגרפי, קהל ותחומי עניין</li>
+        <li class="flex items-center gap-2.5"><svg width="18" height="18" class="shrink-0" viewBox="0 0 24 24" fill="none" stroke="#006BFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> תחזית חשיפות ופניות עוד לפני שמשיקים</li>
+        <li class="flex items-center gap-2.5"><svg width="18" height="18" class="shrink-0" viewBox="0 0 24 24" fill="none" stroke="#006BFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> שליטה בתקציב בזמן אמת, בלי בזבוז</li>
+      </ul>
+    </div>
+    <div data-reveal>
+      <div class="stage" style="background:linear-gradient(150deg,#E6FBF6,#E7EFFF)">
+        <div class="dots"></div>
+        <div class="ring" style="width:18rem;height:18rem;bottom:-3rem;left:-3rem"></div>
+        <div class="blob" style="width:15rem;height:15rem;background:#31E6C2;opacity:.22;top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <div class="phone glow float relative z-10" style="width:212px"><img src="{{SCREEN_CAMPAIGNS}}" alt="מסך ניהול קמפיינים"></div>
+        <div class="fcard glass float" style="top:14%;right:6%;animation-delay:.5s"><div class="flex items-center gap-2"><span class="grid h-7 w-7 place-items-center rounded-lg bg-electric/15 text-electric"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m7 14 3-4 3 3 4-6"/></svg></span><div class="leading-tight"><div class="text-[11px] text-slate-400">תחזית חשיפות</div><div class="text-sm font-extrabold text-ink" data-count="3200">3,200</div></div></div></div>
+        <div class="fcard glass float" style="bottom:15%;left:6%;animation-delay:1.3s"><div class="flex items-center gap-2"><span class="grid h-7 w-7 place-items-center rounded-lg bg-turq/20 text-turq"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="9"/></svg></span><div class="leading-tight"><div class="text-[11px] text-slate-400">תקציב יומי</div><div class="text-sm font-extrabold text-ink">₪80</div></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ACCOUNT MANAGER (personal manager) ===== -->
+<section class="sec bg-soft py-16 md:py-24">
+  <div class="deco"><div class="dotgrid" style="bottom:2rem;right:3rem"></div><div class="blob" style="width:22rem;height:22rem;background:#006BFF;opacity:.1;top:-6rem;left:-4rem"></div></div>
+  <div class="relative mx-auto grid max-w-6xl items-center gap-12 px-5 md:px-8 lg:grid-cols-2">
+    <div data-reveal class="order-2 lg:order-1 flex justify-center">
+      <div class="relative w-full max-w-sm">
+        <div class="glow"></div>
+        <div class="relative rounded-3xl bg-white p-5 shadow-2xl shadow-electric/20 ring-1 ring-slate-100">
+          <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
+            <div class="grid h-12 w-12 place-items-center rounded-full grad text-white shadow-lg"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div class="grow"><div class="font-extrabold text-ink">רועי מנהל התיק שלך</div><div class="flex items-center gap-1.5 text-xs text-emerald-500"><span class="h-2 w-2 rounded-full bg-emerald-400"></span> זמין עכשיו</div></div>
+            <span class="grid h-9 w-9 place-items-center rounded-full bg-soft text-electric"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92V21a1 1 0 0 1-1.1 1A19 19 0 0 1 3 5.1 1 1 0 0 1 4 4h4.09a1 1 0 0 1 1 .75l1 4a1 1 0 0 1-.29 1L8.21 11.79a16 16 0 0 0 4 4l2.04-1.58a1 1 0 0 1 1-.18l4 1a1 1 0 0 1 .75 1z"/></svg></span>
+          </div>
+          <div class="space-y-3 py-4">
+            <div class="max-w-[85%] rounded-2xl rounded-tr-sm bg-soft px-4 py-2.5 text-sm text-slate-700">היי! ראיתי שהקמפיין החדש שלך תופס יפה כל הכבוד</div>
+            <div class="max-w-[88%] rounded-2xl rounded-tr-sm bg-soft px-4 py-2.5 text-sm text-slate-700">כדאי להעלות קצת תקציב על הקהל שמגיב הכי טוב. אכין לך הצעה?</div>
+            <div class="ms-auto max-w-[60%] rounded-2xl rounded-tl-sm grad px-4 py-2.5 text-sm font-semibold text-white">מעולה, קדימה</div>
+          </div>
+          <div class="flex flex-wrap gap-2 border-t border-slate-100 pt-4">
+            <span class="rounded-full bg-electric/10 px-3 py-1 text-xs font-bold text-electric">אסטרטגיה</span>
+            <span class="rounded-full bg-electric/10 px-3 py-1 text-xs font-bold text-electric">אופטימיזציה</span>
+            <span class="rounded-full bg-electric/10 px-3 py-1 text-xs font-bold text-electric">תמיכה שוטפת</span>
+          </div>
+        </div>
+        <div class="fcard glass float" style="top:-1rem;left:-1rem"><div class="flex items-center gap-2"><span class="grid h-7 w-7 place-items-center rounded-lg bg-turq/20 text-turq"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><span class="text-sm font-bold text-ink">זמן תגובה מהיר</span></div></div>
+      </div>
+    </div>
+    <div data-reveal class="order-1 lg:order-2 text-center lg:text-right">
+      <span class="eyebrow">ליווי אישי</span>
+      <h2 class="mt-4 text-3xl font-extrabold text-ink md:text-5xl">לא נשארים לבד<br><span class="grad-text">מול השיווק</span></h2>
+      <p class="mx-auto mt-4 max-w-xl text-lg text-slate-600 lg:mx-0">ב‑{{BUSINESS_NAME}} יש לכם מנהל תיק אישי שמלווה את העסק לא בוט, אדם אמיתי. הוא עוזר להבין מה נכון לעסק, איך להתקדם ואיך לנצל את הכלים בצורה חכמה.</p>
+      <ul class="mx-auto mt-6 grid max-w-md gap-3 text-right text-slate-700 lg:mx-0">
+        <li class="flex items-center gap-2.5"><span class="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-electric/10 text-electric"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>בונים יחד אסטרטגיה שמתאימה לעסק</li>
+        <li class="flex items-center gap-2.5"><span class="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-electric/10 text-electric"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 17l5-5 4 4 8-8"/><path d="M16 4h5v5"/></svg></span>מכוונים אתכם לשפר תוצאות לאורך זמן</li>
+        <li class="flex items-center gap-2.5"><span class="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-electric/10 text-electric"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>זמינים לכל שאלה בלי להמתין שעות</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 8. FEATURE: LEADS ===== -->
+<section class="bg-soft py-16 md:py-20">
+  <div class="mx-auto grid max-w-6xl items-center gap-12 px-5 md:px-8 lg:grid-cols-2">
+    <div data-reveal class="order-2 lg:order-1">
+      <div class="stage" style="background:linear-gradient(150deg,#E7EFFF,#EAF6FF)">
+        <div class="dots"></div>
+        <div class="ring" style="width:19rem;height:19rem;top:-4rem;left:-4rem"></div>
+        <div class="blob" style="width:15rem;height:15rem;background:#00C8FF;opacity:.18;top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <div class="phone glow float relative z-10" style="width:212px"><img src="{{SCREEN_LEADS}}" alt="מסך ניהול לידים ותגובות"></div>
+        <div class="fcard glass float" style="top:12%;left:5%;animation-delay:.5s"><div class="flex items-center gap-2"><span class="grid h-7 w-7 place-items-center rounded-lg bg-turq/20 text-turq"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><div class="leading-tight"><div class="text-[11px] text-slate-400">ליד חדש</div><div class="text-sm font-extrabold text-ink">דנה כהן</div></div></div></div>
+        <div class="fcard glass float" style="bottom:14%;right:5%;animation-delay:1.3s"><div class="flex items-center gap-2"><span class="inline-block h-2.5 w-2.5 rounded-full bg-electric"></span><div class="leading-tight"><div class="text-[11px] text-slate-400">סטטוס</div><div class="text-sm font-extrabold text-ink">בטיפול</div></div></div></div>
+      </div>
+    </div>
+    <div data-reveal class="order-1 lg:order-2 text-center lg:text-right">
+      <span class="inline-flex items-center gap-2 text-sm font-bold text-electric"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg> ניהול לידים</span>
+      <h2 class="mt-2 text-3xl font-extrabold text-ink md:text-4xl">כל הפניות במקום אחד</h2>
+      <p class="mx-auto mt-4 max-w-xl text-lg text-slate-600 lg:mx-0">לידים, תגובות ופניות מתרכזים בתיבה אחת מסודרת עם סטטוסים. עוקבים אחרי כל הזדמנות ולא מפספסים אף לקוח.</p>
+      <ul class="mx-auto mt-5 max-w-md space-y-2.5 text-right text-slate-700 lg:mx-0">
+        <li class="flex items-center gap-2.5"><svg width="18" height="18" class="shrink-0" viewBox="0 0 24 24" fill="none" stroke="#006BFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> כל הפניות מהמודעות והפוסטים בתיבה אחת</li>
+        <li class="flex items-center gap-2.5"><svg width="18" height="18" class="shrink-0" viewBox="0 0 24 24" fill="none" stroke="#006BFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> סטטוס לכל ליד חדש, בטיפול, נסגר</li>
+        <li class="flex items-center gap-2.5"><svg width="18" height="18" class="shrink-0" viewBox="0 0 24 24" fill="none" stroke="#006BFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> תזכורות שלא תפספסו אף לקוח פוטנציאלי</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 9. FEATURE: DATA ===== -->
+<section class="bg-white py-16 md:py-20">
+  <div class="mx-auto grid max-w-6xl items-center gap-12 px-5 md:px-8 lg:grid-cols-2">
+    <div data-reveal class="text-center lg:text-right">
+      <span class="inline-flex items-center gap-2 text-sm font-bold text-electric"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 3v18h18"/><path d="m7 14 3-4 3 3 4-6"/></svg> נתונים ודשבורד</span>
+      <h2 class="mt-2 text-3xl font-extrabold text-ink md:text-4xl">רואים בדיוק מה קורה בעסק</h2>
+      <p class="mx-auto mt-4 max-w-xl text-lg text-slate-600 lg:mx-0">חשיפות, הקלקות, לידים ותקציב הכל בדף בית אחד וברור. כך תדעו מה עובד, מה לשפר ואיפה כדאי להמשיך להשקיע.</p>
+      <ul class="mx-auto mt-5 max-w-md space-y-2.5 text-right text-slate-700 lg:mx-0">
+        <li class="flex items-center gap-2.5"><svg width="18" height="18" class="shrink-0" viewBox="0 0 24 24" fill="none" stroke="#006BFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> חשיפות, הקלקות, לידים ועלות לכל פנייה</li>
+        <li class="flex items-center gap-2.5"><svg width="18" height="18" class="shrink-0" viewBox="0 0 24 24" fill="none" stroke="#006BFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> השוואת ביצועים לאורך זמן ובין קמפיינים</li>
+        <li class="flex items-center gap-2.5"><svg width="18" height="18" class="shrink-0" viewBox="0 0 24 24" fill="none" stroke="#006BFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> תובנות ברורות מה לשפר ואיפה להשקיע</li>
+      </ul>
+    </div>
+    <div data-reveal>
+      <div class="stage" style="background:linear-gradient(150deg,#EAF6FF,#E6FBF6)">
+        <div class="dots"></div>
+        <div class="ring" style="width:18rem;height:18rem;bottom:-3rem;right:-3rem"></div>
+        <div class="blob" style="width:15rem;height:15rem;background:#006BFF;opacity:.16;top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <div class="phone glow float relative z-10" style="width:212px"><img src="{{SCREEN_ANALYTICS}}" alt="מסך נתונים ודשבורד"></div>
+        <div class="fcard glass float" style="top:13%;right:5%;animation-delay:.5s"><div class="flex items-center gap-2"><span class="grid h-7 w-7 place-items-center rounded-lg bg-turq/20 text-turq"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 17l5-5 4 4 8-8"/><path d="M16 4h5v5"/></svg></span><div class="leading-tight"><div class="text-[11px] text-slate-400">החזר על ההשקעה</div><div class="text-sm font-extrabold text-ink" data-count="24" data-prefix="+">+24%</div></div></div></div>
+        <div class="fcard glass float" style="bottom:15%;left:5%;animation-delay:1.3s"><div class="flex items-center gap-2"><span class="grid h-7 w-7 place-items-center rounded-lg bg-electric/15 text-electric"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></span><div class="leading-tight"><div class="text-[11px] text-slate-400">לידים השבוע</div><div class="text-sm font-extrabold text-ink" data-count="63">63</div></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 10. FEATURE: PACKAGES/COINS ===== -->
+<section class="bg-soft py-16 md:py-20">
+  <div class="mx-auto grid max-w-6xl items-center gap-12 px-5 md:px-8 lg:grid-cols-2">
+    <div data-reveal class="order-2 lg:order-1">
+      <div class="stage" style="background:linear-gradient(150deg,#E6FBF6,#EAF1FF)">
+        <div class="dots"></div>
+        <div class="ring" style="width:19rem;height:19rem;top:-4rem;right:-4rem"></div>
+        <div class="blob" style="width:15rem;height:15rem;background:#31E6C2;opacity:.22;top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+        <div class="phone glow float relative z-10" style="width:212px"><img src="{{SCREEN_COINS}}" alt="מסך חבילות ומטבעות"></div>
+        <div class="fcard glass float" style="top:13%;left:5%;animation-delay:.5s"><div class="flex items-center gap-2"><span class="grid h-7 w-7 place-items-center rounded-lg bg-turq/20 text-turq"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="9" r="6"/><path d="M15 5a6 6 0 0 1 0 12"/></svg></span><div class="leading-tight"><div class="text-[11px] text-slate-400">יתרת מטבעות</div><div class="text-sm font-extrabold text-ink" data-count="1240">1,240</div></div></div></div>
+        <div class="fcard glass float" style="bottom:15%;right:5%;animation-delay:1.3s"><div class="flex items-center gap-2"><span class="grid h-7 w-7 place-items-center rounded-lg bg-electric/15 text-electric"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg></span><div class="leading-tight"><div class="text-[11px] text-slate-400">החבילה שלך</div><div class="text-sm font-extrabold text-ink">ביזנס</div></div></div></div>
+      </div>
+    </div>
+    <div data-reveal class="order-1 lg:order-2 text-center lg:text-right">
+      <span class="inline-flex items-center gap-2 text-sm font-bold text-electric"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="9" cy="9" r="6"/><path d="M15 5a6 6 0 0 1 0 12"/></svg> חבילות ומטבעות</span>
+      <h2 class="mt-2 text-3xl font-extrabold text-ink md:text-4xl">שקיפות מלאה בתקציב</h2>
+      <p class="mx-auto mt-4 max-w-xl text-lg text-slate-600 lg:mx-0">מודל חבילות ומטבעות ברור משלמים לפי שימוש ורואים בדיוק מה נוצל ומה נשאר. בלי הפתעות, עם שליטה מלאה.</p>
+      <ul class="mx-auto mt-5 max-w-md space-y-2.5 text-right text-slate-700 lg:mx-0">
+        <li class="flex items-center gap-2.5"><svg width="18" height="18" class="shrink-0" viewBox="0 0 24 24" fill="none" stroke="#006BFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> חבילות ברורות לפי הצורך של העסק</li>
+        <li class="flex items-center gap-2.5"><svg width="18" height="18" class="shrink-0" viewBox="0 0 24 24" fill="none" stroke="#006BFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> מטבעות לשימוש גמיש משלמים לפי שימוש</li>
+        <li class="flex items-center gap-2.5"><svg width="18" height="18" class="shrink-0" viewBox="0 0 24 24" fill="none" stroke="#006BFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> תמיד רואים מה נוצל ומה נשאר ביתרה</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 11. HOW IT WORKS ===== -->
+<section id="how" class="relative grad overflow-hidden py-24 text-white md:py-32">
+  <div class="wave" style="top:-1px"><svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path fill="#F5F7FB" d="M0,45 C320,95 1120,-10 1440,45 L1440,0 L0,0 Z"></path></svg></div>
+  <div class="wave" style="bottom:-1px"><svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path fill="#FFFFFF" d="M0,45 C320,-10 1120,95 1440,45 L1440,90 L0,90 Z"></path></svg></div>
+  <div class="blob" style="width:24rem;height:24rem;background:#31E6C2;opacity:.28;top:-6rem;right:-4rem"></div>
+  <div class="blob" style="width:22rem;height:22rem;background:#00C8FF;opacity:.2;bottom:-6rem;left:-4rem"></div>
+  <div class="relative mx-auto max-w-7xl px-5 md:px-8">
+    <div class="text-center" data-reveal>
+      <span class="eyebrow" style="background:rgba(255,255,255,.15);color:#fff;border-color:rgba(255,255,255,.25)">תהליך פשוט</span>
+      <h2 class="mt-4 text-3xl font-extrabold md:text-5xl">איך מתחילים? <span class="shimmer">פשוט מאוד</span></h2>
+      <p class="mx-auto mt-3 max-w-xl text-white/80">מהרגע שנכנסים ל‑{{BUSINESS_NAME}} ועד שיווק שמתקדם איתכם כל חודש — בחמישה צעדים פשוטים.</p>
+    </div>
+    <div class="mt-14 grid gap-x-5 gap-y-12 sm:grid-cols-2 lg:grid-cols-5" data-reveal>
+      <div class="group text-center">
+        <div class="relative mx-auto w-[158px]">
+          <span class="absolute -right-2 -top-3 z-30 grid h-9 w-9 place-items-center rounded-full bg-white text-base font-extrabold text-ink shadow-lg ring-4 ring-white/20">1</span>
+          <div class="phone transition duration-500 group-hover:-translate-y-1.5" style="width:158px"><img src="{{SCREEN_HOME}}" alt="נכנסים ל‑{{BUSINESS_NAME}}"></div>
+        </div>
+        <div class="mt-6"><div class="text-lg font-bold">נכנסים ל‑{{BUSINESS_NAME}}</div><p class="mx-auto mt-1.5 max-w-[15rem] text-sm leading-snug text-white/75">מתחילים עם פרופיל העסק והצרכים השיווקיים.</p></div>
+      </div>
+      <div class="group text-center">
+        <div class="relative mx-auto w-[158px]">
+          <span class="absolute -right-2 -top-3 z-30 grid h-9 w-9 place-items-center rounded-full bg-white text-base font-extrabold text-ink shadow-lg ring-4 ring-white/20">2</span>
+          <div class="phone transition duration-500 group-hover:-translate-y-1.5" style="width:158px"><img src="{{SCREEN_CREATE}}" alt="יוצרים תוכן וקמפיינים"></div>
+        </div>
+        <div class="mt-6"><div class="text-lg font-bold">יוצרים תוכן וקמפיינים</div><p class="mx-auto mt-1.5 max-w-[15rem] text-sm leading-snug text-white/75">מכינים פוסטים, מודעות וקמפיינים שמתאימים לעסק.</p></div>
+      </div>
+      <div class="group text-center">
+        <div class="relative mx-auto w-[158px]">
+          <span class="absolute -right-2 -top-3 z-30 grid h-9 w-9 place-items-center rounded-full bg-white text-base font-extrabold text-ink shadow-lg ring-4 ring-white/20">3</span>
+          <div class="phone transition duration-500 group-hover:-translate-y-1.5" style="width:158px"><img src="{{OWNER_SOCIAL_IMAGE}}" alt="ליווי אישי, מנהל צמוד"></div>
+        </div>
+        <div class="mt-6"><div class="text-lg font-bold">ליווי אישי, מנהל צמוד</div><p class="mx-auto mt-1.5 max-w-[15rem] text-sm leading-snug text-white/75">מנהל תיק אישי מלווה אתכם, עוזר למקד ולהתקדם נכון.</p></div>
+      </div>
+      <div class="group text-center">
+        <div class="relative mx-auto w-[158px]">
+          <span class="absolute -right-2 -top-3 z-30 grid h-9 w-9 place-items-center rounded-full bg-white text-base font-extrabold text-ink shadow-lg ring-4 ring-white/20">4</span>
+          <div class="phone transition duration-500 group-hover:-translate-y-1.5" style="width:158px"><img src="{{SCREEN_LEADS}}" alt="מנהלים לידים ונתונים"></div>
+        </div>
+        <div class="mt-6"><div class="text-lg font-bold">מנהלים לידים ונתונים</div><p class="mx-auto mt-1.5 max-w-[15rem] text-sm leading-snug text-white/75">רואים את הפניות, התוצאות והביצועים במקום אחד.</p></div>
+      </div>
+      <div class="group text-center">
+        <div class="relative mx-auto w-[158px]">
+          <span class="absolute -right-2 -top-3 z-30 grid h-9 w-9 place-items-center rounded-full bg-white text-base font-extrabold text-ink shadow-lg ring-4 ring-white/20">5</span>
+          <div class="phone transition duration-500 group-hover:-translate-y-1.5" style="width:158px"><img src="{{SCREEN_ANALYTICS}}" alt="ממשיכים לשפר"></div>
+        </div>
+        <div class="mt-6"><div class="text-lg font-bold">ממשיכים לשפר</div><p class="mx-auto mt-1.5 max-w-[15rem] text-sm leading-snug text-white/75">עוקבים אחרי מה עובד ומתקדמים עם שיווק מדויק יותר.</p></div>
+      </div>
+    </div>
+    <div class="mt-10 flex flex-wrap items-center justify-center gap-3" data-reveal>
+      <a href="https://play.google.com/store/apps/details?id=com.iconiqmedia.adsmanager&pcampaignid=web_share" target="_blank" rel="noopener" class="badge-store" style="background:#fff;color:#0500C8"><svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.6 1.9 13.3 12 3.6 22.1c-.36-.2-.6-.6-.6-1.06V2.96c0-.46.24-.86.6-1.06z" fill="#00D4FF"/><path d="M16.9 8.4 13.3 12l3.6 3.6 3.6-2.06c.86-.5.86-1.74 0-2.24z" fill="#FFCE00"/><path d="m3.6 1.9 13.3 6.5L13.3 12z" fill="#00F076"/><path d="M3.6 22.1 13.3 12l3.6 3.6z" fill="#FF3A44"/></svg><span class="text-right"><span class="bs-sub block">הורידו ב‑</span><span class="bs-main block">Google Play</span></span></a>
+      <a href="https://apps.apple.com/il/app/kliq/id6755148289?l=he" target="_blank" rel="noopener" class="badge-store" style="background:#fff;color:#0500C8"><svg width="24" height="24" viewBox="0 0 384 512" fill="#0500C8"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg><span class="text-right"><span class="bs-sub block">הורידו ב‑</span><span class="bs-main block">App Store</span></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 12. APP SCREENS GALLERY (dark showcase + slider) ===== -->
+<section class="sec bg-[#080C32] py-20 text-white md:py-28">
+  <div class="wave" style="bottom:-1px"><svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path fill="#F5F7FB" d="M0,45 C320,-10 1120,95 1440,45 L1440,90 L0,90 Z"></path></svg></div>
+  <div class="deco"><div class="blob" style="width:26rem;height:26rem;background:#006BFF;opacity:.3;top:-8rem;right:-4rem"></div><div class="blob" style="width:22rem;height:22rem;background:#31E6C2;opacity:.22;bottom:-6rem;left:-4rem"></div></div>
+  <div class="relative mx-auto max-w-3xl px-5 text-center md:px-8" data-reveal>
+    <span class="eyebrow" style="background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.2)">הצצה לאפליקציה</span>
+    <h2 class="mt-4 text-3xl font-extrabold md:text-5xl">כל השיווק שלך <span class="shimmer">על מסך אחד</span></h2>
+    <p class="mx-auto mt-4 max-w-xl text-lg text-white/70">בית, קמפיינים, לידים, נתונים ומטבעות כל מסך בנוי להיות ברור ופשוט.</p>
+  </div>
+  <div class="relative mt-14 mq" data-reveal><div class="mq-track" style="gap:1.5rem;align-items:flex-end">
+    <div class="phone shrink-0" style="width:188px"><img src="{{SCREEN_HOME}}" alt="מסך בית"></div>
+    <div class="phone shrink-0" style="width:188px"><img src="{{SCREEN_ANALYTICS}}" alt="נתונים"></div>
+    <div class="phone shrink-0" style="width:188px"><img src="{{SCREEN_CAMPAIGNS}}" alt="קמפיינים"></div>
+    <div class="phone shrink-0" style="width:188px"><img src="{{SCREEN_LEADS}}" alt="לידים"></div>
+    <div class="phone shrink-0" style="width:188px"><img src="{{SCREEN_CREATE}}" alt="יצירת מודעה"></div>
+    <div class="phone shrink-0" style="width:188px"><img src="{{SCREEN_SOCIAL}}" alt="סושיאל"></div>
+    <div class="phone shrink-0" style="width:188px"><img src="{{SCREEN_COINS}}" alt="מטבעות"></div>
+  </div></div>
+</section>
+
+<!-- ===== 13. BUSINESS-TYPE FIT ===== -->
+<section id="fit" class="bg-soft py-16 md:py-24">
+  <div class="mx-auto max-w-6xl px-5 md:px-8">
+    <div class="text-center" data-reveal>
+      <h2 class="text-3xl font-extrabold text-ink md:text-4xl">מתאימה כמעט לכל עסק שרוצה לשווק חכם</h2>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-slate-600">חנות, קליניקה, מסעדה או עסק שירותי {{BUSINESS_NAME}} נותנת דרך פשוטה יותר לנהל את השיווק ולהישאר בשליטה.</p>
+    </div>
+    <div class="mq mt-12" data-reveal>
+      <div class="mq-track" id="bizMq">
+      <div class="flex shrink-0 whitespace-nowrap items-center gap-2.5 rounded-2xl bg-white px-5 py-3 font-semibold text-ink shadow-sm ring-1 ring-slate-100"><svg width="20" height="20" class="text-electric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v7a3 3 0 0 0 6 0V2M9 2v20M18 2c-1.5 1-2 3-2 6s.5 4 2 5v9"/></svg> מסעדות ובתי קפה</div>
+      <div class="flex shrink-0 whitespace-nowrap items-center gap-2.5 rounded-2xl bg-white px-5 py-3 font-semibold text-ink shadow-sm ring-1 ring-slate-100"><svg width="20" height="20" class="text-electric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.5 15.5M14 14l6 6"/></svg> מספרות וקליניקות</div>
+      <div class="flex shrink-0 whitespace-nowrap items-center gap-2.5 rounded-2xl bg-white px-5 py-3 font-semibold text-ink shadow-sm ring-1 ring-slate-100"><svg width="20" height="20" class="text-electric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l3 6-9 12L3 9z"/><path d="M3 9h18M9 3 6 9l6 12 6-12-3-6"/></svg> תכשיטים ומתנות</div>
+      <div class="flex shrink-0 whitespace-nowrap items-center gap-2.5 rounded-2xl bg-white px-5 py-3 font-semibold text-ink shadow-sm ring-1 ring-slate-100"><svg width="20" height="20" class="text-electric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="9" width="16" height="12" rx="2"/><path d="M12 9V5M9 3h6M8 13h.01M16 13h.01M9 17h6"/></svg> תינוקות וצעצועים</div>
+      <div class="flex shrink-0 whitespace-nowrap items-center gap-2.5 rounded-2xl bg-white px-5 py-3 font-semibold text-ink shadow-sm ring-1 ring-slate-100"><svg width="20" height="20" class="text-electric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16l20-7-7 20-3-8z"/></svg> סוכנויות נסיעות</div>
+      <div class="flex shrink-0 whitespace-nowrap items-center gap-2.5 rounded-2xl bg-white px-5 py-3 font-semibold text-ink shadow-sm ring-1 ring-slate-100"><svg width="20" height="20" class="text-electric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12c-3 0-5-2-5-5 3 0 5 2 5 5zM12 12c3 0 5-2 5-5-3 0-5 2-5 5zM12 12v9M7 21h10"/></svg> יוגה ופילאטיס</div>
+      <div class="flex shrink-0 whitespace-nowrap items-center gap-2.5 rounded-2xl bg-white px-5 py-3 font-semibold text-ink shadow-sm ring-1 ring-slate-100"><svg width="20" height="20" class="text-electric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4M3 12h18a1 1 0 0 1 1 1v4H2v-4a1 1 0 0 1 1-1zM5 17v2M19 17v2"/></svg> רהיטים ועיצוב</div>
+      <div class="flex shrink-0 whitespace-nowrap items-center gap-2.5 rounded-2xl bg-white px-5 py-3 font-semibold text-ink shadow-sm ring-1 ring-slate-100"><svg width="20" height="20" class="text-electric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 1-5 5L4 17v3h3l5.7-5.7a4 4 0 0 0 5-5l-2.3 2.3-2-2z"/></svg> נותני שירות</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 14. AD EXAMPLES GALLERY (sliders) ===== -->
+<section class="sec bg-soft py-20 md:py-28">
+  <div class="deco"><div class="dotgrid" style="top:2rem;right:3rem"></div><div class="blob" style="width:24rem;height:24rem;background:#00C8FF;opacity:.12;bottom:-6rem;left:-4rem"></div></div>
+  <div class="relative mx-auto max-w-3xl px-5 text-center md:px-8" data-reveal>
+    <span class="eyebrow">דוגמאות אמיתיות</span>
+    <h2 class="mt-4 text-3xl font-extrabold md:text-4xl"><span class="grad-text">ככה נראות מודעות</span> שיוצאות מ‑{{BUSINESS_NAME}}</h2>
+    <p class="mx-auto mt-4 max-w-2xl text-lg text-slate-600">עשרות סגנונות מודעות מותאמות לכל תחום מוכנות לפרסום בכמה קליקים.</p>
+  </div>
+  <div class="relative mt-12 space-y-5">
+    <div class="mq"><div class="mq-track" style="gap:1.25rem">
+      <div class="adtile"><img src="{{AD_1_IMAGE}}" alt="דוגמת מודעה" loading="lazy"></div>
+      <div class="adtile"><img src="{{AD_2_IMAGE}}" alt="דוגמת מודעה" loading="lazy"></div>
+      <div class="adtile"><img src="{{AD_3_IMAGE}}" alt="דוגמת מודעה" loading="lazy"></div>
+      <div class="adtile"><img src="{{AD_4_IMAGE}}" alt="דוגמת מודעה" loading="lazy"></div>
+      <div class="adtile"><img src="{{AD_5_IMAGE}}" alt="דוגמת מודעה" loading="lazy"></div>
+      <div class="adtile"><img src="{{AD_6_IMAGE}}" alt="דוגמת מודעה" loading="lazy"></div>
+      <div class="adtile"><img src="{{AD_7_IMAGE}}" alt="דוגמת מודעה" loading="lazy"></div>
+    </div></div>
+    <div class="mq mq-slow"><div class="mq-track rev" style="gap:1.25rem">
+      <div class="adtile"><img src="{{AD_8_IMAGE}}" alt="דוגמת מודעה" loading="lazy"></div>
+      <div class="adtile"><img src="{{AD_9_IMAGE}}" alt="דוגמת מודעה" loading="lazy"></div>
+      <div class="adtile"><img src="{{AD_10_IMAGE}}" alt="דוגמת מודעה" loading="lazy"></div>
+      <div class="adtile"><img src="{{AD_11_IMAGE}}" alt="דוגמת מודעה" loading="lazy"></div>
+      <div class="adtile"><img src="{{AD_12_IMAGE}}" alt="דוגמת מודעה" loading="lazy"></div>
+      <div class="adtile"><img src="{{AD_13_IMAGE}}" alt="דוגמת מודעה" loading="lazy"></div>
+      <div class="adtile"><img src="{{AD_14_IMAGE}}" alt="דוגמת מודעה" loading="lazy"></div>
+    </div></div>
+  </div>
+</section>
+
+<!-- ===== 16. REFERRAL ===== -->
+<section class="bg-white py-16 md:py-24">
+  <div class="mx-auto max-w-6xl px-5 md:px-8" data-reveal>
+    <div class="sec relative overflow-hidden rounded-[2rem] bg-[#070A2E] p-8 text-white md:p-14">
+      <div class="deco"><div class="blob" style="width:22rem;height:22rem;background:#31E6C2;opacity:.28;bottom:-7rem;left:-4rem"></div><div class="blob" style="width:20rem;height:20rem;background:#006BFF;opacity:.3;top:-7rem;right:-4rem"></div><div class="dotgrid" style="top:2rem;left:8rem;opacity:.4"></div></div>
+      <div class="relative text-center">
+        <span class="eyebrow" style="background:rgba(49,230,194,.15);color:#31E6C2;border-color:rgba(49,230,194,.3)">חבר מביא חבר</span>
+        <h2 class="mt-4 text-3xl font-extrabold md:text-5xl">ממליצים על {{BUSINESS_NAME}} <span class="shimmer">והכל מתגלגל</span></h2>
+        <p class="mx-auto mt-3 max-w-xl text-white/75">כל המלצה מתגמלת אתכם במטבעות לשימוש באפליקציה. ככל שתמליצו יותר, תרוויחו יותר.</p>
+      </div>
+      <!-- 3-step flow -->
+      <div class="relative mt-12 grid gap-5 md:grid-cols-3">
+        <div class="rounded-2xl bg-white/5 p-6 text-center ring-1 ring-white/10 backdrop-blur-sm">
+          <div class="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-white/10 text-turq"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5 15.4 17.5M15.4 6.5 8.6 10.5"/></svg></div>
+          <div class="mt-4 font-extrabold">1 · ממליצים לחבר</div>
+          <p class="mt-1 text-sm text-white/70">משתפים את {{BUSINESS_NAME}} עם בעל עסק שאתם מכירים.</p>
+        </div>
+        <div class="rounded-2xl bg-white/5 p-6 text-center ring-1 ring-white/10 backdrop-blur-sm">
+          <div class="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-white/10 text-turq"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 0-5 5v3l-2 4h14l-2-4V7a5 5 0 0 0-5-5z"/><path d="M9 18a3 3 0 0 0 6 0"/></svg></div>
+          <div class="mt-4 font-extrabold">2 · החבר מצטרף</div>
+          <p class="mt-1 text-sm text-white/70">הוא נרשם ל‑{{BUSINESS_NAME}} ומתחיל לשווק את העסק.</p>
+        </div>
+        <div class="rounded-2xl bg-white/5 p-6 text-center ring-1 ring-white/10 backdrop-blur-sm">
+          <div class="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-white/10 text-turq"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="6"/><path d="M15 5a6 6 0 0 1 0 12"/></svg></div>
+          <div class="mt-4 font-extrabold">3 · שניכם מרוויחים</div>
+          <p class="mt-1 text-sm text-white/70">מטבעות נכנסים לארנק לכם ולחבר.</p>
+        </div>
+      </div>
+      <!-- reward tiles -->
+      <div class="relative mt-6 grid gap-5 sm:grid-cols-2">
+        <div class="flex items-center justify-between rounded-2xl bg-gradient-to-l from-electric/30 to-transparent p-6 ring-1 ring-white/10"><div><div class="text-sm text-white/70">על כל הפניה</div><div class="text-xs text-white/50">חבר שנרשם דרככם</div></div><div class="text-4xl font-extrabold text-turq" data-count="100" data-prefix="+">+100</div></div>
+        <div class="flex items-center justify-between rounded-2xl bg-gradient-to-l from-turq/25 to-transparent p-6 ring-1 ring-white/10"><div><div class="text-sm text-white/70">כשהחבר רוכש</div><div class="text-xs text-white/50">בונוס נוסף בארנק</div></div><div class="text-4xl font-extrabold text-turq" data-count="1000" data-prefix="+">+1,000</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 17. WHY {{BUSINESS_NAME}} / VALUES ===== -->
+<section class="bg-soft py-16 md:py-24">
+  <div class="mx-auto max-w-7xl px-5 md:px-8">
+    <div class="text-center" data-reveal><h2 class="text-3xl font-extrabold text-ink md:text-4xl">למה דווקא {{BUSINESS_NAME}}</h2></div>
+    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-reveal>
+      <div class="gb lift rounded-xl2 bg-white p-7 shadow-sm ring-1 ring-slate-100 hover:shadow-2xl"><span class="grid h-12 w-12 place-items-center rounded-xl bg-electric/10 text-electric"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13H11l-1 9 8.5-11H12z"/></svg></span><h3 class="mt-4 text-lg font-bold text-ink">פשטות</h3><p class="mt-1.5 text-slate-600">משווקים בכמה קליקים בלי להבין במערכות פרסום.</p></div>
+      <div class="gb lift rounded-xl2 bg-white p-7 shadow-sm ring-1 ring-slate-100 hover:shadow-2xl"><span class="grid h-12 w-12 place-items-center rounded-xl bg-electric/10 text-electric"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h10M4 12h16M4 18h7"/><circle cx="18" cy="6" r="2"/><circle cx="16" cy="18" r="2"/></svg></span><h3 class="mt-4 text-lg font-bold text-ink">שליטה</h3><p class="mt-1.5 text-slate-600">נתונים, לידים וחבילות במקום אחד, הכל ברור.</p></div>
+      <div class="gb lift rounded-xl2 bg-white p-7 shadow-sm ring-1 ring-slate-100 hover:shadow-2xl"><span class="grid h-12 w-12 place-items-center rounded-xl bg-electric/10 text-electric"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 4 8-8"/><path d="M16 4h5v5"/></svg></span><h3 class="mt-4 text-lg font-bold text-ink">תוצאה</h3><p class="mt-1.5 text-slate-600">לא רק פוסט בונים תנועה אמיתית לעסק.</p></div>
+      <div class="gb lift rounded-xl2 bg-white p-7 shadow-sm ring-1 ring-slate-100 hover:shadow-2xl"><span class="grid h-12 w-12 place-items-center rounded-xl bg-electric/10 text-electric"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><h3 class="mt-4 text-lg font-bold text-ink">ליווי</h3><p class="mt-1.5 text-slate-600">מנהל תיק אישי, לא תחושת "זרקו אותי למערכת".</p></div>
+      <div class="gb lift rounded-xl2 bg-white p-7 shadow-sm ring-1 ring-slate-100 hover:shadow-2xl"><span class="grid h-12 w-12 place-items-center rounded-xl bg-electric/10 text-electric"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span><h3 class="mt-4 text-lg font-bold text-ink">שקיפות</h3><p class="mt-1.5 text-slate-600">משלמים לפי שימוש ורואים בדיוק מה קורה.</p></div>
+      <div class="gb lift rounded-xl2 bg-white p-7 shadow-sm ring-1 ring-slate-100 hover:shadow-2xl"><span class="grid h-12 w-12 place-items-center rounded-xl bg-electric/10 text-electric"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg></span><h3 class="mt-4 text-lg font-bold text-ink">מובייל פירסט</h3><p class="mt-1.5 text-slate-600">כל השיווק של העסק, ישר מהטלפון.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 18. MOBILE-FIRST HIGHLIGHT ===== -->
+<section class="sec bg-gradient-to-b from-soft to-white py-16 md:py-24">
+  <div class="deco"><div class="dotgrid" style="top:3rem;left:2rem"></div><div class="blob" style="width:24rem;height:24rem;background:#31E6C2;opacity:.12;bottom:-6rem;right:-4rem"></div></div>
+  <div class="relative mx-auto grid max-w-6xl items-center gap-12 px-5 md:px-8 lg:grid-cols-2">
+    <div data-reveal class="text-center lg:text-right">
+      <span class="eyebrow">מכל מקום, בכל זמן</span>
+      <h2 class="mt-4 text-3xl font-extrabold text-ink md:text-5xl">כל השיווק של העסק שלך <span class="grad-text">בכיס</span></h2>
+      <p class="mx-auto mt-4 max-w-xl text-lg text-slate-600 lg:mx-0">יוצרים פוסט בתור לקפה, מאשרים קמפיין בין פגישות ועונים לליד תוך שניות. {{BUSINESS_NAME}} נבנתה Mobile First כדי שהשיווק יזוז איתכם.</p>
+      <div class="mt-6 flex flex-wrap justify-center gap-2.5 lg:justify-start">
+        <span class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold text-ink shadow-sm ring-1 ring-slate-100"><svg width="16" height="16" class="text-electric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="m8 21 4-4 4 4"/></svg> יוצרים בתנועה</span>
+        <span class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold text-ink shadow-sm ring-1 ring-slate-100"><svg width="16" height="16" class="text-electric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg> מאשרים בדרך</span>
+        <span class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold text-ink shadow-sm ring-1 ring-slate-100"><svg width="16" height="16" class="text-electric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> עונים מיד</span>
+      </div>
+      <div class="mt-7 flex flex-wrap justify-center gap-3 lg:justify-start">
+        <a href="https://play.google.com/store/apps/details?id=com.iconiqmedia.adsmanager&pcampaignid=web_share" target="_blank" rel="noopener" class="badge-store"><svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.6 1.9 13.3 12 3.6 22.1c-.36-.2-.6-.6-.6-1.06V2.96c0-.46.24-.86.6-1.06z" fill="#00D4FF"/><path d="M16.9 8.4 13.3 12l3.6 3.6 3.6-2.06c.86-.5.86-1.74 0-2.24z" fill="#FFCE00"/><path d="m3.6 1.9 13.3 6.5L13.3 12z" fill="#00F076"/><path d="M3.6 22.1 13.3 12l3.6 3.6z" fill="#FF3A44"/></svg><span class="text-right"><span class="bs-sub block">הורידו ב‑</span><span class="bs-main block">Google Play</span></span></a>
+        <a href="https://apps.apple.com/il/app/kliq/id6755148289?l=he" target="_blank" rel="noopener" class="badge-store"><svg width="24" height="24" viewBox="0 0 384 512" fill="#fff"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg><span class="text-right"><span class="bs-sub block">הורידו ב‑</span><span class="bs-main block">App Store</span></span></a>
+      </div>
+    </div>
+    <div data-reveal class="relative flex items-center justify-center py-6">
+      <div class="blob" style="width:22rem;height:22rem;background:#006BFF;opacity:.16;top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+      <div class="phone glow tilt-r float relative z-10" style="width:236px"><img src="{{SCREEN_HOME}}" alt="{{BUSINESS_NAME}} במובייל"></div>
+      <!-- live notification cascade -->
+      <div class="fcard glass float absolute z-20" style="top:6%;right:-1rem;animation-delay:.2s"><div class="flex items-center gap-2.5"><span class="grid h-9 w-9 place-items-center rounded-xl bg-turq/20 text-turq"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></span><div class="leading-tight"><div class="text-[11px] text-slate-400">ליד חדש</div><div class="text-sm font-extrabold text-ink">דנה רוצה הצעה</div></div></div></div>
+      <div class="fcard glass float absolute z-20" style="top:40%;left:-1.5rem;animation-delay:1s"><div class="flex items-center gap-2.5"><span class="grid h-9 w-9 place-items-center rounded-xl bg-electric/15 text-electric"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg></span><div class="leading-tight"><div class="text-[11px] text-slate-400">קמפיין אושר</div><div class="text-sm font-extrabold text-ink">רץ עכשיו</div></div></div></div>
+      <div class="fcard glass float absolute z-20" style="bottom:8%;right:-0.5rem;animation-delay:1.6s"><div class="flex items-center gap-2.5"><span class="grid h-9 w-9 place-items-center rounded-xl bg-turq/20 text-turq"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg></span><div class="leading-tight"><div class="text-[11px] text-slate-400">פוסט פורסם</div><div class="text-sm font-extrabold text-ink">בפייסבוק ואינסטגרם</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 19. FAQ ===== -->
+<section id="faq" class="bg-soft py-16 md:py-24">
+  <div class="mx-auto max-w-3xl px-5 md:px-8">
+    <div class="text-center" data-reveal><h2 class="text-3xl font-extrabold text-ink md:text-4xl">שאלות נפוצות</h2></div>
+    <div class="mt-10 space-y-3" data-reveal>
+      <details class="group rounded-xl2 bg-white p-5 shadow-sm ring-1 ring-slate-100"><summary class="flex cursor-pointer items-center justify-between font-bold text-ink list-none">למי {{BUSINESS_NAME}} מתאימה?<span class="faq-ico grid h-6 w-6 place-items-center text-electric transition-transform">+</span></summary><p class="mt-3 text-slate-600">לבעלי עסקים שרוצים לנהל את השיווק בצורה פשוטה יותר עם פוסטים, קמפיינים, לידים ונתונים במקום אחד.</p></details>
+      <details class="group rounded-xl2 bg-white p-5 shadow-sm ring-1 ring-slate-100"><summary class="flex cursor-pointer items-center justify-between font-bold text-ink list-none">צריך להבין בשיווק כדי להשתמש?<span class="faq-ico grid h-6 w-6 place-items-center text-electric transition-transform">+</span></summary><p class="mt-3 text-slate-600">לא. {{BUSINESS_NAME}} נבנתה כדי להפוך את השיווק לנגיש וברור גם לבעלי עסקים שלא חיים את עולם הדיגיטל.</p></details>
+      <details class="group rounded-xl2 bg-white p-5 shadow-sm ring-1 ring-slate-100"><summary class="flex cursor-pointer items-center justify-between font-bold text-ink list-none">אפשר לנהל לידים דרך האפליקציה?<span class="faq-ico grid h-6 w-6 place-items-center text-electric transition-transform">+</span></summary><p class="mt-3 text-slate-600">כן. ניתן לעקוב אחרי לידים, לראות פניות ולנהל את הפעילות בצורה מסודרת.</p></details>
+      <details class="group rounded-xl2 bg-white p-5 shadow-sm ring-1 ring-slate-100"><summary class="flex cursor-pointer items-center justify-between font-bold text-ink list-none">האם יש ליווי?<span class="faq-ico grid h-6 w-6 place-items-center text-electric transition-transform">+</span></summary><p class="mt-3 text-slate-600">כן. יש ליווי אישי שמטרתו לעזור לעסק להתקדם בצורה נכונה.</p></details>
+      <details class="group rounded-xl2 bg-white p-5 shadow-sm ring-1 ring-slate-100"><summary class="flex cursor-pointer items-center justify-between font-bold text-ink list-none">איך מתחילים?<span class="faq-ico grid h-6 w-6 place-items-center text-electric transition-transform">+</span></summary><p class="mt-3 text-slate-600">מורידים את {{BUSINESS_NAME}} מ‑App Store או Google Play, פותחים פרופיל עסק ומתחילים לשווק.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 20. FINAL CTA ===== -->
+<section class="relative grad overflow-hidden py-20 text-center text-white md:py-28">
+  <div class="blob" style="width:26rem;height:26rem;background:#31E6C2;opacity:.25;bottom:-8rem;left:-4rem"></div>
+  <div class="blob" style="width:22rem;height:22rem;background:#00C8FF;opacity:.2;top:-6rem;right:-4rem"></div>
+  <div class="relative mx-auto max-w-2xl px-5 md:px-8">
+    <h2 class="text-3xl font-extrabold md:text-5xl">מוכנים להתחיל לשווק חכם?</h2>
+    <p class="mx-auto mt-4 max-w-lg text-lg text-white/85">הורידו את {{BUSINESS_NAME}} והתחילו לנהל את כל השיווק של העסק ממקום אחד.</p>
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+      <a href="https://play.google.com/store/apps/details?id=com.iconiqmedia.adsmanager&pcampaignid=web_share" target="_blank" rel="noopener" class="badge-store" style="background:#fff;color:#0500C8"><svg width="26" height="26" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.6 1.9 13.3 12 3.6 22.1c-.36-.2-.6-.6-.6-1.06V2.96c0-.46.24-.86.6-1.06z" fill="#00D4FF"/><path d="M16.9 8.4 13.3 12l3.6 3.6 3.6-2.06c.86-.5.86-1.74 0-2.24z" fill="#FFCE00"/><path d="m3.6 1.9 13.3 6.5L13.3 12z" fill="#00F076"/><path d="M3.6 22.1 13.3 12l3.6 3.6z" fill="#FF3A44"/></svg><span class="text-right"><span class="bs-sub block">הורידו ב‑</span><span class="bs-main block">Google Play</span></span></a>
+      <a href="https://apps.apple.com/il/app/kliq/id6755148289?l=he" target="_blank" rel="noopener" class="badge-store" style="background:#fff;color:#0500C8"><svg width="26" height="26" viewBox="0 0 384 512" fill="#0500C8"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg><span class="text-right"><span class="bs-sub block">הורידו ב‑</span><span class="bs-main block">App Store</span></span></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="bg-[#070A2E] py-12 text-white/70">
+  <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-5 text-center md:flex-row md:px-8 md:text-right">
+    <div>
+      <div class="flex items-center justify-center gap-2 md:justify-start"><img src="{{LOGO_URL}}" alt="{{BUSINESS_NAME}}" class="h-8 w-auto rounded-lg"><span class="text-lg font-extrabold text-white">{{BUSINESS_NAME}}</span></div>
+      <p class="mt-2 max-w-sm text-sm">פוסטים, קמפיינים ולידים במקום אחד. שיווק חכם לעסקים שרוצים להתקדם.</p>
+    </div>
+    <nav class="flex flex-wrap items-center justify-center gap-5 text-sm font-semibold">
+      <a href="#solution" class="hover:text-white transition">הפתרון</a>
+      <a href="#features" class="hover:text-white transition">יכולות</a>
+      <a href="#how" class="hover:text-white transition">איך זה עובד</a>
+      <a href="catalog.html" class="hover:text-white transition">קטלוג</a>
+      <a href="#faq" class="hover:text-white transition">שאלות</a>
+    </nav>
+  </div>
+  <div class="mt-8 border-t border-white/10 pt-6 text-center text-xs text-white/40">© {{BUSINESS_NAME}} כל הזכויות שמורות</div>
+</footer>
+
+<script>
+  // hero callback lead form -> Make webhook
+  (function(){
+    var f=document.getElementById('leadForm'); if(!f) return;
+    var nameInp=document.getElementById('leadName'), inp=document.getElementById('leadPhone'), btn=document.getElementById('leadBtn'), msg=document.getElementById('leadMsg');
+    function show(text,ok){ msg.textContent=text; msg.classList.remove('hidden'); msg.style.color=ok?'#0500C8':'#dc2626'; }
+    f.addEventListener('submit',function(e){
+      e.preventDefault();
+      var name=(nameInp.value||'').trim();
+      var phone=(inp.value||'').replace(/[\s\-()]/g,'');
+      if(name.length<2){ show('אנא הזינו שם',false); nameInp.focus(); return; }
+      if(!/^0\d{8,9}$/.test(phone)){ show('אנא הזינו מספר טלפון תקין',false); inp.focus(); return; }
+      btn.disabled=true; var orig=btn.textContent; btn.textContent='שולח...';
+      var body=new URLSearchParams({ name:name, phone:phone, source:'{{BUSINESS_NAME}} landing hero', page:location.href });
+      fetch('https://hook.eu2.make.com/t9yxnldxnxrjyt0wdyqntqmg6w2gcevl',{ method:'POST', mode:'no-cors', body:body })
+        .then(function(){ f.reset(); show('תודה! נחזור אליכם בהקדם 🎉',true); btn.textContent='נשלח ✓'; })
+        .catch(function(){ btn.disabled=false; btn.textContent=orig; show('אופס, משהו השתבש. נסו שוב.',false); });
+    });
+  })();
+  // mobile nav toggle
+  (function(){
+    var t=document.getElementById('navToggle'); if(!t) return;
+    var m=document.getElementById('mnav'), o=document.getElementById('navOpen'), c=document.getElementById('navClose');
+    function set(open){ m.classList.toggle('hidden',!open); o.classList.toggle('hidden',open); c.classList.toggle('hidden',!open); t.setAttribute('aria-expanded',open); }
+    t.addEventListener('click',function(){ set(m.classList.contains('hidden')); });
+    m.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ set(false); }); });
+  })();
+  // seamless marquees: duplicate every track's children
+  document.querySelectorAll('.mq-track').forEach(function(t){t.innerHTML+=t.innerHTML;});
+  // count-up animation
+  function countUp(el){
+    var target=parseInt(el.getAttribute('data-count'),10), pre=el.getAttribute('data-prefix')||'', t0=null, dur=1400;
+    function step(ts){ if(!t0)t0=ts; var p=Math.min((ts-t0)/dur,1); var e=1-Math.pow(1-p,3);
+      el.textContent=pre+Math.round(target*e).toLocaleString('en-US'); if(p<1)requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }
+  // scroll reveal (+ stagger for grid children) and trigger count-up
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){
+      e.target.classList.add('in');
+      e.target.querySelectorAll('[data-count]').forEach(countUp);
+      if(e.target.hasAttribute('data-count'))countUp(e.target);
+      io.unobserve(e.target);
+    }})},{threshold:.12});
+  document.querySelectorAll('[data-reveal]').forEach(function(el){io.observe(el);});
+  document.querySelectorAll('[data-count]').forEach(function(el){io.observe(el);});
+</script>
+</body>
+</html>

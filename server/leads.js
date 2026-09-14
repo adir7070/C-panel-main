@@ -215,9 +215,7 @@ function keyMatches(given) {
 }
 
 export const leadsRouter = express.Router();
-/* Body parser scoped to /api/leads only — a router-level parser would also
-   drain bodies of /api/** requests that fall through to the backend proxy. */
-leadsRouter.use("/api/leads", express.json({ limit: "2mb" }));
+/* JSON bodies are already parsed app-wide by the backend (backend/server.js). */
 
 /* ── Public intake ──────────────────────────────────────────────────────
    POST /api/leads/intake   header: x-api-key: <LEADS_INTAKE_KEY>
@@ -242,15 +240,21 @@ leadsRouter.post("/api/leads/intake", async (req, res) => {
   }
 });
 
-/* ── Everything below requires a logged-in panel user ────────────────── */
-leadsRouter.use("/api/leads", requireAuth);
+/* ── Everything below requires a logged-in panel user ──────────────────
+   Auth is attached per route, never router-wide: this router sits in front
+   of the backend's own /api/leads router (backend/routes/leads.routes.js),
+   whose public endpoints (wa-click beacon, referral, posts, statuses) a
+   router-wide gate would 401. Paths that aren't the panel's fall through. */
+const idRoute = (req, _res, next) => (/^[a-f0-9]{24}$/i.test(String(req.params.id)) ? next() : next("route"));
+/* GET /api/leads?page_id=… is the backend's Facebook-leads listing. */
+const fbLeadsRoute = (req, _res, next) => (req.query.page_id ? next("route") : next());
 
 function escapeRx(s) {
   return String(s).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 // GET /api/leads?status=&search=&assigned=me|unassigned|all|<agentId>&limit=&offset=
-leadsRouter.get("/api/leads", async (req, res) => {
+leadsRouter.get("/api/leads", fbLeadsRoute, requireAuth, async (req, res) => {
   try {
     const db = await getDb();
     const q = { ...scopeFilter(req.agent) };
@@ -282,7 +286,7 @@ leadsRouter.get("/api/leads", async (req, res) => {
 });
 
 // GET /api/leads/stats → { total, byStatus: { new: n, ... }, unassigned }
-leadsRouter.get("/api/leads/stats", async (req, res) => {
+leadsRouter.get("/api/leads/stats", fbLeadsRoute, requireAuth, async (req, res) => {
   try {
     const db = await getDb();
     const rows = await db.collection("leads").aggregate([
@@ -302,7 +306,7 @@ leadsRouter.get("/api/leads/stats", async (req, res) => {
 });
 
 // POST /api/leads/import  { leads: [...], assignedTo? } → bulk create
-leadsRouter.post("/api/leads/import", async (req, res) => {
+leadsRouter.post("/api/leads/import", requireAuth, async (req, res) => {
   const { leads, assignedTo } = req.body ?? {};
   if (!Array.isArray(leads) || leads.length === 0) {
     return res.status(400).json({ error: "bad_request", message: "leads חייב להיות מערך לא ריק" });
@@ -343,7 +347,7 @@ leadsRouter.post("/api/leads/import", async (req, res) => {
 });
 
 // POST /api/leads/assign  { ids: [], toAgentId }   (admin)
-leadsRouter.post("/api/leads/assign", requireAdmin, async (req, res) => {
+leadsRouter.post("/api/leads/assign", requireAuth, requireAdmin, async (req, res) => {
   const { ids, toAgentId } = req.body ?? {};
   const oids = parseIds(ids);
   if (oids.length === 0 || !toAgentId) {
@@ -366,7 +370,7 @@ leadsRouter.post("/api/leads/assign", requireAdmin, async (req, res) => {
 // POST /api/leads/round-robin  { ids: [], agentIds?: [] }   (admin)
 // Least-loaded first, so repeated small batches stay balanced instead of
 // always landing on the alphabetically-first manager.
-leadsRouter.post("/api/leads/round-robin", requireAdmin, async (req, res) => {
+leadsRouter.post("/api/leads/round-robin", requireAuth, requireAdmin, async (req, res) => {
   const { ids, agentIds } = req.body ?? {};
   const oids = parseIds(ids);
   if (oids.length === 0) return res.status(400).json({ error: "bad_request", message: "ids נדרש" });
@@ -414,7 +418,7 @@ async function loadScoped(db, req, res) {
 }
 
 // GET /api/leads/:id  (includes the sanitized raw intake payload)
-leadsRouter.get("/api/leads/:id", async (req, res) => {
+leadsRouter.get("/api/leads/:id", idRoute, requireAuth, async (req, res) => {
   try {
     const db = await getDb();
     const lead = await loadScoped(db, req, res);
@@ -425,7 +429,7 @@ leadsRouter.get("/api/leads/:id", async (req, res) => {
 });
 
 // PATCH /api/leads/:id  { status?, name?, phone?, email?, business?, field?, assignedTo? (admin) }
-leadsRouter.patch("/api/leads/:id", async (req, res) => {
+leadsRouter.patch("/api/leads/:id", idRoute, requireAuth, async (req, res) => {
   try {
     const db = await getDb();
     const lead = await loadScoped(db, req, res);
@@ -473,7 +477,7 @@ leadsRouter.patch("/api/leads/:id", async (req, res) => {
 });
 
 // POST /api/leads/:id/notes  { text }
-leadsRouter.post("/api/leads/:id/notes", async (req, res) => {
+leadsRouter.post("/api/leads/:id/notes", idRoute, requireAuth, async (req, res) => {
   const text = str(req.body?.text, 4000);
   if (!text) return res.status(400).json({ error: "bad_request", message: "טקסט ההערה ריק" });
   try {
@@ -493,7 +497,7 @@ leadsRouter.post("/api/leads/:id/notes", async (req, res) => {
 });
 
 // POST /api/leads/:id/activate → status = active_client
-leadsRouter.post("/api/leads/:id/activate", async (req, res) => {
+leadsRouter.post("/api/leads/:id/activate", idRoute, requireAuth, async (req, res) => {
   try {
     const db = await getDb();
     const lead = await loadScoped(db, req, res);
@@ -516,7 +520,7 @@ leadsRouter.post("/api/leads/:id/activate", async (req, res) => {
 });
 
 // DELETE /api/leads/:id   (admin)
-leadsRouter.delete("/api/leads/:id", requireAdmin, async (req, res) => {
+leadsRouter.delete("/api/leads/:id", idRoute, requireAuth, requireAdmin, async (req, res) => {
   let oid;
   try { oid = new ObjectId(String(req.params.id)); } catch { return res.status(400).json({ error: "bad_id", message: "מזהה לא תקין" }); }
   try {

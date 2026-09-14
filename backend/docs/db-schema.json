@@ -1,0 +1,303 @@
+{
+  "_meta": {
+    "database": "iconiq",
+    "host": "MongoDB Atlas",
+    "api_base": "https://api.iconiqmedia.co.il",
+    "note": "This is a frontend-only repo. All data lives in the backend at api.iconiqmedia.co.il. Collection names and field shapes are derived from docs + API types — verify against actual Mongoose models in the backend repo.",
+    "personal_catalog_collection": "UNKNOWN — find it via: grep -r 'PersonalPackage\\|personal.package\\|personal_package' in backend repo"
+  },
+
+  "collections": {
+
+    "users": {
+      "description": "לקוחות — מסמך הלקוח הראשי. phone הוא מפתח העבודה בכל המערכת",
+      "primary_key": "phone (string, e.g. '0526706503')",
+      "key_fields": {
+        "phone": "string — מזהה ייחודי ראשי",
+        "page_id": "string | null — Facebook Page ID",
+        "ad_account_id": "string | null — Facebook Ad Account ID",
+        "logoUrl": "string | null — נתיב יחסי לתמונת לוגו",
+        "coins": "number — יתרת מטבעות נוכחית",
+        "expoPushToken": "string | null — לשליחת push notifications",
+        "expoToken": "string | null — גרסה ישנה של push token",
+        "activePackage": {
+          "description": "החבילה הפעילה שנרכשה דרך חיוב רגיל (לא personal catalog)",
+          "fields": {
+            "id": "string",
+            "name": "string (e.g. 'platinum')",
+            "purchasedAt": "ISODate",
+            "status": "string — e.g. 'pending_manager_approval' | 'sent_to_creation' | 'sent_to_client' | 'done'",
+            "statusUpdatedAt": "ISODate",
+            "items": {
+              "paidAds": "number",
+              "organicAds": "number",
+              "videos": "number",
+              "lps": "number",
+              "logos": "number"
+            },
+            "coins": "number — מטבעות שניתנו עם הרכישה"
+          }
+        }
+      },
+      "relevance": "קריטי — כל collection אחר מקושר דרך phone"
+    },
+
+    "agents": {
+      "description": "סוכנים / מנהלי תיקים — כולל אדמינים, supervisors, account_managers",
+      "primary_key": "_id (ObjectId)",
+      "key_fields": {
+        "_id": "ObjectId — זהו agentId שמופיע בכל שאר ה-collections",
+        "name": "string",
+        "phone": "string | null",
+        "email": "string | null",
+        "role": "'admin' | 'supervisor' | 'account_manager' | 'finance'",
+        "active": "boolean",
+        "token": "string | null — JWT session token פעיל (logout מנקה)",
+        "commissionRate": "number | null — אחוז עמלה",
+        "team": "string | null — לקיבוץ תחת supervisor",
+        "disabledAt": "ISODate | null",
+        "disabledReason": "string | null",
+        "lastActiveAt": "ISODate | null",
+        "createdAt": "ISODate"
+      },
+      "relevance": "קריטי לאנליטיקס — agentId בכל personal package מוביל לכאן"
+    },
+
+    "support_chats": {
+      "description": "שיחות WhatsApp/צ'אט בין מנהל ללקוח",
+      "primary_key": "_id (ObjectId)",
+      "key_fields": {
+        "phone": "string — phone של הלקוח (users.phone)",
+        "accountManagerId": "string | null — agents._id של המנהל המשויך",
+        "accountManagerName": "string | null",
+        "status": "string — סטטוס הלקוח בפייפליין",
+        "name": "string — שם העסק",
+        "notes": "string | null — הערות פנימיות של המנהל",
+        "unreadCount": "number",
+        "lastMessageAt": "ISODate | null"
+      },
+      "relevance": "גבוה — chatId ו-accountManagerId מגיעים מכאן"
+    },
+
+    "business_profiles": {
+      "description": "פרופיל עסקי — ממולא בטאב האיפיון",
+      "primary_key": "phone (string)",
+      "key_fields": {
+        "phone": "string",
+        "businessName": "string",
+        "address": "string | null",
+        "email": "string | null",
+        "category": "string | null",
+        "subCategories": "string[]",
+        "audience": "string | null",
+        "pageGoal": "string | null",
+        "designStyle": "string | null",
+        "socialLinks": {
+          "instagram": "string | null",
+          "facebook": "string | null",
+          "tiktok": "string | null"
+        }
+      },
+      "relevance": "בינוני — לשמות ופרטים עסקיים"
+    },
+
+    "cpanel_pending_purchases": {
+      "description": "רכישות ממתינות שנוצרות לפני תשלום (חיוב רגיל, לא personal catalog)",
+      "primary_key": "_id (ObjectId)",
+      "key_fields": {
+        "phone": "string",
+        "kind": "string — e.g. 'platinum' | 'premium' | 'basic' | 'custom'",
+        "name": "string — תיאור",
+        "adsCount": "number",
+        "landingPagesCount": "number",
+        "videosCount": "number",
+        "logosCount": "number",
+        "socialAdsCount": "number",
+        "total": "number — סכום בש\"ח",
+        "status": "'pending' | 'completed' | 'failed'",
+        "createdAt": "ISODate"
+      },
+      "relevance": "בינוני — לחיובים רגילים. personal catalog משתמש בנתיב נפרד"
+    },
+
+    "coin_ledger": {
+      "description": "כל עסקת מטבעות — credit ו-debit",
+      "primary_key": "_id (ObjectId)",
+      "key_fields": {
+        "phone": "string",
+        "amount": "number — חיובי = הוספה, שלילי = ניכוי",
+        "reason": "string — e.g. 'package_purchase' | 'wow_ads' | 'manual_grant'",
+        "sessionId": "string | null — לחיובי AI pipelines",
+        "agentId": "string | null — מי ביצע פעולה ידנית",
+        "createdAt": "ISODate"
+      },
+      "relevance": "בינוני — לדוחות צריכת מטבעות"
+    },
+
+    "cpanel_products": {
+      "description": "קטלוג המוצרים הגלובלי — מחירים ופריטים עריכה ע\"י אדמין",
+      "primary_key": "key (string)",
+      "key_fields": {
+        "key": "string — מפתח ייחודי (e.g. 'posts', 'reels', 'stories')",
+        "label": "string — שם לתצוגה",
+        "emoji": "string | null",
+        "unitPrice": "number — מחיר ליחידה ב-₪",
+        "isPermission": "boolean — אם true: checkbox בלי כמות",
+        "active": "boolean"
+      },
+      "note": "זהו המקור ל-baseItems שמחושבים ב-PersonalCatalogTab. השדה coins נמצא ב-collection נפרד (cpanel_coin_packages בערך).",
+      "relevance": "גבוה — מחירי הפריטים בחבילות האישיות מגיעים מכאן"
+    },
+
+    "audit_log": {
+      "description": "לוג כל פעולות אדמין ומנהל",
+      "primary_key": "_id (ObjectId)",
+      "key_fields": {
+        "actor": { "id": "string", "name": "string", "role": "string" },
+        "action": "string — e.g. 'catalog.update' | 'settings.change' | 'client.assign'",
+        "target": { "kind": "string", "id": "string" },
+        "before": "object | null",
+        "after": "object | null",
+        "at": "ISODate"
+      },
+      "relevance": "נמוך — לצרכי compliance בלבד"
+    },
+
+    "admin_settings": {
+      "description": "הגדרות מערכת — KV store",
+      "primary_key": "section (string, unique index)",
+      "key_fields": {
+        "section": "string — e.g. 'coins' | 'commissions' | 'sla' | 'feature_flags'",
+        "data": "object — הערכים עצמם"
+      },
+      "relevance": "נמוך"
+    },
+
+    "admin_broadcasts": {
+      "description": "היסטוריית broadcasts שנשלחו",
+      "primary_key": "_id (ObjectId)",
+      "key_fields": {
+        "title": "string",
+        "body": "string",
+        "sentAt": "ISODate",
+        "recipientCount": "number",
+        "results": "array"
+      },
+      "relevance": "נמוך"
+    },
+
+    "cpanel_product_reviews": {
+      "description": "ביקורות מוצר — טוקן שנשלח ללקוח לאישור תוצרים",
+      "primary_key": "_id (ObjectId)",
+      "key_fields": {
+        "phone": "string",
+        "token": "string — ה-URL token שנשלח ללקוח",
+        "agentId": "string",
+        "packageName": "string",
+        "status": "'sent' | 'approved' | 'rejected'",
+        "sentAt": "ISODate",
+        "respondedAt": "ISODate | null",
+        "feedback": "string | null",
+        "ads": { "count": "number", "items": "array" },
+        "organic": { "count": "number", "items": "array" },
+        "lp": { "present": "boolean", "sessionId": "string | null" },
+        "createdAt": "ISODate",
+        "updatedAt": "ISODate"
+      },
+      "relevance": "נמוך — ספציפי לתהליך אישור תוצרים"
+    },
+
+    "cpanel_wow_sessions": {
+      "description": "Bridge collection בין CPanel לפייפליינים של AI (מודעות / LP / לוגו)",
+      "primary_key": "_id (ObjectId)",
+      "key_fields": {
+        "phone": "string",
+        "sessionId": "string — מזהה ה-pipeline session",
+        "kind": "'ads' | 'lp' | 'logo'",
+        "agentId": "string",
+        "status": "'pending' | 'running' | 'done' | 'error'",
+        "createdAt": "ISODate"
+      },
+      "relevance": "נמוך"
+    },
+
+    "wow_ads": {
+      "description": "תוצאות pipeline של מודעות AI",
+      "primary_key": "_id (ObjectId)",
+      "key_fields": {
+        "sessionId": "string — מקושר ל-cpanel_wow_sessions",
+        "phone": "string",
+        "generatedAds": "array — כל מודעה עם imageUrl, headline, copy",
+        "status": "string",
+        "createdAt": "ISODate"
+      },
+      "relevance": "נמוך"
+    },
+
+    "PERSONAL_CATALOG_COLLECTION": {
+      "description": "⚠️ שם הקולקציה לא מתועד — צריך לאמת בבקאנד",
+      "how_to_find": "grep -r 'PersonalPackage\\|personalPackage\\|personal_package\\|personal-package' <backend-repo>/models/",
+      "likely_names": ["personal_packages", "cpanel_personal_packages", "personalpackages"],
+      "schema": {
+        "_id": "ObjectId",
+        "phone": "string — מקושר ל-users.phone",
+        "agentId": "string — מקושר ל-agents._id — מי בנה את ההצעה",
+        "name": "string — שם החבילה",
+        "items": "Record<string, number> — { posts: 8, reels: 4 }",
+        "bullets": "string[] — תיאור אוטו-גנרטד לאפליקציה",
+        "basePrice": "number — מחיר לפני הנחה (₪)",
+        "discountPct": "number — % הנחה",
+        "finalPrice": "number — מחיר סופי (₪) — זה מה שנכנס לקופה",
+        "coins": "number — מטבעות שהלקוח יקבל",
+        "notes": "string | null — פנימי, לא גלוי ללקוח",
+        "active": "boolean — גלוי/מוסתר באפליקציה",
+        "purchased": "boolean — האם שולם ✓",
+        "purchasedAt": "ISODate | null — מתי שולם",
+        "createdAt": "ISODate — מתי נוצרה ההצעה",
+        "updatedAt": "ISODate"
+      },
+      "analytics_query_example": {
+        "description": "לקבל סטטיסטיקות לכל סוכן — הכנס pipeline זה ב-endpoint חדש",
+        "pipeline": [
+          { "$group": {
+            "_id": "$agentId",
+            "quotesTotal":    { "$sum": 1 },
+            "quotesClosed":   { "$sum": { "$cond": ["$purchased", 1, 0] } },
+            "revenueTotal":   { "$sum": { "$cond": ["$purchased", "$finalPrice", 0] } },
+            "clientsReached": { "$addToSet": "$phone" },
+            "clientsClosed":  { "$addToSet": { "$cond": ["$purchased", "$phone", "$$REMOVE"] } }
+          }},
+          { "$project": {
+            "agentId":        "$_id",
+            "quotesTotal":    1,
+            "quotesClosed":   1,
+            "quotesOpen":     { "$subtract": ["$quotesTotal", "$quotesClosed"] },
+            "revenueTotal":   1,
+            "clientsReached": { "$size": "$clientsReached" },
+            "clientsClosed":  { "$size": "$clientsClosed" },
+            "conversionRate": { "$divide": ["$quotesClosed", { "$max": ["$quotesTotal", 1] }] }
+          }},
+          { "$sort": { "revenueTotal": -1 } }
+        ]
+      },
+      "relevance": "קריטי — זה המטרה של כל הדוקומנטציה הזו"
+    }
+  },
+
+  "relationships": {
+    "personal_package → agent":   "personal_package.agentId = agents._id",
+    "personal_package → client":  "personal_package.phone   = users.phone",
+    "support_chat → client":      "support_chats.phone      = users.phone",
+    "support_chat → agent":       "support_chats.accountManagerId = agents._id",
+    "coin_ledger → client":       "coin_ledger.phone        = users.phone",
+    "business_profile → client":  "business_profiles.phone  = users.phone"
+  },
+
+  "important_notes": [
+    "phone הוא תמיד string ויכול לכלול מקפים — תמיד נרמל לפני השוואה (replace(/\\D/g,''))",
+    "agentId הוא ObjectId כ-string — בהשוואה ב-MongoDB ודא שאתה משתמש ב-new ObjectId() או שהשדה מוגדר כ-string",
+    "activePackage ב-users הוא לחיוב רגיל בלבד — personal catalog הוא collection נפרד",
+    "כל admin endpoints דורשים req.agent.role === 'admin' middleware",
+    "session token נמצא ב-localStorage.cpanel_token בצד הלקוח, ו-agents.token בצד השרת"
+  ]
+}

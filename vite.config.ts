@@ -4,22 +4,23 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
-  // No hardcoded backend host — set VITE_API_URL to your backend's origin.
-  // Falls back to a local dev backend placeholder so `npm run dev` doesn't
-  // silently point at a dead third-party host when the var is unset.
-  const apiTarget = env.VITE_API_URL || 'http://localhost:3900'
+  // `npm run dev` runs the backend (backend/server.js) on PORT from .env —
+  // every server path the SPA touches is proxied to it, sockets included.
+  const apiTarget = `http://localhost:${env.PORT || 3910}`
+  const toBackend = { target: apiTarget, changeOrigin: true }
   return {
     plugins: [react(), tailwindcss()],
-    // Configurable base — '/' for standalone deploy, '/cpanel/' when mounted under another app
-    base: env.VITE_BASE_PATH || '/',
     build: { outDir: 'dist', emptyOutDir: true },
     server: {
       proxy: {
-        '/api': {
-          target: apiTarget,
-          changeOrigin: true,
-          secure: true,
-        },
+        '/api': toBackend,
+        '/socket.io': { ...toBackend, ws: true },
+        '/generated': toBackend,
+        '/auth/facebook': toBackend,
+        '/pdf-pages': toBackend,
+        '/lp-preview': toBackend,
+        '/wow-ads-preview': toBackend,
+        '/wow-organic-preview': toBackend,
       },
     },
   }

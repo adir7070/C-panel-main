@@ -1,5 +1,8 @@
-# Heroku slug excludes — dev/reference material the running app never reads.
-# campaign.md and server/prompts/ ARE read at runtime — never list them here.
+# Heroku slug excludes — removed after push, BEFORE the build runs.
+# Never list build inputs (src/, index.html, tsconfig*, vite.config.ts,
+# package*.json, backend/package*.json) or runtime reads (campaign.md,
+# server/, backend/services/**, backend/pdf/pages, backend/public/*).
+# ── panel
 /מודעות לדוגמא שנעשו על ידי KLIQ-20260609T092728Z-3-001
 /.context-brain.db
 /.agents
@@ -11,3 +14,12 @@
 /Social.md
 /new-pipe.md
 /AGENTS.md
+# ── backend
+/backend/services/wow-lp-templates/*/images
+/backend/services/wow-lp-templates/*/assets
+/backend/pdf/extracted
+/backend/pdf/*.zip
+/backend/.env
+/backend/.env.development
+/backend/docs
+/backend/.agents

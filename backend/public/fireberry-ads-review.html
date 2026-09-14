@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>אישור מודעות</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg-1: #f8fafc; --bg-2: #eef2ff;
+    --accent: #6366f1; --accent-2: #8b5cf6;
+    --approve: #10b981; --reject: #ef4444;
+    --text: #1e293b; --muted: #64748b;
+    --card: #ffffff; --border: #e2e8f0;
+  }
+  html, body {
+    height: 100%; font-family: 'Segoe UI', 'Heebo', system-ui, sans-serif;
+    background: linear-gradient(135deg, var(--bg-1), var(--bg-2));
+    color: var(--text); overflow: hidden;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(99,102,241,0.12), transparent 45%),
+      radial-gradient(circle at 85% 80%, rgba(139,92,246,0.10), transparent 50%);
+    pointer-events: none; z-index: 0;
+  }
+  .app {
+    position: relative; z-index: 1; height: 100vh;
+    display: flex; flex-direction: column;
+    padding: 20px; max-width: 1200px; margin: 0 auto;
+  }
+  header { text-align: center; margin-bottom: 12px; }
+  header h1 {
+    font-size: 24px; font-weight: 700;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin-bottom: 4px;
+  }
+  header p { color: var(--muted); font-size: 14px; }
+  .progress-bar {
+    height: 6px; background: var(--card); border-radius: 999px;
+    overflow: hidden; margin: 10px 0 14px; border: 1px solid var(--border);
+  }
+  .progress-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    transition: width 0.4s ease; border-radius: 999px;
+  }
+  .stats {
+    display: flex; justify-content: center; gap: 12px;
+    margin-bottom: 12px; flex-wrap: wrap;
+  }
+  .stat {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px; background: var(--card); border: 1px solid var(--border);
+    border-radius: 999px; font-size: 13px; color: var(--muted);
+  }
+  .stat strong { color: var(--text); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .dot.approved { background: var(--approve); }
+  .dot.rejected { background: var(--reject); }
+  .dot.pending  { background: var(--muted); }
+  .slider { position: relative; flex: 1; min-height: 0;
+    display: flex; align-items: center; justify-content: center; }
+  .slide {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transform: translateX(40px) scale(0.97);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+    pointer-events: none;
+  }
+  .slide.active { opacity: 1; transform: translateX(0) scale(1); pointer-events: auto; }
+  .ad-card {
+    position: relative; max-width: 100%; max-height: 100%;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 12px;
+    box-shadow: 0 12px 30px rgba(15,23,42,0.10);
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .ad-card img {
+    max-width: 100%; max-height: calc(100vh - 320px);
+    width: auto; height: auto;
+    border-radius: 10px; display: block; object-fit: contain;
+  }
+  .ad-label { margin-top: 8px; font-size: 13px; color: var(--muted); }
+  .status-badge {
+    position: absolute; top: 12px; left: 12px;
+    padding: 6px 12px; border-radius: 999px;
+    font-size: 12px; font-weight: 600; display: none;
+  }
+  .status-badge.approved {
+    background: rgba(16,185,129,0.15); color: var(--approve);
+    border: 1px solid var(--approve); display: block;
+  }
+  .status-badge.rejected {
+    background: rgba(239,68,68,0.15); color: var(--reject);
+    border: 1px solid var(--reject); display: block;
+  }
+  .controls {
+    display: flex; justify-content: center; align-items: center;
+    gap: 12px; padding-top: 16px; flex-wrap: wrap;
+  }
+  .btn {
+    border: none; cursor: pointer; font-family: inherit;
+    font-size: 15px; font-weight: 600;
+    padding: 12px 22px; border-radius: 12px;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+    color: white; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+  .btn-approve { background: linear-gradient(135deg, var(--approve), #059669);
+    box-shadow: 0 8px 20px rgba(16,185,129,0.3); }
+  .btn-reject  { background: linear-gradient(135deg, var(--reject), #b91c1c);
+    box-shadow: 0 8px 20px rgba(239,68,68,0.3); }
+  .btn-nav { background: var(--card); border: 1px solid var(--border);
+    color: var(--text); padding: 10px 16px; box-shadow: none; }
+  .btn-nav:hover { background: #f1f5f9; }
+
+  /* States: loading / empty / error */
+  .state {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 24px;
+    z-index: 5;
+  }
+  .state h2 {
+    font-size: 22px; margin-bottom: 8px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .state p { color: var(--muted); font-size: 14px; margin-bottom: 18px; max-width: 480px; }
+  .spinner {
+    width: 56px; height: 56px; margin-bottom: 18px;
+    border: 4px solid var(--border); border-top-color: var(--accent);
+    border-radius: 50%; animation: spin 0.9s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .live-progress {
+    display: inline-flex; gap: 6px; color: var(--muted); font-size: 13px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 999px; padding: 6px 14px;
+  }
+
+  /* Summary */
+  .summary {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--bg-1), var(--bg-2));
+    display: none; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 24px; text-align: center; border-radius: 16px; z-index: 10;
+  }
+  .summary.show { display: flex; }
+  .summary h2 {
+    font-size: 26px; margin-bottom: 10px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .summary p { color: var(--muted); margin-bottom: 20px; }
+  .summary-stats { display: flex; gap: 16px; margin-bottom: 22px; flex-wrap: wrap; justify-content: center; }
+  .summary-stat { background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 14px 22px; min-width: 120px; }
+  .summary-stat .num { font-size: 30px; font-weight: 700; margin-bottom: 4px; }
+  .summary-stat.approved .num { color: var(--approve); }
+  .summary-stat.rejected .num { color: var(--reject); }
+  .summary-stat .lbl { color: var(--muted); font-size: 13px; }
+
+  .toast {
+    position: fixed; bottom: 30px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--card); border: 1px solid var(--border);
+    box-shadow: 0 8px 24px rgba(15,23,42,0.15);
+    color: var(--text); padding: 10px 18px;
+    border-radius: 999px; font-size: 14px;
+    opacity: 0; transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 100; pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast.approve { border-color: var(--approve); }
+  .toast.reject  { border-color: var(--reject); }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 20px; }
+    .btn { padding: 10px 16px; font-size: 14px; }
+    .ad-card img { max-height: calc(100vh - 340px); }
+  }
+</style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>אישור מודעות</h1>
+      <p>סקור כל מודעה ואשר או דחה</p>
+    </header>
+
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+    <div class="stats" id="statsRow" style="display:none">
+      <div class="stat"><span class="dot pending"></span>מודעה <strong id="currentIdx">1</strong> מתוך <strong id="totalCount">0</strong></div>
+      <div class="stat"><span class="dot approved"></span>אושרו: <strong id="approvedCount">0</strong></div>
+      <div class="stat"><span class="dot rejected"></span>נדחו: <strong id="rejectedCount">0</strong></div>
+    </div>
+
+    <div class="slider" id="slider">
+      <!-- State overlays -->
+      <div class="state" id="stateLoading">
+        <div class="spinner"></div>
+        <h2>טוען נתונים...</h2>
+        <p>מתחבר לפיירברי</p>
+      </div>
+
+      <div class="state" id="stateGenerating" style="display:none">
+        <div class="spinner"></div>
+        <h2>יוצרים עבורך מודעות</h2>
+        <p>הפייפליין שלנו מייצר עכשיו 10 מודעות מותאמות אישית.<br>זה לוקח בדרך כלל 60-90 שניות.</p>
+        <div class="live-progress"><span id="liveCount">0</span> מתוך 10 מוכנות</div>
+      </div>
+
+      <div class="state" id="stateNoSession" style="display:none">
+        <h2>אין מודעות עדיין</h2>
+        <p>צריך להפעיל את הפייפליין ליצירת מודעות עבור הלקוח הזה.<br>שמור את הרשומה עם סטטוס "מוכן ליצירת מודעות".</p>
+      </div>
+
+      <div class="state" id="stateError" style="display:none">
+        <h2>שגיאה</h2>
+        <p id="errorMessage">לא ניתן לטעון את המודעות.</p>
+      </div>
+    </div>
+
+    <div class="controls" id="controls" style="display:none">
+      <button class="btn btn-nav" id="prevBtn">הקודם ›</button>
+      <button class="btn btn-reject" id="rejectBtn">✕ דחה</button>
+      <button class="btn btn-approve" id="approveBtn">✓ אשר</button>
+      <button class="btn btn-nav" id="nextBtn">‹ הבא</button>
+    </div>
+
+    <div class="summary" id="summary">
+      <h2>סקירה הושלמה!</h2>
+      <p>הסיכום נשמר אוטומטית בפיירברי</p>
+      <div class="summary-stats">
+        <div class="summary-stat approved">
+          <div class="num" id="finalApproved">0</div>
+          <div class="lbl">אושרו</div>
+        </div>
+        <div class="summary-stat rejected">
+          <div class="num" id="finalRejected">0</div>
+          <div class="lbl">נדחו</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+<script>
+(function() {
+  // ─── Config ─────────────────────────────────────────────────────────────
+  // The widget is served from the same origin as the API, so relative URLs
+  // work both locally and on Heroku/production.
+  const API_BASE       = '/api/fireberry-ads';
+  const WOW_UPLOADS    = '/wow-beta/uploads';
+  const POLL_INTERVAL  = 3000;
+
+  // ─── DOM refs ──────────────────────────────────────────────────────────
+  const $ = id => document.getElementById(id);
+  const slider        = $('slider');
+  const statsRow      = $('statsRow');
+  const controls      = $('controls');
+  const progressFill  = $('progressFill');
+  const currentIdxEl  = $('currentIdx');
+  const totalCountEl  = $('totalCount');
+  const approvedCntEl = $('approvedCount');
+  const rejectedCntEl = $('rejectedCount');
+  const summary       = $('summary');
+  const toast         = $('toast');
+
+  const states = {
+    loading:    $('stateLoading'),
+    generating: $('stateGenerating'),
+    noSession:  $('stateNoSession'),
+    error:      $('stateError'),
+  };
+
+  // ─── State ─────────────────────────────────────────────────────────────
+  const params   = new URLSearchParams(location.search);
+  // Resolve recordId. Fireberry sometimes doesn't substitute merge fields
+  // inside an iframe src (depends on field type / placeholder syntax).
+  // Try four sources in order:
+  //   1. window.__INJECTED_RECORD_ID — server reads Referer header and
+  //      injects it before sending the HTML. Most robust.
+  //   2. ?recordId=<guid> in our own URL (Fireberry substituted correctly).
+  //   3. window.parent.location.href (same-origin only — blocked from Fireberry).
+  //   4. document.referrer (works cross-origin BUT default Referrer Policy
+  //      strips the path → only the origin survives. Needs the iframe to
+  //      set referrerpolicy="unsafe-url" or "no-referrer-when-downgrade").
+  // The Fireberry record URL pattern is /app/record/{objectType}/{recordId}.
+  const RECORD_URL_RE = /\/app\/record\/\d+\/([A-Za-z0-9-]{8,})/;
+  function resolveRecordId() {
+    if (window.__INJECTED_RECORD_ID) return window.__INJECTED_RECORD_ID;
+    const raw = params.get('recordId');
+    const looksUnresolved = !raw || /^[{\[]/.test(raw) || raw.indexOf('{{') !== -1;
+    if (!looksUnresolved) return raw;
+    try {
+      const parentHref = (window.parent && window.parent.location && window.parent.location.href) || '';
+      const m = parentHref.match(RECORD_URL_RE);
+      if (m) return m[1];
+    } catch (_e) { /* cross-origin */ }
+    try {
+      const ref = document.referrer || '';
+      const m = ref.match(RECORD_URL_RE);
+      if (m) return m[1];
+    } catch (_e) { /* */ }
+    return raw;
+  }
+  const recordId = resolveRecordId();
+  let ads        = [];
+  let current    = 0;
+  let decisions  = {};
+  let pollTimer  = null;
+
+  // ─── UI helpers ────────────────────────────────────────────────────────
+  function showState(name) {
+    Object.entries(states).forEach(([k, el]) => el.style.display = (k === name) ? 'flex' : 'none');
+    statsRow.style.display = (name === 'ready') ? 'flex' : 'none';
+    controls.style.display = (name === 'ready') ? 'flex' : 'none';
+    if (name !== 'ready' && name !== null) {
+      // Clear any prior slides
+      slider.querySelectorAll('.slide').forEach(s => s.remove());
+    }
+  }
+
+  function setError(msg) {
+    $('errorMessage').textContent = msg || 'לא ניתן לטעון את המודעות.';
+    showState('error');
+  }
+
+  function showToast(message, type) {
+    toast.textContent = message;
+    toast.className = 'toast ' + type;
+    requestAnimationFrame(() => toast.classList.add('show'));
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => toast.classList.remove('show'), 1400);
+  }
+
+  // ─── Ads rendering ─────────────────────────────────────────────────────
+  function imgUrl(ad) {
+    const u = ad.imageUrl || '';
+    if (/^https?:\/\//i.test(u)) return u;
+    if (u.startsWith('/uploads/')) return WOW_UPLOADS + u.slice('/uploads'.length);
+    return u;
+  }
+
+  function buildSlides() {
+    slider.querySelectorAll('.slide').forEach(s => s.remove());
+    ads.forEach((ad, i) => {
+      const slide = document.createElement('div');
+      slide.className = 'slide';
+      slide.innerHTML =
+        '<div class="ad-card">' +
+          '<span class="status-badge" data-badge></span>' +
+          '<img src="' + imgUrl(ad) + '" alt="ad ' + (ad.id || i + 1) + '" />' +
+          '<div class="ad-label">מודעה ' + (i + 1) + ' מתוך ' + ads.length + '</div>' +
+        '</div>';
+      slider.appendChild(slide);
+    });
+  }
+
+  function render() {
+    const slides = slider.querySelectorAll('.slide');
+    slides.forEach((s, i) => {
+      s.classList.toggle('active', i === current);
+      const badge = s.querySelector('[data-badge]');
+      const d = decisions[ads[i]?.id ?? i + 1];
+      badge.className = 'status-badge';
+      if (d === 'approved')      { badge.classList.add('approved'); badge.textContent = '✓ אושרה'; }
+      else if (d === 'rejected') { badge.classList.add('rejected'); badge.textContent = '✕ נדחתה'; }
+      else                       { badge.textContent = ''; }
+    });
+
+    const approved = Object.values(decisions).filter(d => d === 'approved').length;
+    const rejected = Object.values(decisions).filter(d => d === 'rejected').length;
+    approvedCntEl.textContent = approved;
+    rejectedCntEl.textContent = rejected;
+    currentIdxEl.textContent  = current + 1;
+    totalCountEl.textContent  = ads.length;
+    progressFill.style.width  = ads.length ? ((approved + rejected) / ads.length * 100) + '%' : '0%';
+    $('prevBtn').disabled = current === 0;
+    $('nextBtn').disabled = current === ads.length - 1;
+
+    if (ads.length > 0 && (approved + rejected) === ads.length) {
+      $('finalApproved').textContent = approved;
+      $('finalRejected').textContent = rejected;
+      summary.classList.add('show');
+    }
+  }
+
+  // ─── API ───────────────────────────────────────────────────────────────
+  async function fetchSession() {
+    const r = await fetch(API_BASE + '/session/' + encodeURIComponent(recordId));
+    if (r.status === 404) return { found: false };
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return await r.json();
+  }
+
+  async function postDecision(adId, decision) {
+    const r = await fetch(API_BASE + '/decision', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ recordId, adId, decision }),
+    });
+    if (!r.ok) throw new Error('decision save failed');
+    return await r.json();
+  }
+
+  // ─── Flow ──────────────────────────────────────────────────────────────
+  async function tick() {
+    try {
+      const data = await fetchSession();
+      if (!data.found) {
+        showState('noSession');
+        return;
+      }
+      if (data.status === 'ready' && (data.ads || []).length) {
+        ads       = data.ads;
+        decisions = data.decisions || {};
+        clearInterval(pollTimer);
+        pollTimer = null;
+        buildSlides();
+        showState('ready');
+        render();
+        return;
+      }
+      // still generating
+      showState('generating');
+      $('liveCount').textContent = data.adsCount || 0;
+    } catch (err) {
+      console.error(err);
+      setError(err.message);
+    }
+  }
+
+  function decide(decision) {
+    const ad = ads[current];
+    if (!ad) return;
+    const adId = ad.id ?? current + 1;
+    decisions[adId] = decision;
+
+    postDecision(adId, decision).catch(err => console.warn('decision sync failed', err));
+    showToast(decision === 'approved' ? `מודעה ${adId} אושרה ✓` : `מודעה ${adId} נדחתה ✕`,
+              decision === 'approved' ? 'approve' : 'reject');
+
+    if (current < ads.length - 1) current++;
+    render();
+  }
+
+  // ─── Wire up ───────────────────────────────────────────────────────────
+  $('approveBtn').addEventListener('click', () => decide('approved'));
+  $('rejectBtn').addEventListener('click',  () => decide('rejected'));
+  $('prevBtn').addEventListener('click',    () => { if (current > 0) { current--; render(); } });
+  $('nextBtn').addEventListener('click',    () => { if (current < ads.length - 1) { current++; render(); } });
+
+  document.addEventListener('keydown', (e) => {
+    if (summary.classList.contains('show')) return;
+    if (e.key === 'Enter' || e.key === ' ')           { e.preventDefault(); $('approveBtn').click(); }
+    else if (e.key === 'Escape' || e.key === 'Backspace') { e.preventDefault(); $('rejectBtn').click(); }
+    else if (e.key === 'ArrowRight')                  $('prevBtn').click();
+    else if (e.key === 'ArrowLeft')                   $('nextBtn').click();
+  });
+
+  if (!recordId) {
+    setError('לא הועבר recordId. ה-URL חייב להכיל ?recordId=...');
+    return;
+  }
+  // Detect literal placeholder strings — happens when Fireberry's template
+  // engine didn't substitute the merge field (wrong field name, or the
+  // host doesn't support placeholders in HTML widgets).
+  if (/^[{\[]/.test(recordId) || recordId.indexOf('{{') !== -1) {
+    const diag = window.__SERVER_DIAG || {};
+    const refMsg = diag.referer
+      ? `Referer שהשרת קיבל: ${diag.referer}${diag.refererHasPath ? '' : ' (חסר נתיב — referrerpolicy לא נשמרה או הוסרה ע"י פיירברי)'}`
+      : 'Referer ריק — הדפדפן לא שלח את ה-URL של פיירברי לשרת.';
+    setError('המזהה לא הוחלף ע"י פיירברי וגם נסיון השליפה מ-Referer נכשל. ' + refMsg + ' | ערך שהתקבל: ' + recordId);
+    return;
+  }
+
+  showState('loading');
+  tick();
+  pollTimer = setInterval(tick, POLL_INTERVAL);
+})();
+</script>
+</body>
+</html>

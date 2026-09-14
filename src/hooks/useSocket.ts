@@ -1,11 +1,9 @@
 import { useEffect, useRef } from "react";
 import { io, Socket } from "socket.io-client";
 
-// No hardcoded backend host — set VITE_SOCKET_URL to your backend's origin.
-// Falls back to a local dev backend placeholder when unset.
-const SOCKET_URL =
-  (import.meta.env.VITE_SOCKET_URL as string | undefined) ??
-  "http://localhost:3900";
+// Same origin as the page by default — the backend serves the SPA and the
+// socket from one process. VITE_SOCKET_URL only overrides that.
+const SOCKET_URL = (import.meta.env.VITE_SOCKET_URL as string | undefined) || undefined;
 
 let globalSocket: Socket | null = null;
 /* Manager room to re-join after every reconnect — the server drops rooms. */
@@ -31,13 +29,14 @@ function ensureSocket(): Socket {
        eating the upgrade / corporate firewall blocking ws:), socket.io
        falls back to long-polling instead of spamming the console with
        failed-WS errors. */
-    const sock = io(SOCKET_URL, {
+    const opts = {
       transports: ["websocket", "polling"],
       upgrade: true,
       reconnection: true,
       reconnectionAttempts: 8,
       reconnectionDelay: 1000,
-    });
+    };
+    const sock = SOCKET_URL ? io(SOCKET_URL, opts) : io(opts);
     sock.on("connect", () => {
       if (joinedAgentId) sock.emit("join_account_manager", joinedAgentId);
     });

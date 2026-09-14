@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{OWNER_NAME}} | עיצוב פנים ואדריכלות — תכנון מותאם אישית | {{CITY}}</title>
+<meta name="description" content="{{BUSINESS_FULL_NAME}} פנים בתכנון מותאם אישית ומוקפד. ליווי מלא משלב הרעיון, דרך התכנון וההוצאה לפועל, ועד גימור מושלם. אסתטיקה, דיוק בפרטים ויחס אישי. {{CITY_AREA}}.">
+<meta name="keywords" content="עיצוב פנים, אדריכלות פנים, מעצבת פנים, {{OWNER_NAME}}, תכנון בתים, עיצוב דירות, {{CITY}}, ריהוט, רנדרים">
+<meta name="author" content="{{OWNER_NAME}} — Merav Vashdi">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#16171a">
+<link rel="canonical" href="https://merav-vashdi.netlify.app/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{BUSINESS_FULL_NAME}}">
+<meta property="og:locale" content="he_IL">
+<meta property="og:url" content="https://merav-vashdi.netlify.app/">
+<meta property="og:title" content="{{OWNER_NAME}} | עיצוב פנים ואדריכלות">
+<meta property="og:description" content="תכנון מותאם אישית, ליווי מקצה לקצה וגימור מושלם — חללים שנשארים בזיכרון.">
+<meta property="og:image" content="https://merav-vashdi.netlify.app/{{GALLERY_LIVING}}">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/favicon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"InteriorDesignFirm","name":"{{BUSINESS_FULL_NAME}}","alternateName":"{{BUSINESS_NAME_EN}}","description":"עיצוב פנים ואדריכלות פנים בתכנון מותאם אישית. ליווי מקצה לקצה — מהרעיון ועד הגימור.","telephone":"+{{PHONE_INTL_DASH}}","areaServed":"{{CITY_AREA}}","address":{"@type":"PostalAddress","addressLocality":"{{CITY}}","addressCountry":"IL"},"priceRange":"₪₪₪"}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@300;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = { theme: { extend: {
+  colors: { ink:'#16171a', ink2:'#1d1e22', gold:'#b69568', goldd:'#967547', goldl:'#d9ba87', brown:'#574735', cream:'#faf7f2', sand:'#efe8dd', body:'#4f483f' },
+  fontFamily: { sans:['Assistant','system-ui','sans-serif'], serif:['"Frank Ruhl Libre"','Georgia','serif'], latin:['"Cormorant Garamond"','Georgia','serif'] },
+} } };
+</script>
+<style>
+  html{scroll-behavior:smooth;overflow-x:clip}
+  body{font-family:'Assistant',system-ui,sans-serif;color:#4f483f;overflow-x:clip;background:#faf7f2}
+  .serif{font-family:'Frank Ruhl Libre',Georgia,serif}
+  .latin{font-family:'Cormorant Garamond',Georgia,serif}
+  .grad{background:linear-gradient(120deg,#967547 0%,#b69568 52%,#d9ba87 100%)}
+  .grad-text{background:linear-gradient(110deg,#967547,#b69568 50%,#d9ba87);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .shimmer{background:linear-gradient(110deg,#967547,#d9ba87,#f0dcb6,#d9ba87,#967547);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 7s linear infinite}
+  @keyframes sh{to{background-position:200% center}}
+  .hairline{height:1px;background:linear-gradient(90deg,transparent,#b69568,transparent)}
+  .eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.72rem;font-weight:700;letter-spacing:.28em;color:#967547;text-transform:none}
+  .eyebrow::before{content:"";width:26px;height:1px;background:#b69568;display:inline-block}
+  .eyebrow.center::after{content:"";width:26px;height:1px;background:#b69568;display:inline-block}
+  .eyebrow.light{color:#d9ba87}.eyebrow.light::before,.eyebrow.light.center::after{background:#d9ba87}
+  .blob{position:absolute;border-radius:9999px;filter:blur(80px);z-index:0;pointer-events:none}
+  .grid-tex{position:absolute;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(150,117,71,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(150,117,71,.06) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,#000,transparent);mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,#000,transparent)}
+  .deco{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .ringdeco{position:absolute;border-radius:50%;border:1px solid rgba(182,149,104,.25)}
+  .lift{transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s}
+  .lift:hover{transform:translateY(-7px);box-shadow:0 40px 70px -30px rgba(22,23,26,.45)}
+  .idx{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:3rem;line-height:1;color:#d9ba87}
+  .svc-ic{display:grid;place-items:center;height:3.4rem;width:3.4rem;border-radius:9999px;border:1px solid rgba(182,149,104,.45);color:#967547}
+  .svc-ic svg{width:24px;height:24px}
+  .mq{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+  .mq-track{display:flex;gap:.9rem;width:max-content;animation:mq 55s linear infinite}
+  .mq:hover .mq-track{animation-play-state:paused}
+  @keyframes mq{to{transform:translateX(50%)}}
+  [data-reveal]{opacity:0;transform:translateY(30px);transition:opacity .9s,transform .9s cubic-bezier(.22,1,.36,1)}
+  [data-reveal].in{opacity:1;transform:none}
+  details>summary{list-style:none}details>summary::-webkit-details-marker{display:none}
+  details[open] .faq-ico{transform:rotate(45deg)}
+  .gimg{position:relative;overflow:hidden;cursor:zoom-in;background:#1d1e22}
+  .gimg img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.22,1,.36,1)}
+  .gimg:hover img{transform:scale(1.07)}
+  .gimg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(22,23,26,.5));opacity:0;transition:opacity .5s}
+  .gimg:hover::after{opacity:1}
+  #lb{position:fixed;inset:0;z-index:120;background:rgba(15,15,17,.96);display:none;align-items:center;justify-content:center;padding:5vw}
+  #lb.open{display:flex}#lb img{max-width:92vw;max-height:88vh;box-shadow:0 30px 90px -20px #000}
+  .wa-float{position:fixed;bottom:1.1rem;left:1.1rem;z-index:90;display:grid;place-items:center;height:3.5rem;width:3.5rem;border-radius:9999px;background:#25D366;color:#fff;box-shadow:0 14px 30px -8px rgba(37,211,102,.6);animation:fl 4s ease-in-out infinite}
+  @keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  .ovr-hero{background:linear-gradient(270deg,rgba(18,19,22,.88) 0%,rgba(18,19,22,.6) 38%,rgba(18,19,22,.15) 70%,transparent 100%),linear-gradient(0deg,rgba(18,19,22,.55),transparent 42%)}
+  @media(max-width:1023px){.ovr-hero{background:linear-gradient(0deg,rgba(18,19,22,.92),rgba(18,19,22,.55) 55%,rgba(18,19,22,.55))}}
+  @media(prefers-reduced-motion:reduce){.shimmer,.mq-track,.wa-float{animation:none}[data-reveal]{opacity:1!important;transform:none!important}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="fixed top-0 z-50 w-full border-b border-white/10 bg-ink/85 backdrop-blur-md">
+  <div class="mx-auto flex max-w-[1680px] items-center justify-between gap-4 px-5 py-3 md:px-10">
+    <a href="#top" dir="ltr" class="flex flex-col leading-none">
+      <span class="latin text-xl font-semibold tracking-[.34em] text-goldl md:text-2xl">MERAV VASHDI</span>
+      <span class="mt-1 text-[.55rem] font-semibold tracking-[.5em] text-gold/80">INTERIOR&nbsp;DESIGN</span>
+    </a>
+    <nav class="hidden items-center gap-7 text-sm font-medium text-cream/85 lg:flex">
+      <a href="#about" class="transition hover:text-goldl">עליי</a>
+      <a href="#services" class="transition hover:text-goldl">שירותים</a>
+      <a href="#process" class="transition hover:text-goldl">תהליך</a>
+      <a href="#portfolio" class="transition hover:text-goldl">פרויקטים</a>
+      <a href="#faq" class="transition hover:text-goldl">שאלות</a>
+    </nav>
+    <div class="flex items-center gap-2">
+      <a href="tel:+{{PHONE_INTL}}" dir="ltr" class="hidden items-center gap-2 rounded-full border border-gold/50 px-5 py-2 text-sm font-semibold text-goldl transition hover:bg-gold/10 sm:inline-flex">{{PHONE_HUMAN}}</a>
+      <button id="navToggle" aria-label="תפריט" aria-expanded="false" class="grid h-10 w-10 place-items-center rounded-lg text-cream ring-1 ring-white/15 lg:hidden">
+        <svg id="navOpen" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg id="navClose" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" class="hidden"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mnav" class="hidden border-t border-white/10 bg-ink lg:hidden">
+    <nav class="mx-auto flex max-w-[1680px] flex-col px-5 py-2 text-sm font-semibold text-cream/90">
+      <a href="#about" class="border-b border-white/5 py-3.5">עליי</a>
+      <a href="#services" class="border-b border-white/5 py-3.5">שירותים</a>
+      <a href="#process" class="border-b border-white/5 py-3.5">תהליך</a>
+      <a href="#portfolio" class="border-b border-white/5 py-3.5">פרויקטים</a>
+      <a href="#contact" class="py-3.5 font-bold text-goldl">צרו קשר</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="relative min-h-[100svh] overflow-hidden bg-ink text-cream">
+  <img src="{{GALLERY_LIVING}}" alt="" class="absolute inset-0 h-full w-full object-cover">
+  <div class="absolute inset-0 ovr-hero"></div>
+  <div class="relative mx-auto flex min-h-[100svh] max-w-[1680px] flex-col justify-center px-5 pb-16 pt-32 md:px-10">
+    <div data-reveal class="max-w-2xl text-center lg:text-right">
+      <span class="eyebrow light">עיצוב פנים · אדריכלות פנים · {{CITY}}</span>
+      <h1 class="serif mt-6 text-[2.7rem] font-light leading-[1.08] tracking-tight md:text-7xl">חללים שנשארים<br><span class="shimmer font-medium">בזיכרון</span></h1>
+      <p class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-cream/80 lg:mx-0">תכנון מותאם אישית ומוקפד לבתים ולחללים מכל סוג — מלווה אתכם משלב הרעיון, דרך התכנון וההוצאה לפועל, ועד הגימור המושלם.</p>
+      <div class="mt-9 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+        <a href="#contact" class="grad rounded-full px-8 py-3.5 text-sm font-bold tracking-wide text-ink shadow-xl transition hover:scale-105">לתיאום פגישת ייעוץ</a>
+        <a href="#portfolio" class="inline-flex items-center gap-2 rounded-full border border-gold/50 px-8 py-3.5 text-sm font-semibold text-goldl transition hover:bg-gold/10">לצפייה בפרויקטים</a>
+      </div>
+    </div>
+  </div>
+  <a href="#about" class="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-cream/60 lg:flex">
+    <span class="text-[.65rem] tracking-[.3em]">גלילה</span>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" class="animate-bounce"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+  </a>
+</section>
+
+<!-- MANIFESTO STRIP -->
+<section class="bg-ink py-10 text-center">
+  <div class="mx-auto max-w-4xl px-6" data-reveal>
+    <p class="serif text-xl font-light leading-relaxed text-cream/85 md:text-3xl md:leading-relaxed">"אני שואפת ליצור חללים שמשלבים <span class="grad-text font-medium">אסתטיקה מושלמת</span> עם אורח החיים של כל לקוח — מתוך אהבה, תשוקה והקפדה על הפרטים הקטנים."</p>
+    <div class="mx-auto mt-6 h-px w-40 bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="relative overflow-hidden bg-cream py-20 md:py-28">
+  <div class="deco"><div class="ringdeco" style="width:26rem;height:26rem;top:-8rem;left:-8rem"></div></div>
+  <div class="relative mx-auto grid max-w-6xl items-center gap-12 px-5 md:px-10 lg:grid-cols-2">
+    <div data-reveal class="relative order-1">
+      <div class="absolute -inset-3 -z-10 rounded-[1.4rem] border border-gold/30"></div>
+      <div class="overflow-hidden rounded-[1.2rem] shadow-2xl"><img src="{{DESIGNER_IMAGE}}" alt="{{OWNER_NAME}}, מעצבת פנים" class="aspect-[4/5] w-full object-cover"></div>
+    </div>
+    <div data-reveal class="order-2 text-center lg:text-right">
+      <span class="eyebrow">נעים להכיר</span>
+      <h2 class="serif mt-5 text-4xl font-light leading-tight text-ink md:text-5xl">{{OWNER_NAME}}</h2>
+      <p class="mt-2 text-sm font-semibold tracking-[.2em] text-goldd">מעצבת פנים ואדריכלית פנים</p>
+      <div class="mt-6 space-y-4 text-lg leading-relaxed text-body/90">
+        <p>אני מעצבת פנים ואדריכלית פנים, עם דגש על תכנון מותאם אישית ומוקפד של בתים וחללים מסוגים שונים. המסע שאני עוברת עם הלקוחות שלי הוא ייחודי — מתחיל משלב הרעיון, דרך התכנון וההוצאה לפועל, ועד שהפרויקט מגיע לגימור המושלם.</p>
+        <p>אני דבקה בהקפדה על הפרטים הקטנים ומביאה אסתטיקה מושלמת לכל פרויקט, מתוך אהבה ותשוקה לעולם העיצוב. תהליך העבודה כולל שיתוף פעולה צמוד עם הלקוח, כדי להבטיח שכל ההעדפות והחלומות יתגשמו בצורה הטובה ביותר.</p>
+      </div>
+      <div class="mt-8 grid max-w-md gap-x-6 gap-y-4 text-right sm:grid-cols-2 lg:mx-0">
+        <div class="flex items-center gap-3 justify-center lg:justify-start"><span class="svc-ic !h-10 !w-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg></span><span class="text-sm font-semibold text-ink">אסתטיקה מוקפדת</span></div>
+        <div class="flex items-center gap-3 justify-center lg:justify-start"><span class="svc-ic !h-10 !w-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M2 14h4M10 8h4M18 16h4"/></svg></span><span class="text-sm font-semibold text-ink">תכנון מותאם אישית</span></div>
+        <div class="flex items-center gap-3 justify-center lg:justify-start"><span class="svc-ic !h-10 !w-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11l9-8 9 8M5 9v11h14V9"/></svg></span><span class="text-sm font-semibold text-ink">ליווי מקצה לקצה</span></div>
+        <div class="flex items-center gap-3 justify-center lg:justify-start"><span class="svc-ic !h-10 !w-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8z"/></svg></span><span class="text-sm font-semibold text-ink">יחס אישי וחם</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="relative overflow-hidden bg-ink py-20 text-cream md:py-28">
+  <div class="grid-tex"></div>
+  <div class="relative mx-auto max-w-[1680px] px-5 md:px-10">
+    <div class="text-center" data-reveal>
+      <span class="eyebrow light center justify-center">השירותים שלי</span>
+      <h2 class="serif mt-5 text-4xl font-light text-cream md:text-5xl">שלושה מסלולים <span class="grad-text">לחלל מושלם</span></h2>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-cream/70">כל שירות נבנה סביבכם — הצרכים, הטעם וההעדפות שלכם.</p>
+    </div>
+    <div class="mt-14 grid gap-6 md:grid-cols-3" data-reveal>
+      <article class="lift group overflow-hidden rounded-2xl bg-ink2 ring-1 ring-white/10">
+        <div class="relative h-56 overflow-hidden"><img src="{{GALLERY_LIVING}}" alt="תכנון והקמת חללים אישיים" class="h-full w-full object-cover transition duration-700 group-hover:scale-105"><span class="idx absolute right-5 top-3">01</span></div>
+        <div class="p-7 text-right"><h3 class="serif text-2xl font-medium text-goldl">תכנון והקמת חללים אישיים</h3><p class="mt-3 leading-relaxed text-cream/70">תכנון והקמת חללים המותאמים לצרכים ולרצונות הייחודיים שלכם — מפגישות אישיות להבנת הדרישות, דרך יצירת רעיונות ועד בחירת חומרים ועיצובים שמתאימים לאורח החיים שלכם.</p></div>
+      </article>
+      <article class="lift group overflow-hidden rounded-2xl bg-ink2 ring-1 ring-white/10">
+        <div class="relative h-56 overflow-hidden"><img src="{{GALLERY_KITCHEN}}" alt="ליווי בפרויקט אדריכלי כולל" class="h-full w-full object-cover transition duration-700 group-hover:scale-105"><span class="idx absolute right-5 top-3">02</span></div>
+        <div class="p-7 text-right"><h3 class="serif text-2xl font-medium text-goldl">ליווי בפרויקט אדריכלי כולל</h3><p class="mt-3 leading-relaxed text-cream/70">ניהול פרויקט מקצה לקצה — מפגישה ראשונית להבנת הצרכים, דרך תכנון מפורט ועד ביצוע בפועל, בעבודה צמודה עם אדריכלים, קבלנים ובעלי מקצוע, עם פיקוח להבטחת סטנדרטים גבוהים.</p></div>
+      </article>
+      <article class="lift group overflow-hidden rounded-2xl bg-ink2 ring-1 ring-white/10">
+        <div class="relative h-56 overflow-hidden"><img src="{{ROOM_BATH_MARBLE}}" alt="עיצוב פנים על פי טרנדים עכשוויים" class="h-full w-full object-cover transition duration-700 group-hover:scale-105"><span class="idx absolute right-5 top-3">03</span></div>
+        <div class="p-7 text-right"><h3 class="serif text-2xl font-medium text-goldl">עיצוב פנים לפי טרנדים עכשוויים</h3><p class="mt-3 leading-relaxed text-cream/70">עיצוב המבוסס על המגמות העדכניות בעולם האדריכלות והעיצוב — מחקר מעמיק של הטרנדים, התאמה לטעם האישי שלכם, והרכבת פריטי עיצוב וריהוט שמעניקים לחלל מראה עדכני ומרשים.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE 1 -->
+<section class="bg-cream py-20 md:py-28">
+  <div class="mx-auto grid max-w-6xl items-center gap-12 px-5 md:px-10 lg:grid-cols-2">
+    <div data-reveal class="relative order-1 lg:order-2"><div class="overflow-hidden rounded-[1.2rem] shadow-2xl"><img src="{{GALLERY_BEDROOM2}}" alt="תכנון חלל אישי" class="aspect-[5/4] w-full object-cover"></div></div>
+    <div data-reveal class="order-2 text-center lg:order-1 lg:text-right">
+      <span class="eyebrow">01 · חללים אישיים</span>
+      <h2 class="serif mt-5 text-4xl font-light leading-tight text-ink md:text-[2.7rem]">חלל שמתאים<br>בדיוק לכם</h2>
+      <p class="mt-5 text-lg leading-relaxed text-body/90">התהליך מתחיל בפגישות אישיות שבהן אני לומדת להכיר אתכם — את הצרכים, הטעם והחלומות. משם נולדים רעיונות ייחודיים, ונבחרים חומרים ועיצובים שמתאימים בדיוק לאורח החיים שלכם. התאמה אישית מלאה, בשיתוף פעולה צמוד לאורך כל הדרך.</p>
+      <a href="#contact" class="mt-7 inline-flex items-center gap-2 text-sm font-bold tracking-wide text-goldd transition hover:gap-3">לתיאום פגישה<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE 2 -->
+<section class="relative overflow-hidden bg-sand py-20 md:py-28">
+  <div class="mx-auto grid max-w-6xl items-center gap-12 px-5 md:px-10 lg:grid-cols-2">
+    <div data-reveal class="relative"><div class="overflow-hidden rounded-[1.2rem] shadow-2xl"><img src="{{GALLERY_KITCHEN}}" alt="ליווי פרויקט אדריכלי" class="aspect-[5/4] w-full object-cover"></div></div>
+    <div data-reveal class="text-center lg:text-right">
+      <span class="eyebrow">02 · פרויקט אדריכלי</span>
+      <h2 class="serif mt-5 text-4xl font-light leading-tight text-ink md:text-[2.7rem]">ליווי מלא,<br>מהשרטוט ועד המפתח</h2>
+      <p class="mt-5 text-lg leading-relaxed text-body/90">פרויקט אדריכלי כולל דורש ניהול מדויק. אני מלווה אתכם מהפגישה הראשונית, דרך תכנון מפורט, ועד ניהול וביצוע בפועל — בעבודה צמודה עם אדריכלים, קבלנים ובעלי מקצוע, ועם פיקוח שמבטיח איכות, עמידה בלוחות זמנים וסטנדרטים גבוהים.</p>
+      <a href="#contact" class="mt-7 inline-flex items-center gap-2 text-sm font-bold tracking-wide text-goldd transition hover:gap-3">לפרטים נוספים<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE 3 -->
+<section class="bg-cream py-20 md:py-28">
+  <div class="mx-auto grid max-w-6xl items-center gap-12 px-5 md:px-10 lg:grid-cols-2">
+    <div data-reveal class="relative order-1 lg:order-2"><div class="overflow-hidden rounded-[1.2rem] shadow-2xl"><img src="{{GALLERY_DINING}}" alt="עיצוב לפי טרנדים" class="aspect-[5/4] w-full object-cover"></div></div>
+    <div data-reveal class="order-2 text-center lg:order-1 lg:text-right">
+      <span class="eyebrow">03 · טרנדים עכשוויים</span>
+      <h2 class="serif mt-5 text-4xl font-light leading-tight text-ink md:text-[2.7rem]">עדכני, מרשים<br>ונאמן לכם</h2>
+      <p class="mt-5 text-lg leading-relaxed text-body/90">העיצוב מבוסס על המגמות העדכניות ביותר בעולם — אבל תמיד דרך הפריזמה שלכם. אני חוקרת את הטרנדים החדשים, בוחנת את התאמתם לטעם ולסגנון החיים שלכם, ומרכיבה יחד אתכם פריטי עיצוב וריהוט שמעניקים לחלל מראה עכשווי, מרשים ובלתי נשכח.</p>
+      <a href="#contact" class="mt-7 inline-flex items-center gap-2 text-sm font-bold tracking-wide text-goldd transition hover:gap-3">בואו נתחיל<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" class="relative overflow-hidden bg-ink py-20 text-cream md:py-28">
+  <div class="deco"><div class="ringdeco" style="width:30rem;height:30rem;bottom:-12rem;right:-10rem"></div></div>
+  <div class="relative mx-auto max-w-[1680px] px-5 md:px-10">
+    <div class="text-center" data-reveal>
+      <span class="eyebrow light center justify-center">תהליך העבודה</span>
+      <h2 class="serif mt-5 text-4xl font-light text-cream md:text-5xl">המסע שלנו <span class="grad-text">יחד</span></h2>
+      <p class="mx-auto mt-4 max-w-xl text-cream/70">ארבעה שלבים מסודרים — מהרעיון הראשון ועד הרגע שאתם נכנסים הביתה.</p>
+    </div>
+    <div class="mt-16 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4" data-reveal>
+      <div class="relative text-center lg:text-right"><span class="idx">01</span><div class="mt-3 mb-2 h-px w-full bg-gradient-to-l from-transparent via-gold/40 to-gold/40"></div><h3 class="serif text-xl font-medium text-goldl">רעיון והשראה</h3><p class="mt-2 text-sm leading-relaxed text-cream/70">פגישת היכרות, הבנת הצרכים והחלומות, ואיסוף השראה לכיוון העיצובי.</p></div>
+      <div class="relative text-center lg:text-right"><span class="idx">02</span><div class="mt-3 mb-2 h-px w-full bg-gradient-to-l from-transparent via-gold/40 to-gold/40"></div><h3 class="serif text-xl font-medium text-goldl">תכנון מפורט</h3><p class="mt-2 text-sm leading-relaxed text-cream/70">תכניות, הדמיות, בחירת חומרים, גוונים וריהוט — עד לתמונה מדויקת ומלאה.</p></div>
+      <div class="relative text-center lg:text-right"><span class="idx">03</span><div class="mt-3 mb-2 h-px w-full bg-gradient-to-l from-transparent via-gold/40 to-gold/40"></div><h3 class="serif text-xl font-medium text-goldl">ביצוע וליווי</h3><p class="mt-2 text-sm leading-relaxed text-cream/70">ניהול מול בעלי המקצוע ופיקוח צמוד, כדי שהכל ייצא לפועל בדיוק כמתוכנן.</p></div>
+      <div class="relative text-center lg:text-right"><span class="idx">04</span><div class="mt-3 mb-2 h-px w-full bg-gradient-to-l from-transparent via-gold/40 to-gold/40"></div><h3 class="serif text-xl font-medium text-goldl">גימור ומסירה</h3><p class="mt-2 text-sm leading-relaxed text-cream/70">תשומת לב לפרטים הקטנים, סטיילינג אחרון, ומסירת חלל מושלם ומוכן.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio" class="bg-cream py-20 md:py-28">
+  <div class="mx-auto max-w-[1680px] px-5 md:px-10">
+    <div class="text-center" data-reveal>
+      <span class="eyebrow center justify-center">פרויקטים נבחרים</span>
+      <h2 class="serif mt-5 text-4xl font-light text-ink md:text-5xl">גלריית <span class="grad-text">עבודות</span></h2>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-body/80">מבחר חללים שתכננתי ועיצבתי — סלונים, מטבחים, חדרי שינה וחדרי רחצה.</p>
+    </div>
+    <div class="mt-12 grid grid-cols-2 gap-3 md:grid-cols-4" data-reveal>
+      <div class="gimg col-span-2 row-span-2 rounded-2xl" data-lb="{{GALLERY_LIVING}}"><img src="{{GALLERY_LIVING}}" alt="סלון מעוצב" loading="lazy" class="min-h-[18rem]"></div>
+      <div class="gimg rounded-2xl" data-lb="{{ROOM_BATH_MARBLE}}"><img src="{{ROOM_BATH_MARBLE}}" alt="חדר רחצה משיש" loading="lazy" class="h-48"></div>
+      <div class="gimg rounded-2xl" data-lb="{{GALLERY_KITCHEN}}"><img src="{{GALLERY_KITCHEN}}" alt="מטבח מעוצב" loading="lazy" class="h-48"></div>
+      <div class="gimg rounded-2xl" data-lb="{{ROOM_BEDROOM}}"><img src="{{ROOM_BEDROOM}}" alt="חדר שינה" loading="lazy" class="h-48"></div>
+      <div class="gimg rounded-2xl" data-lb="{{GALLERY_FOYER}}"><img src="{{GALLERY_FOYER}}" alt="מבואת כניסה" loading="lazy" class="h-48"></div>
+      <div class="gimg col-span-2 rounded-2xl" data-lb="{{GALLERY_DINING}}"><img src="{{GALLERY_DINING}}" alt="פינת אוכל" loading="lazy" class="h-48 md:h-[12.5rem]"></div>
+      <div class="gimg rounded-2xl" data-lb="{{GALLERY_CLOSET}}"><img src="{{GALLERY_CLOSET}}" alt="חדר ארונות" loading="lazy" class="h-48"></div>
+      <div class="gimg rounded-2xl" data-lb="{{ROOM_BATH_STONE}}"><img src="{{ROOM_BATH_STONE}}" alt="חדר רחצה" loading="lazy" class="h-48"></div>
+      <div class="gimg rounded-2xl" data-lb="{{GALLERY_BEDROOM2}}"><img src="{{GALLERY_BEDROOM2}}" alt="חדר שינה מרכזי" loading="lazy" class="h-48"></div>
+      <div class="gimg rounded-2xl" data-lb="{{ROOM_BATH_GRAY}}"><img src="{{ROOM_BATH_GRAY}}" alt="חדר רחצה אפור" loading="lazy" class="h-48"></div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="relative overflow-hidden bg-sand py-20 md:py-28">
+  <div class="mx-auto max-w-6xl px-5 md:px-10">
+    <div class="text-center" data-reveal>
+      <span class="eyebrow center justify-center">הגישה שלי</span>
+      <h2 class="serif mt-5 text-4xl font-light text-ink md:text-5xl">מה שהופך חלל <span class="grad-text">למיוחד</span></h2>
+    </div>
+    <div class="mt-14 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3" data-reveal>
+      <div class="text-center lg:text-right"><span class="svc-ic mx-auto lg:mx-0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span><h3 class="serif mt-4 text-xl font-medium text-ink">דיוק בפרטים</h3><p class="mt-2 leading-relaxed text-body/80">הקפדה על כל פרט קטן — כי הפרטים הם שיוצרים את ההבדל בין יפה למושלם.</p></div>
+      <div class="text-center lg:text-right"><span class="svc-ic mx-auto lg:mx-0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg></span><h3 class="serif mt-4 text-xl font-medium text-ink">אסתטיקה מושלמת</h3><p class="mt-2 leading-relaxed text-body/80">חיבור בין יופי, פרופורציה ואור — לחלל הרמוני שמרגישים בו טוב.</p></div>
+      <div class="text-center lg:text-right"><span class="svc-ic mx-auto lg:mx-0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8z"/></svg></span><h3 class="serif mt-4 text-xl font-medium text-ink">אהבה ותשוקה</h3><p class="mt-2 leading-relaxed text-body/80">כל פרויקט נעשה מתוך תשוקה אמיתית לעולם העיצוב, ועם לב מלא.</p></div>
+      <div class="text-center lg:text-right"><span class="svc-ic mx-auto lg:mx-0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9" r="2.6"/><path d="M3 20a6 6 0 0 1 12 0M14.5 20a5 5 0 0 1 6.5-4.8"/></svg></span><h3 class="serif mt-4 text-xl font-medium text-ink">שיתוף פעולה צמוד</h3><p class="mt-2 leading-relaxed text-body/80">אתם שותפים מלאים לאורך כל הדרך — שומעת, מתאימה ומגשימה.</p></div>
+      <div class="text-center lg:text-right"><span class="svc-ic mx-auto lg:mx-0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 17l6-6 4 4 8-8M14 4h7v7"/></svg></span><h3 class="serif mt-4 text-xl font-medium text-ink">טרנדים עכשוויים</h3><p class="mt-2 leading-relaxed text-body/80">השראה מהמגמות החדשות בעולם, מותאמת לטעם ולצרכים שלכם.</p></div>
+      <div class="text-center lg:text-right"><span class="svc-ic mx-auto lg:mx-0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span><h3 class="serif mt-4 text-xl font-medium text-ink">עמידה בזמנים ובתקציב</h3><p class="mt-2 leading-relaxed text-body/80">תכנון נכון וניהול מסודר — להבטחת לוחות זמנים ותקציב מותאם.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="bg-cream py-20 md:py-28">
+  <div class="mx-auto max-w-[1680px] px-5 md:px-10">
+    <div class="text-center" data-reveal><span class="eyebrow center justify-center">לקוחות מספרים</span><h2 class="serif mt-5 text-4xl font-light text-ink md:text-5xl">מילים <span class="grad-text">מהלב</span></h2></div>
+    <div class="mt-14 grid gap-6 md:grid-cols-3" data-reveal>
+      <figure class="lift rounded-2xl bg-sand p-8 text-right ring-1 ring-gold/15"><div class="text-goldd text-2xl serif">"</div><blockquote class="-mt-3 leading-relaxed text-body/90">מירב לקחה את הבית שלנו למקום שלא דמיינו. כל פינה מתוכננת, כל פרט מדויק, והליווי היה צמוד ונעים לאורך כל הדרך.</blockquote><figcaption class="mt-6 flex items-center gap-3"><span class="grid h-10 w-10 place-items-center rounded-full grad font-bold text-ink">ש</span><div><div class="font-bold text-ink">שירה ל.</div><div class="text-xs text-body/60">דירה ב{{CITY}}</div></div></figcaption></figure>
+      <figure class="lift rounded-2xl bg-sand p-8 text-right ring-1 ring-gold/15"><div class="text-goldd text-2xl serif">"</div><blockquote class="-mt-3 leading-relaxed text-body/90">תכנון אדריכלי מההתחלה ועד הסוף. הפיקוח הצמוד חסך לנו טעויות יקרות, והתוצאה מרשימה בדיוק כמו בהדמיות.</blockquote><figcaption class="mt-6 flex items-center gap-3"><span class="grid h-10 w-10 place-items-center rounded-full grad font-bold text-ink">ע</span><div><div class="font-bold text-ink">עידן ומאיה</div><div class="text-xs text-body/60">בית פרטי</div></div></figcaption></figure>
+      <figure class="lift rounded-2xl bg-sand p-8 text-right ring-1 ring-gold/15"><div class="text-goldd text-2xl serif">"</div><blockquote class="-mt-3 leading-relaxed text-body/90">טעם מעולה ויחס אישי באמת. הקשיבה לכל מה שרצינו והוסיפה את הקסם שלה. ממליצים בחום על מירב.</blockquote><figcaption class="mt-6 flex items-center gap-3"><span class="grid h-10 w-10 place-items-center rounded-full grad font-bold text-ink">ד</span><div><div class="font-bold text-ink">דנה כ.</div><div class="text-xs text-body/60">שיפוץ דירה</div></div></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- INSTAGRAM / SOCIAL -->
+<section class="bg-ink py-20 text-cream md:py-24">
+  <div class="mx-auto max-w-[1680px] px-5 md:px-10">
+    <div class="flex flex-col items-center justify-between gap-5 text-center md:flex-row md:text-right" data-reveal>
+      <div>
+        <span class="eyebrow light">עקבו אחריי</span>
+        <h2 class="serif mt-4 text-3xl font-light text-cream md:text-4xl">השראה יומיומית ברשתות</h2>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="https://instagram.com/Mormor7326" target="_blank" rel="noopener" aria-label="Instagram" class="grid h-11 w-11 place-items-center rounded-full border border-gold/40 text-goldl transition hover:bg-gold/10"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="https://www.tiktok.com/@mor.mor299" target="_blank" rel="noopener" aria-label="TikTok" class="grid h-11 w-11 place-items-center rounded-full border border-gold/40 text-goldl transition hover:bg-gold/10"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2.1 1.6 3.7 3.7 4v2.6c-1.3.1-2.5-.3-3.7-1v6.2c0 3.2-2.4 5.7-5.6 5.7S5.3 18 5.3 14.9c0-3 2.2-5.4 5.2-5.6v2.7c-1.4.2-2.5 1.3-2.5 2.8 0 1.6 1.2 2.8 2.8 2.8s2.8-1.2 2.8-3V3h2.9z"/></svg></a>
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook" class="grid h-11 w-11 place-items-center rounded-full border border-gold/40 text-goldl transition hover:bg-gold/10"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M14 9V7c0-1 .3-1.5 1.6-1.5H17V2.2C16.6 2.1 15.5 2 14.4 2 11.9 2 10.3 3.5 10.3 6.3V9H8v3.4h2.3V22h3.7v-9.6h2.6l.4-3.4H14z"/></svg></a>
+      </div>
+    </div>
+    <div class="mq mt-10" data-reveal><div class="mq-track">
+      <div class="gimg w-64 shrink-0 rounded-xl" style="height:16rem" data-lb="{{GALLERY_LIVING}}"><img src="{{GALLERY_LIVING}}" alt="" loading="lazy"></div>
+      <div class="gimg w-64 shrink-0 rounded-xl" style="height:16rem" data-lb="{{ROOM_BATH_MARBLE}}"><img src="{{ROOM_BATH_MARBLE}}" alt="" loading="lazy"></div>
+      <div class="gimg w-64 shrink-0 rounded-xl" style="height:16rem" data-lb="{{GALLERY_KITCHEN}}"><img src="{{GALLERY_KITCHEN}}" alt="" loading="lazy"></div>
+      <div class="gimg w-64 shrink-0 rounded-xl" style="height:16rem" data-lb="{{GALLERY_CLOSET}}"><img src="{{GALLERY_CLOSET}}" alt="" loading="lazy"></div>
+      <div class="gimg w-64 shrink-0 rounded-xl" style="height:16rem" data-lb="{{GALLERY_FOYER}}"><img src="{{GALLERY_FOYER}}" alt="" loading="lazy"></div>
+      <div class="gimg w-64 shrink-0 rounded-xl" style="height:16rem" data-lb="{{GALLERY_DINING}}"><img src="{{GALLERY_DINING}}" alt="" loading="lazy"></div>
+      <div class="gimg w-64 shrink-0 rounded-xl" style="height:16rem" data-lb="{{ROOM_BEDROOM}}"><img src="{{ROOM_BEDROOM}}" alt="" loading="lazy"></div>
+      <div class="gimg w-64 shrink-0 rounded-xl" style="height:16rem" data-lb="{{GALLERY_BEDROOM2}}"><img src="{{GALLERY_BEDROOM2}}" alt="" loading="lazy"></div>
+    </div></div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="relative overflow-hidden bg-cream py-20 md:py-24">
+  <div class="mx-auto max-w-4xl px-5 text-center md:px-10" data-reveal>
+    <span class="eyebrow center justify-center">מוכנים להתחיל?</span>
+    <h2 class="serif mt-5 text-4xl font-light leading-tight text-ink md:text-5xl">בואו נהפוך את הבית שלכם <span class="grad-text">ליצירה</span></h2>
+    <p class="mx-auto mt-5 max-w-xl text-lg text-body/80">פגישת ייעוץ ראשונית להבנת החזון שלכם — ללא התחייבות.</p>
+    <div class="mt-9 flex flex-wrap items-center justify-center gap-3">
+      <a href="#contact" class="grad rounded-full px-9 py-4 text-sm font-bold tracking-wide text-ink shadow-xl transition hover:scale-105">לתיאום פגישה</a>
+      <a href="https://wa.me/{{PHONE_INTL}}?text=%D7%94%D7%99%20%D7%9E%D7%99%D7%A8%D7%91%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%A9%D7%99%D7%A8%D7%95%D7%AA%D7%99%20%D7%94%D7%A2%D7%99%D7%A6%D7%95%D7%91" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-goldd/50 px-9 py-4 text-sm font-semibold text-goldd transition hover:bg-gold/10"><svg width="18" height="18" viewBox="0 0 24 24" fill="#25D366"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24z"/></svg>וואטסאפ</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="bg-sand py-20 md:py-28">
+  <div class="mx-auto max-w-3xl px-5 md:px-10">
+    <div class="text-center" data-reveal><span class="eyebrow center justify-center">שאלות נפוצות</span><h2 class="serif mt-5 text-4xl font-light text-ink md:text-5xl">כל מה שרציתם לדעת</h2></div>
+    <div class="mt-12 space-y-3" data-reveal>
+      <details class="group rounded-2xl bg-cream p-5 ring-1 ring-gold/15"><summary class="serif flex cursor-pointer items-center justify-between gap-3 text-right text-lg font-medium text-ink"><span>איך מתחיל תהליך העבודה?</span><svg class="faq-ico shrink-0 text-goldd transition" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><p class="mt-3 leading-relaxed text-body/85">מתחילים בפגישת היכרות שבה נבין יחד את הצרכים, הטעם והחזון שלכם. משם אני בונה כיוון עיצובי ותכנית עבודה מסודרת.</p></details>
+      <details class="group rounded-2xl bg-cream p-5 ring-1 ring-gold/15"><summary class="serif flex cursor-pointer items-center justify-between gap-3 text-right text-lg font-medium text-ink"><span>האם את מלווה גם את הביצוע בפועל?</span><svg class="faq-ico shrink-0 text-goldd transition" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><p class="mt-3 leading-relaxed text-body/85">בהחלט. אני מציעה ליווי מקצה לקצה — כולל עבודה מול אדריכלים, קבלנים ובעלי מקצוע, ופיקוח צמוד לאורך הביצוע.</p></details>
+      <details class="group rounded-2xl bg-cream p-5 ring-1 ring-gold/15"><summary class="serif flex cursor-pointer items-center justify-between gap-3 text-right text-lg font-medium text-ink"><span>באילו סוגי חללים את עוסקת?</span><svg class="faq-ico shrink-0 text-goldd transition" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><p class="mt-3 leading-relaxed text-body/85">תכנון ועיצוב של בתים פרטיים, דירות וחללים מסוגים שונים — כל פרויקט מקבל תכנון מותאם אישית.</p></details>
+      <details class="group rounded-2xl bg-cream p-5 ring-1 ring-gold/15"><summary class="serif flex cursor-pointer items-center justify-between gap-3 text-right text-lg font-medium text-ink"><span>האם העיצוב מתאים גם לתקציב מוגדר?</span><svg class="faq-ico shrink-0 text-goldd transition" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><p class="mt-3 leading-relaxed text-body/85">כן. אני מתאימה את התכנון לתקציב ולצרכים שלכם, ומקפידה על לוחות זמנים — כדי להפיק את המרב מכל שקל.</p></details>
+      <details class="group rounded-2xl bg-cream p-5 ring-1 ring-gold/15"><summary class="serif flex cursor-pointer items-center justify-between gap-3 text-right text-lg font-medium text-ink"><span>באילו אזורים את עובדת?</span><svg class="faq-ico shrink-0 text-goldd transition" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><p class="mt-3 leading-relaxed text-body/85">אני פועלת ב{{CITY_AREA}}. מוזמנים לפנות אליי לבדיקת התאמה גם לאזורים נוספים.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="relative overflow-hidden bg-ink py-20 text-cream md:py-28">
+  <div class="blob" style="width:28rem;height:28rem;background:#967547;opacity:.18;top:-8rem;right:-6rem"></div>
+  <div class="blob" style="width:24rem;height:24rem;background:#574735;opacity:.3;bottom:-8rem;left:-6rem"></div>
+  <div class="relative mx-auto grid max-w-6xl items-start gap-12 px-5 md:px-10 lg:grid-cols-2">
+    <div data-reveal class="text-center lg:text-right">
+      <span class="eyebrow light">צרו קשר</span>
+      <h2 class="serif mt-5 text-4xl font-light leading-tight text-cream md:text-5xl">בואו נדבר על<br><span class="grad-text">הפרויקט שלכם</span></h2>
+      <p class="mx-auto mt-5 max-w-md text-lg text-cream/75 lg:mx-0">השאירו פרטים ואחזור אליכם, או דברו איתי ישירות.</p>
+      <div class="mx-auto mt-9 grid max-w-md gap-3 text-right lg:mx-0">
+        <a href="tel:+{{PHONE_INTL}}" class="lift flex items-center justify-between gap-3 rounded-2xl bg-ink2 p-4 ring-1 ring-white/10"><span dir="ltr" class="font-semibold text-cream">{{PHONE_HUMAN}}</span><span class="svc-ic !h-11 !w-11 !border-gold/40"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.3 1l-2.2 2.3z"/></svg></span></a>
+        <div class="flex items-center justify-between gap-3 rounded-2xl bg-ink2 p-4 ring-1 ring-white/10"><span class="font-semibold text-cream">{{CITY_AREA}}</span><span class="svc-ic !h-11 !w-11 !border-gold/40"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-5.3-7-11a7 7 0 1 1 14 0c0 5.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span></div>
+        <div class="mt-2 flex items-center justify-center gap-3 lg:justify-start">
+          <a href="https://instagram.com/Mormor7326" target="_blank" rel="noopener" aria-label="Instagram" class="grid h-11 w-11 place-items-center rounded-full border border-gold/40 text-goldl transition hover:bg-gold/10"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://www.tiktok.com/@mor.mor299" target="_blank" rel="noopener" aria-label="TikTok" class="grid h-11 w-11 place-items-center rounded-full border border-gold/40 text-goldl transition hover:bg-gold/10"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2.1 1.6 3.7 3.7 4v2.6c-1.3.1-2.5-.3-3.7-1v6.2c0 3.2-2.4 5.7-5.6 5.7S5.3 18 5.3 14.9c0-3 2.2-5.4 5.2-5.6v2.7c-1.4.2-2.5 1.3-2.5 2.8 0 1.6 1.2 2.8 2.8 2.8s2.8-1.2 2.8-3V3h2.9z"/></svg></a>
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook" class="grid h-11 w-11 place-items-center rounded-full border border-gold/40 text-goldl transition hover:bg-gold/10"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M14 9V7c0-1 .3-1.5 1.6-1.5H17V2.2C16.6 2.1 15.5 2 14.4 2 11.9 2 10.3 3.5 10.3 6.3V9H8v3.4h2.3V22h3.7v-9.6h2.6l.4-3.4H14z"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <form id="leadForm" novalidate data-reveal class="rounded-2xl bg-cream p-7 shadow-2xl">
+      <h3 class="serif text-2xl font-medium text-ink">טופס יצירת קשר</h3>
+      <div class="mt-5 grid gap-3 sm:grid-cols-2">
+        <input id="leadName" name="name" type="text" required placeholder="שם מלא" class="rounded-xl bg-sand px-4 py-3 text-right text-ink ring-1 ring-gold/20 placeholder:text-body/50 focus:outline-none focus:ring-2 focus:ring-goldd">
+        <input id="leadPhone" name="phone" type="tel" inputmode="tel" required placeholder="טלפון" dir="ltr" class="rounded-xl bg-sand px-4 py-3 text-right text-ink ring-1 ring-gold/20 placeholder:text-body/50 focus:outline-none focus:ring-2 focus:ring-goldd">
+      </div>
+      <select name="service" class="mt-3 w-full rounded-xl bg-sand px-4 py-3 text-right text-ink ring-1 ring-gold/20 focus:outline-none focus:ring-2 focus:ring-goldd">
+        <option value="">סוג הפרויקט…</option>
+        <option>תכנון והקמת חלל אישי</option>
+        <option>ליווי פרויקט אדריכלי כולל</option>
+        <option>עיצוב פנים / שיפוץ</option>
+        <option>ייעוץ עיצובי</option>
+        <option>אחר</option>
+      </select>
+      <textarea name="message" rows="3" placeholder="ספרו לי על הפרויקט…" class="mt-3 w-full resize-none rounded-xl bg-sand px-4 py-3 text-right text-ink ring-1 ring-gold/20 placeholder:text-body/50 focus:outline-none focus:ring-2 focus:ring-goldd"></textarea>
+      <button id="leadBtn" type="submit" class="grad mt-4 w-full rounded-xl px-5 py-3.5 text-sm font-bold tracking-wide text-ink shadow-md transition hover:opacity-90 active:scale-95">שליחה בוואטסאפ</button>
+      <p id="leadFb" class="mt-2.5 hidden text-center text-sm font-semibold"></p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-[#101113] py-14 text-cream/70">
+  <div class="mx-auto grid max-w-[1680px] gap-10 px-5 md:grid-cols-3 md:px-10">
+    <div>
+      <div dir="ltr" class="flex flex-col leading-none"><span class="latin text-2xl font-semibold tracking-[.32em] text-goldl">MERAV VASHDI</span><span class="mt-1 text-[.55rem] font-semibold tracking-[.5em] text-gold/80">INTERIOR&nbsp;DESIGN</span></div>
+      <p class="mt-5 max-w-xs text-sm leading-relaxed text-cream/55">עיצוב פנים ואדריכלות פנים בתכנון מותאם אישית. חללים שמשלבים אסתטיקה, דיוק ואהבה — מהרעיון ועד הגימור המושלם.</p>
+    </div>
+    <div>
+      <div class="mb-4 text-xs font-bold tracking-[.2em] text-goldl/80">ניווט</div>
+      <ul class="space-y-2 text-sm">
+        <li><a href="#about" class="hover:text-goldl">עליי</a></li>
+        <li><a href="#services" class="hover:text-goldl">שירותים</a></li>
+        <li><a href="#portfolio" class="hover:text-goldl">פרויקטים</a></li>
+        <li><a href="#contact" class="hover:text-goldl">צרו קשר</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="mb-4 text-xs font-bold tracking-[.2em] text-goldl/80">יצירת קשר</div>
+      <a href="tel:+{{PHONE_INTL}}" dir="ltr" class="block text-sm hover:text-goldl">{{PHONE_HUMAN}}</a>
+      <div class="mt-1.5 text-sm">{{CITY_AREA}}</div>
+      <div class="mt-4 flex gap-3">
+        <a href="https://instagram.com/Mormor7326" target="_blank" rel="noopener" aria-label="Instagram" class="text-goldl/80 transition hover:text-goldl"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="https://www.tiktok.com/@mor.mor299" target="_blank" rel="noopener" aria-label="TikTok" class="text-goldl/80 transition hover:text-goldl"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2.1 1.6 3.7 3.7 4v2.6c-1.3.1-2.5-.3-3.7-1v6.2c0 3.2-2.4 5.7-5.6 5.7S5.3 18 5.3 14.9c0-3 2.2-5.4 5.2-5.6v2.7c-1.4.2-2.5 1.3-2.5 2.8 0 1.6 1.2 2.8 2.8 2.8s2.8-1.2 2.8-3V3h2.9z"/></svg></a>
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook" class="text-goldl/80 transition hover:text-goldl"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M14 9V7c0-1 .3-1.5 1.6-1.5H17V2.2C16.6 2.1 15.5 2 14.4 2 11.9 2 10.3 3.5 10.3 6.3V9H8v3.4h2.3V22h3.7v-9.6h2.6l.4-3.4H14z"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="mx-auto mt-12 max-w-[1680px] border-t border-white/10 px-5 pt-6 text-center text-xs text-cream/40 md:px-10">© 2026 {{OWNER_NAME}} · עיצוב פנים ואדריכלות. כל הזכויות שמורות.</div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/{{PHONE_INTL}}?text=%D7%94%D7%99%20%D7%9E%D7%99%D7%A8%D7%91%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%A9%D7%99%D7%A8%D7%95%D7%AA%D7%99%20%D7%94%D7%A2%D7%99%D7%A6%D7%95%D7%91" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.044z"/></svg></a>
+
+<div id="lb"><img alt=""></div>
+
+<script>
+(function(){
+  var t=document.getElementById('navToggle');
+  if(t){var m=document.getElementById('mnav'),o=document.getElementById('navOpen'),c=document.getElementById('navClose');
+    function set(open){m.classList.toggle('hidden',!open);o.classList.toggle('hidden',open);c.classList.toggle('hidden',!open);t.setAttribute('aria-expanded',open);}
+    t.addEventListener('click',function(){set(m.classList.contains('hidden'));});
+    m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){set(false);});});}
+  document.querySelectorAll('.mq-track').forEach(function(tr){tr.innerHTML+=tr.innerHTML;});
+  var faqs=document.querySelectorAll('#faq details');
+  faqs.forEach(function(d){d.addEventListener('toggle',function(){if(d.open)faqs.forEach(function(o){if(o!==d)o.open=false;});});});
+  var lb=document.getElementById('lb');
+  if(lb){var lbi=lb.querySelector('img');
+    document.querySelectorAll('[data-lb]').forEach(function(el){el.addEventListener('click',function(){lbi.src=el.getAttribute('data-lb');lb.classList.add('open');});});
+    lb.addEventListener('click',function(){lb.classList.remove('open');});}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.1});
+  document.querySelectorAll('[data-reveal]').forEach(function(el){io.observe(el);});
+  var f=document.getElementById('leadForm');
+  if(f){var nm=document.getElementById('leadName'),ph=document.getElementById('leadPhone'),fb=document.getElementById('leadFb');
+    f.addEventListener('submit',function(e){e.preventDefault();
+      var d=new FormData(f),name=(d.get('name')||'').trim(),phone=(d.get('phone')||'').replace(/[\s\-()]/g,''),svc=d.get('service')||'',msg=(d.get('message')||'').trim();
+      if(name.length<2){fb.textContent='אנא הזינו שם';fb.style.color='#b00';fb.classList.remove('hidden');nm.focus();return;}
+      if(!/^0\d{8,9}$/.test(phone)){fb.textContent='אנא הזינו טלפון תקין';fb.style.color='#b00';fb.classList.remove('hidden');ph.focus();return;}
+      var text='היי מירב, פנייה מהאתר:\nשם: '+name+'\nטלפון: '+phone+(svc?('\nסוג פרויקט: '+svc):'')+(msg?('\nפרטים: '+msg):'');
+      window.open('https://wa.me/{{PHONE_INTL}}?text='+encodeURIComponent(text),'_blank');
+      fb.textContent='תודה! פותחת וואטסאפ לשליחת הפנייה ✨';fb.style.color='#967547';fb.classList.remove('hidden');f.reset();
+    });}
+})();
+</script>
+</body>
+</html>

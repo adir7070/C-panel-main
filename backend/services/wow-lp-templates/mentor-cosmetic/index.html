@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="טיפולי פנים וקוסמטיקה לנשים בלבד. הבית שלך לטיפולי יופי ופנים מתקדמים. כי העור שלך ראוי לטוב ביותר!" />
+  <meta name="theme-color" content="#ffb4a2" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="{{BUSINESS_NAME}}ס – טיפולי פנים בבאר שבע" />
+  <meta property="og:description" content="טיפולי פנים וקוסמטיקה לנשים בלבד. הבית שלך לטיפולי יופי ופנים מתקדמים." />
+  <meta property="og:locale" content="he_IL" />
+
+  <title>{{BUSINESS_NAME}}ס | טיפולי פנים מקצועיים – באר שבע</title>
+
+  <link rel="icon" href="{{LOGO_URL}}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <a href="#main" class="skip-link">דלג לתוכן ראשי</a>
+
+  <!-- ===== TOP BAR (peach) – services row ===== -->
+  <div class="topbar">
+    <div class="topbar-track">
+      <a href="#services"><img src="assets/images/face_15311806.svg" alt=""><span>טיפול אנטי-אייג'ינג</span></a>
+      <a href="#services"><img src="assets/images/classic-facial.svg" alt=""><span>טיפול פנים קלאסי</span></a>
+      <a href="#services"><img src="assets/images/noun-acne-686688375-1.svg" alt=""><span>הסרת סרחי עור</span></a>
+      <a href="#services"><img src="assets/images/beauty-mascara.svg" alt=""><span>עיצוב גבות מקצועי</span></a>
+      <a href="#services"><img src="assets/images/noun-bride-6845320.svg" alt=""><span>טיפולי יופי לכלות ואירועים</span></a>
+      <a href="#services"><img src="assets/images/beauty-offer-1.svg" alt=""><span>טיפולי אקנה</span></a>
+      <a href="#services"><img src="assets/images/beauty-offer-6.svg" alt=""><span>טיפולי גלואו - זוהר</span></a>
+    </div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header" id="header">
+    <div class="header-row">
+      <div class="header-right">
+        <a href="#contact" class="btn btn-primary header-cta">קבעי פגישה</a>
+        <a href="tel:{{PHONE_LOCAL}}" class="header-info">
+          <img src="assets/images/ph-phone-call-bold.svg" alt="" class="ico"/>
+          <span>חייגי עכשיו <strong>{{PHONE_HUMAN}}</strong></span>
+        </a>
+        <a href="https://waze.com/ul?q={{ADDRESS_WAZE}}" target="_blank" rel="noopener" class="header-info">
+          <img src="assets/images/hugeicons-waze.svg" alt="" class="ico"/>
+          <span>{{ADDRESS}}</span>
+        </a>
+      </div>
+
+      <a href="#" class="brand">
+        <img src="{{LOGO_URL}}" alt="{{BUSINESS_NAME_EN}}" />
+      </a>
+
+      <div class="header-left">
+        <nav class="nav" id="nav">
+          <a href="#services">הטיפולים המובילים</a>
+          <a href="#testimonials">לקוחות ממליצות</a>
+          <a href="#faq">שאלות ותשובות</a>
+        </nav>
+        <div class="socials">
+          <a href="https://www.instagram.com/{{INSTAGRAM_HANDLE}}/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://www.facebook.com/{{FACEBOOK_HANDLE}}/" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 2.89h-2.33v6.99A10 10 0 0 0 22 12z"/></svg>
+          </a>
+        </div>
+        <button class="nav-toggle" aria-label="פתח תפריט" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ===== NEW HERO – Orna's soul + face tagline ===== -->
+    <section class="hero hero-split">
+      <div class="hero-inner hero-split-grid">
+        <div class="hero-copy">
+          <span class="pill">Master NLP · 40+ שנות ניסיון</span>
+          <h1>הפנים שלך הן<br/><span class="grad">המראה של הנפש שלך</span></h1>
+          <p class="hero-desc">
+            ברוכה הבאה למקום שבו יופי פוגש עומק, וניסיון של דורות פוגש את הטכנולוגיה המתקדמת ביותר.
+            אני אורנה — קוסמטיקאית, Master NLP ומרצה — ואני כאן כדי לקחת אותך למסע של התחדשות פנימית וחיצונית.
+          </p>
+          <div class="hero-cta-row">
+            <a href="#contact" class="btn btn-primary btn-lg">קבעי פגישת ייעוץ חינם</a>
+            <a href="tel:{{PHONE_LOCAL}}" class="btn btn-ghost btn-lg">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1.1em;height:1.1em"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              {{PHONE_HUMAN}}
+            </a>
+          </div>
+          <div class="hero-trust">
+            <div><strong>40+</strong><span>שנות ניסיון</span></div>
+            <div><strong>1,200+</strong><span>לקוחות מרוצות</span></div>
+            <div><strong>5.0★</strong><span>דירוג ממוצע</span></div>
+          </div>
+        </div>
+        <div class="hero-art">
+          <img src="{{HERO_IMAGE}}" alt="אורנה - {{BUSINESS_NAME}}ס" loading="eager"/>
+          <span class="hero-blob" aria-hidden="true"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ABOUT ORNA ===== -->
+    <section class="section about-orna">
+      <div class="container about-orna-grid">
+        <div class="about-orna-text">
+          <span class="eyebrow-tag">הכירי את אורנה</span>
+          <h2>40 שנה של אהבה לעור<br/>וניסיון שאי אפשר לזייף</h2>
+          <p>
+            שמי אורנה. כבר למעלה מ-40 שנה אני חיה ונושמת את עולם הקוסמטיקה. המסע שלי התחיל מאהבה גדולה
+            לאסתטיקה — אבל עם השנים הבנתי שכדי להגיע לתוצאות אמיתיות על עור הפנים, חייבות להסתכל גם פנימה.
+          </p>
+          <p>
+            לצד המומחיות המקצועית שלי כקוסמטיקאית ותיקה, אני מחזיקה בתואר <strong>Master NLP</strong>
+            ומרצה לפרקטיקת החיים בחיבור ליהדות. השילוב הזה מאפשר לי להעניק לך חוויה הוליסטית —
+            טיפול שמשקם את העור, יחד עם מנטורינג והעצמה נשית שמשקמים את הרוח.
+          </p>
+          <ul class="check-list">
+            <li>אבחון עור מקצועי ומדויק לפני כל טיפול</li>
+            <li>"מרשם" אישי של חומרים פעילים להמשך הטיפוח בבית</li>
+            <li>ליווי לאורך כל הדרך — לא רק בקליניקה</li>
+            <li>קליניקה פרטית, סטרילית ושקטה — לנשים בלבד</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary">קבעי פגישת אבחון</a>
+        </div>
+        <div class="about-orna-art">
+          <img src="{{PROCESS_IMAGE}}" alt="טיפול בקליניקה" loading="lazy"/>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 3 SPECIALTY TREATMENTS ===== -->
+    <section class="section specialties section-light">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow-tag">המומחיות שלי</span>
+          <h2>פתרונות מתקדמים, תוצאות שרואים</h2>
+          <p>אין סיפוק גדול יותר מאשר לקחת עור עייף או מאותגר ולהביא אותו למצב חדיש, רענן ומלא חיוניות.</p>
+        </header>
+
+        <div class="specialty-grid">
+          <article class="specialty-card">
+            <div class="specialty-img"><img src="{{TREATMENT_ANTIAGING_IMAGE}}" alt="טיפול אנטי-אייג'ינג" loading="lazy"/></div>
+            <div class="specialty-body">
+              <span class="specialty-num">01</span>
+              <h3>טיפולי אנטי-אייג'ינג</h3>
+              <p>מיצוק, הזנה עמוקה וחידוש מרקם העור. פרוטוקול מותאם אישית שמחזיר לפנים שלך את החיוניות והקרינה שאיבדו עם השנים.</p>
+              <ul class="mini-list">
+                <li>מיצוק והפחתת קמטים</li>
+                <li>הזנה עמוקה לעור יבש</li>
+                <li>חידוש מרקם העור</li>
+              </ul>
+              <a href="#contact" class="link">קבעי פגישה ←</a>
+            </div>
+          </article>
+
+          <article class="specialty-card">
+            <div class="specialty-img"><img src="{{TREATMENT_ACNE_IMAGE}}" alt="טיפול באקנה" loading="lazy"/></div>
+            <div class="specialty-body">
+              <span class="specialty-num">02</span>
+              <h3>טיפול מקצועי באקנה</h3>
+              <p>פתרונות יסודיים לעור נקי ובריא יותר. שילוב של טכנולוגיה מתקדמת, חומרים פעילים והתאמת טיפוח לבית לתוצאות שמחזיקות מעמד.</p>
+              <ul class="mini-list">
+                <li>פרוטוקול מותאם לסוג האקנה</li>
+                <li>טיפול בצלקות ובכתמים שנותרו</li>
+                <li>הדרכת טיפוח יומיומי בבית</li>
+              </ul>
+              <a href="#contact" class="link">קבעי פגישה ←</a>
+            </div>
+          </article>
+
+          <article class="specialty-card">
+            <div class="specialty-img"><img src="{{TREATMENT_PIGMENTATION_IMAGE}}" alt="הבהרת כתמים" loading="lazy"/></div>
+            <div class="specialty-body">
+              <span class="specialty-num">03</span>
+              <h3>הבהרת כתמים (פיגמנטציה)</h3>
+              <p>טכנולוגיות וחומרים מובילים להשגת גוון עור אחיד וקורן. נטפל בכתמי שמש, כתמי הריון וצלקות פיגמנט — ונחזיר לעור את הזוהר הטבעי שלו.</p>
+              <ul class="mini-list">
+                <li>הבהרת כתמי שמש וזקנה</li>
+                <li>יישור גוון עור</li>
+                <li>זוהר ומראה אחיד וקורן</li>
+              </ul>
+              <a href="#contact" class="link">קבעי פגישה ←</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROCESS (3 steps) ===== -->
+    <section class="section process">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow-tag">הדרך שלך לעור מושלם</span>
+          <h2>3 צעדים לתוצאה שאת מרגישה</h2>
+        </header>
+        <div class="steps">
+          <div class="step">
+            <span class="step-num">01</span>
+            <h3>אבחון עור מקצועי</h3>
+            <p>מתחילות עם הבנה לעומק של סוג העור שלך, הצרכים הייחודיים והאתגרים שאת מתמודדת איתם.</p>
+          </div>
+          <div class="step">
+            <span class="step-num">02</span>
+            <h3>טיפול מותאם אישית</h3>
+            <p>פרוטוקול שמשלב חומרים פעילים, טכנולוגיות מתקדמות וידיים שיודעות איך עור צריך להרגיש.</p>
+          </div>
+          <div class="step">
+            <span class="step-num">03</span>
+            <h3>התאמת מוצרים לבית</h3>
+            <p>"מרשם" אישי של מוצרי טיפוח שימשיכו את עבודת הטיפול אצלך, כדי לשמור על התוצאות לאורך זמן.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===== LEAD FORM (peach card) ===== -->
+    <section class="lead-section">
+      <div class="container">
+        <div class="lead-card">
+          <div class="lead-video yt-embed" data-yt="OMtDSNvKYsE" data-start="7">
+            <img src="https://img.youtube.com/vi/OMtDSNvKYsE/hqdefault.jpg" alt="טיפול פנים קלאסי - וידאו" loading="lazy"/>
+            <button class="play-btn" type="button" aria-label="הפעל וידאו">▶</button>
+          </div>
+          <div class="lead-text-form">
+            <h2>לפגישת אבחון מקצועי <u>בחינם</u> השאירי פרטים</h2>
+            <p>בואי להרגישי יפה וחדשה בעור שלך – זה הזמן להתחדש ולהאיר! השאירי פרטים עכשיו לפגישת ייעוץ חינם.</p>
+            <form id="leadForm" class="lead-form" novalidate>
+              <input type="text" name="name" placeholder="השם שלך (שדה חובה)" required />
+              <input type="tel"  name="phone" placeholder="הטלפון שלך (שדה חובה)" required pattern="^0\d{8,9}$" />
+              <select name="service">
+                <option value="">בחרי טיפול</option>
+                <option>טיפול פנים קלאסי</option>
+                <option>אנטי אייג'ינג</option>
+                <option>טיפול אקנה</option>
+                <option>הסרת סרחי עור / יבלות</option>
+                <option>מזותרפיה</option>
+                <option>טיפולי כלות</option>
+              </select>
+              <input type="email" name="email" placeholder="המייל שלך (לא חובה)" />
+              <button type="submit" class="btn btn-dark">קבעי פגישה</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SERVICES (icon cards) ===== -->
+    <section class="section" id="services-mini">
+      <div class="container">
+        <div class="services-grid">
+          <article class="svc-card">
+            <div class="svc-icon"><img src="assets/images/beauty-offer-7.svg" alt=""/></div>
+            <h3>מזותרפיה</h3>
+            <p>שיטת טיפול אסתטית להחדרת חומרים חיוניים לעור באמצעות מחטים זעירות, לשיפור והצערת העור, טיפול בקמטים, צלקות, הבהרה וכתמי עור.</p>
+          </article>
+          <article class="svc-card">
+            <div class="svc-icon"><img src="assets/images/noun-bride-6845320.svg" alt=""/></div>
+            <h3>טיפולי יופי לכלות ואירועים</h3>
+            <p>כשהיום הגדול שלך מתקרב, כל פרט חשוב. אנחנו כאן כדי להבטיח שהעור שלך ייראה קורן, חלק ומושלם לכל אירוע.</p>
+          </article>
+          <article class="svc-card">
+            <div class="svc-icon"><img src="assets/images/noun-acne-686688375-1.svg" alt=""/></div>
+            <h3>טיפולי אקנה</h3>
+            <p>טיפול באקנה משקם את העור, משולב בטכניקות מתקדמות ומוצרים איכותיים, עד לתוצאה המושלמת.</p>
+          </article>
+          <article class="svc-card">
+            <div class="svc-icon"><img src="assets/images/beauty-offer-6.svg" alt=""/></div>
+            <h3>טיפולי גלואו - זוהר</h3>
+            <p>מתאים לכל מי שרוצה "בוסט" של לחות וזוהר לעור. מדובר בטיפול זוהר המשלב טכנולוגיה להחדרת לחות ומיצוק עור.</p>
+          </article>
+          <article class="svc-card">
+            <div class="svc-icon"><img src="assets/images/face_15311806.svg" alt=""/></div>
+            <h3>טיפול אנטי-אייג'ינג</h3>
+            <p>הטיפולים מותאמים לכל לקוחה באופן אישי באמצעות תהליך אבחון טיפול לעור צעיר, זוהר, ורענן.</p>
+          </article>
+          <article class="svc-card">
+            <div class="svc-icon"><img src="assets/images/beauty-mascara.svg" alt=""/></div>
+            <h3>עיצוב גבות מקצועי</h3>
+            <p>התאמת עיצוב הגבות לפי מבנה הפנים שלך כדי להדגיש את תווי הפנים ולהשיג מראה מאוזן וטבעי.</p>
+          </article>
+          <article class="svc-card">
+            <div class="svc-icon"><img src="assets/images/classic-facial.svg" alt=""/></div>
+            <h3>טיפול פנים קלאסי</h3>
+            <p>מומלץ מאוד לכל אישה ובכל גיל, טיפול המסייע בשמירה על מראה עור זוהר, נקי ורענן לאורך כל השנה.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TOP TREATMENTS GALLERY ===== -->
+    <section class="section section-light" id="services">
+      <div class="container">
+        <header class="section-head">
+          <h2>הטיפולים המובילים</h2>
+        </header>
+
+        <div class="marquee" id="treatmentsMarquee">
+          <div class="marquee-track">
+            <!-- The loop content is duplicated by JS at runtime for seamless looping -->
+            <article class="treat-card">
+              <img src="{{TESTIMONIAL_4_IMAGE}}" alt="טיפול אבנים חמות"/>
+              <div class="treat-overlay"><span class="treat-name">טיפולי אבנים חמות</span><span class="treat-phone">אורנה <strong>{{PHONE_HUMAN}}</strong></span></div>
+            </article>
+            <article class="treat-card">
+              <img src="{{TESTIMONIAL_2_IMAGE}}" alt="טיפול פנים קלאסי"/>
+              <div class="treat-overlay"><span class="treat-name">טיפול פנים קלאסי</span><span class="treat-phone">אורנה <strong>{{PHONE_HUMAN}}</strong></span></div>
+            </article>
+            <article class="treat-card">
+              <img src="{{TESTIMONIAL_1_IMAGE}}" alt="עיצוב גבות מקצועי"/>
+              <div class="treat-overlay"><span class="treat-name">עיצוב גבות מקצועי</span><span class="treat-phone">אורנה <strong>{{PHONE_HUMAN}}</strong></span></div>
+            </article>
+            <article class="treat-card">
+              <img src="{{TESTIMONIAL_3_IMAGE}}" alt="טיפול פנים אנטי-אייג'ינג"/>
+              <div class="treat-overlay"><span class="treat-name">טיפול פנים אנטי-אייג'ינג</span><span class="treat-phone">אורנה <strong>{{PHONE_HUMAN}}</strong></span></div>
+            </article>
+            <article class="treat-card">
+              <img src="{{SERVICE_ACNE_IMAGE}}" alt="טיפולי אקנה"/>
+              <div class="treat-overlay"><span class="treat-name">טיפולי אקנה</span><span class="treat-phone">אורנה <strong>{{PHONE_HUMAN}}</strong></span></div>
+            </article>
+            <article class="treat-card">
+              <img src="{{SERVICE_GLOW_IMAGE}}" alt="טיפולי גלואו"/>
+              <div class="treat-overlay"><span class="treat-name">טיפולי גלואו - זוהר</span><span class="treat-phone">אורנה <strong>{{PHONE_HUMAN}}</strong></span></div>
+            </article>
+            <article class="treat-card">
+              <img src="{{SERVICE_BRIDAL_IMAGE}}" alt="טיפולי כלות ואירועים"/>
+              <div class="treat-overlay"><span class="treat-name">טיפולי כלות ואירועים</span><span class="treat-phone">אורנה <strong>{{PHONE_HUMAN}}</strong></span></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FEEL BEAUTIFUL EVERY DAY ===== -->
+    <section class="section feel-section">
+      <div class="container feel-grid">
+        <div class="feel-pic">
+          <img src="{{HERO_PORTRAIT}}" alt="טיפוח" />
+          <span class="feel-deco" aria-hidden="true"></span>
+        </div>
+        <div class="feel-text">
+          <span class="pill pill-light">טיפולי פנים וקוסמטיקה לנשים בלבד</span>
+          <h2>להרגיש יפה כל יום</h2>
+          <p>{{BUSINESS_NAME}}ס הבית שלך לטיפולי יופי ופנים מתקדמים<br/>כי העור שלך צריך את הטוב ביותר!</p>
+          <a href="#contact" class="btn btn-primary btn-lg">השאירי פרטים</a>
+
+          <div class="feel-promo">
+            <div class="feel-promo-video">
+              <img src="{{TESTIMONIAL_2_IMAGE}}" alt=""/>
+              <button class="play-btn" aria-label="הפעל וידאו">▶</button>
+            </div>
+            <div>
+              <h4>מבצע למצטרפות חדשות</h4>
+              <a href="tel:{{PHONE_LOCAL}}" class="btn btn-primary">תשאלי אותי בטלפון</a>
+              <div class="countdown" id="countdown" aria-live="polite">
+                <span><strong id="cd-days">00</strong>ימים</span>
+                <span><strong id="cd-hours">00</strong>שעות</span>
+                <span><strong id="cd-mins">00</strong>דקות</span>
+                <span><strong id="cd-secs">00</strong>שניות</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== WHY US (dark + videos) ===== -->
+    <section class="section why-section">
+      <div class="container">
+        <header class="section-head section-head-light">
+          <span class="eyebrow-line">{{BUSINESS_NAME}}ה</span>
+          <h2>למה לבחור בקליניקה שלנו</h2>
+        </header>
+        <div class="marquee videos-marquee" id="videosMarquee">
+          <div class="marquee-track">
+            <div class="video-card yt-embed" data-yt="pFU9ypY4NSU">
+              <img src="https://img.youtube.com/vi/pFU9ypY4NSU/hqdefault.jpg" alt="" loading="lazy"/>
+              <button class="play-btn" type="button" aria-label="הפעל">▶</button>
+            </div>
+            <div class="video-card yt-embed" data-yt="Db6EVaklyW8">
+              <img src="https://img.youtube.com/vi/Db6EVaklyW8/hqdefault.jpg" alt="" loading="lazy"/>
+              <button class="play-btn" type="button" aria-label="הפעל">▶</button>
+            </div>
+            <div class="video-card yt-embed" data-yt="eUERzJpcYa0">
+              <img src="https://img.youtube.com/vi/eUERzJpcYa0/hqdefault.jpg" alt="" loading="lazy"/>
+              <button class="play-btn" type="button" aria-label="הפעל">▶</button>
+            </div>
+            <div class="video-card yt-embed" data-yt="4Wy1Na2bsWs">
+              <img src="https://img.youtube.com/vi/4Wy1Na2bsWs/hqdefault.jpg" alt="" loading="lazy"/>
+              <button class="play-btn" type="button" aria-label="הפעל">▶</button>
+            </div>
+            <div class="video-card yt-embed" data-yt="hDGFFkgiku0">
+              <img src="https://img.youtube.com/vi/hDGFFkgiku0/hqdefault.jpg" alt="" loading="lazy"/>
+              <button class="play-btn" type="button" aria-label="הפעל">▶</button>
+            </div>
+            <div class="video-card yt-embed" data-yt="0HYas8_tJD4">
+              <img src="https://img.youtube.com/vi/0HYas8_tJD4/hqdefault.jpg" alt="" loading="lazy"/>
+              <button class="play-btn" type="button" aria-label="הפעל">▶</button>
+            </div>
+            <div class="video-card yt-embed" data-yt="Leoh4jGta1M">
+              <img src="https://img.youtube.com/vi/Leoh4jGta1M/hqdefault.jpg" alt="" loading="lazy"/>
+              <button class="play-btn" type="button" aria-label="הפעל">▶</button>
+            </div>
+            <div class="video-card yt-embed" data-yt="LXRGCl0-Fl0">
+              <img src="https://img.youtube.com/vi/LXRGCl0-Fl0/hqdefault.jpg" alt="" loading="lazy"/>
+              <button class="play-btn" type="button" aria-label="הפעל">▶</button>
+            </div>
+            <div class="video-card yt-embed" data-yt="vGLLgBqdb3A">
+              <img src="https://img.youtube.com/vi/vGLLgBqdb3A/hqdefault.jpg" alt="" loading="lazy"/>
+              <button class="play-btn" type="button" aria-label="הפעל">▶</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SKIN TAGS (moved down from hero) ===== -->
+    <section class="section skin-tags section-light" id="skin-tags">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow-tag">פתרון אסתטי ובטוח</span>
+          <h2>הסרת סרחי עור · נגעי עור · יבלות ונקודות חן</h2>
+          <p>
+            מחפשת דרך עדינה ומקצועית להיפטר מסרחי עור, יבלות או נקודות חן – מבלי להשאיר סימן?
+            ב{{BUSINESS_NAME}}ס אני מתמחה בטיפולים מדויקים שמותאמים אישית לכל אישה,
+            כדי שתרגישי בטוחה וחלקה בעור שלך.
+          </p>
+          <p class="hero-tag"><strong>טיפול עדין וללא כאב – לנשים בלבד.</strong></p>
+        </header>
+        <div class="ba-row">
+          <div class="ba-card">
+            <img src="{{GALLERY_1_IMAGE}}" alt="לפני ואחרי 1"/>
+            <span class="ba-tag ba-before">לפני</span>
+            <span class="ba-tag ba-after">אחרי</span>
+          </div>
+          <div class="ba-card">
+            <img src="{{GALLERY_2_IMAGE}}" alt="לפני ואחרי 2"/>
+            <span class="ba-tag ba-before">לפני</span>
+            <span class="ba-tag ba-after">אחרי</span>
+          </div>
+          <div class="ba-card">
+            <img src="{{GALLERY_3_IMAGE}}" alt="לפני ואחרי 3"/>
+            <span class="ba-tag ba-before">לפני</span>
+            <span class="ba-tag ba-after">אחרי</span>
+          </div>
+          <div class="ba-card">
+            <img src="{{GALLERY_4_IMAGE}}" alt="לפני ואחרי 4"/>
+            <span class="ba-tag ba-before">לפני</span>
+            <span class="ba-tag ba-after">אחרי</span>
+          </div>
+          <div class="ba-card">
+            <img src="{{GALLERY_5_IMAGE}}" alt="לפני ואחרי 5"/>
+            <span class="ba-tag ba-before">לפני</span>
+            <span class="ba-tag ba-after">אחרי</span>
+          </div>
+          <div class="ba-card">
+            <img src="{{GALLERY_6_IMAGE}}" alt="לפני ואחרי 6"/>
+            <span class="ba-tag ba-before">לפני</span>
+            <span class="ba-tag ba-after">אחרי</span>
+          </div>
+        </div>
+        <div class="skin-tags-cta">
+          <a href="#contact" class="btn btn-primary btn-lg">קבעי פגישה להסרה</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TESTIMONIALS ===== -->
+    <section class="section" id="testimonials">
+      <div class="container">
+        <header class="section-head">
+          <h2>לקוחות מרוצות ממליצות</h2>
+        </header>
+        <div class="t-track" data-testimonials>
+          <article class="t-card">
+            <p>"העור שלי תמיד היה יבש ומגורה. אחרי כמה טיפולים אצל אורנה הוא חזר לעצמו - חלק, רך וזוהר. אורנה, את פשוט מדהימה!"</p>
+            <strong>– לירון</strong>
+          </article>
+          <article class="t-card">
+            <p>"אחרי שנים של מאבק עם עור יבש, סוף סוף מצאתי את הקוסמטיקאית שמבינה אותי. אורנה, יבורכו ידייך."</p>
+            <strong>– מיכל</strong>
+          </article>
+          <article class="t-card">
+            <p>"סבלתי מאקנה קשה במשך שנים. אחרי סדרת טיפולים אצל אורנה העור שלי משתפר מטיפול לטיפול. את פשוט אלופה!"</p>
+            <strong>– דנה</strong>
+          </article>
+          <article class="t-card">
+            <p>"העור שלי היה מכוסה בפצעונים והרגשתי איום. אחרי שלושה טיפולים שינוי דרמטי. אורנה פשוט תודה את תותחית."</p>
+            <strong>– רוני</strong>
+          </article>
+          <article class="t-card">
+            <p>"האקנה שלי כמעט ונעלם והעור נראה זוהר. החזרת לי את הביטחון העצמי. אין מילים."</p>
+            <strong>– נועה</strong>
+          </article>
+          <article class="t-card">
+            <p>"הטיפולים שלה הם לא רק יעילים – זו חוויה שלמה של פינוק והרפיה. אני ממליצה בחום!"</p>
+            <strong>– שרון</strong>
+          </article>
+          <article class="t-card">
+            <p>"כל טיפול אצל אורנה זה חוויה. יוצאת רגועה, יפה ובטוחה בעצמי. תודה לך, אורנה!"</p>
+            <strong>– חני</strong>
+          </article>
+          <article class="t-card">
+            <p>"ביום החתונה העור שלי היה זוהר וחלק במיוחד, בזכות הפרוטוקול של אורנה. ממליצה לכל כלה!"</p>
+            <strong>– נופר</strong>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="section section-light" id="faq">
+      <div class="container">
+        <header class="section-head">
+          <h2>שאלות ותשובות נפוצות</h2>
+        </header>
+        <div class="faq-list">
+          <details class="faq-item"><summary>מהו טיפול פנים ומה היתרונות שלו?</summary><p>טיפול פנים הוא תהליך מקצועי הכולל ניקוי, פילינג, החדרת חומרים פעילים ומסכה. הוא מנקה את העור לעומק, משפר את מרקם העור ומעניק לו מראה זוהר ובריא.</p></details>
+          <details class="faq-item"><summary>באיזו תדירות מומלץ להגיע לטיפול פנים?</summary><p>בדרך כלל מומלץ פעם בחודש, אך התדירות מותאמת אישית לפי סוג העור והבעיות שמטפלים בהן.</p></details>
+          <details class="faq-item"><summary>האם הטיפולים יעילים לאקנה?</summary><p>בהחלט. אנחנו עובדות עם פרוטוקולים מתקדמים שיעילים מאוד גם במקרים קשים של אקנה, בשילוב הדרכת טיפוח בבית.</p></details>
+          <details class="faq-item"><summary>האם הטיפולים מתאימים לעור רגיש?</summary><p>כן. כל טיפול מותאם אישית. נבחרים חומרים עדינים המתאימים גם לעור רגיש מאוד.</p></details>
+          <details class="faq-item"><summary>כמה זמן אורך טיפול?</summary><p>בין 60 ל-90 דקות, בהתאם לסוג הטיפול ולצרכי העור.</p></details>
+          <details class="faq-item"><summary>האם ניתן לקבל טיפולים בהיריון?</summary><p>חלק מהטיפולים בטוחים בהיריון. נשמח להתאים לך טיפול עדין ובטוח לאחר ייעוץ קצר.</p></details>
+          <details class="faq-item"><summary>מה ההבדל בין טיפול פנים בסיסי לעמוק?</summary><p>טיפול בסיסי כולל ניקוי שטחי וטיפוח. טיפול עמוק כולל הוצאת פצעים, פילינג מתקדם והחדרת חומרים פעילים.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== BLOG ===== -->
+    <section class="section" id="blog">
+      <div class="container">
+        <header class="section-head">
+          <h2>פוסטים אחרונים</h2>
+        </header>
+        <div class="blog-grid">
+          <article class="blog-card">
+            <a href="#"><img src="{{BLOG_ACNE_IMAGE}}" alt="טיפול באקנה בבאר שבע"/></a>
+            <div class="blog-body">
+              <time>26 באוגוסט, 2024</time>
+              <h3><a href="#">טיפול באקנה בבאר שבע</a></h3>
+            </div>
+          </article>
+          <article class="blog-card">
+            <a href="#"><img src="{{BLOG_BROWS_IMAGE}}" alt="עיצוב גבות באר שבע"/></a>
+            <div class="blog-body">
+              <time>21 באוגוסט, 2024</time>
+              <h3><a href="#">עיצוב גבות באר שבע</a></h3>
+            </div>
+          </article>
+          <article class="blog-card">
+            <a href="#"><img src="{{BLOG_FACIAL_IMAGE}}" alt="טיפול פנים בבאר שבע"/></a>
+            <div class="blog-body">
+              <time>21 באוגוסט, 2024</time>
+              <h3><a href="#">טיפול פנים בבאר שבע</a></h3>
+            </div>
+          </article>
+          <article class="blog-card">
+            <a href="#"><img src="{{BLOG_FACIAL_BS_IMAGE}}" alt="קוסמטיקאית בבאר שבע"/></a>
+            <div class="blog-body">
+              <time>21 באוגוסט, 2024</time>
+              <h3><a href="#">קוסמטיקאית בבאר שבע</a></h3>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FINAL CTA ===== -->
+    <section class="section cta-final" id="contact">
+      <div class="container">
+        <header class="section-head">
+          <h2>יופי טבעי מתחיל בטיפול פנים מקצועי</h2>
+          <p>לפגישת ייעוץ לגמרי בחינם השאירי פרטים:</p>
+        </header>
+        <div class="cta-services">
+          <a href="#" class="cta-svc"><img src="assets/images/face_15311806.svg" alt=""><span>טיפול אנטי-אייג'ינג</span></a>
+          <a href="#" class="cta-svc"><img src="assets/images/classic-facial.svg" alt=""><span>טיפול פנים קלאסי</span></a>
+          <a href="#" class="cta-svc"><img src="assets/images/noun-acne-686688375-1.svg" alt=""><span>הסרת סרחי עור</span></a>
+          <a href="#" class="cta-svc"><img src="assets/images/beauty-mascara.svg" alt=""><span>עיצוב גבות מקצועי</span></a>
+          <a href="#" class="cta-svc"><img src="assets/images/noun-bride-6845320.svg" alt=""><span>טיפולי כלות ואירועים</span></a>
+          <a href="#" class="cta-svc"><img src="assets/images/beauty-offer-1.svg" alt=""><span>טיפולי אקנה</span></a>
+          <a href="#" class="cta-svc"><img src="assets/images/beauty-offer-6.svg" alt=""><span>טיפולי גלואו - זוהר</span></a>
+        </div>
+
+        <form id="contactForm" class="contact-form" novalidate>
+          <input type="text" name="name" placeholder="השם שלך (שדה חובה)" required />
+          <input type="tel"  name="phone" placeholder="הטלפון שלך (שדה חובה)" required pattern="^0\d{8,9}$" />
+          <input type="email" name="email" placeholder="המייל שלך (לא חובה)" />
+          <button type="submit" class="btn btn-primary btn-lg">קבעי פגישה</button>
+          <p class="form-status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h4>אני מחכה לך בקליניקה</h4>
+        <a href="https://waze.com/ul?q={{ADDRESS_WAZE}}" target="_blank" rel="noopener" class="footer-link">
+          <img src="assets/images/hugeicons-waze.svg" alt="" class="ico"/>
+          <span>{{ADDRESS}}</span>
+        </a>
+      </div>
+      <div class="footer-col footer-brand">
+        <img src="{{LOGO_URL}}" alt="{{BUSINESS_NAME_EN}}" class="footer-logo"/>
+        <p>טיפולי פנים וקוסמטיקה לנשים בלבד.<br/>הבית שלך לטיפולי יופי ופנים מתקדמים.</p>
+      </div>
+      <div class="footer-col">
+        <h4>התקשרי עכשיו</h4>
+        <a href="tel:{{PHONE_LOCAL}}" class="footer-link">
+          <img src="assets/images/ph-phone-call-bold.svg" alt="" class="ico"/>
+          <span>{{PHONE_HUMAN}}</span>
+        </a>
+        <h4 class="mt">קישורים חברתיים</h4>
+        <div class="footer-socials">
+          <a href="https://www.instagram.com/{{INSTAGRAM_HANDLE}}/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="https://www.facebook.com/{{FACEBOOK_HANDLE}}/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 2.89h-2.33v6.99A10 10 0 0 0 22 12z"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <small>© <span id="year"></span> {{BUSINESS_NAME_EN}} · כל הזכויות שמורות</small>
+    </div>
+  </footer>
+
+  <!-- WhatsApp floating button -->
+  <a class="float-wa" href="https://wa.me/972539855922" target="_blank" rel="noopener" aria-label="פנייה בוואטסאפ">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A11.86 11.86 0 0 0 12.05 0C5.5 0 .17 5.34.16 11.9a11.83 11.83 0 0 0 1.59 5.94L0 24l6.32-1.66a11.9 11.9 0 0 0 5.72 1.46h.01c6.55 0 11.88-5.34 11.89-11.9a11.83 11.83 0 0 0-3.42-8.42zM12.05 21.78h-.01a9.86 9.86 0 0 1-5.03-1.38l-.36-.21-3.75.99 1-3.66-.23-.38a9.84 9.84 0 0 1-1.51-5.24c0-5.45 4.44-9.88 9.89-9.88a9.83 9.83 0 0 1 7 2.9 9.81 9.81 0 0 1 2.89 6.99c0 5.45-4.44 9.87-9.9 9.87zm5.42-7.39c-.3-.15-1.76-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49 0 1.47 1.07 2.89 1.22 3.09.15.2 2.1 3.21 5.1 4.5.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35z"/></svg>
+    <span class="float-wa-tip"><strong>לייעוץ מקצועי</strong>שלחי וואטסאפ</span>
+  </a>
+
+  <button class="float-top" aria-label="חזרה למעלה">↑</button>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,3023 @@
+{
+    "name": "לידור המלך",
+    "flow": [
+        {
+            "id": 57,
+            "module": "powerlink:plquery",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 8284723
+            },
+            "mapper": {
+                "limit": "10",
+                "query": [
+                    [
+                        {
+                            "a": "telephone1",
+                            "b": "0542587070",
+                            "o": "="
+                        }
+                    ]
+                ],
+                "objecttype": "1"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 175,
+                    "y": 353
+                },
+                "restore": {
+                    "expect": {
+                        "fields": {
+                            "mode": "chose"
+                        },
+                        "sort_by": {
+                            "mode": "chose",
+                            "label": "Empty"
+                        },
+                        "sort_type": {
+                            "mode": "chose",
+                            "label": "Empty"
+                        },
+                        "objecttype": {
+                            "mode": "chose",
+                            "label": "לקוח"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "powerlink"
+                            },
+                            "label": "איקוניק מדיה משתמש מנהל"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:powerlink",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "objecttype",
+                        "type": "select",
+                        "label": "Name of Object",
+                        "required": true
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "label": "Limit"
+                    },
+                    {
+                        "name": "fields",
+                        "type": "select",
+                        "label": "Fields",
+                        "multiple": true
+                    },
+                    {
+                        "name": "query",
+                        "type": "filter",
+                        "label": "Search criteria",
+                        "options": {
+                            "store": [
+                                {
+                                    "label": "לינק טופס תיקונים עבור הלקוח",
+                                    "value": "pcfsystemfield130"
+                                },
+                                {
+                                    "label": "טלפון ראשי",
+                                    "value": "telephone1"
+                                },
+                                {
+                                    "label": "נוצר על ידי",
+                                    "value": "createdby"
+                                },
+                                {
+                                    "label": "תאריך פגישה הבאה",
+                                    "value": "pcfsystemfield1442"
+                                },
+                                {
+                                    "label": "תקציב פירסומי?",
+                                    "value": "pcfsystemfield1471"
+                                },
+                                {
+                                    "label": "שווי לקוח בממוצע",
+                                    "value": "revenue"
+                                },
+                                {
+                                    "label": "עיצוב אתר - לקוח חדש",
+                                    "value": "pcfsystemfield1476"
+                                },
+                                {
+                                    "label": "כמה שנים בתחום",
+                                    "value": "pcfsystemfield95"
+                                },
+                                {
+                                    "label": "מספר לקוח",
+                                    "value": "accountnumber"
+                                },
+                                {
+                                    "label": "מצב רשומה",
+                                    "value": "statecode"
+                                },
+                                {
+                                    "label": "סוג לקוח",
+                                    "value": "accounttypecode"
+                                },
+                                {
+                                    "label": "יש לוגו? (במידה וכן חובה לצרך את הקובץ להערות!)",
+                                    "value": "pcfsystemfield1456"
+                                },
+                                {
+                                    "label": "שירות מספר 4 (נא לפרט בהרחבה על השירות הספציפי ומי קהל היעד)",
+                                    "value": "billingcountry"
+                                },
+                                {
+                                    "label": "עיצוב",
+                                    "value": "pcfsystemfield107"
+                                },
+                                {
+                                    "label": "לינק טופס תיקונים עבור העובד",
+                                    "value": "pcfsystemfield129"
+                                },
+                                {
+                                    "label": "סך החוב",
+                                    "value": "pcfsystemfield1437"
+                                },
+                                {
+                                    "label": "שעות פתיחה ",
+                                    "value": "pcfsystemfield1494"
+                                },
+                                {
+                                    "label": "נשלח הודעת פתיחה ללקוח ?",
+                                    "value": "pcfsystemfield1443"
+                                },
+                                {
+                                    "label": "עודכן בתאריך",
+                                    "value": "modifiedon"
+                                },
+                                {
+                                    "label": "שליחת דואר אלקטרוני",
+                                    "value": "isvalidforemailcode"
+                                },
+                                {
+                                    "label": "מה מבדיל את העסק מהמתחרים - חדש",
+                                    "value": "pcfsystemfield1492"
+                                },
+                                {
+                                    "label": "לינק לקוח - טופס מתעדכן",
+                                    "value": "pcfsystemfield138"
+                                },
+                                {
+                                    "label": "לינק להסכם של הלקוח",
+                                    "value": "pcfsystemfield112"
+                                },
+                                {
+                                    "label": "מנהל לקוח",
+                                    "value": "ownerid"
+                                },
+                                {
+                                    "label": "איש קשר עיקרי",
+                                    "value": "primarycontactid"
+                                },
+                                {
+                                    "label": "פרט כמה זמן הוא בתחום",
+                                    "value": "pcfsystemfield1450"
+                                },
+                                {
+                                    "label": "שירות עיקרי של הלקוח",
+                                    "value": "pcfsystemfield1495"
+                                },
+                                {
+                                    "label": "הערות לשים רק כאן !!!",
+                                    "value": "pcfsystemfield1487"
+                                },
+                                {
+                                    "label": "סוג העסק",
+                                    "value": "pcfsystemfield1457"
+                                },
+                                {
+                                    "label": "עודכן על ידי",
+                                    "value": "modifiedby"
+                                },
+                                {
+                                    "label": "יחס סגירה",
+                                    "value": "numberofemployees"
+                                },
+                                {
+                                    "label": "לקוח",
+                                    "value": "accountid"
+                                },
+                                {
+                                    "label": "Deleted on",
+                                    "value": "deletedon"
+                                },
+                                {
+                                    "label": "לינק לחשבונית",
+                                    "value": "pcfsystemfield121"
+                                },
+                                {
+                                    "label": "התחל תהליך:",
+                                    "value": "pcfsystemfield1473"
+                                },
+                                {
+                                    "label": "אם יש אתר ללקוח, האם משתמשים בו?",
+                                    "value": "pcfsystemfield1479"
+                                },
+                                {
+                                    "label": "שם העסק (אנגלית או עברית)",
+                                    "value": "pcfsystemfield1475"
+                                },
+                                {
+                                    "label": "סה\"כ פניות",
+                                    "value": "pcfsystemfield101"
+                                },
+                                {
+                                    "label": "מבנה אתר",
+                                    "value": "pcfsystemfield142"
+                                },
+                                {
+                                    "label": "אודות - חדש",
+                                    "value": "pcfsystemfield1491"
+                                },
+                                {
+                                    "label": "פרוייקט בניית אתר",
+                                    "value": "pcfsystemfield108"
+                                },
+                                {
+                                    "label": "פעולה",
+                                    "value": "pcfsystemfield128"
+                                },
+                                {
+                                    "label": "מילא איפיון בייס?",
+                                    "value": "pcfsystemfield1484"
+                                },
+                                {
+                                    "label": "תאריך סגירה",
+                                    "value": "pcfsystemfield1434"
+                                },
+                                {
+                                    "label": "סיסמה- פייסבוק",
+                                    "value": "pcfsystemfield132"
+                                },
+                                {
+                                    "label": "קישורים כרפרנס (אינסטגרם/פייסבוק/אתרים שאהב)",
+                                    "value": "pcfsystemfield1465"
+                                },
+                                {
+                                    "label": "כמה זמן העסק קיים?",
+                                    "value": "pcfsystemfield124"
+                                },
+                                {
+                                    "label": "חוב ללקוח ? ",
+                                    "value": "pcfsystemfield48"
+                                },
+                                {
+                                    "label": "טופס שיווקי",
+                                    "value": "pcfsystemfield1431"
+                                },
+                                {
+                                    "label": "סוג האתר",
+                                    "value": "pcfsystemfield1464"
+                                },
+                                {
+                                    "label": "Deleted by",
+                                    "value": "deletedby"
+                                },
+                                {
+                                    "label": "שירות מספר 2 (נא לפרט בהרחבה על השירות הספציפי ומי קהל היעד)",
+                                    "value": "pcfsystemfield1453"
+                                },
+                                {
+                                    "label": "שירות מספר 5 (נא לפרט בהרחבה על השירות הספציפי ומי קהל היעד)",
+                                    "value": "fax1"
+                                },
+                                {
+                                    "label": "מה הם גילאי קהל היעד?",
+                                    "value": "pcfsystemfield1467"
+                                },
+                                {
+                                    "label": "כתובת העסק",
+                                    "value": "pcfsystemfield1448"
+                                },
+                                {
+                                    "label": "קישור- אינסטגרם",
+                                    "value": "pcfsystemfield134"
+                                },
+                                {
+                                    "label": "דואר אלקטרוני",
+                                    "value": "emailaddress1"
+                                },
+                                {
+                                    "label": "טלפון משני",
+                                    "value": "pcfsystemfield1478"
+                                },
+                                {
+                                    "label": "דואר אלקטרוני 3",
+                                    "value": "emailaddress3"
+                                },
+                                {
+                                    "label": "חוב לקוח",
+                                    "value": "accountdebt"
+                                },
+                                {
+                                    "label": "קטגוריה",
+                                    "value": "categorycode"
+                                },
+                                {
+                                    "label": "תחום פעילות",
+                                    "value": "industrycode"
+                                },
+                                {
+                                    "label": "תחום עיסוק ?",
+                                    "value": "pcfsystemfield1439"
+                                },
+                                {
+                                    "label": "טלפון שלישי",
+                                    "value": "telephone3"
+                                },
+                                {
+                                    "label": "שם העסק לחשבונית",
+                                    "value": "idnumber"
+                                },
+                                {
+                                    "label": "טופס מבנה שיווקי",
+                                    "value": "pcfsystemfield1433"
+                                },
+                                {
+                                    "label": "טלפון משני",
+                                    "value": "telephone2"
+                                },
+                                {
+                                    "label": "ת. פעולה הבאה",
+                                    "value": "nextactiondate"
+                                },
+                                {
+                                    "label": "גיוס אנשי צוות",
+                                    "value": "pcfsystemfield103"
+                                },
+                                {
+                                    "label": "domain",
+                                    "value": "domain"
+                                },
+                                {
+                                    "label": "תוכן ההודעה",
+                                    "value": "pcfsystemfield127"
+                                },
+                                {
+                                    "label": "תאריך פעולה הבאה",
+                                    "value": "nextactivitydate"
+                                },
+                                {
+                                    "label": "האם הלקוח הוא של מנהל פרויקט ?",
+                                    "value": "pcfsystemfield1498"
+                                },
+                                {
+                                    "label": "מגדר קהל היעד?",
+                                    "value": "pcfsystemfield1468"
+                                },
+                                {
+                                    "label": "דירוג",
+                                    "value": "accountratingcode"
+                                },
+                                {
+                                    "label": "לינק לעובד -  לטופס תיקונים מתעדכן מהלקוח",
+                                    "value": "pcfsystemfield125"
+                                },
+                                {
+                                    "label": "למי *לא* לפנות בקמפיין?",
+                                    "value": "pcfsystemfield1470"
+                                },
+                                {
+                                    "label": "סיסמה לאפליקציה",
+                                    "value": "pcfsystemfield1482"
+                                },
+                                {
+                                    "label": "שיוך למכירה",
+                                    "value": "pcfsystemfield1441"
+                                },
+                                {
+                                    "label": "עשה שיווק/אתר בעבר?",
+                                    "value": "pcfsystemfield12"
+                                },
+                                {
+                                    "label": "שיוך לעיצוב ",
+                                    "value": "pcfsystemfield137"
+                                },
+                                {
+                                    "label": "תאריך הנפקת ת.ז",
+                                    "value": "pcfsystemfield14"
+                                },
+                                {
+                                    "label": "פרט על המבצעים - חדש",
+                                    "value": "pcfsystemfield1493"
+                                },
+                                {
+                                    "label": "טופס מבנה אתר",
+                                    "value": "pcfsystemfield1432"
+                                },
+                                {
+                                    "label": "לקוח אב",
+                                    "value": "parentaccountid"
+                                },
+                                {
+                                    "label": "כל שאר השרותים",
+                                    "value": "pcfsystemfield1496"
+                                },
+                                {
+                                    "label": "תאריך יום הולדת",
+                                    "value": "birthdaydate"
+                                },
+                                {
+                                    "label": "כפול",
+                                    "value": "duplicaterecordcode"
+                                },
+                                {
+                                    "label": "לקוח VIP (חברות בעמ, עסקים גדולים)",
+                                    "value": "pcfsystemfield1483"
+                                },
+                                {
+                                    "label": "סיסמה- אינסטגרם",
+                                    "value": "pcfsystemfield136"
+                                },
+                                {
+                                    "label": "סגנון עיצובי מועדף?",
+                                    "value": "pcfsystemfield1459"
+                                },
+                                {
+                                    "label": "תאריך תזכורת",
+                                    "value": "pcfsystemfield100"
+                                },
+                                {
+                                    "label": "קמפיין",
+                                    "value": "campaignid"
+                                },
+                                {
+                                    "label": "שם לקוח",
+                                    "value": "accountname"
+                                },
+                                {
+                                    "label": "עיר ",
+                                    "value": "billingcity"
+                                },
+                                {
+                                    "label": "כמה זמן העסק פעיל? ",
+                                    "value": "pcfsystemfield1449"
+                                },
+                                {
+                                    "label": "סיבת ביטול",
+                                    "value": "lostreason"
+                                },
+                                {
+                                    "label": "לינק ליצירת לינק טופס תיקונים ראשון - שיווק",
+                                    "value": "pcfsystemfield123"
+                                },
+                                {
+                                    "label": "שם פרטי",
+                                    "value": "firstname"
+                                },
+                                {
+                                    "label": "שם משתמש- פייסבוק ",
+                                    "value": "pcfsystemfield131"
+                                },
+                                {
+                                    "label": "שיחה אחרונה",
+                                    "value": "lastconversation"
+                                },
+                                {
+                                    "label": "תיאום_פגישה_ייעוץ_שיווקי_ללא_עלות_בפתח_תקווה",
+                                    "value": "shippingmethodcode"
+                                },
+                                {
+                                    "label": "יום הולדת (יום)",
+                                    "value": "birthdayday"
+                                },
+                                {
+                                    "label": "לינק להעלאת תמונות והשראה",
+                                    "value": "pcfsystemfield122"
+                                },
+                                {
+                                    "label": "אתר מוכן למחלקת שירות",
+                                    "value": "websiteurl"
+                                },
+                                {
+                                    "label": "מספר הגשות טפסי תיקונים",
+                                    "value": "pcfsystemfield126"
+                                },
+                                {
+                                    "label": "קטגוריה 2",
+                                    "value": "secondcategorycode"
+                                },
+                                {
+                                    "label": "לינק לוואטסאפ",
+                                    "value": "pcfLinktowhatsapp"
+                                },
+                                {
+                                    "label": "מקור הגעה",
+                                    "value": "originatingleadcode"
+                                },
+                                {
+                                    "label": "גייסון לאוטומציה לא לגעת",
+                                    "value": "pcfsystemfield1497"
+                                },
+                                {
+                                    "label": "שם לדומיין: (כתובת האתר, באנגלית!)",
+                                    "value": "billingstate"
+                                },
+                                {
+                                    "label": "סוג העסק",
+                                    "value": "pcfsystemfield1480"
+                                },
+                                {
+                                    "label": "עמודים ספציפיים באתר שהלקוח מעוניין : (לציין 1....., 2.  .....) עד 3 עמודים",
+                                    "value": "pcfsystemfield1458"
+                                },
+                                {
+                                    "label": "מה תרצו שהאתר ישדר (איך האתר ירגיש)?",
+                                    "value": "pcfsystemfield1460"
+                                },
+                                {
+                                    "label": "שם משתמש- אינסטגרם",
+                                    "value": "pcfsystemfield135"
+                                },
+                                {
+                                    "label": "תאריך גביה",
+                                    "value": "pcfsystemfield1438"
+                                },
+                                {
+                                    "label": "נוכחות דגיטלית בעסק היום? (צרף קישורים לאתר/אינסטגרם/פייסבוק/ווטסאפ עיסקי של הלקוח)",
+                                    "value": "pcfsystemfield1474"
+                                },
+                                {
+                                    "label": "תנאי תשלום",
+                                    "value": "paymenttermscode"
+                                },
+                                {
+                                    "label": "נקבעה פגישת קמפיינים-איפיון",
+                                    "value": "pcfsystemfield116"
+                                },
+                                {
+                                    "label": "מידת רצינות",
+                                    "value": "pcfsystemfield33"
+                                },
+                                {
+                                    "label": "קישור לאינסטגרם",
+                                    "value": "pcfsystemfield1436"
+                                },
+                                {
+                                    "label": "נקבעה פגישת קמפיינים-הרשאות",
+                                    "value": "pcfsystemfield115"
+                                },
+                                {
+                                    "label": "תיאור",
+                                    "value": "description"
+                                },
+                                {
+                                    "label": "לינק לדרייב",
+                                    "value": "pcfsystemfield114"
+                                },
+                                {
+                                    "label": "שם קמפיין",
+                                    "value": "pcfcampainName"
+                                },
+                                {
+                                    "label": "סיסמה- גוגל ",
+                                    "value": "pcfsystemfield141"
+                                },
+                                {
+                                    "label": "צבעים מועדפים, נא לרשום צבעים ממש (ירוק כהה, סגול לילך וכו)",
+                                    "value": "pcfsystemfield1461"
+                                },
+                                {
+                                    "label": "התעניינות מקושרת",
+                                    "value": "pcfsystemfield102"
+                                },
+                                {
+                                    "label": "ת״ז/ח\"פ",
+                                    "value": "pcfsystemfield35"
+                                },
+                                {
+                                    "label": "שיחת טלפון",
+                                    "value": "pcfsystemfield104"
+                                },
+                                {
+                                    "label": "נוצר בתאריך",
+                                    "value": "createdon"
+                                },
+                                {
+                                    "label": "לינק להסכם חתום",
+                                    "value": "pcfsystemfield113"
+                                },
+                                {
+                                    "label": "שם משפחה",
+                                    "value": "lastname"
+                                },
+                                {
+                                    "label": "בעלות",
+                                    "value": "businesstypecode"
+                                },
+                                {
+                                    "label": "מידע כללי על הלקוח - חדש",
+                                    "value": "pcfsystemfield1490"
+                                },
+                                {
+                                    "label": "יום הולדת (חודש)",
+                                    "value": "birthdaymonth"
+                                },
+                                {
+                                    "label": "סוג העסק (השאלה הכי חשובה !!!)",
+                                    "value": "billingzipcode"
+                                },
+                                {
+                                    "label": "פרטי הליד",
+                                    "value": "systemfield10"
+                                },
+                                {
+                                    "label": "app page token ",
+                                    "value": "pcfsystemfield1481"
+                                },
+                                {
+                                    "label": "user token",
+                                    "value": "needs"
+                                },
+                                {
+                                    "label": "דומיין פיתוח",
+                                    "value": "pcfsystemfield110"
+                                },
+                                {
+                                    "label": "איפיון",
+                                    "value": "pcfsystemfield106"
+                                },
+                                {
+                                    "label": "אזורים לפרסום?",
+                                    "value": "pcfsystemfield1469"
+                                },
+                                {
+                                    "label": "המלצות של הלקוחות",
+                                    "value": "pcfsystemfield1489"
+                                },
+                                {
+                                    "label": "סוג הקמפיין ",
+                                    "value": "pcfsystemfield1472"
+                                },
+                                {
+                                    "label": "אתר אינטרנט עבור מחלקת המכירות",
+                                    "value": "pcfsystemfield117"
+                                },
+                                {
+                                    "label": "שלח הסכם לחתימה",
+                                    "value": "pcfsystemfield105"
+                                },
+                                {
+                                    "label": "רחוב",
+                                    "value": "billingstreet"
+                                },
+                                {
+                                    "label": "דואר אלקטרוני 2",
+                                    "value": "emailaddress2"
+                                },
+                                {
+                                    "label": "לינק ללוגו מbbimage ",
+                                    "value": "pcfsystemfield1445"
+                                },
+                                {
+                                    "label": "מייל גוגל ",
+                                    "value": "pcfsystemfield140"
+                                },
+                                {
+                                    "label": "שירות מספר 3 (נא לפרט בהרחבה על השירות הספציפי ומי קהל היעד)",
+                                    "value": "pcfsystemfield1485"
+                                },
+                                {
+                                    "label": "תאריך פעולה אחרונה",
+                                    "value": "lastactiondate"
+                                },
+                                {
+                                    "label": "ותק",
+                                    "value": "accountageindays"
+                                },
+                                {
+                                    "label": "פרטי חיוב",
+                                    "value": "pcfsystemfield119"
+                                },
+                                {
+                                    "label": "טון דיבור (התוכן)",
+                                    "value": "pcfsystemfield1462"
+                                },
+                                {
+                                    "label": "סטטוס",
+                                    "value": "statuscode"
+                                }
+                            ],
+                            "operators": [
+                                {
+                                    "label": "Text",
+                                    "options": [
+                                        {
+                                            "label": "=",
+                                            "value": "="
+                                        },
+                                        {
+                                            "label": "!=",
+                                            "value": "!="
+                                        },
+                                        {
+                                            "label": ">",
+                                            "value": ">"
+                                        },
+                                        {
+                                            "label": "<",
+                                            "value": "<"
+                                        },
+                                        {
+                                            "label": "<=",
+                                            "value": "<="
+                                        },
+                                        {
+                                            "label": ">=",
+                                            "value": ">="
+                                        },
+                                        {
+                                            "label": "Is Null",
+                                            "value": "is-null"
+                                        },
+                                        {
+                                            "label": "Is Not Null",
+                                            "value": "is-not-null"
+                                        },
+                                        {
+                                            "label": "Start With",
+                                            "value": "start-with"
+                                        },
+                                        {
+                                            "label": "End With",
+                                            "value": "end-with"
+                                        },
+                                        {
+                                            "label": "Not Start With",
+                                            "value": "not-start-with"
+                                        },
+                                        {
+                                            "label": "Not End With",
+                                            "value": "not-end-with"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "sort_by",
+                        "type": "select",
+                        "label": "Sort by"
+                    },
+                    {
+                        "name": "sort_type",
+                        "type": "select",
+                        "label": "Sort Type",
+                        "validate": {
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "objecttype",
+                        "type": "select",
+                        "label": "Name of Object",
+                        "required": true
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "label": "Limit"
+                    },
+                    {
+                        "name": "fields",
+                        "type": "select",
+                        "label": "Fields",
+                        "multiple": true
+                    },
+                    {
+                        "name": "query",
+                        "type": "filter",
+                        "label": "Search criteria",
+                        "options": {
+                            "store": [
+                                {
+                                    "label": "לינק טופס תיקונים עבור הלקוח",
+                                    "value": "pcfsystemfield130"
+                                },
+                                {
+                                    "label": "טלפון ראשי",
+                                    "value": "telephone1"
+                                },
+                                {
+                                    "label": "נוצר על ידי",
+                                    "value": "createdby"
+                                },
+                                {
+                                    "label": "תאריך פגישה הבאה",
+                                    "value": "pcfsystemfield1442"
+                                },
+                                {
+                                    "label": "תקציב פירסומי?",
+                                    "value": "pcfsystemfield1471"
+                                },
+                                {
+                                    "label": "שווי לקוח בממוצע",
+                                    "value": "revenue"
+                                },
+                                {
+                                    "label": "עיצוב אתר - לקוח חדש",
+                                    "value": "pcfsystemfield1476"
+                                },
+                                {
+                                    "label": "כמה שנים בתחום",
+                                    "value": "pcfsystemfield95"
+                                },
+                                {
+                                    "label": "מספר לקוח",
+                                    "value": "accountnumber"
+                                },
+                                {
+                                    "label": "מצב רשומה",
+                                    "value": "statecode"
+                                },
+                                {
+                                    "label": "סוג לקוח",
+                                    "value": "accounttypecode"
+                                },
+                                {
+                                    "label": "יש לוגו? (במידה וכן חובה לצרך את הקובץ להערות!)",
+                                    "value": "pcfsystemfield1456"
+                                },
+                                {
+                                    "label": "שירות מספר 4 (נא לפרט בהרחבה על השירות הספציפי ומי קהל היעד)",
+                                    "value": "billingcountry"
+                                },
+                                {
+                                    "label": "עיצוב",
+                                    "value": "pcfsystemfield107"
+                                },
+                                {
+                                    "label": "לינק טופס תיקונים עבור העובד",
+                                    "value": "pcfsystemfield129"
+                                },
+                                {
+                                    "label": "סך החוב",
+                                    "value": "pcfsystemfield1437"
+                                },
+                                {
+                                    "label": "שעות פתיחה ",
+                                    "value": "pcfsystemfield1494"
+                                },
+                                {
+                                    "label": "נשלח הודעת פתיחה ללקוח ?",
+                                    "value": "pcfsystemfield1443"
+                                },
+                                {
+                                    "label": "עודכן בתאריך",
+                                    "value": "modifiedon"
+                                },
+                                {
+                                    "label": "שליחת דואר אלקטרוני",
+                                    "value": "isvalidforemailcode"
+                                },
+                                {
+                                    "label": "מה מבדיל את העסק מהמתחרים - חדש",
+                                    "value": "pcfsystemfield1492"
+                                },
+                                {
+                                    "label": "לינק לקוח - טופס מתעדכן",
+                                    "value": "pcfsystemfield138"
+                                },
+                                {
+                                    "label": "לינק להסכם של הלקוח",
+                                    "value": "pcfsystemfield112"
+                                },
+                                {
+                                    "label": "מנהל לקוח",
+                                    "value": "ownerid"
+                                },
+                                {
+                                    "label": "איש קשר עיקרי",
+                                    "value": "primarycontactid"
+                                },
+                                {
+                                    "label": "פרט כמה זמן הוא בתחום",
+                                    "value": "pcfsystemfield1450"
+                                },
+                                {
+                                    "label": "שירות עיקרי של הלקוח",
+                                    "value": "pcfsystemfield1495"
+                                },
+                                {
+                                    "label": "הערות לשים רק כאן !!!",
+                                    "value": "pcfsystemfield1487"
+                                },
+                                {
+                                    "label": "סוג העסק",
+                                    "value": "pcfsystemfield1457"
+                                },
+                                {
+                                    "label": "עודכן על ידי",
+                                    "value": "modifiedby"
+                                },
+                                {
+                                    "label": "יחס סגירה",
+                                    "value": "numberofemployees"
+                                },
+                                {
+                                    "label": "לקוח",
+                                    "value": "accountid"
+                                },
+                                {
+                                    "label": "Deleted on",
+                                    "value": "deletedon"
+                                },
+                                {
+                                    "label": "לינק לחשבונית",
+                                    "value": "pcfsystemfield121"
+                                },
+                                {
+                                    "label": "התחל תהליך:",
+                                    "value": "pcfsystemfield1473"
+                                },
+                                {
+                                    "label": "אם יש אתר ללקוח, האם משתמשים בו?",
+                                    "value": "pcfsystemfield1479"
+                                },
+                                {
+                                    "label": "שם העסק (אנגלית או עברית)",
+                                    "value": "pcfsystemfield1475"
+                                },
+                                {
+                                    "label": "סה\"כ פניות",
+                                    "value": "pcfsystemfield101"
+                                },
+                                {
+                                    "label": "מבנה אתר",
+                                    "value": "pcfsystemfield142"
+                                },
+                                {
+                                    "label": "אודות - חדש",
+                                    "value": "pcfsystemfield1491"
+                                },
+                                {
+                                    "label": "פרוייקט בניית אתר",
+                                    "value": "pcfsystemfield108"
+                                },
+                                {
+                                    "label": "פעולה",
+                                    "value": "pcfsystemfield128"
+                                },
+                                {
+                                    "label": "מילא איפיון בייס?",
+                                    "value": "pcfsystemfield1484"
+                                },
+                                {
+                                    "label": "תאריך סגירה",
+                                    "value": "pcfsystemfield1434"
+                                },
+                                {
+                                    "label": "סיסמה- פייסבוק",
+                                    "value": "pcfsystemfield132"
+                                },
+                                {
+                                    "label": "קישורים כרפרנס (אינסטגרם/פייסבוק/אתרים שאהב)",
+                                    "value": "pcfsystemfield1465"
+                                },
+                                {
+                                    "label": "כמה זמן העסק קיים?",
+                                    "value": "pcfsystemfield124"
+                                },
+                                {
+                                    "label": "חוב ללקוח ? ",
+                                    "value": "pcfsystemfield48"
+                                },
+                                {
+                                    "label": "טופס שיווקי",
+                                    "value": "pcfsystemfield1431"
+                                },
+                                {
+                                    "label": "סוג האתר",
+                                    "value": "pcfsystemfield1464"
+                                },
+                                {
+                                    "label": "Deleted by",
+                                    "value": "deletedby"
+                                },
+                                {
+                                    "label": "שירות מספר 2 (נא לפרט בהרחבה על השירות הספציפי ומי קהל היעד)",
+                                    "value": "pcfsystemfield1453"
+                                },
+                                {
+                                    "label": "שירות מספר 5 (נא לפרט בהרחבה על השירות הספציפי ומי קהל היעד)",
+                                    "value": "fax1"
+                                },
+                                {
+                                    "label": "מה הם גילאי קהל היעד?",
+                                    "value": "pcfsystemfield1467"
+                                },
+                                {
+                                    "label": "כתובת העסק",
+                                    "value": "pcfsystemfield1448"
+                                },
+                                {
+                                    "label": "קישור- אינסטגרם",
+                                    "value": "pcfsystemfield134"
+                                },
+                                {
+                                    "label": "דואר אלקטרוני",
+                                    "value": "emailaddress1"
+                                },
+                                {
+                                    "label": "טלפון משני",
+                                    "value": "pcfsystemfield1478"
+                                },
+                                {
+                                    "label": "דואר אלקטרוני 3",
+                                    "value": "emailaddress3"
+                                },
+                                {
+                                    "label": "חוב לקוח",
+                                    "value": "accountdebt"
+                                },
+                                {
+                                    "label": "קטגוריה",
+                                    "value": "categorycode"
+                                },
+                                {
+                                    "label": "תחום פעילות",
+                                    "value": "industrycode"
+                                },
+                                {
+                                    "label": "תחום עיסוק ?",
+                                    "value": "pcfsystemfield1439"
+                                },
+                                {
+                                    "label": "טלפון שלישי",
+                                    "value": "telephone3"
+                                },
+                                {
+                                    "label": "שם העסק לחשבונית",
+                                    "value": "idnumber"
+                                },
+                                {
+                                    "label": "טופס מבנה שיווקי",
+                                    "value": "pcfsystemfield1433"
+                                },
+                                {
+                                    "label": "טלפון משני",
+                                    "value": "telephone2"
+                                },
+                                {
+                                    "label": "ת. פעולה הבאה",
+                                    "value": "nextactiondate"
+                                },
+                                {
+                                    "label": "גיוס אנשי צוות",
+                                    "value": "pcfsystemfield103"
+                                },
+                                {
+                                    "label": "domain",
+                                    "value": "domain"
+                                },
+                                {
+                                    "label": "תוכן ההודעה",
+                                    "value": "pcfsystemfield127"
+                                },
+                                {
+                                    "label": "תאריך פעולה הבאה",
+                                    "value": "nextactivitydate"
+                                },
+                                {
+                                    "label": "האם הלקוח הוא של מנהל פרויקט ?",
+                                    "value": "pcfsystemfield1498"
+                                },
+                                {
+                                    "label": "מגדר קהל היעד?",
+                                    "value": "pcfsystemfield1468"
+                                },
+                                {
+                                    "label": "דירוג",
+                                    "value": "accountratingcode"
+                                },
+                                {
+                                    "label": "לינק לעובד -  לטופס תיקונים מתעדכן מהלקוח",
+                                    "value": "pcfsystemfield125"
+                                },
+                                {
+                                    "label": "למי *לא* לפנות בקמפיין?",
+                                    "value": "pcfsystemfield1470"
+                                },
+                                {
+                                    "label": "סיסמה לאפליקציה",
+                                    "value": "pcfsystemfield1482"
+                                },
+                                {
+                                    "label": "שיוך למכירה",
+                                    "value": "pcfsystemfield1441"
+                                },
+                                {
+                                    "label": "עשה שיווק/אתר בעבר?",
+                                    "value": "pcfsystemfield12"
+                                },
+                                {
+                                    "label": "שיוך לעיצוב ",
+                                    "value": "pcfsystemfield137"
+                                },
+                                {
+                                    "label": "תאריך הנפקת ת.ז",
+                                    "value": "pcfsystemfield14"
+                                },
+                                {
+                                    "label": "פרט על המבצעים - חדש",
+                                    "value": "pcfsystemfield1493"
+                                },
+                                {
+                                    "label": "טופס מבנה אתר",
+                                    "value": "pcfsystemfield1432"
+                                },
+                                {
+                                    "label": "לקוח אב",
+                                    "value": "parentaccountid"
+                                },
+                                {
+                                    "label": "כל שאר השרותים",
+                                    "value": "pcfsystemfield1496"
+                                },
+                                {
+                                    "label": "תאריך יום הולדת",
+                                    "value": "birthdaydate"
+                                },
+                                {
+                                    "label": "כפול",
+                                    "value": "duplicaterecordcode"
+                                },
+                                {
+                                    "label": "לקוח VIP (חברות בעמ, עסקים גדולים)",
+                                    "value": "pcfsystemfield1483"
+                                },
+                                {
+                                    "label": "סיסמה- אינסטגרם",
+                                    "value": "pcfsystemfield136"
+                                },
+                                {
+                                    "label": "סגנון עיצובי מועדף?",
+                                    "value": "pcfsystemfield1459"
+                                },
+                                {
+                                    "label": "תאריך תזכורת",
+                                    "value": "pcfsystemfield100"
+                                },
+                                {
+                                    "label": "קמפיין",
+                                    "value": "campaignid"
+                                },
+                                {
+                                    "label": "שם לקוח",
+                                    "value": "accountname"
+                                },
+                                {
+                                    "label": "עיר ",
+                                    "value": "billingcity"
+                                },
+                                {
+                                    "label": "כמה זמן העסק פעיל? ",
+                                    "value": "pcfsystemfield1449"
+                                },
+                                {
+                                    "label": "סיבת ביטול",
+                                    "value": "lostreason"
+                                },
+                                {
+                                    "label": "לינק ליצירת לינק טופס תיקונים ראשון - שיווק",
+                                    "value": "pcfsystemfield123"
+                                },
+                                {
+                                    "label": "שם פרטי",
+                                    "value": "firstname"
+                                },
+                                {
+                                    "label": "שם משתמש- פייסבוק ",
+                                    "value": "pcfsystemfield131"
+                                },
+                                {
+                                    "label": "שיחה אחרונה",
+                                    "value": "lastconversation"
+                                },
+                                {
+                                    "label": "תיאום_פגישה_ייעוץ_שיווקי_ללא_עלות_בפתח_תקווה",
+                                    "value": "shippingmethodcode"
+                                },
+                                {
+                                    "label": "יום הולדת (יום)",
+                                    "value": "birthdayday"
+                                },
+                                {
+                                    "label": "לינק להעלאת תמונות והשראה",
+                                    "value": "pcfsystemfield122"
+                                },
+                                {
+                                    "label": "אתר מוכן למחלקת שירות",
+                                    "value": "websiteurl"
+                                },
+                                {
+                                    "label": "מספר הגשות טפסי תיקונים",
+                                    "value": "pcfsystemfield126"
+                                },
+                                {
+                                    "label": "קטגוריה 2",
+                                    "value": "secondcategorycode"
+                                },
+                                {
+                                    "label": "לינק לוואטסאפ",
+                                    "value": "pcfLinktowhatsapp"
+                                },
+                                {
+                                    "label": "מקור הגעה",
+                                    "value": "originatingleadcode"
+                                },
+                                {
+                                    "label": "גייסון לאוטומציה לא לגעת",
+                                    "value": "pcfsystemfield1497"
+                                },
+                                {
+                                    "label": "שם לדומיין: (כתובת האתר, באנגלית!)",
+                                    "value": "billingstate"
+                                },
+                                {
+                                    "label": "סוג העסק",
+                                    "value": "pcfsystemfield1480"
+                                },
+                                {
+                                    "label": "עמודים ספציפיים באתר שהלקוח מעוניין : (לציין 1....., 2.  .....) עד 3 עמודים",
+                                    "value": "pcfsystemfield1458"
+                                },
+                                {
+                                    "label": "מה תרצו שהאתר ישדר (איך האתר ירגיש)?",
+                                    "value": "pcfsystemfield1460"
+                                },
+                                {
+                                    "label": "שם משתמש- אינסטגרם",
+                                    "value": "pcfsystemfield135"
+                                },
+                                {
+                                    "label": "תאריך גביה",
+                                    "value": "pcfsystemfield1438"
+                                },
+                                {
+                                    "label": "נוכחות דגיטלית בעסק היום? (צרף קישורים לאתר/אינסטגרם/פייסבוק/ווטסאפ עיסקי של הלקוח)",
+                                    "value": "pcfsystemfield1474"
+                                },
+                                {
+                                    "label": "תנאי תשלום",
+                                    "value": "paymenttermscode"
+                                },
+                                {
+                                    "label": "נקבעה פגישת קמפיינים-איפיון",
+                                    "value": "pcfsystemfield116"
+                                },
+                                {
+                                    "label": "מידת רצינות",
+                                    "value": "pcfsystemfield33"
+                                },
+                                {
+                                    "label": "קישור לאינסטגרם",
+                                    "value": "pcfsystemfield1436"
+                                },
+                                {
+                                    "label": "נקבעה פגישת קמפיינים-הרשאות",
+                                    "value": "pcfsystemfield115"
+                                },
+                                {
+                                    "label": "תיאור",
+                                    "value": "description"
+                                },
+                                {
+                                    "label": "לינק לדרייב",
+                                    "value": "pcfsystemfield114"
+                                },
+                                {
+                                    "label": "שם קמפיין",
+                                    "value": "pcfcampainName"
+                                },
+                                {
+                                    "label": "סיסמה- גוגל ",
+                                    "value": "pcfsystemfield141"
+                                },
+                                {
+                                    "label": "צבעים מועדפים, נא לרשום צבעים ממש (ירוק כהה, סגול לילך וכו)",
+                                    "value": "pcfsystemfield1461"
+                                },
+                                {
+                                    "label": "התעניינות מקושרת",
+                                    "value": "pcfsystemfield102"
+                                },
+                                {
+                                    "label": "ת״ז/ח\"פ",
+                                    "value": "pcfsystemfield35"
+                                },
+                                {
+                                    "label": "שיחת טלפון",
+                                    "value": "pcfsystemfield104"
+                                },
+                                {
+                                    "label": "נוצר בתאריך",
+                                    "value": "createdon"
+                                },
+                                {
+                                    "label": "לינק להסכם חתום",
+                                    "value": "pcfsystemfield113"
+                                },
+                                {
+                                    "label": "שם משפחה",
+                                    "value": "lastname"
+                                },
+                                {
+                                    "label": "בעלות",
+                                    "value": "businesstypecode"
+                                },
+                                {
+                                    "label": "מידע כללי על הלקוח - חדש",
+                                    "value": "pcfsystemfield1490"
+                                },
+                                {
+                                    "label": "יום הולדת (חודש)",
+                                    "value": "birthdaymonth"
+                                },
+                                {
+                                    "label": "סוג העסק (השאלה הכי חשובה !!!)",
+                                    "value": "billingzipcode"
+                                },
+                                {
+                                    "label": "פרטי הליד",
+                                    "value": "systemfield10"
+                                },
+                                {
+                                    "label": "app page token ",
+                                    "value": "pcfsystemfield1481"
+                                },
+                                {
+                                    "label": "user token",
+                                    "value": "needs"
+                                },
+                                {
+                                    "label": "דומיין פיתוח",
+                                    "value": "pcfsystemfield110"
+                                },
+                                {
+                                    "label": "איפיון",
+                                    "value": "pcfsystemfield106"
+                                },
+                                {
+                                    "label": "אזורים לפרסום?",
+                                    "value": "pcfsystemfield1469"
+                                },
+                                {
+                                    "label": "המלצות של הלקוחות",
+                                    "value": "pcfsystemfield1489"
+                                },
+                                {
+                                    "label": "סוג הקמפיין ",
+                                    "value": "pcfsystemfield1472"
+                                },
+                                {
+                                    "label": "אתר אינטרנט עבור מחלקת המכירות",
+                                    "value": "pcfsystemfield117"
+                                },
+                                {
+                                    "label": "שלח הסכם לחתימה",
+                                    "value": "pcfsystemfield105"
+                                },
+                                {
+                                    "label": "רחוב",
+                                    "value": "billingstreet"
+                                },
+                                {
+                                    "label": "דואר אלקטרוני 2",
+                                    "value": "emailaddress2"
+                                },
+                                {
+                                    "label": "לינק ללוגו מbbimage ",
+                                    "value": "pcfsystemfield1445"
+                                },
+                                {
+                                    "label": "מייל גוגל ",
+                                    "value": "pcfsystemfield140"
+                                },
+                                {
+                                    "label": "שירות מספר 3 (נא לפרט בהרחבה על השירות הספציפי ומי קהל היעד)",
+                                    "value": "pcfsystemfield1485"
+                                },
+                                {
+                                    "label": "תאריך פעולה אחרונה",
+                                    "value": "lastactiondate"
+                                },
+                                {
+                                    "label": "ותק",
+                                    "value": "accountageindays"
+                                },
+                                {
+                                    "label": "פרטי חיוב",
+                                    "value": "pcfsystemfield119"
+                                },
+                                {
+                                    "label": "טון דיבור (התוכן)",
+                                    "value": "pcfsystemfield1462"
+                                },
+                                {
+                                    "label": "סטטוס",
+                                    "value": "statuscode"
+                                }
+                            ],
+                            "operators": [
+                                {
+                                    "label": "Text",
+                                    "options": [
+                                        {
+                                            "label": "=",
+                                            "value": "="
+                                        },
+                                        {
+                                            "label": "!=",
+                                            "value": "!="
+                                        },
+                                        {
+                                            "label": ">",
+                                            "value": ">"
+                                        },
+                                        {
+                                            "label": "<",
+                                            "value": "<"
+                                        },
+                                        {
+                                            "label": "<=",
+                                            "value": "<="
+                                        },
+                                        {
+                                            "label": ">=",
+                                            "value": ">="
+                                        },
+                                        {
+                                            "label": "Is Null",
+                                            "value": "is-null"
+                                        },
+                                        {
+                                            "label": "Is Not Null",
+                                            "value": "is-not-null"
+                                        },
+                                        {
+                                            "label": "Start With",
+                                            "value": "start-with"
+                                        },
+                                        {
+                                            "label": "End With",
+                                            "value": "end-with"
+                                        },
+                                        {
+                                            "label": "Not Start With",
+                                            "value": "not-start-with"
+                                        },
+                                        {
+                                            "label": "Not End With",
+                                            "value": "not-end-with"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "sort_by",
+                        "type": "select",
+                        "label": "Sort by"
+                    },
+                    {
+                        "name": "sort_type",
+                        "type": "select",
+                        "label": "Sort Type",
+                        "validate": {
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ]
+                        }
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "__IMTLENGTH__",
+                        "type": "uinteger",
+                        "label": "Total number of bundles"
+                    },
+                    {
+                        "name": "__IMTINDEX__",
+                        "type": "uinteger",
+                        "label": "Bundle order position"
+                    },
+                    {
+                        "name": "pcfsystemfield130",
+                        "type": "text",
+                        "label": "לינק טופס תיקונים עבור הלקוח"
+                    },
+                    {
+                        "name": "telephone1",
+                        "type": "text",
+                        "label": "טלפון ראשי"
+                    },
+                    {
+                        "name": "createdby",
+                        "type": "text",
+                        "label": "נוצר על ידי"
+                    },
+                    {
+                        "name": "pcfsystemfield1442",
+                        "type": "text",
+                        "label": "תאריך פגישה הבאה"
+                    },
+                    {
+                        "name": "pcfsystemfield1498name",
+                        "type": "text",
+                        "label": "האם הלקוח הוא של מנהל פרויקט ?"
+                    },
+                    {
+                        "name": "pcfsystemfield1471",
+                        "type": "text",
+                        "label": "תקציב פירסומי?"
+                    },
+                    {
+                        "name": "pcfsystemfield102name",
+                        "type": "text",
+                        "label": "התעניינות מקושרת"
+                    },
+                    {
+                        "name": "pcfsystemfield116name",
+                        "type": "text",
+                        "label": "נקבעה פגישת קמפיינים-איפיון"
+                    },
+                    {
+                        "name": "revenue",
+                        "type": "text",
+                        "label": "שווי לקוח בממוצע"
+                    },
+                    {
+                        "name": "pcfsystemfield1476",
+                        "type": "text",
+                        "label": "עיצוב אתר - לקוח חדש"
+                    },
+                    {
+                        "name": "pcfsystemfield95",
+                        "type": "text",
+                        "label": "כמה שנים בתחום"
+                    },
+                    {
+                        "name": "accountnumber",
+                        "type": "text",
+                        "label": "מספר לקוח"
+                    },
+                    {
+                        "name": "statecode",
+                        "type": "text",
+                        "label": "מצב רשומה"
+                    },
+                    {
+                        "name": "pcfsystemfield1473name",
+                        "type": "text",
+                        "label": "התחל תהליך:"
+                    },
+                    {
+                        "name": "accounttypecode",
+                        "type": "text",
+                        "label": "סוג לקוח"
+                    },
+                    {
+                        "name": "pcfsystemfield1456",
+                        "type": "text",
+                        "label": "יש לוגו? (במידה וכן חובה לצרך את הקובץ להערות!)"
+                    },
+                    {
+                        "name": "pcfsystemfield1456name",
+                        "type": "text",
+                        "label": "יש לוגו? (במידה וכן חובה לצרך את הקובץ להערות!)"
+                    },
+                    {
+                        "name": "billingcountry",
+                        "type": "text",
+                        "label": "שירות מספר 4 (נא לפרט בהרחבה על השירות הספציפי ומי קהל היעד)"
+                    },
+                    {
+                        "name": "pcfsystemfield107",
+                        "type": "text",
+                        "label": "עיצוב"
+                    },
+                    {
+                        "name": "pcfsystemfield129",
+                        "type": "text",
+                        "label": "לינק טופס תיקונים עבור העובד"
+                    },
+                    {
+                        "name": "pcfsystemfield1437",
+                        "type": "text",
+                        "label": "סך החוב"
+                    },
+                    {
+                        "name": "pcfsystemfield1494",
+                        "type": "text",
+                        "label": "שעות פתיחה "
+                    },
+                    {
+                        "name": "pcfsystemfield1443",
+                        "type": "text",
+                        "label": "נשלח הודעת פתיחה ללקוח ?"
+                    },
+                    {
+                        "name": "modifiedon",
+                        "type": "date",
+                        "label": "עודכן בתאריך"
+                    },
+                    {
+                        "name": "isvalidforemailcode",
+                        "type": "text",
+                        "label": "שליחת דואר אלקטרוני"
+                    },
+                    {
+                        "name": "pcfsystemfield1492",
+                        "type": "text",
+                        "label": "מה מבדיל את העסק מהמתחרים - חדש"
+                    },
+                    {
+                        "name": "pcfsystemfield138",
+                        "type": "text",
+                        "label": "לינק לקוח - טופס מתעדכן"
+                    },
+                    {
+                        "name": "accountrating",
+                        "type": "text",
+                        "label": "דירוג"
+                    },
+                    {
+                        "name": "industry",
+                        "type": "text",
+                        "label": "תחום פעילות"
+                    },
+                    {
+                        "name": "pcfsystemfield112",
+                        "type": "text",
+                        "label": "לינק להסכם של הלקוח"
+                    },
+                    {
+                        "name": "pcfsystemfield106name",
+                        "type": "text",
+                        "label": "איפיון"
+                    },
+                    {
+                        "name": "ownerid",
+                        "type": "text",
+                        "label": "מנהל לקוח"
+                    },
+                    {
+                        "name": "primarycontactid",
+                        "type": "text",
+                        "label": "איש קשר עיקרי"
+                    },
+                    {
+                        "name": "pcfsystemfield1450",
+                        "type": "text",
+                        "label": "פרט כמה זמן הוא בתחום"
+                    },
+                    {
+                        "name": "pcfsystemfield1495",
+                        "type": "text",
+                        "label": "שירות עיקרי של הלקוח"
+                    },
+                    {
+                        "name": "pcfsystemfield33name",
+                        "type": "text",
+                        "label": "מידת רצינות"
+                    },
+                    {
+                        "name": "pcfsystemfield1487",
+                        "type": "text",
+                        "label": "הערות לשים רק כאן !!!"
+                    },
+                    {
+                        "name": "pcfsystemfield1457",
+                        "type": "text",
+                        "label": "סוג העסק"
+                    },
+                    {
+                        "name": "pcfsystemfield1459name",
+                        "type": "text",
+                        "label": "סגנון עיצובי מועדף?"
+                    },
+                    {
+                        "name": "pcfsystemfield1462name",
+                        "type": "text",
+                        "label": "טון דיבור (התוכן)"
+                    },
+                    {
+                        "name": "modifiedby",
+                        "type": "text",
+                        "label": "עודכן על ידי"
+                    },
+                    {
+                        "name": "numberofemployees",
+                        "type": "text",
+                        "label": "יחס סגירה"
+                    },
+                    {
+                        "name": "accountid",
+                        "type": "text",
+                        "label": "לקוח"
+                    },
+                    {
+                        "name": "pcfsystemfield121",
+                        "type": "text",
+                        "label": "לינק לחשבונית"
+                    },
+                    {
+                        "name": "pcfsystemfield1473",
+                        "type": "text",
+                        "label": "התחל תהליך:"
+                    },
+                    {
+                        "name": "pcfsystemfield1479",
+                        "type": "text",
+                        "label": "אם יש אתר ללקוח, האם משתמשים בו?"
+                    },
+                    {
+                        "name": "pcfsystemfield1475",
+                        "type": "text",
+                        "label": "שם העסק (אנגלית או עברית)"
+                    },
+                    {
+                        "name": "pcfsystemfield101",
+                        "type": "text",
+                        "label": "סה\"כ פניות"
+                    },
+                    {
+                        "name": "pcfsystemfield142",
+                        "type": "text",
+                        "label": "מבנה אתר"
+                    },
+                    {
+                        "name": "pcfsystemfield1491",
+                        "type": "text",
+                        "label": "אודות - חדש"
+                    },
+                    {
+                        "name": "pcfsystemfield108",
+                        "type": "text",
+                        "label": "פרוייקט בניית אתר"
+                    },
+                    {
+                        "name": "pcfsystemfield105name",
+                        "type": "text",
+                        "label": "שלח הסכם לחתימה"
+                    },
+                    {
+                        "name": "pcfsystemfield128",
+                        "type": "text",
+                        "label": "פעולה"
+                    },
+                    {
+                        "name": "pcfsystemfield1484",
+                        "type": "text",
+                        "label": "מילא איפיון בייס?"
+                    },
+                    {
+                        "name": "pcfsystemfield1434",
+                        "type": "text",
+                        "label": "תאריך סגירה"
+                    },
+                    {
+                        "name": "pcfsystemfield1468name",
+                        "type": "text",
+                        "label": "מגדר קהל היעד?"
+                    },
+                    {
+                        "name": "pcfsystemfield132",
+                        "type": "text",
+                        "label": "סיסמה- פייסבוק"
+                    },
+                    {
+                        "name": "pcfsystemfield1457name",
+                        "type": "text",
+                        "label": "סוג העסק"
+                    },
+                    {
+                        "name": "pcfsystemfield1465",
+                        "type": "text",
+                        "label": "קישורים כרפרנס (אינסטגרם/פייסבוק/אתרים שאהב)"
+                    },
+                    {
+                        "name": "secondcategory",
+                        "type": "text",
+                        "label": "קטגוריה 2"
+                    },
+                    {
+                        "name": "pcfsystemfield124",
+                        "type": "text",
+                        "label": "כמה זמן העסק קיים?"
+                    },
+                    {
+                        "name": "pcfsystemfield48",
+                        "type": "text",
+                        "label": "חוב ללקוח ? "
+                    },
+                    {
+                        "name": "pcfsystemfield1431",
+                        "type": "text",
+                        "label": "טופס שיווקי"
+                    },
+                    {
+                        "name": "pcfsystemfield1464",
+                        "type": "text",
+                        "label": "סוג האתר"
+                    },
+                    {
+                        "name": "pcfsystemfield1453",
+                        "type": "text",
+                        "label": "שירות מספר 2 (נא לפרט בהרחבה על השירות הספציפי ומי קהל היעד)"
+                    },
+                    {
+                        "name": "fax1",
+                        "type": "text",
+                        "label": "שירות מספר 5 (נא לפרט בהרחבה על השירות הספציפי ומי קהל היעד)"
+                    },
+                    {
+                        "name": "originatinglead",
+                        "type": "text",
+                        "label": "מקור הגעה"
+                    },
+                    {
+                        "name": "pcfsystemfield1467",
+                        "type": "text",
+                        "label": "מה הם גילאי קהל היעד?"
+                    },
+                    {
+                        "name": "pcfsystemfield1484name",
+                        "type": "text",
+                        "label": "מילא איפיון בייס?"
+                    },
+                    {
+                        "name": "pcfsystemfield1448",
+                        "type": "text",
+                        "label": "כתובת העסק"
+                    },
+                    {
+                        "name": "pcfsystemfield134",
+                        "type": "text",
+                        "label": "קישור- אינסטגרם"
+                    },
+                    {
+                        "name": "emailaddress1",
+                        "type": "text",
+                        "label": "דואר אלקטרוני"
+                    },
+                    {
+                        "name": "pcfsystemfield1478",
+                        "type": "text",
+                        "label": "טלפון משני"
+                    },
+                    {
+                        "name": "emailaddress3",
+                        "type": "text",
+                        "label": "דואר אלקטרוני 3"
+                    },
+                    {
+                        "name": "accountdebt",
+                        "type": "text",
+                        "label": "חוב לקוח"
+                    },
+                    {
+                        "name": "categorycode",
+                        "type": "text",
+                        "label": "קטגוריה"
+                    },
+                    {
+                        "name": "industrycode",
+                        "type": "text",
+                        "label": "תחום פעילות"
+                    },
+                    {
+                        "name": "pcfsystemfield1439",
+                        "type": "text",
+                        "label": "תחום עיסוק ?"
+                    },
+                    {
+                        "name": "telephone3",
+                        "type": "text",
+                        "label": "טלפון שלישי"
+                    },
+                    {
+                        "name": "idnumber",
+                        "type": "text",
+                        "label": "שם העסק לחשבונית"
+                    },
+                    {
+                        "name": "pcfsystemfield1433",
+                        "type": "text",
+                        "label": "טופס מבנה שיווקי"
+                    },
+                    {
+                        "name": "duplicaterecordcodename",
+                        "type": "text",
+                        "label": "כפול"
+                    },
+                    {
+                        "name": "telephone2",
+                        "type": "text",
+                        "label": "טלפון משני"
+                    },
+                    {
+                        "name": "nextactiondate",
+                        "type": "text",
+                        "label": "ת. פעולה הבאה"
+                    },
+                    {
+                        "name": "pcfsystemfield103",
+                        "type": "text",
+                        "label": "גיוס אנשי צוות"
+                    },
+                    {
+                        "name": "paymentterms",
+                        "type": "text",
+                        "label": "תנאי תשלום"
+                    },
+                    {
+                        "name": "pcfsystemfield108name",
+                        "type": "text",
+                        "label": "פרוייקט בניית אתר"
+                    },
+                    {
+                        "name": "pcfsystemfield1441name",
+                        "type": "text",
+                        "label": "שיוך למכירה"
+                    },
+                    {
+                        "name": "pcfsystemfield127",
+                        "type": "text",
+                        "label": "תוכן ההודעה"
+                    },
+                    {
+                        "name": "nextactivitydate",
+                        "type": "text",
+                        "label": "תאריך פעולה הבאה"
+                    },
+                    {
+                        "name": "pcfsystemfield1498",
+                        "type": "text",
+                        "label": "האם הלקוח הוא של מנהל פרויקט ?"
+                    },
+                    {
+                        "name": "pcfsystemfield1468",
+                        "type": "text",
+                        "label": "מגדר קהל היעד?"
+                    },
+                    {
+                        "name": "accountratingcode",
+                        "type": "text",
+                        "label": "דירוג"
+                    },
+                    {
+                        "name": "pcfsystemfield125",
+                        "type": "text",
+                        "label": "לינק לעובד -  לטופס תיקונים מתעדכן מהלקוח"
+                    },
+                    {
+                        "name": "pcfsystemfield1470",
+                        "type": "text",
+                        "label": "למי *לא* לפנות בקמפיין?"
+                    },
+                    {
+                        "name": "pcfsystemfield1460name",
+                        "type": "text",
+                        "label": "מה תרצו שהאתר ישדר (איך האתר ירגיש)?"
+                    },
+                    {
+                        "name": "pcfsystemfield1482",
+                        "type": "text",
+                        "label": "סיסמה לאפליקציה"
+                    },
+                    {
+                        "name": "pcfsystemfield1441",
+                        "type": "text",
+                        "label": "שיוך למכירה"
+                    },
+                    {
+                        "name": "pcfsystemfield115name",
+                        "type": "text",
+                        "label": "נקבעה פגישת קמפיינים-הרשאות"
+                    },
+                    {
+                        "name": "pcfsystemfield12",
+                        "type": "text",
+                        "label": "עשה שיווק/אתר בעבר?"
+                    },
+                    {
+                        "name": "pcfsystemfield137",
+                        "type": "text",
+                        "label": "שיוך לעיצוב "
+                    },
+                    {
+                        "name": "state",
+                        "type": "text",
+                        "label": "מצב רשומה"
+                    },
+                    {
+                        "name": "pcfsystemfield14",
+                        "type": "text",
+                        "label": "תאריך הנפקת ת.ז"
+                    },
+                    {
+                        "name": "pcfsystemfield1493",
+                        "type": "text",
+                        "label": "פרט על המבצעים - חדש"
+                    },
+                    {
+                        "name": "primarycontactname",
+                        "type": "text",
+                        "label": "איש קשר עיקרי"
+                    },
+                    {
+                        "name": "pcfsystemfield1432",
+                        "type": "text",
+                        "label": "טופס מבנה אתר"
+                    },
+                    {
+                        "name": "parentaccountid",
+                        "type": "text",
+                        "label": "לקוח אב"
+                    },
+                    {
+                        "name": "shippingmethod",
+                        "type": "text",
+                        "label": "תיאום_פגישה_ייעוץ_שיווקי_ללא_עלות_בפתח_תקווה"
+                    },
+                    {
+                        "name": "status",
+                        "type": "text",
+                        "label": "סטטוס"
+                    },
+                    {
+                        "name": "pcfsystemfield1496",
+                        "type": "text",
+                        "label": "כל שאר השרותים"
+                    },
+                    {
+                        "name": "lastconversationname",
+                        "type": "text",
+                        "label": "שיחה אחרונה"
+                    },
+                    {
+                        "name": "birthdaydate",
+                        "type": "text",
+                        "label": "תאריך יום הולדת"
+                    },
+                    {
+                        "name": "duplicaterecordcode",
+                        "type": "text",
+                        "label": "כפול"
+                    },
+                    {
+                        "name": "lostreasonname",
+                        "type": "text",
+                        "label": "סיבת ביטול"
+                    },
+                    {
+                        "name": "pcfsystemfield1483",
+                        "type": "text",
+                        "label": "לקוח VIP (חברות בעמ, עסקים גדולים)"
+                    },
+                    {
+                        "name": "pcfsystemfield136",
+                        "type": "text",
+                        "label": "סיסמה- אינסטגרם"
+                    },
+                    {
+                        "name": "pcfsystemfield1459",
+                        "type": "text",
+                        "label": "סגנון עיצובי מועדף?"
+                    },
+                    {
+                        "name": "pcfsystemfield100",
+                        "type": "text",
+                        "label": "תאריך תזכורת"
+                    },
+                    {
+                        "name": "pcfsystemfield1479name",
+                        "type": "text",
+                        "label": "אם יש אתר ללקוח, האם משתמשים בו?"
+                    },
+                    {
+                        "name": "campaignid",
+                        "type": "text",
+                        "label": "קמפיין"
+                    },
+                    {
+                        "name": "ownername",
+                        "type": "text",
+                        "label": "מנהל לקוח"
+                    },
+                    {
+                        "name": "campaignname",
+                        "type": "text",
+                        "label": "קמפיין"
+                    },
+                    {
+                        "name": "isvalidforemail",
+                        "type": "text",
+                        "label": "שליחת דואר אלקטרוני"
+                    },
+                    {
+                        "name": "modifiedbyname",
+                        "type": "text",
+                        "label": "עודכן על ידי"
+                    },
+                    {
+                        "name": "accountname",
+                        "type": "text",
+                        "label": "שם לקוח"
+                    },
+                    {
+                        "name": "billingcity",
+                        "type": "text",
+                        "label": "עיר "
+                    },
+                    {
+                        "name": "pcfsystemfield1449",
+                        "type": "text",
+                        "label": "כמה זמן העסק פעיל? "
+                    },
+                    {
+                        "name": "createdbyname",
+                        "type": "text",
+                        "label": "נוצר על ידי"
+                    },
+                    {
+                        "name": "lostreason",
+                        "type": "text",
+                        "label": "סיבת ביטול"
+                    },
+                    {
+                        "name": "pcfsystemfield123",
+                        "type": "text",
+                        "label": "לינק ליצירת לינק טופס תיקונים ראשון - שיווק"
+                    },
+                    {
+                        "name": "firstname",
+                        "type": "text",
+                        "label": "שם פרטי"
+                    },
+                    {
+                        "name": "pcfsystemfield131",
+                        "type": "text",
+                        "label": "שם משתמש- פייסבוק "
+                    },
+                    {
+                        "name": "lastconversation",
+                        "type": "text",
+                        "label": "שיחה אחרונה"
+                    },
+                    {
+                        "name": "shippingmethodcode",
+                        "type": "text",
+                        "label": "תיאום_פגישה_ייעוץ_שיווקי_ללא_עלות_בפתח_תקווה"
+                    },
+                    {
+                        "name": "birthdayday",
+                        "type": "text",
+                        "label": "יום הולדת (יום)"
+                    },
+                    {
+                        "name": "pcfsystemfield1449name",
+                        "type": "text",
+                        "label": "כמה זמן העסק פעיל? "
+                    },
+                    {
+                        "name": "pcfsystemfield107name",
+                        "type": "text",
+                        "label": "עיצוב"
+                    },
+                    {
+                        "name": "pcfsystemfield1472name",
+                        "type": "text",
+                        "label": "סוג הקמפיין "
+                    },
+                    {
+                        "name": "pcfsystemfield122",
+                        "type": "text",
+                        "label": "לינק להעלאת תמונות והשראה"
+                    },
+                    {
+                        "name": "websiteurl",
+                        "type": "text",
+                        "label": "אתר מוכן למחלקת שירות"
+                    },
+                    {
+                        "name": "pcfsystemfield126",
+                        "type": "text",
+                        "label": "מספר הגשות טפסי תיקונים"
+                    },
+                    {
+                        "name": "secondcategorycode",
+                        "type": "text",
+                        "label": "קטגוריה 2"
+                    },
+                    {
+                        "name": "pcfLinktowhatsapp",
+                        "type": "text",
+                        "label": "לינק לוואטסאפ"
+                    },
+                    {
+                        "name": "originatingleadcode",
+                        "type": "text",
+                        "label": "מקור הגעה"
+                    },
+                    {
+                        "name": "pcfsystemfield1497",
+                        "type": "text",
+                        "label": "גייסון לאוטומציה לא לגעת"
+                    },
+                    {
+                        "name": "pcfsystemfield103name",
+                        "type": "text",
+                        "label": "גיוס אנשי צוות"
+                    },
+                    {
+                        "name": "billingstate",
+                        "type": "text",
+                        "label": "שם לדומיין: (כתובת האתר, באנגלית!)"
+                    },
+                    {
+                        "name": "pcfsystemfield1480",
+                        "type": "text",
+                        "label": "סוג העסק"
+                    },
+                    {
+                        "name": "pcfsystemfield1464name",
+                        "type": "text",
+                        "label": "סוג האתר"
+                    },
+                    {
+                        "name": "pcfsystemfield1458",
+                        "type": "text",
+                        "label": "עמודים ספציפיים באתר שהלקוח מעוניין : (לציין 1....., 2.  .....) עד 3 עמודים"
+                    },
+                    {
+                        "name": "pcfsystemfield1460",
+                        "type": "text",
+                        "label": "מה תרצו שהאתר ישדר (איך האתר ירגיש)?"
+                    },
+                    {
+                        "name": "pcfsystemfield135",
+                        "type": "text",
+                        "label": "שם משתמש- אינסטגרם"
+                    },
+                    {
+                        "name": "businesstypename",
+                        "type": "text",
+                        "label": "בעלות"
+                    },
+                    {
+                        "name": "pcfsystemfield1438",
+                        "type": "text",
+                        "label": "תאריך גביה"
+                    },
+                    {
+                        "name": "pcfsystemfield1474",
+                        "type": "text",
+                        "label": "נוכחות דגיטלית בעסק היום? (צרף קישורים לאתר/אינסטגרם/פייסבוק/ווטסאפ עיסקי של הלקוח)"
+                    },
+                    {
+                        "name": "pcfsystemfield137name",
+                        "type": "text",
+                        "label": "שיוך לעיצוב "
+                    },
+                    {
+                        "name": "paymenttermscode",
+                        "type": "text",
+                        "label": "תנאי תשלום"
+                    },
+                    {
+                        "name": "pcfsystemfield116",
+                        "type": "text",
+                        "label": "נקבעה פגישת קמפיינים-איפיון"
+                    },
+                    {
+                        "name": "pcfsystemfield33",
+                        "type": "text",
+                        "label": "מידת רצינות"
+                    },
+                    {
+                        "name": "pcfsystemfield1436",
+                        "type": "text",
+                        "label": "קישור לאינסטגרם"
+                    },
+                    {
+                        "name": "pcfsystemfield115",
+                        "type": "text",
+                        "label": "נקבעה פגישת קמפיינים-הרשאות"
+                    },
+                    {
+                        "name": "description",
+                        "type": "text",
+                        "label": "תיאור"
+                    },
+                    {
+                        "name": "pcfsystemfield114",
+                        "type": "text",
+                        "label": "לינק לדרייב"
+                    },
+                    {
+                        "name": "pcfsystemfield128name",
+                        "type": "text",
+                        "label": "פעולה"
+                    },
+                    {
+                        "name": "pcfcampainName",
+                        "type": "text",
+                        "label": "שם קמפיין"
+                    },
+                    {
+                        "name": "pcfsystemfield1476name",
+                        "type": "text",
+                        "label": "עיצוב אתר - לקוח חדש"
+                    },
+                    {
+                        "name": "pcfsystemfield141",
+                        "type": "text",
+                        "label": "סיסמה- גוגל "
+                    },
+                    {
+                        "name": "pcfsystemfield12name",
+                        "type": "text",
+                        "label": "עשה שיווק/אתר בעבר?"
+                    },
+                    {
+                        "name": "pcfsystemfield1461",
+                        "type": "text",
+                        "label": "צבעים מועדפים, נא לרשום צבעים ממש (ירוק כהה, סגול לילך וכו)"
+                    },
+                    {
+                        "name": "pcfsystemfield102",
+                        "type": "text",
+                        "label": "התעניינות מקושרת"
+                    },
+                    {
+                        "name": "pcfsystemfield35",
+                        "type": "text",
+                        "label": "ת״ז/ח\"פ"
+                    },
+                    {
+                        "name": "pcfsystemfield104",
+                        "type": "text",
+                        "label": "שיחת טלפון"
+                    },
+                    {
+                        "name": "createdon",
+                        "type": "date",
+                        "label": "נוצר בתאריך"
+                    },
+                    {
+                        "name": "pcfsystemfield113",
+                        "type": "text",
+                        "label": "לינק להסכם חתום"
+                    },
+                    {
+                        "name": "lastname",
+                        "type": "text",
+                        "label": "שם משפחה"
+                    },
+                    {
+                        "name": "businesstypecode",
+                        "type": "text",
+                        "label": "בעלות"
+                    },
+                    {
+                        "name": "pcfsystemfield1490",
+                        "type": "text",
+                        "label": "מידע כללי על הלקוח - חדש"
+                    },
+                    {
+                        "name": "birthdaymonth",
+                        "type": "text",
+                        "label": "יום הולדת (חודש)"
+                    },
+                    {
+                        "name": "billingzipcode",
+                        "type": "text",
+                        "label": "סוג העסק (השאלה הכי חשובה !!!)"
+                    },
+                    {
+                        "name": "systemfield10",
+                        "type": "text",
+                        "label": "פרטי הליד"
+                    },
+                    {
+                        "name": "pcfsystemfield1481",
+                        "type": "text",
+                        "label": "app page token "
+                    },
+                    {
+                        "name": "needs",
+                        "type": "text",
+                        "label": "user token"
+                    },
+                    {
+                        "name": "pcfsystemfield110",
+                        "type": "text",
+                        "label": "דומיין פיתוח"
+                    },
+                    {
+                        "name": "pcfsystemfield106",
+                        "type": "text",
+                        "label": "איפיון"
+                    },
+                    {
+                        "name": "pcfsystemfield1469",
+                        "type": "text",
+                        "label": "אזורים לפרסום?"
+                    },
+                    {
+                        "name": "pcfsystemfield1489",
+                        "type": "text",
+                        "label": "המלצות של הלקוחות"
+                    },
+                    {
+                        "name": "pcfsystemfield1472",
+                        "type": "text",
+                        "label": "סוג הקמפיין "
+                    },
+                    {
+                        "name": "pcfsystemfield117",
+                        "type": "text",
+                        "label": "אתר אינטרנט עבור מחלקת המכירות"
+                    },
+                    {
+                        "name": "pcfsystemfield105",
+                        "type": "text",
+                        "label": "שלח הסכם לחתימה"
+                    },
+                    {
+                        "name": "billingstreet",
+                        "type": "text",
+                        "label": "רחוב"
+                    },
+                    {
+                        "name": "emailaddress2",
+                        "type": "text",
+                        "label": "דואר אלקטרוני 2"
+                    },
+                    {
+                        "name": "pcfsystemfield1445",
+                        "type": "text",
+                        "label": "לינק ללוגו מbbimage "
+                    },
+                    {
+                        "name": "category",
+                        "type": "text",
+                        "label": "קטגוריה"
+                    },
+                    {
+                        "name": "pcfsystemfield140",
+                        "type": "text",
+                        "label": "מייל גוגל "
+                    },
+                    {
+                        "name": "pcfsystemfield1485",
+                        "type": "text",
+                        "label": "שירות מספר 3 (נא לפרט בהרחבה על השירות הספציפי ומי קהל היעד)"
+                    },
+                    {
+                        "name": "lastactiondate",
+                        "type": "text",
+                        "label": "תאריך פעולה אחרונה"
+                    },
+                    {
+                        "name": "parentaccountname",
+                        "type": "text",
+                        "label": "לקוח אב"
+                    },
+                    {
+                        "name": "accounttype",
+                        "type": "text",
+                        "label": "סוג לקוח"
+                    },
+                    {
+                        "name": "accountageindays",
+                        "type": "text",
+                        "label": "ותק"
+                    },
+                    {
+                        "name": "pcfsystemfield1483name",
+                        "type": "text",
+                        "label": "לקוח VIP (חברות בעמ, עסקים גדולים)"
+                    },
+                    {
+                        "name": "pcfsystemfield1471name",
+                        "type": "text",
+                        "label": "תקציב פירסומי?"
+                    },
+                    {
+                        "name": "pcfsystemfield119",
+                        "type": "text",
+                        "label": "פרטי חיוב"
+                    },
+                    {
+                        "name": "pcfsystemfield1462",
+                        "type": "text",
+                        "label": "טון דיבור (התוכן)"
+                    },
+                    {
+                        "name": "statuscode",
+                        "type": "text",
+                        "label": "סטטוס"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 60,
+            "module": "powerlink:createobject",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 8284723
+            },
+            "mapper": {
+                "fields": [
+                    {
+                        "name": "accountid",
+                        "value": "{{57.accountid}}"
+                    },
+                    {
+                        "name": "contractname",
+                        "value": "הסכם אפליציה"
+                    }
+                ],
+                "objecttype": "28"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 475,
+                    "y": 353
+                },
+                "restore": {
+                    "expect": {
+                        "fields": {
+                            "mode": "chose",
+                            "items": [
+                                {
+                                    "name": {
+                                        "mode": "chose",
+                                        "label": "שם לקוח"
+                                    }
+                                },
+                                {
+                                    "name": {
+                                        "mode": "chose",
+                                        "label": "נושא"
+                                    }
+                                }
+                            ]
+                        },
+                        "objecttype": {
+                            "mode": "chose",
+                            "label": "טופס"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "powerlink"
+                            },
+                            "label": "איקוניק מדיה משתמש מנהל"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:powerlink",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "objecttype",
+                        "type": "select",
+                        "label": "Name of Object",
+                        "required": true
+                    },
+                    {
+                        "name": "fields",
+                        "spec": [
+                            {
+                                "name": "name",
+                                "type": "select",
+                                "label": "Field Name",
+                                "dynamic": true,
+                                "options": []
+                            },
+                            {
+                                "name": "value",
+                                "type": "text",
+                                "label": "Value"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Fields"
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "accountid",
+                        "type": "text",
+                        "label": "שם לקוח"
+                    },
+                    {
+                        "name": "contractnumber",
+                        "type": "text",
+                        "label": "מספר חוזה"
+                    },
+                    {
+                        "name": "servicelevelcode",
+                        "type": "text",
+                        "label": "רמת שרות"
+                    },
+                    {
+                        "name": "state",
+                        "type": "text",
+                        "label": "מצב רשומה"
+                    },
+                    {
+                        "name": "pcfsystemfield101",
+                        "type": "text",
+                        "label": "לינק עבור המעצב - להעלאת תיקונים"
+                    },
+                    {
+                        "name": "servicelevel",
+                        "type": "text",
+                        "label": "רמת שרות"
+                    },
+                    {
+                        "name": "price",
+                        "type": "text",
+                        "label": "עלות "
+                    },
+                    {
+                        "name": "description",
+                        "type": "text",
+                        "label": "הערות"
+                    },
+                    {
+                        "name": "statecode",
+                        "type": "text",
+                        "label": "מצב רשומה"
+                    },
+                    {
+                        "name": "pcfsystemfield102",
+                        "type": "text",
+                        "label": "לינק עבור הלקוח - לאישור תיקונים"
+                    },
+                    {
+                        "name": "servicetypecode",
+                        "type": "text",
+                        "label": "סוג שרות"
+                    },
+                    {
+                        "name": "status",
+                        "type": "text",
+                        "label": "סטטוס"
+                    },
+                    {
+                        "name": "pcfsystemfield103",
+                        "type": "text",
+                        "label": "לינקים מהאיפיון"
+                    },
+                    {
+                        "name": "statuscode",
+                        "type": "text",
+                        "label": "סטטוס"
+                    },
+                    {
+                        "name": "enddate",
+                        "type": "text",
+                        "label": "תאריך סיום"
+                    },
+                    {
+                        "name": "createdby",
+                        "type": "text",
+                        "label": "נוצר על ידי"
+                    },
+                    {
+                        "name": "createdbyname",
+                        "type": "text",
+                        "label": "נוצר על ידי"
+                    },
+                    {
+                        "name": "ownername",
+                        "type": "text",
+                        "label": "נוצר על ידי"
+                    },
+                    {
+                        "name": "accountname",
+                        "type": "text",
+                        "label": "שם לקוח"
+                    },
+                    {
+                        "name": "contractname",
+                        "type": "text",
+                        "label": "נושא"
+                    },
+                    {
+                        "name": "ownerid",
+                        "type": "text",
+                        "label": "נוצר על ידי"
+                    },
+                    {
+                        "name": "createdon",
+                        "type": "date",
+                        "label": "נוצר בתאריך"
+                    },
+                    {
+                        "name": "servicetype",
+                        "type": "text",
+                        "label": "סוג שרות"
+                    },
+                    {
+                        "name": "supporthours",
+                        "type": "text",
+                        "label": "שעות תמיכה חודשיות"
+                    },
+                    {
+                        "name": "startdate",
+                        "type": "text",
+                        "label": "תאריך התחלה"
+                    },
+                    {
+                        "name": "modifiedbyname",
+                        "type": "text",
+                        "label": "עודכן על ידי"
+                    },
+                    {
+                        "name": "pcfsystemfield100",
+                        "type": "text",
+                        "label": "לינק להורדה"
+                    },
+                    {
+                        "name": "duration",
+                        "type": "text",
+                        "label": "משך חוזה בחודשים"
+                    },
+                    {
+                        "name": "modifiedon",
+                        "type": "date",
+                        "label": "עודכן בתאריך"
+                    },
+                    {
+                        "name": "modifiedby",
+                        "type": "text",
+                        "label": "עודכן על ידי"
+                    },
+                    {
+                        "name": "pcfsystemfield104",
+                        "type": "text",
+                        "label": "לינק ללוגו"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 62,
+            "module": "http:DownloadFile",
+            "version": 4,
+            "parameters": {
+                "authenticationType": "noAuth"
+            },
+            "filter": null,
+            "mapper": {
+                "url": "https://i.ibb.co/84SbLtwC/2026-05-20-14-22-12.png",
+                "shareCookies": false,
+                "stopOnHttpError": true
+            },
+            "metadata": {
+                "designer": {
+                    "x": 775,
+                    "y": 353
+                },
+                "restore": {
+                    "expect": {
+                        "headers": {
+                            "mode": "chose"
+                        },
+                        "shareCookies": {
+                            "mode": "chose"
+                        },
+                        "queryParameters": {
+                            "mode": "chose"
+                        },
+                        "stopOnHttpError": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "authenticationType": {
+                            "label": "No authenticationUse when no credentials are required for the request."
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "authenticationType",
+                        "type": "select",
+                        "label": "Authentication type",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "noAuth",
+                                "apiKey",
+                                "basicAuth",
+                                "oAuth"
+                            ]
+                        }
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "url",
+                        "type": "url",
+                        "label": "URL",
+                        "required": true
+                    },
+                    {
+                        "name": "stopOnHttpError",
+                        "type": "boolean",
+                        "label": "Return error if HTTP request fails",
+                        "required": true
+                    },
+                    {
+                        "name": "shareCookies",
+                        "type": "boolean",
+                        "label": "Share cookies with other HTTP modules",
+                        "required": true
+                    },
+                    {
+                        "name": "headers",
+                        "spec": {
+                            "name": "value",
+                            "spec": [
+                                {
+                                    "name": "name",
+                                    "type": "text",
+                                    "label": "Name",
+                                    "required": true,
+                                    "validate": {
+                                        "pattern": "^[-!#$%&'*+.^_`|~0-9A-Za-z]+$"
+                                    }
+                                },
+                                {
+                                    "name": "value",
+                                    "type": "text",
+                                    "label": "Value"
+                                }
+                            ],
+                            "type": "collection",
+                            "label": "Header"
+                        },
+                        "type": "array",
+                        "label": "Headers"
+                    },
+                    {
+                        "name": "queryParameters",
+                        "spec": {
+                            "name": "value",
+                            "spec": [
+                                {
+                                    "name": "name",
+                                    "type": "text",
+                                    "label": "Name",
+                                    "required": true
+                                },
+                                {
+                                    "name": "value",
+                                    "type": "text",
+                                    "label": "Value"
+                                }
+                            ],
+                            "type": "collection",
+                            "label": "Parameter"
+                        },
+                        "type": "array",
+                        "label": "Query parameters"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 61,
+            "module": "powerlink:uploadFile",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 8284723
+            },
+            "mapper": {
+                "objectid": "{{60.contractid}}",
+                "file_data": "{{62.data}}",
+                "file_name": "{{62.fileName}}",
+                "objecttype": "28"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1075,
+                    "y": 353
+                },
+                "restore": {
+                    "expect": {
+                        "objecttype": {
+                            "mode": "chose",
+                            "label": "טופס"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "powerlink"
+                            },
+                            "label": "איקוניק מדיה משתמש מנהל"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:powerlink",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "objecttype",
+                        "type": "select",
+                        "label": "Name of Object",
+                        "required": true
+                    },
+                    {
+                        "name": "objectid",
+                        "type": "text",
+                        "label": "Object ID",
+                        "required": true
+                    },
+                    {
+                        "name": "file_name",
+                        "type": "text",
+                        "label": "Name",
+                        "required": true
+                    },
+                    {
+                        "name": "file_data",
+                        "type": "buffer",
+                        "label": "Data",
+                        "required": true
+                    }
+                ]
+            }
+        }
+    ],
+    "metadata": {
+        "instant": false,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "eu2.make.com",
+        "notes": []
+    }
+}

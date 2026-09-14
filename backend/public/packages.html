@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex" />
+<title>החבילות שלי · ICONIQ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --card-1:#1E1B4B; --card-2:#312E81; --owned-1:#0F172A; --owned-2:#1E293B;
+    --cyan-1:#06B6D4; --cyan-2:#22D3EE;
+    --blue:#0073EA; --blue-2:#0060C0; --ink:#1E1B4B; --ink-2:#4B4E68; --ink-3:#8A8DA6;
+    --bg:#F4F6FB; --paper:#FFFFFF; --rule:#E6E9F2;
+    --positive:#00C875; --positive-bg:#E4F9EF; --danger:#E2445C;
+    --r:18px; --r-pill:999px; --shadow:0 10px 30px rgba(30,27,75,.10);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{font-family:'Heebo',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--ink);
+    min-height:100vh;min-height:100dvh;padding:0 16px calc(40px + env(safe-area-inset-bottom));line-height:1.5}
+  .wrap{max-width:900px;margin:0 auto}
+
+  header{display:flex;align-items:center;justify-content:center;gap:10px;padding:22px 0 6px}
+  .brand{font-weight:900;font-size:22px;color:var(--ink)}
+  .brand b{color:var(--blue)}
+  .brand-dot{width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,var(--cyan-1),var(--cyan-2));display:inline-block}
+
+  .gate{max-width:420px;margin:6vh auto 0;background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:28px 22px;text-align:center}
+  .gate h1{font-size:22px;font-weight:800;margin:6px 0}
+  .gate p{color:var(--ink-2);font-size:14.5px;margin:0 0 20px;line-height:1.6}
+  .field input{width:100%;height:54px;border:1.5px solid var(--rule);border-radius:14px;background:#FBFCFF;font-family:inherit;
+    font-size:18px;font-weight:600;text-align:center;letter-spacing:2px;color:var(--ink);direction:ltr;outline:none;margin-bottom:14px;transition:border-color .15s,box-shadow .15s}
+  .field input:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(0,115,234,.12)}
+  .btn{width:100%;height:54px;border:0;border-radius:14px;font-family:inherit;font-weight:800;font-size:17px;cursor:pointer;
+    transition:transform .08s,filter .15s;display:flex;align-items:center;justify-content:center;gap:8px}
+  .btn:active{transform:translateY(1px)}
+  .btn-primary{background:linear-gradient(135deg,var(--blue),var(--blue-2));color:#fff;box-shadow:0 8px 20px rgba(0,115,234,.28)}
+  .btn-ghost{background:transparent;color:var(--ink-2);border:1.5px solid var(--rule)}
+  .btn[disabled]{opacity:.65;cursor:default}
+  .err{color:var(--danger);font-size:13.5px;margin-top:8px;min-height:18px;font-weight:600}
+
+  .banner{border-radius:14px;padding:14px 16px;margin:16px 0;font-weight:700;font-size:15px;display:flex;align-items:center;gap:10px;animation:pop .35s ease}
+  .banner.ok{background:var(--positive-bg);color:#0A8F55}
+  .banner.warn{background:#FFF1E6;color:#B45309}
+  @keyframes pop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+
+  .listhead{display:flex;align-items:center;justify-content:space-between;margin:20px 2px 2px}
+  .listhead .who{font-size:14px;color:var(--ink-2);font-weight:600}
+  .listhead .who b{color:var(--ink);direction:ltr;display:inline-block}
+  .linkbtn{background:none;border:0;color:var(--blue);font-family:inherit;font-weight:700;font-size:13.5px;cursor:pointer;padding:6px}
+  .section-title{font-size:16px;font-weight:800;color:var(--ink-2);margin:24px 4px 12px}
+  .lead{font-size:17px;color:var(--ink);text-align:center;margin:18px 4px 6px;font-weight:800;line-height:1.5}
+  .lead-sub{font-size:13px;font-weight:700;color:#E11D48}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+
+  .card{position:relative;border-radius:var(--r);padding:22px 20px;color:#fff;overflow:hidden;
+    background:linear-gradient(135deg,var(--card-1) 0%,var(--card-2) 100%);box-shadow:var(--shadow);
+    display:flex;flex-direction:column;gap:14px;isolation:isolate}
+  .card.owned{background:linear-gradient(135deg,var(--owned-1),var(--owned-2))}
+  .card .glow{position:absolute;inset-inline-start:-40px;top:-40px;width:170px;height:170px;border-radius:50%;
+    background:radial-gradient(circle,rgba(34,211,238,.28),transparent 70%);z-index:-1}
+  .card h3{margin:0;font-size:21px;font-weight:800;text-align:right;line-height:1.25}
+  .pricewrap{display:flex;flex-direction:column;gap:7px;margin-top:2px}
+  .price{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+  .price .was{font-size:16px;font-weight:700;color:rgba(255,255,255,.5);text-decoration:line-through;direction:ltr}
+  .price .num{font-size:32px;font-weight:900;direction:ltr}
+  .price .suf{font-size:13px;font-weight:600;color:rgba(255,255,255,.72)}
+  .save-pill{align-self:flex-start;background:linear-gradient(135deg,#FB7185,#F43F5E);color:#fff;font-size:11.5px;font-weight:800;border-radius:var(--r-pill);padding:4px 11px;box-shadow:0 4px 12px rgba(244,63,94,.35)}
+  .vat{font-size:11.5px;font-weight:600;color:rgba(255,255,255,.6)}
+  ul.bul{list-style:none;margin:2px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+  ul.bul li{display:flex;align-items:flex-start;gap:8px;font-size:14px;font-weight:500;line-height:1.4;color:rgba(255,255,255,.94)}
+  ul.bul li .d{flex:0 0 auto;width:6px;height:6px;border-radius:50%;background:var(--cyan-2);margin-top:7px}
+  .spacer{flex:1}
+  .buy{height:50px;border:0;border-radius:var(--r-pill);background:rgba(255,255,255,.96);color:var(--card-1);
+    font-family:inherit;font-weight:800;font-size:15.5px;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.22);
+    transition:transform .08s;display:flex;align-items:center;justify-content:center;gap:8px}
+  .buy:active{transform:translateY(1px)}
+  .buy[disabled]{opacity:.7;cursor:default}
+  .owned-badge{display:flex;align-items:center;justify-content:center;gap:8px;height:50px;border-radius:var(--r-pill);
+    background:rgba(0,200,117,.16);color:#3BE28E;font-weight:800;font-size:15px;border:1.5px solid rgba(0,200,117,.4)}
+  .addlink{background:rgba(255,255,255,.14);border:0;color:#fff;font-family:inherit;font-weight:700;font-size:13.5px;
+    border-radius:var(--r-pill);height:40px;cursor:pointer}
+  .tag{position:absolute;inset-inline-end:16px;top:16px;background:linear-gradient(135deg,var(--cyan-1),#0891B2);
+    color:#fff;font-size:11px;font-weight:800;border-radius:var(--r-pill);padding:4px 11px;box-shadow:0 4px 12px rgba(6,182,212,.4)}
+  /* best-value + detailed features */
+  .best-strip{margin:-22px -20px 2px;padding:9px 12px;background:linear-gradient(135deg,#F5C451,#F0B429);color:#3A2E00;font-weight:900;font-size:13px;text-align:center;letter-spacing:.3px}
+  .card.best{box-shadow:0 0 0 2px #F5C451, var(--shadow)}
+  .hl{background:rgba(245,196,81,.15);border:1px solid rgba(245,196,81,.42);color:#FCE7AE;border-radius:12px;padding:11px 12px;font-weight:800;font-size:13.5px;text-align:center;line-height:1.45}
+  ul.feat{list-style:none;margin:2px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
+  ul.feat li{display:flex;gap:10px;align-items:flex-start}
+  ul.feat .fi{font-size:18px;line-height:1.25;flex:0 0 auto}
+  ul.feat .fmeta{display:flex;flex-direction:column}
+  ul.feat .ft{font-weight:700;font-size:14.5px;color:#fff;line-height:1.3}
+  ul.feat .fd{font-size:12.5px;color:rgba(255,255,255,.68);line-height:1.35;margin-top:1px}
+
+  /* ---- KLIQ BOOST PRO — final two-card layout ---- */
+  .promo-head{text-align:center;margin:18px 0 18px}
+  .promo-title{font-size:24px;font-weight:900;line-height:1.35;margin:0 0 12px}
+  .tealtext{background:linear-gradient(90deg,#2DD4BF,#0EA5E9);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .urgency{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,#F59E0B,#F5C451);color:#3A2E00;font-weight:800;font-size:14px;border-radius:var(--r-pill);padding:9px 18px;box-shadow:0 8px 20px rgba(245,158,11,.28)}
+  .plans2{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start;margin-top:8px}
+  .pcard{position:relative;border-radius:22px;padding:30px 22px 24px;color:#EAF0FF;overflow:hidden;
+    background:linear-gradient(165deg,#0F1D3F 0%,#182B54 100%);border:1px solid rgba(255,255,255,.08);box-shadow:0 16px 40px rgba(8,15,40,.35)}
+  .pcard.best{border:2px solid #2DD4BF;box-shadow:0 0 0 4px rgba(45,212,191,.12),0 18px 44px rgba(8,15,40,.42)}
+  .pcard-badge{position:absolute;top:0;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#2DD4BF,#14B8A6);color:#04231E;font-weight:900;font-size:12.5px;padding:6px 20px;border-radius:0 0 12px 12px;box-shadow:0 6px 16px rgba(20,184,166,.4);white-space:nowrap}
+  .save-corner{position:absolute;inset-inline-start:16px;top:16px;background:linear-gradient(135deg,#FDE68A,#F5C451);color:#5B4708;font-weight:900;font-size:11.5px;border-radius:var(--r-pill);padding:4px 11px;box-shadow:0 4px 12px rgba(245,196,81,.4)}
+  .pcard-head{display:block;width:max-content;margin:16px auto 12px;background:linear-gradient(135deg,#2DD4BF,#14B8A6);color:#04231E;font-weight:800;font-size:12.5px;border-radius:var(--r-pill);padding:6px 15px}
+  .pcard-reg{text-align:center;color:rgba(234,240,255,.6);font-size:13.5px;font-weight:600;margin-bottom:6px}
+  .pcard-reg s{color:#FB7185;font-weight:800}
+  .pcard-price{text-align:center;margin-bottom:18px}
+  .pcard-price .pnum{font-size:44px;font-weight:900;direction:ltr;letter-spacing:.5px}
+  .pcard-price .pper{display:block;font-size:12.5px;font-weight:600;color:rgba(234,240,255,.6);margin-top:2px}
+  ul.checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+  ul.checks li{display:flex;align-items:flex-start;gap:10px;font-size:14px;font-weight:600;line-height:1.35;color:rgba(234,240,255,.94)}
+  ul.checks .ck{flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#FDE68A,#F5C451);color:#5B4708;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;margin-top:1px}
+  ul.checks li.star{font-weight:800}
+  ul.checks li.star .ck{background:transparent;color:#F5C451;font-size:18px}
+  .cta{margin-top:22px;width:100%;height:52px;border:0;border-radius:var(--r-pill);font-family:inherit;font-weight:800;font-size:16px;cursor:pointer;transition:transform .08s;
+    background:linear-gradient(135deg,#FDE68A,#F5C451);color:#3A2E00;box-shadow:0 8px 20px rgba(245,196,81,.35)}
+  .pcard.best .cta{background:linear-gradient(135deg,#2DD4BF,#14B8A6);color:#04231E;box-shadow:0 8px 20px rgba(20,184,166,.4)}
+  .cta:active{transform:translateY(1px)}
+  .pcard .owned-badge{margin-top:22px}
+  @media (max-width:640px){ .plans2{grid-template-columns:1fr} .promo-title{font-size:20px} }
+
+  /* modal */
+  .overlay{position:fixed;inset:0;background:rgba(15,17,40,.55);backdrop-filter:blur(3px);display:flex;align-items:center;
+    justify-content:center;padding:18px;z-index:50;animation:fade .2s ease}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  .modal{background:var(--paper);border-radius:22px;box-shadow:0 24px 60px rgba(0,0,0,.35);width:100%;max-width:460px;
+    max-height:92vh;overflow:auto;padding:22px 20px calc(20px + env(safe-area-inset-bottom));animation:rise .25s ease}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .modal h2{font-size:19px;font-weight:800;margin:2px 0 4px}
+  .modal .sub{color:var(--ink-2);font-size:13.5px;margin:0 0 16px}
+  .base{background:linear-gradient(135deg,var(--card-1),var(--card-2));color:#fff;border-radius:14px;padding:14px 16px;margin-bottom:16px}
+  .base .n{font-weight:800;font-size:16px}
+  .base .p{font-size:13px;color:rgba(255,255,255,.75);margin-top:2px}
+  .addhdr{font-size:13px;font-weight:800;color:var(--ink-3);margin:4px 2px 10px}
+  .opt{display:flex;align-items:center;gap:12px;border:1.5px solid var(--rule);border-radius:14px;padding:13px 14px;margin-bottom:10px;cursor:pointer;transition:border-color .15s,background .15s}
+  .opt.sel{border-color:var(--blue);background:#F1F7FF}
+  .opt .check{width:24px;height:24px;border-radius:8px;border:2px solid var(--rule);flex:0 0 auto;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:14px}
+  .opt.sel .check{background:var(--blue);border-color:var(--blue)}
+  .opt .info{flex:1}
+  .opt .info .t{font-weight:700;font-size:15px}
+  .opt .info .d{font-size:12.5px;color:var(--ink-3)}
+  .opt .pr{font-weight:800;direction:ltr;color:var(--ink);text-align:left}
+  .opt .pr .owas{display:block;font-size:11px;font-weight:600;color:var(--ink-3);text-decoration:line-through}
+  .note{font-size:12px;color:var(--ink-3);text-align:center;margin:6px 0 14px}
+  .total{display:flex;align-items:center;justify-content:space-between;border-top:1.5px solid var(--rule);margin-top:6px;padding-top:14px;font-weight:800;font-size:16px}
+  .total .tnum{direction:ltr;font-size:22px;color:var(--ink)}
+  .total .twas{direction:ltr;font-size:14px;font-weight:600;color:var(--ink-3);text-decoration:line-through;margin-inline-end:8px}
+  .mfoot{display:flex;gap:10px;margin-top:12px}
+  .mfoot .btn{height:50px;font-size:16px}
+
+  .empty{text-align:center;color:var(--ink-2);background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:34px 20px;margin-top:18px}
+  .empty .big{font-size:40px;margin-bottom:8px}
+  .spinner{width:22px;height:22px;border:3px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+  .spinner.dark{border-color:rgba(0,115,234,.25);border-top-color:var(--blue)}
+  .center{display:flex;justify-content:center;padding:44px 0}
+  .hidden{display:none!important}
+  footer{text-align:center;color:var(--ink-3);font-size:12px;margin-top:34px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><span class="brand-dot"></span><span class="brand"><b>ICONIQ</b> · החבילות שלי</span></header>
+
+  <div id="banner"></div>
+
+  <!-- phone gate -->
+  <section id="gate" class="gate">
+    <h1>צפייה ורכישת חבילות</h1>
+    <p>הזינו את מספר הטלפון שאיתו נרשמתם, כדי לראות את החבילות שמחכות לכם ולרכוש בקלות.</p>
+    <form id="phoneForm">
+      <div class="field"><input id="phone" inputmode="numeric" autocomplete="tel" placeholder="05X-XXXXXXX" maxlength="15" /></div>
+      <button class="btn btn-primary" id="phoneBtn" type="submit">הצג את החבילות שלי</button>
+      <div class="err" id="gateErr"></div>
+    </form>
+  </section>
+
+  <div id="loading" class="center hidden"><div class="spinner dark"></div></div>
+
+  <!-- choice + owned -->
+  <section id="main" class="hidden">
+    <div class="listhead">
+      <div class="who">מציג חבילות עבור <b id="whoPhone"></b></div>
+      <button class="linkbtn" id="changePhone">שינוי מספר</button>
+    </div>
+    <div id="mainBody"></div>
+  </section>
+
+  <footer>🔒 תשלום מאובטח באמצעות Cardcom · ICONIQ Media</footer>
+</div>
+
+<div id="modalRoot"></div>
+
+<script>
+(function(){
+  "use strict";
+  var $ = function(id){ return document.getElementById(id); };
+  var KEYS = { monthly:"webinar_monthly", yearly:"webinar_yearly", landing:"webinar_landing_page", business:"webinar_business_page" };
+
+  /* ---------- phone ---------- */
+  function digits(s){ return String(s||"").replace(/\D/g,""); }
+  function phoneCandidates(input){
+    var d = digits(input).replace(/^00/,""); var out=[];
+    var local = d.replace(/^972/, "0");
+    if(/^0\d{8,9}$/.test(local)) out.push(local);
+    var intl = /^0/.test(local) ? "972"+local.slice(1) : (/^972/.test(d)? d : null);
+    if(intl) out.push(intl);
+    if(d && out.indexOf(d)===-1) out.push(d);
+    return out.filter(function(v,i,a){ return v && a.indexOf(v)===i; });
+  }
+
+  /* ---------- api ---------- */
+  function getJSON(u){ return fetch(u,{headers:{Accept:"application/json"}}).then(function(r){return r.json().catch(function(){return{};});}); }
+  function postJSON(u,b){ return fetch(u,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(b)}).then(function(r){return r.json().catch(function(){return{};});}); }
+  function loadFor(phone){
+    return Promise.all([
+      getJSON("/api/packages/personal?phone="+encodeURIComponent(phone)),
+      getJSON("/api/packages/my-purchases?phone="+encodeURIComponent(phone))
+    ]).then(function(r){ return { available:(r[0]&&r[0].packages)||[], purchased:(r[1]&&r[1].packages)||[] }; });
+  }
+  // read-only resolve of the phone format that already has offers
+  function resolvePhone(input){
+    var cands = phoneCandidates(input); var i=0;
+    return (function next(){
+      if(i>=cands.length) return cands[0] || digits(input);
+      var p = cands[i++];
+      return loadFor(p).then(function(d){ return (d.available.length+d.purchased.length)>0 ? p : next(); }).catch(next);
+    })();
+  }
+
+  /* ---------- formatting ---------- */
+  function fmtPrice(price,cur){ return (cur===2?"$":"₪") + Number(price||0).toLocaleString("en-US"); }
+  /* Customer-facing DISPLAY prices in $ (marketing only). The actual CHARGE
+     stays the package's real ILS price — we display $, charge ₪, per request. */
+  var DISP = { regular:499, webinar_monthly:299, webinar_yearly:199, webinar_landing_page:149, webinar_business_page:49 };
+  function usd(n){ return "$"+Number(n||0).toLocaleString("en-US"); }
+  function dispOf(key, fallback){ return DISP[key]!=null ? DISP[key] : fallback; }
+  function suffix(pkg){
+    if(pkg.isSubscription) return pkg.billingCycle==="yearly" ? "לשנה · חיוב שנתי אחד" : "לחודש · מתחדש אוטומטית";
+    return "תשלום חד-פעמי";
+  }
+  function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+  function bulletsHtml(pkg){
+    var b=(pkg.bullets&&pkg.bullets.length)?pkg.bullets:[]; if(!b.length) return "";
+    return '<ul class="bul">'+b.map(function(x){return '<li><span class="d"></span><span>'+esc(x)+'</span></li>';}).join("")+'</ul>';
+  }
+
+  /* ---------- state ---------- */
+  var state = { phone:"", available:[], purchased:[] };
+  function byKey(list,key){ return list.filter(function(p){return p.key===key;})[0]; }
+  function ownedKey(key){ return !!byKey(state.purchased,key); }
+  function availKey(key){ return byKey(state.available,key); }
+
+  /* ---------- package detail content ---------- */
+  var DETAILS = {
+    webinar_monthly: { features:[
+      {i:"🎯",t:"קמפיין לידים",d:"איסוף לידים אוטומטי מהמודעות שלך"},
+      {i:"🌐",t:"קמפיין טראפיק",d:"הבאת גולשים לאתר או לעמוד שלך"},
+      {i:"📣",t:"קמפיין סושיאל",d:"פרסום ממומן בפייסבוק ובאינסטגרם"},
+      {i:"🪙",t:"5,000 מטבעות בכל חודש",d:"ליצירת מודעות, תמונות ותכנים ב-AI"},
+      {i:"🔄",t:"מתחדש אוטומטית",d:"ניתן לביטול בכל עת, ללא התחייבות"}
+    ]},
+    webinar_yearly: { features:[
+      {i:"✅",t:"כל מה שיש בחבילה החודשית",d:"3 הקמפיינים + 5,000 מטבעות בכל חודש"},
+      {i:"🖥️",t:"דף נחיתה מקצועי — מתנה",d:"מעוצב ומותאם אישית, בחבילה זו בלבד"},
+      {i:"💰",t:"מחיר חודשי נמוך יותר",d:"משתלם משמעותית מתשלום חודש-בחודש"},
+      {i:"💳",t:"תשלום שנתי אחד",d:"בלי חיובים חודשיים ובלי דאגות"}
+    ]},
+    webinar_landing_page: { features:[
+      {i:"🖥️",t:"דף נחיתה מעוצב",d:"עיצוב מותאם אישית לעסק שלך"},
+      {i:"📱",t:"מותאם לנייד",d:"נראה מושלם בכל מסך"},
+      {i:"⚡",t:"בנוי להמרות",d:"מוכן לקמפיינים ולאיסוף לידים"}
+    ]},
+    webinar_business_page: { features:[
+      {i:"📘",t:"הקמת עמוד עסקי ב-Meta",d:"פייסבוק ואינסטגרם עסקי"},
+      {i:"✅",t:"מוכן לפרסום ממומן",d:"מוגדר ומחובר נכון מהיום הראשון"}
+    ]}
+  };
+
+  /* ---------- choice screen ---------- */
+  function origPrice(fp){ return Math.round((fp||0)*1.1); }
+  function priceBlock(pkg, discount){
+    var showDisc = discount!==false;
+    return '<div class="pricewrap"><div class="price">'+
+      (showDisc ? '<span class="was">'+fmtPrice(origPrice(pkg.finalPrice),pkg.currencyCode)+'</span>' : '')+
+      '<span class="num">'+fmtPrice(pkg.finalPrice,pkg.currencyCode)+'</span>'+
+      '<span class="suf">'+esc(suffix(pkg))+'</span></div>'+
+      (showDisc ? '<span class="save-pill">🔥 מבצע השקה · 10% הנחה</span>' : '')+
+    '</div>';
+  }
+  function featHtml(key){
+    var det = DETAILS[key]; if(!det||!det.features) return "";
+    return '<ul class="feat">'+det.features.map(function(f){
+      return '<li><span class="fi">'+f.i+'</span><span class="fmeta"><span class="ft">'+esc(f.t)+'</span><span class="fd">'+esc(f.d)+'</span></span></li>';
+    }).join("")+'</ul>';
+  }
+  function yearlyHighlight(yPkg){
+    var m = availKey(KEYS.monthly) || byKey(state.purchased,KEYS.monthly);
+    var parts = ["🎁 רק "+fmtPrice(Math.round((yPkg.finalPrice||0)/12),yPkg.currencyCode)+" לחודש"];
+    if(m && m.finalPrice){ var save=(m.finalPrice*12)-(yPkg.finalPrice||0); if(save>0) parts.push("חוסכים "+fmtPrice(save,yPkg.currencyCode)+" בשנה"); }
+    parts.push("דף נחיתה מתנה");
+    return parts.join(" · ");
+  }
+
+  function planCard(pkg, kind){
+    var isYear = kind==="yearly";
+    var strip = isYear ? '<div class="best-strip">⭐ הכי משתלם — החיסכון הגדול</div>' : '';
+    var tag   = isYear ? '' : '<div class="tag">מנוי חודשי</div>';
+    var hl    = isYear ? '<div class="hl">'+esc(yearlyHighlight(pkg))+'</div>' : '';
+    var cta   = '<button class="buy" data-act="'+(isYear?"yearly":"monthly")+'">'+(isYear?"בחירת החבילה השנתית":"בחירת החבילה החודשית")+'</button>';
+    return '<div class="card'+(isYear?' best':'')+'"><div class="glow"></div>'+strip+tag+
+      '<h3>'+esc(pkg.name)+'</h3>'+ priceBlock(pkg) + hl + featHtml(pkg.key)+
+      '<div class="spacer"></div>'+cta+'</div>';
+  }
+  function ownedPlanCard(pkg, canAddons){
+    return '<div class="card owned"><div class="glow"></div>'+
+      '<h3>'+esc(pkg.name)+'</h3>'+ priceBlock(pkg,false) + featHtml(pkg.key)+
+      '<div class="spacer"></div>'+
+      '<div class="owned-badge">✓ נרכש · פעיל</div>'+
+      (canAddons?'<button class="addlink" data-act="addons">➕ רכישת תוספות (דף נחיתה / עמוד עסקי)</button>':'')+'</div>';
+  }
+  function ownedExtraCard(pkg){
+    return '<div class="card owned"><div class="glow"></div>'+
+      '<h3>'+esc(pkg.name)+'</h3>'+ priceBlock(pkg,false) + featHtml(pkg.key)+
+      '<div class="spacer"></div>'+
+      '<div class="owned-badge">✓ נרכש · פעיל</div></div>';
+  }
+
+  function anyAddonAvailable(){ return !!(availKey(KEYS.landing) || availKey(KEYS.business)); }
+
+  /* ---------- KLIQ BOOST PRO — final two dark cards ---------- */
+  var SHARED_FEATURES = [
+    "יצירה, כתיבה ועיצוב תוכן לרשתות החברתיות",
+    "העלאת קמפיינים ישירות לפייסבוק ואינסטגרם",
+    "ניהול וטיפול בלידים עד סגירה",
+    "ניטור, בקרה ואופטימיזציה שוטפת",
+    "נתונים ודוחות בזמן אמת",
+    "מערכת AI מלאה"
+  ];
+  var YEARLY_EXTRAS = ["שיחת אסטרטגיה", "דף נחיתה"];
+
+  function planCardDark(pkg, kind, owned){
+    var isYear = kind==="yearly";
+    var disp = dispOf(pkg.key, isYear ? Math.round((pkg.finalPrice||0)/12) : (pkg.finalPrice||0));
+    var disc = Math.max(0, Math.round((1 - disp/DISP.regular)*100));
+    var badge = isYear ? '<div class="pcard-badge">🏆 הכי משתלם</div>' : '';
+    var save  = '<div class="save-corner">'+(isYear ? ("חיסכון של "+disc+"%") : (disc+"% הנחה"))+'</div>';
+    var checks = SHARED_FEATURES.map(function(t){ return '<li><span class="ck">✓</span><span>'+esc(t)+'</span></li>'; });
+    if(isYear) YEARLY_EXTRAS.forEach(function(t){ checks.push('<li class="star"><span class="ck">★</span><span>'+esc(t)+'</span></li>'); });
+    var footer = owned
+      ? '<div class="owned-badge">✓ נרכש · פעיל</div>'
+      : '<button class="cta" data-act="'+kind+'">רכישת המסלול</button>';
+    return '<div class="pcard'+(isYear?' best':'')+'">'+badge+save+
+      '<div class="pcard-head">KLIQ BOOST PRO · '+(isYear?"מסלול שנתי":"מסלול חודשי")+'</div>'+
+      '<div class="pcard-reg">מחיר רגיל <s>'+usd(DISP.regular)+'</s> לחודש</div>'+
+      '<div class="pcard-price"><span class="pnum">'+usd(disp)+'</span><span class="pper">לחודש · כולל מע״מ</span></div>'+
+      '<ul class="checks">'+checks.join("")+'</ul>'+ footer +
+    '</div>';
+  }
+  function productView(){
+    var monthly=availKey(KEYS.monthly), yearly=availKey(KEYS.yearly);
+    var mOwned=byKey(state.purchased,KEYS.monthly), yOwned=byKey(state.purchased,KEYS.yearly);
+    var cards = "";
+    if(yearly)  cards += planCardDark(yearly,"yearly",false);  else if(yOwned) cards += planCardDark(yOwned,"yearly",true);
+    if(monthly) cards += planCardDark(monthly,"monthly",false); else if(mOwned) cards += planCardDark(mOwned,"monthly",true);
+    return '<div class="promo-head">'+
+        '<h1 class="promo-title">מחיר מיוחד למשתתפי הוובינר — <span class="tealtext">ל-24 השעות הקרובות בלבד</span></h1>'+
+        '<div class="urgency">⏱️ המבצע בתוקף ל-24 שעות בלבד</div>'+
+      '</div>'+
+      '<div class="plans2">'+cards+'</div>';
+  }
+
+  function render(){
+    var body = $("mainBody"); var html = "";
+    var hasMain = availKey(KEYS.monthly)||availKey(KEYS.yearly)||ownedKey(KEYS.monthly)||ownedKey(KEYS.yearly);
+    if(hasMain) html += productView();
+
+    var extras = state.purchased.filter(function(p){ return p.key===KEYS.landing || p.key===KEYS.business; });
+    if(extras.length){
+      html += '<div class="section-title">תוספות שרכשת</div>';
+      html += '<div class="grid">'+extras.map(ownedExtraCard).join("")+'</div>';
+    }
+    if(!hasMain && !extras.length){
+      html = '<div class="empty"><div class="big">📦</div>'+
+        '<div style="font-weight:800;font-size:17px;margin-bottom:6px">לא נמצאו חבילות</div>'+
+        '<div>לא נמצאו חבילות למספר '+esc(state.phone)+'.</div></div>';
+    }
+    body.innerHTML = html;
+
+    Array.prototype.forEach.call(body.querySelectorAll("[data-act]"), function(btn){
+      var act = btn.getAttribute("data-act");
+      btn.addEventListener("click", function(){
+        var p = act==="yearly" ? availKey(KEYS.yearly) : availKey(KEYS.monthly);
+        if(p) pay([p._id]);   // direct single-plan purchase
+      });
+    });
+  }
+
+  /* ---------- monthly modal (add-ons) ---------- */
+  function openMonthlyModal(){
+    var monthly = availKey(KEYS.monthly);         // may be null if already owned
+    var landing = availKey(KEYS.landing);
+    var business = availKey(KEYS.business);
+    var addons = [];
+    if(landing)  addons.push({ id:landing._id,  t:"דף נחיתה",        d:"דף נחיתה מעוצב ומותאם אישית", disp:dispOf(landing.key,0) });
+    if(business) addons.push({ id:business._id, t:"פתיחת עמוד עסקי", d:"הקמת עמוד עסקי ב-Meta",       disp:dispOf(business.key,0) });
+
+    var baseDisp = monthly ? dispOf(KEYS.monthly,0) : 0;
+
+    var baseHtml = monthly
+      ? '<div class="base"><div class="n">KLIQ BOOST PRO · מסלול חודשי</div><div class="p">'+usd(baseDisp)+' · '+esc(suffix(monthly))+'</div></div>'
+      : '<div class="base"><div class="n">KLIQ BOOST PRO · מסלול חודשי</div><div class="p">כבר ברשותך · אפשר להוסיף תוספות</div></div>';
+
+    var optsHtml = addons.length
+      ? '<div class="addhdr">רוצים להוסיף? (הכל בתשלום אחד)</div>' + addons.map(function(a){
+          return '<div class="opt" data-id="'+esc(a.id)+'"><div class="check">✓</div>'+
+            '<div class="info"><div class="t">'+esc(a.t)+'</div><div class="d">'+esc(a.d)+'</div></div>'+
+            '<div class="pr">'+usd(a.disp)+'</div></div>';
+        }).join("")
+      : '';
+
+    var canProceed = monthly || addons.length;
+
+    $("modalRoot").innerHTML =
+      '<div class="overlay" id="overlay"><div class="modal">'+
+        '<h2>KLIQ BOOST PRO · מסלול חודשי</h2>'+
+        '<div class="sub">קמפיין לידים · טראפיק · סושיאל + 5,000 מטבעות בחודש</div>'+
+        baseHtml + optsHtml +
+        '<div class="total"><span>סה״כ לתשלום</span><span class="tnum" id="mTotal">'+usd(baseDisp)+'</span></div>'+
+        '<div class="note">תשלום אחד מאובטח · אשראי · Bit · Apple&nbsp;Pay · Google&nbsp;Pay</div>'+
+        '<div class="mfoot">'+
+          '<button class="btn btn-primary" id="mGo"'+(canProceed?'':' disabled')+'>לתשלום</button>'+
+          '<button class="btn btn-ghost" id="mCancel">ביטול</button>'+
+        '</div>'+
+      '</div></div>';
+
+    var selected = {};
+    function recompute(){
+      var t = baseDisp;
+      addons.forEach(function(a){ if(selected[a.id]) t += a.disp; });
+      $("mTotal").textContent = usd(t);
+    }
+    Array.prototype.forEach.call(document.querySelectorAll(".opt"), function(row){
+      row.addEventListener("click", function(){
+        var id = row.getAttribute("data-id");
+        if(selected[id]){ delete selected[id]; row.classList.remove("sel"); }
+        else { selected[id] = true; row.classList.add("sel"); }
+        recompute();
+      });
+    });
+    $("mCancel").addEventListener("click", closeModal);
+    $("overlay").addEventListener("click", function(e){ if(e.target.id==="overlay") closeModal(); });
+    $("mGo").addEventListener("click", function(){
+      var ids = [];
+      if(monthly) ids.push(monthly._id);         // subscription first
+      Object.keys(selected).forEach(function(id){ ids.push(id); });
+      if(!ids.length) return;
+      closeModal();
+      pay(ids);   // one combined charge
+    });
+  }
+  function closeModal(){ $("modalRoot").innerHTML = ""; }
+
+  /* ---------- payment (ONE combined charge for all selected items) ---------- */
+  function pay(ids){
+    ids = (ids||[]).filter(Boolean);
+    if(!ids.length) return;
+    $("gate").classList.add("hidden"); $("main").classList.add("hidden"); $("loading").classList.remove("hidden");
+    setBanner("ok","פותח דף תשלום מאובטח…");
+    postJSON("/api/packages/webinar-bundle-iframe", { phone: state.phone, packageIds: ids })
+      .then(function(res){
+        if(res && res.success && res.url){
+          try{ sessionStorage.setItem("iq_pay", JSON.stringify({ lp:res.lowProfileId||null, phone:state.phone })); }catch(e){}
+          window.location.href = res.url;   // single redirect to Cardcom
+        } else {
+          setBanner("warn", (res&&res.error)||"לא הצלחנו לפתוח את דף התשלום. נסו שוב."); showMain();
+        }
+      })
+      .catch(function(){ setBanner("warn","שגיאת רשת. נסו שוב."); showMain(); });
+  }
+
+  function handlePaidReturn(qsPhone){
+    var payInfo=null; try{ payInfo=JSON.parse(sessionStorage.getItem("iq_pay")||"null"); }catch(e){}
+    try{ sessionStorage.removeItem("iq_pay"); }catch(e){}
+    var phone=(payInfo&&payInfo.phone)||qsPhone||safeLocal()||""; state.phone=phone;
+    setBanner("ok","התשלום התקבל! מעדכן את החבילות שלך…");
+    $("gate").classList.add("hidden"); $("main").classList.add("hidden"); $("loading").classList.remove("hidden");
+
+    // confirm the whole bundle (idempotent with the server webhook)
+    var confirmStep = (payInfo && payInfo.lp && phone)
+      ? postJSON("/api/packages/webinar-bundle-confirm", { lowProfileId:payInfo.lp, phone:phone }).catch(function(){})
+      : Promise.resolve();
+
+    confirmStep.then(function(){
+      var tries=0;
+      (function poll(){
+        loadFor(phone).then(function(d){
+          state.available=d.available; state.purchased=d.purchased; tries++;
+          render(); showMain();
+          if(state.purchased.length>0 || tries>=5){ setBanner("ok","🎉 הרכישה הושלמה! החבילות מעודכנות."); return; }
+          setTimeout(poll, 2200);
+        });
+      })();
+    });
+  }
+
+  /* ---------- screens ---------- */
+  function showMain(){ $("gate").classList.add("hidden"); $("loading").classList.add("hidden"); $("main").classList.remove("hidden"); $("whoPhone").textContent = state.phone; }
+  function showGate(){ $("main").classList.add("hidden"); $("loading").classList.add("hidden"); $("gate").classList.remove("hidden"); }
+  function setBanner(kind,text){
+    if(!kind){ $("banner").innerHTML=""; return; }
+    $("banner").innerHTML = '<div class="banner '+kind+'">'+(kind==="ok"?"✅":"⚠️")+' <span>'+esc(text)+'</span></div>';
+  }
+
+  /* ---------- init ---------- */
+  // load: resolve phone format (read-only), then ensure offers exist (creates if missing), then render
+  function openFor(input){
+    $("gate").classList.add("hidden"); $("main").classList.add("hidden"); $("loading").classList.remove("hidden");
+    return resolvePhone(input).then(function(phone){
+      return postJSON("/api/packages/webinar-ensure-offers", { phone: phone }).then(function(res){
+        state.phone = phone;
+        state.available = (res&&res.available)||[];
+        state.purchased = (res&&res.purchased)||[];
+        try{ localStorage.setItem("iq_phone", phone); }catch(e){}
+        render(); showMain();
+      });
+    }).catch(function(){ $("gateErr").textContent="אירעה שגיאה. נסו שוב."; showGate(); });
+  }
+
+  function qs(n){ var m=new RegExp("[?&]"+n+"=([^&]*)").exec(window.location.search); return m?decodeURIComponent(m[1].replace(/\+/g," ")):null; }
+  function cleanUrl(){ if(window.history&&window.history.replaceState) window.history.replaceState({},document.title,window.location.pathname); }
+
+  document.addEventListener("DOMContentLoaded", function(){
+    $("phoneForm").addEventListener("submit", function(e){
+      e.preventDefault();
+      var v=$("phone").value.trim(); $("gateErr").textContent="";
+      if(phoneCandidates(v).length===0){ $("gateErr").textContent="מספר טלפון לא תקין"; return; }
+      $("phoneBtn").disabled=true; openFor(v).then(function(){ $("phoneBtn").disabled=false; });
+    });
+    $("changePhone").addEventListener("click", function(){ setBanner(null); $("phone").value=state.phone||""; showGate(); });
+
+    var paid=qs("paid"), payfail=qs("payfail"), qphone=qs("phone");
+    cleanUrl();
+    if(paid==="1"){ handlePaidReturn(qphone); return; }
+    if(payfail==="1"){
+      var payInfo=null; try{ payInfo=JSON.parse(sessionStorage.getItem("iq_pay")||"null"); }catch(e){}
+      try{ sessionStorage.removeItem("iq_pay"); }catch(e){}
+      setBanner("warn","התשלום לא הושלם. אפשר לנסות שוב.");
+      if(payInfo && payInfo.lp){
+        postJSON("/api/packages/webinar-pay-status",{ lowProfileId: payInfo.lp }).then(function(s){
+          var reason = s && (s.txnDescription || s.description);
+          if(reason) setBanner("warn","התשלום נדחה: "+reason);
+        }).catch(function(){});
+      }
+      var pf=qphone||safeLocal();
+      if(pf){ openFor(pf); return; }
+    }
+    var saved=safeLocal();
+    if(saved){ $("phone").value=saved; openFor(saved); } else { showGate(); }
+  });
+  function safeLocal(){ try{ return localStorage.getItem("iq_phone"); }catch(e){ return null; } }
+})();
+</script>
+</body>
+</html>

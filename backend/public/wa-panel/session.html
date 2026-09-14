@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Session - WhatsApp API Manager</title>
+  <link rel="stylesheet" href="/wa/panel/css/style.css" />
+</head>
+<body>
+
+<nav>
+  <a href="/wa/panel/" class="logo">
+    <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+    WhatsApp API Manager
+  </a>
+</nav>
+
+<div class="container">
+  <a href="/wa/panel/" class="back-link">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Dashboard
+  </a>
+
+  <div class="page-header">
+    <div>
+      <h1 id="session-name-heading">Loading...</h1>
+      <div style="margin-top: 6px;">
+        <span class="status-pill">
+          <span class="status-dot disconnected" id="status-dot"></span>
+          <span id="status-text">disconnected</span>
+        </span>
+      </div>
+    </div>
+    <button class="btn btn-danger btn-sm" onclick="deleteSession()">Delete Session</button>
+  </div>
+
+  <div class="session-layout">
+
+    <!-- LEFT: QR Panel -->
+    <div>
+      <div class="card qr-panel">
+        <div class="qr-box" id="qr-box">
+          <div class="qr-placeholder" id="qr-placeholder">
+            <div class="spinner" style="margin: 0 auto 12px;"></div>
+            Waiting for QR...
+          </div>
+          <img id="qr-img" src="" alt="QR Code" style="display:none;" />
+        </div>
+
+        <div id="connected-info" class="connected-info">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <p style="margin-top: 8px; color: #25D366; font-weight: 600; font-size: 1.1rem;">Connected!</p>
+          <p id="connected-phone" style="color: #8892b0; margin-top: 4px;"></p>
+        </div>
+
+        <p style="font-size: 0.82rem; color: #8892b0; text-align: center;" id="qr-hint">
+          Open WhatsApp → Linked Devices → Link a Device
+        </p>
+      </div>
+    </div>
+
+    <!-- RIGHT: Content Panel -->
+    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+
+      <!-- Send Message Form -->
+      <div class="card" id="send-section" style="display:none;">
+        <div class="section-title">Send Message</div>
+        <div class="form-group">
+          <label for="phone-input">Phone Number (international format)</label>
+          <input type="text" id="phone-input" placeholder="972501234567" />
+        </div>
+        <div class="form-group">
+          <label for="msg-input">Message</label>
+          <textarea id="msg-input" placeholder="Type your message..." rows="4"></textarea>
+        </div>
+        <button class="btn btn-primary" id="send-btn" onclick="sendMessage()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Send
+        </button>
+      </div>
+
+      <!-- API Info -->
+      <div class="card" id="api-section">
+        <div class="section-title">API Usage</div>
+
+        <div style="margin-bottom: 0.75rem;">
+          <label style="color: var(--text-muted); font-size: 0.85rem;">Session ID</label>
+          <div style="font-family: monospace; font-size: 0.88rem; margin-top: 4px; color: #a0e0c0;" id="api-session-id"></div>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+          <label style="color: var(--text-muted); font-size: 0.85rem;">API Key</label>
+          <div class="api-key-wrap" style="margin-top: 4px;">
+            <span class="api-key-hidden" id="api-key-display" onclick="toggleApiKey(this)">••••••••••••••••••••••••••••••••</span>
+            <button class="btn btn-secondary btn-sm" onclick="copyApiKey()">Copy</button>
+          </div>
+        </div>
+
+        <label style="color: var(--text-muted); font-size: 0.85rem; display:block; margin-bottom: 6px;">Example cURL</label>
+        <div class="code-block" id="curl-example"></div>
+      </div>
+
+      <!-- Message History -->
+      <div class="card" id="messages-section">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+          <div class="section-title" style="margin-bottom: 0;">Message History</div>
+          <button class="btn btn-secondary btn-sm" onclick="loadMessages()">Refresh</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>To</th>
+                <th>Message</th>
+                <th>Status</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody id="messages-tbody">
+              <tr><td colspan="4"><div class="empty-state"><p>No messages yet</p></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/wa/panel/js/session.js"></script>
+</body>
+</html>

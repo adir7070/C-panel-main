@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#263b74">
+<title>{{BUSINESS_NAME}} · פטיסרי צרפתי ב{{CITY}} | מאפים, עוגות וקפה בובו</title>
+<meta name="description" content="{{BUSINESS_NAME}} — פטיסרי צרפתי של ביסקוטי ב{{CITY}}. מאפים צרפתיים בעבודת יד של הקונדיטור {{OWNER_NAME}}, מבחר עצום של עוגות, קפה בובו איכותי, סלטים וכריכים. ישיבה בפנים ובחוץ וגם טייק אווי.">
+<meta name="keywords" content="פטיסרי, מאפים צרפתיים, עוגות, קפה בובו, {{BUSINESS_NAME}}, ביסקוטי, {{CITY}}, קונדיטוריה, קרואסון, מקרון">
+<meta name="author" content="{{BUSINESS_NAME}}">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://{{WEBSITE_DOMAIN}}/">
+<meta property="og:type" content="bakery">
+<meta property="og:title" content="{{BUSINESS_NAME}} · פטיסרי צרפתי ב{{CITY}}">
+<meta property="og:description" content="מאפים צרפתיים בעבודת יד, עוגות, וקפה בובו איכותי — בלב {{CITY}}.">
+<meta property="og:image" content="https://{{WEBSITE_DOMAIN}}/{{HERO_3_IMAGE}}">
+<meta property="og:url" content="https://{{WEBSITE_DOMAIN}}/">
+<meta property="og:locale" content="he_IL">
+<meta property="og:site_name" content="{{BUSINESS_NAME}}">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ICON_32_URL}}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ICON_APPLE_URL}}">
+<link rel="manifest" href="manifest.webmanifest">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Bakery","name":"{{BUSINESS_NAME}}","description":"פטיסרי צרפתי — מאפים, עוגות וקפה בובו בעבודת יד.","servesCuisine":"French Patisserie, Coffee","priceRange":"₪₪","address":{"@type":"PostalAddress","streetAddress":"{{ADDRESS_STREET}}","addressLocality":"{{CITY}}","addressCountry":"IL"},"telephone":"+972{{PHONE_INTL_DASH}}","email":"{{EMAIL}}"}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FBF7EF; --bg-2:#F3EBD9; --bg-3:#EADFC8;
+    --gold:#C9A24E; --gold-light:#E3C175; --gold-dim:#9A7A2E;
+    --navy:#2A3E78; --navy-soft:#66749A; --navy-deep:#1C2C5C;
+    --text:#26305A; --text-dim:#5B6588;
+    --white:#ffffff;
+    --line:rgba(38,59,116,.14); --line-strong:rgba(38,59,116,.26);
+    --ff-display:'Frank Ruhl Libre','Times New Roman',serif;
+    --ff-italic:'Cormorant Garamond',Georgia,serif;
+    --ff-body:'Heebo','Arial Hebrew',sans-serif;
+    --ease:cubic-bezier(.16,1,.3,1);
+    --shadow-card:0 24px 60px rgba(38,59,116,.16);
+    --shadow-soft:0 12px 36px rgba(38,59,116,.10);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;background:var(--bg)}
+  html,body{overflow-x:hidden;max-width:100vw}
+  body{font-family:var(--ff-body);font-weight:300;font-size:16px;line-height:1.7;color:var(--text);background:var(--bg)}
+  img,video{max-width:100%;display:block;height:auto}
+  a{color:inherit;text-decoration:none}
+  button{cursor:pointer;font-family:inherit;border:none;background:none;color:inherit}
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}[data-reveal]{opacity:1!important;transform:none!important}}
+  [data-reveal]{opacity:0;transform:translateY(2.5rem);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  [data-reveal].in{opacity:1;transform:none}
+  h1,h2,h3,h4{font-family:var(--ff-display);font-weight:400;line-height:1.1;letter-spacing:-.01em;color:var(--text)}
+  h1{font-size:clamp(2.8rem,7vw,6rem)}
+  h2{font-size:clamp(2.2rem,5vw,4rem)}
+  h3{font-size:clamp(1.4rem,2.5vw,2rem)}
+  .italic{font-family:var(--ff-italic);font-style:italic;font-weight:400}
+  .gold{color:var(--gold-dim)}.nv{color:var(--navy)}
+  ::selection{background:var(--navy);color:#fff}
+  .container{max-width:1600px;margin-inline:auto;padding-inline:clamp(20px,4vw,64px);position:relative}
+  .container.bleed{max-width:none;padding-inline:clamp(14px,2.4vw,40px)}
+  .section{padding-block:clamp(70px,11vw,150px);position:relative}
+  .eyebrow{display:inline-flex;align-items:center;gap:14px;font-family:var(--ff-body);font-weight:500;font-size:.8rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:24px}
+  .eyebrow::before{content:'';width:38px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+  .eyebrow::after{content:'';width:38px;height:1px;background:linear-gradient(-90deg,transparent,var(--gold))}
+  .section-heading{font-size:clamp(2.4rem,5.5vw,4.2rem);font-weight:400;line-height:1.05;margin-bottom:1.2rem}
+  .section-sub{font-family:var(--ff-italic);font-style:italic;font-size:clamp(1.05rem,1.5vw,1.35rem);color:var(--text-dim);max-width:56ch;line-height:1.6}
+  .center{text-align:center}.center .section-sub{margin:0 auto}
+  .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--ff-body);font-weight:500;font-size:.85rem;letter-spacing:.16em;text-transform:uppercase;padding:17px 34px;transition:all .4s var(--ease);border:1px solid transparent;white-space:nowrap}
+  .btn-primary{background:var(--navy);color:#fff}
+  .btn-primary:hover{background:var(--navy-deep);transform:translateY(-2px);box-shadow:0 16px 36px rgba(42,62,120,.28)}
+  .btn-ghost{background:transparent;color:var(--text);border-color:var(--line-strong)}
+  .btn-ghost:hover{border-color:var(--navy);color:var(--navy);background:rgba(42,62,120,.04)}
+  .btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-dim));color:#fff}
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(201,162,78,.4)}
+
+  .header{position:fixed;top:0;left:0;right:0;z-index:50;padding:20px 0;transition:all .5s var(--ease)}
+  .header.scrolled{background:rgba(251,247,239,.92);backdrop-filter:blur(20px) saturate(160%);padding:12px 0;border-bottom:1px solid var(--line);box-shadow:0 4px 24px rgba(38,59,116,.05)}
+  .nav{display:flex;justify-content:space-between;align-items:center;gap:24px}
+  .logo-wrap img{height:60px;width:auto;display:block;transition:height .4s var(--ease)}
+  .header.scrolled .logo-wrap img{height:46px}
+  .nav-links{display:flex;gap:30px;list-style:none}
+  .nav-links a{font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;color:var(--text);position:relative;padding-bottom:6px;transition:color .3s}
+  .nav-links a::after{content:'';position:absolute;bottom:0;right:0;width:0;height:1px;background:var(--gold);transition:width .35s var(--ease)}
+  .nav-links a:hover,.nav-links a.active{color:var(--gold-dim)}
+  .nav-links a:hover::after,.nav-links a.active::after{width:100%}
+  .nav-cta{padding:11px 20px!important;font-size:.72rem!important}
+  .hamburger{display:none;width:46px;height:46px;border:1px solid var(--line-strong);border-radius:50%;align-items:center;justify-content:center;flex-direction:column;gap:5px;transition:all .3s}
+  .hamburger span{width:18px;height:1px;background:var(--text);transition:all .3s}
+  .hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+  .hamburger.open span:nth-child(2){opacity:0}
+  .hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+  .mobile-menu{position:fixed;inset:0;background:var(--bg);z-index:49;display:flex;flex-direction:column;justify-content:center;align-items:center;opacity:0;pointer-events:none;transition:opacity .4s}
+  .mobile-menu.open{opacity:1;pointer-events:auto}
+  .mobile-menu ul{list-style:none;text-align:center}
+  .mobile-menu li{margin:14px 0}
+  .mobile-menu a{font-family:var(--ff-display);font-size:1.6rem;font-weight:400;color:var(--text)}
+  .mobile-menu a:hover{color:var(--gold-dim)}
+  @media (max-width:980px){.nav-links,.header .btn:not(.hamburger){display:none}.hamburger{display:flex}}
+
+  .hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:140px 0 90px;overflow:hidden;isolation:isolate}
+  .hero-bg{position:absolute;inset:0;z-index:0}
+  .hero-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.6s var(--ease);transform:scale(1.05)}
+  .hero-bg img.active{opacity:1;animation:slowZoom 8s ease-out forwards}
+  @keyframes slowZoom{from{transform:scale(1.05)}to{transform:scale(1.12)}}
+  .hero-overlay{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(20,28,60,.32) 0%,rgba(20,28,60,.30) 45%,rgba(20,28,60,.66) 100%)}
+  .hero-content,.hero-dots,.hero-scroll{position:relative;z-index:3}
+  .hero-content{max-width:980px;margin:0 auto;text-align:center;color:#fff}
+  .hero-tag{display:inline-flex;align-items:center;gap:10px;font-family:var(--ff-italic);font-style:italic;font-weight:500;font-size:1.05rem;color:#fff;padding:8px 24px;border:1px solid rgba(255,255,255,.5);border-radius:999px;margin-bottom:32px;backdrop-filter:blur(6px);background:rgba(255,255,255,.1)}
+  .hero h1{font-size:clamp(3rem,9vw,6.6rem);font-weight:400;line-height:.98;letter-spacing:.02em;margin-bottom:18px;color:#fff;text-shadow:0 8px 40px rgba(0,0,0,.35)}
+  .hero h1 .word-1{display:block;font-weight:400;font-size:1em;letter-spacing:.06em}
+  .hero h1 .word-2{display:block;font-family:var(--ff-italic);font-style:italic;font-weight:400;letter-spacing:.02em;color:var(--gold-light);font-size:.5em;margin-top:.15em}
+  .hero-sub{font-family:var(--ff-italic);font-style:italic;font-weight:400;font-size:clamp(1.15rem,2vw,1.6rem);color:rgba(255,255,255,.95);line-height:1.6;max-width:46ch;margin:0 auto 40px}
+  .hero-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:56px}
+  .hero-meta{display:flex;justify-content:center;gap:46px;flex-wrap:wrap;padding-top:34px;border-top:1px solid rgba(255,255,255,.25);max-width:780px;margin:0 auto}
+  .hm-item{display:flex;flex-direction:column;align-items:center;gap:4px}
+  .hm-item strong{font-family:var(--ff-display);font-weight:400;font-size:clamp(1.6rem,2.5vw,2.4rem);color:var(--gold-light)}
+  .hm-item span{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.85)}
+  .hero-scroll{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;color:rgba(255,255,255,.8)}
+  .hero-scroll .line{width:1px;height:46px;background:linear-gradient(180deg,transparent,#fff);animation:scrollLine 2s ease-in-out infinite}
+  @keyframes scrollLine{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.5);transform-origin:top}}
+  .hero-scroll span{font-family:var(--ff-italic);font-style:italic;font-size:.8rem;letter-spacing:.2em}
+  .hero-dots{position:absolute;top:50%;left:30px;transform:translateY(-50%);display:flex;flex-direction:column;gap:14px}
+  .hero-dots button{width:10px;height:10px;border-radius:50%;background:transparent;border:1px solid rgba(255,255,255,.7);transition:all .35s}
+  .hero-dots button.active{background:var(--gold-light);border-color:var(--gold-light);transform:scale(1.3)}
+  @media (max-width:780px){.hero-dots{display:none}}
+
+  .band{background:var(--navy);color:#fff;padding:22px 0;overflow:hidden;direction:ltr}
+  .band-track{display:flex;gap:60px;width:max-content;animation:bandRun 42s linear infinite;will-change:transform}
+  .band-track .bi{display:inline-flex;align-items:center;gap:60px;flex-shrink:0;font-family:var(--ff-italic);font-style:italic;font-weight:400;font-size:clamp(1.3rem,2.5vw,2rem);color:#fff;white-space:nowrap;direction:rtl}
+  .band-track .bi::after{content:'✦';color:var(--gold-light);font-style:normal;margin-inline-start:60px}
+  @keyframes bandRun{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  .alt{background:var(--bg-2)}
+  .has-bg{position:relative;overflow:hidden;isolation:isolate}
+  .section-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;background-size:cover;background-position:center;opacity:.10}
+  .section-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,var(--bg) 0%,rgba(251,247,239,.55) 25%,rgba(251,247,239,.55) 75%,var(--bg) 100%)}
+
+  .story-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(40px,6vw,100px);align-items:center}
+  .story-grid.rev{grid-template-columns:1fr 1.1fr}
+  .story-text p{font-size:1.05rem;color:var(--text-dim);line-height:1.85;margin-bottom:1.4em;max-width:54ch}
+  .story-text .lead{font-family:var(--ff-italic);font-style:italic;font-size:1.4rem;color:var(--text);line-height:1.6;margin-bottom:1.6em}
+  .story-detail{display:flex;align-items:center;gap:14px;margin-top:30px;padding-top:30px;border-top:1px solid var(--line);font-size:.95rem;color:var(--text-dim)}
+  .story-detail svg{width:20px;height:20px;color:var(--gold-dim);flex-shrink:0}
+  .story-visual{position:relative;aspect-ratio:4/5}
+  .story-visual .main-img{width:100%;height:100%;object-fit:cover;border-radius:2px;box-shadow:var(--shadow-card)}
+  .story-visual::before{content:'';position:absolute;inset:-18px;border:1px solid var(--gold);z-index:-1;opacity:.55}
+  .story-mini{position:absolute;bottom:-46px;left:-38px;width:52%;aspect-ratio:1/1;overflow:hidden;border:6px solid var(--bg);box-shadow:var(--shadow-card)}
+  .story-mini img{width:100%;height:100%;object-fit:cover}
+  .story-stat{position:absolute;top:26px;right:-46px;background:var(--white);padding:22px 30px;border:1px solid var(--line-strong);text-align:center;box-shadow:var(--shadow-card)}
+  .story-stat strong{display:block;font-family:var(--ff-display);font-weight:400;font-size:2.4rem;color:var(--gold-dim);line-height:1}
+  .story-stat span{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-dim);margin-top:6px;display:block}
+  @media (max-width:900px){.story-grid,.story-grid.rev{grid-template-columns:1fr}.story-mini{display:none}.story-stat{right:auto;left:0;top:-20px}}
+
+  .exp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:50px}
+  .exp-card{background:var(--white);border:1px solid var(--line);padding:36px 28px;text-align:center;transition:all .5s var(--ease);position:relative;overflow:hidden;box-shadow:var(--shadow-soft)}
+  .exp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform .5s var(--ease)}
+  .exp-card:hover{border-color:var(--gold);transform:translateY(-6px);box-shadow:var(--shadow-card)}
+  .exp-card:hover::before{transform:scaleX(1)}
+  .exp-icon{width:64px;height:64px;border-radius:50%;border:1px solid var(--gold);color:var(--gold-dim);display:grid;place-items:center;margin:0 auto 22px;transition:all .4s}
+  .exp-card:hover .exp-icon{background:var(--gold);color:#fff}
+  .exp-icon svg{width:28px;height:28px}
+  .exp-card h3{font-weight:400;font-size:1.35rem;margin-bottom:12px}
+  .exp-card p{font-size:.92rem;color:var(--text-dim);line-height:1.7;margin:0}
+
+  .dishes-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:56px}
+  .dish-card{position:relative;aspect-ratio:3/4;overflow:hidden;cursor:pointer;border-radius:2px}
+  .dish-card img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease),filter .5s}
+  .dish-card:hover img{transform:scale(1.08);filter:brightness(.78)}
+  .dish-card::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(20,24,44,.85) 100%);transition:opacity .3s}
+  .dish-info{position:absolute;left:0;right:0;bottom:22px;z-index:1;padding:0 22px;color:#fff;transform:translateY(18px);transition:transform .5s var(--ease)}
+  .dish-card:hover .dish-info{transform:translateY(0)}
+  .dish-info .dn{font-family:var(--ff-italic);font-style:italic;font-size:.9rem;color:var(--gold-light);margin-bottom:6px}
+  .dish-info h4{font-weight:400;font-size:1.4rem;line-height:1.2;color:#fff;margin:0}
+  .dish-info p{font-size:.85rem;color:rgba(255,255,255,.85);margin-top:8px;opacity:0;max-height:0;overflow:hidden;transition:all .5s}
+  .dish-card:hover .dish-info p{opacity:1;max-height:90px}
+  @media (max-width:900px){.dishes-grid{grid-template-columns:repeat(2,1fr)}}
+
+  .gallery-grid{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:180px;gap:14px;margin-top:56px}
+  .g-item{overflow:hidden;position:relative;cursor:pointer;border-radius:2px}
+  .g-item img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease),filter .5s}
+  .g-item:hover img{transform:scale(1.08);filter:brightness(1.05)}
+  .g-item::after{content:'';position:absolute;inset:0;border:1px solid transparent;transition:border-color .35s}
+  .g-item:hover::after{border-color:var(--gold)}
+  .g-1{grid-column:span 3;grid-row:span 2}.g-2{grid-column:span 3;grid-row:span 2}.g-3{grid-column:span 2;grid-row:span 2}
+  .g-4{grid-column:span 2;grid-row:span 1}.g-5{grid-column:span 2;grid-row:span 1}.g-6{grid-column:span 2;grid-row:span 2}
+  .g-7{grid-column:span 2;grid-row:span 1}.g-8{grid-column:span 2;grid-row:span 1}
+  @media (max-width:900px){.gallery-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:160px}.g-1,.g-2,.g-3,.g-4,.g-5,.g-6,.g-7,.g-8{grid-column:span 1;grid-row:span 1}.g-1{grid-column:span 2}}
+
+  .place-section{background:var(--bg-2)}
+  .place-head{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:48px}
+  .place-head .ph-intro p{font-size:1rem;color:var(--text-dim);line-height:1.85;max-width:48ch}
+  .place-feats{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+  .place-feats span{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-dim);padding:8px 16px;border:1px solid var(--gold);border-radius:999px;font-weight:500}
+  .mosaic{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:130px;gap:14px}
+  .pm-item{overflow:hidden;position:relative;cursor:pointer;border-radius:2px}
+  .pm-item img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+  .pm-item:hover img{transform:scale(1.08)}
+  .pm-item::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(20,24,44,.78) 100%);opacity:0;transition:opacity .35s}
+  .pm-item:hover::after{opacity:1}
+  .pm-item .pm-label{position:absolute;left:0;right:0;bottom:16px;padding:0 20px;color:#fff;z-index:1;font-family:var(--ff-italic);font-style:italic;font-size:1rem;opacity:0;transform:translateY(10px);transition:all .4s var(--ease)}
+  .pm-item:hover .pm-label{opacity:1;transform:none}
+  .pm-1{grid-column:span 6;grid-row:span 3}.pm-2{grid-column:span 6;grid-row:span 2}.pm-3{grid-column:span 3;grid-row:span 2}
+  .pm-4{grid-column:span 3;grid-row:span 2}.pm-5{grid-column:span 4;grid-row:span 2}.pm-6{grid-column:span 4;grid-row:span 2}.pm-7{grid-column:span 4;grid-row:span 2}
+  @media (max-width:900px){.place-head{grid-template-columns:1fr;gap:24px}.mosaic{grid-template-columns:repeat(2,1fr);grid-auto-rows:170px}.pm-1,.pm-2,.pm-3,.pm-4,.pm-5,.pm-6,.pm-7{grid-column:span 1;grid-row:span 1}.pm-1{grid-column:span 2}}
+
+  .strip-section{padding-block:0;background:var(--navy)}
+  .strip-head{display:flex;justify-content:space-between;align-items:center;padding:46px 0 28px;gap:24px;flex-wrap:wrap}
+  .strip-head h3{font-weight:400;font-size:clamp(1.6rem,3vw,2.4rem);margin:0;color:#fff}
+  .strip-head .eyebrow{color:var(--gold-light);margin:0 0 10px}
+  .strip-head .strip-meta{font-family:var(--ff-italic);font-style:italic;color:var(--gold-light);font-size:1.05rem}
+  .strip-row{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding-bottom:46px}
+  .strip-cell{aspect-ratio:1/1;overflow:hidden;position:relative;cursor:pointer}
+  .strip-cell img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease),filter .5s}
+  .strip-cell:hover img{transform:scale(1.1);filter:brightness(1.08)}
+  .strip-cell::after{content:'';position:absolute;inset:0;border:1px solid transparent;transition:border-color .3s}
+  .strip-cell:hover::after{border-color:var(--gold-light)}
+  @media (max-width:900px){.strip-row{grid-template-columns:repeat(3,1fr)}}
+
+  .menu-section{background:var(--bg)}
+  .menu-tabs{display:flex;justify-content:center;gap:8px;margin:46px 0;flex-wrap:wrap}
+  .menu-tab{padding:13px 28px;background:transparent;border:1px solid var(--line-strong);color:var(--text);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;transition:all .35s;font-weight:500}
+  .menu-tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .menu-tab:hover:not(.active){border-color:var(--gold);color:var(--gold-dim)}
+  .menu-panel{display:none;grid-template-columns:1fr 1fr;gap:50px}
+  .menu-panel.active{display:grid}
+  .menu-section-title{font-family:var(--ff-italic);font-style:italic;font-size:1.4rem;color:var(--gold-dim);margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+  .menu-item{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;padding:15px 0;border-bottom:1px solid var(--line);transition:background .3s}
+  .menu-item:last-child{border-bottom:none}
+  .menu-item:hover{background:rgba(42,62,120,.04)}
+  .menu-item .mi-thumb{width:62px;height:62px;border-radius:50%;overflow:hidden;flex-shrink:0;border:1px solid var(--line-strong);transition:border-color .3s}
+  .menu-item:hover .mi-thumb{border-color:var(--gold)}
+  .menu-item .mi-thumb img{width:100%;height:100%;object-fit:cover}
+  .menu-item .mi-name{font-weight:500;font-size:1.1rem;color:var(--text);margin-bottom:3px;font-family:var(--ff-display)}
+  .menu-item .mi-desc{font-size:.85rem;color:var(--text-dim);font-style:italic;font-family:var(--ff-italic)}
+  .menu-item .mi-price{font-family:var(--ff-display);font-size:1.05rem;color:var(--gold-dim);font-weight:500}
+  @media (max-width:900px){.menu-panel.active{grid-template-columns:1fr;gap:24px}}
+
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:56px}
+  .why-item{display:flex;gap:20px;align-items:flex-start}
+  .why-num{font-family:var(--ff-display);font-weight:400;font-size:2.4rem;color:var(--gold);line-height:1;flex-shrink:0;opacity:.85}
+  .why-item h3{font-weight:400;font-size:1.3rem;margin-bottom:8px}
+  .why-item p{font-size:.92rem;color:var(--text-dim);line-height:1.7;margin:0}
+  @media (max-width:900px){.why-grid{grid-template-columns:1fr}}
+
+  .process-section{background:linear-gradient(rgba(42,62,120,.92),rgba(28,44,92,.94)),url('{{DISPLAY_IMAGE}}');background-size:cover;background-position:center;color:#fff}
+  .process-section .eyebrow{color:var(--gold-light)}
+  .process-section h2,.process-section .section-sub{color:#fff}
+  .process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;margin-top:56px;position:relative}
+  .process-grid::before{content:'';position:absolute;top:30px;right:12%;left:12%;height:1px;background:linear-gradient(90deg,transparent,var(--gold-light),transparent);z-index:0;opacity:.5}
+  .step{position:relative;z-index:1;text-align:center}
+  .step-num{width:60px;height:60px;border-radius:50%;background:var(--navy-deep);border:1px solid var(--gold-light);color:var(--gold-light);display:grid;place-items:center;font-family:var(--ff-display);font-weight:400;font-size:1.4rem;margin:0 auto 22px}
+  .step h3{font-weight:400;font-size:1.3rem;color:#fff;margin-bottom:10px}
+  .step p{font-size:.9rem;color:rgba(255,255,255,.8);line-height:1.6;margin:0}
+  @media (max-width:900px){.process-grid{grid-template-columns:1fr 1fr}.process-grid::before{display:none}}
+  @media (max-width:520px){.process-grid{grid-template-columns:1fr}}
+
+  .test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
+  .test-card{background:var(--white);border:1px solid var(--line);padding:34px 30px;position:relative;transition:all .4s;box-shadow:var(--shadow-soft)}
+  .test-card:hover{border-color:var(--gold);transform:translateY(-6px);box-shadow:var(--shadow-card)}
+  .test-quote-mark{position:absolute;top:18px;right:24px;font-family:var(--ff-italic);font-size:5rem;color:var(--gold);line-height:1;opacity:.3;font-style:italic}
+  .stars{color:var(--gold);font-size:.95rem;letter-spacing:4px;margin-bottom:16px}
+  .test-text{font-family:var(--ff-italic);font-style:italic;font-weight:400;font-size:1.1rem;line-height:1.75;color:var(--text);margin-bottom:22px;position:relative;z-index:1}
+  .test-author{display:flex;align-items:center;gap:14px;padding-top:18px;border-top:1px solid var(--line)}
+  .test-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--gold));display:grid;place-items:center;color:#fff;font-family:var(--ff-display);font-weight:400;font-size:1.2rem;flex-shrink:0}
+  .test-author strong{display:block;font-weight:500;font-size:1rem;color:var(--text);font-family:var(--ff-display)}
+  .test-author span{font-size:.78rem;color:var(--text-dim)}
+  @media (max-width:900px){.test-grid{grid-template-columns:1fr}}
+
+  .ways-section{background:var(--bg-2);text-align:center}
+  .ways-row{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:50px}
+  .way-card{padding:46px 28px;border:1px solid var(--line);background:var(--white);display:flex;flex-direction:column;align-items:center;gap:10px;transition:all .4s var(--ease);box-shadow:var(--shadow-soft);position:relative;overflow:hidden}
+  .way-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform .5s var(--ease)}
+  .way-card:hover{border-color:var(--gold);transform:translateY(-6px);box-shadow:var(--shadow-card)}
+  .way-card:hover::before{transform:scaleX(1)}
+  .way-icon{width:78px;height:78px;border-radius:50%;border:1px solid var(--gold);background:var(--bg);color:var(--gold-dim);display:grid;place-items:center;margin-bottom:10px;transition:all .45s var(--ease)}
+  .way-card:hover .way-icon{background:linear-gradient(135deg,var(--gold),var(--gold-dim));color:#fff;transform:translateY(-2px) scale(1.04)}
+  .way-icon svg{width:36px;height:36px}
+  .way-card strong{font-family:var(--ff-display);font-weight:500;font-size:1.25rem;color:var(--text)}
+  .way-card span{font-size:.86rem;color:var(--text-dim);letter-spacing:.04em}
+  @media(max-width:900px){.ways-row{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.ways-row{grid-template-columns:1fr}}
+
+  .faq-list{max-width:840px;margin:56px auto 0;display:grid;gap:14px}
+  .faq-item{border:1px solid var(--line);background:var(--white);overflow:hidden;transition:all .35s;box-shadow:var(--shadow-soft)}
+  .faq-item.open{border-color:var(--gold)}
+  .faq-q{width:100%;background:none;border:none;cursor:pointer;padding:22px 28px;text-align:right;font-family:var(--ff-display);font-weight:400;font-size:1.15rem;color:var(--text);display:flex;justify-content:space-between;align-items:center;gap:16px}
+  .faq-q .plus{font-size:1.5rem;color:var(--gold-dim);flex-shrink:0;transition:transform .35s;font-weight:300}
+  .faq-item.open .plus{transform:rotate(45deg)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .45s var(--ease)}
+  .faq-a-inner{padding:0 28px 24px;color:var(--text-dim);font-size:.98rem;line-height:1.75;font-style:italic;font-family:var(--ff-italic)}
+  .faq-item.open .faq-a{max-height:340px}
+
+  .contact-section{position:relative;overflow:hidden;background:var(--bg)}
+  .contact-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:50px;margin-top:56px}
+  .contact-card{background:var(--white);border:1px solid var(--line);padding:46px 40px;box-shadow:var(--shadow-soft)}
+  .contact-card h3{font-weight:400;font-size:1.5rem;margin-bottom:26px}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+  .form-row.full{grid-template-columns:1fr}
+  .form-field label{display:block;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px}
+  .form-field input,.form-field textarea,.form-field select{width:100%;background:transparent;border:none;border-bottom:1px solid var(--line-strong);padding:11px 0;color:var(--text);font-family:var(--ff-body);font-size:1rem;transition:border-color .3s;outline:none}
+  .form-field textarea{resize:vertical;min-height:80px}
+  .form-field input:focus,.form-field textarea:focus,.form-field select:focus{border-color:var(--gold)}
+  .contact-card .btn{margin-top:14px;width:100%;justify-content:center}
+  .form-status{font-size:.92rem;font-weight:500;text-align:center;min-height:1.2em;margin-top:12px}
+  .form-status.ok{color:#1e9b5d}.form-status.err{color:#c44848}
+  .contact-info{display:grid;gap:16px;align-content:start}
+  .ci-row{background:var(--white);border:1px solid var(--line);padding:20px 24px;display:flex;align-items:flex-start;gap:18px;transition:all .3s;box-shadow:var(--shadow-soft)}
+  .ci-row:hover{border-color:var(--gold);transform:translateX(-6px)}
+  .ci-icon{width:46px;height:46px;border-radius:50%;border:1px solid var(--gold);color:var(--gold-dim);display:grid;place-items:center;flex-shrink:0}
+  .ci-icon svg{width:20px;height:20px}
+  .ci-row strong{display:block;font-weight:500;font-size:.78rem;color:var(--text-dim);letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px;font-family:var(--ff-body)}
+  .ci-row p{margin:0;color:var(--text);font-size:1.05rem;font-family:var(--ff-italic);font-style:italic}
+  .ci-row a{color:var(--gold-dim)}
+  @media (max-width:900px){.contact-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}}
+
+  .footer{background:var(--navy-deep);color:rgba(255,255,255,.78);padding:64px 0 28px;text-align:center}
+  .footer-logo{font-family:var(--ff-display);font-size:2rem;color:#fff;margin-bottom:8px;letter-spacing:.04em}
+  .footer-logo span{font-family:var(--ff-italic);font-style:italic;font-size:1rem;color:var(--gold-light);display:block;letter-spacing:.2em}
+  .footer-tag{font-family:var(--ff-italic);font-style:italic;color:var(--gold-light);font-size:1.15rem;margin:18px 0 28px}
+  .footer-nav{display:flex;justify-content:center;gap:30px;list-style:none;margin:28px 0;flex-wrap:wrap}
+  .footer-nav a{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.7);transition:color .3s}
+  .footer-nav a:hover{color:var(--gold-light)}
+  .copyright{font-size:.78rem;color:rgba(255,255,255,.55);letter-spacing:.06em;margin-top:24px;border-top:1px solid rgba(255,255,255,.12);padding-top:22px}
+  .call-float{position:fixed;bottom:24px;inset-inline-start:24px;z-index:90;width:60px;height:60px;border-radius:50%;background:var(--gold);display:grid;place-items:center;box-shadow:0 10px 30px rgba(201,162,78,.5);animation:cpulse 2.4s infinite}
+  .call-float svg{width:28px;height:28px;color:#fff}
+  @keyframes cpulse{0%{box-shadow:0 0 0 0 rgba(201,162,78,.5)}70%{box-shadow:0 0 0 16px rgba(201,162,78,0)}100%{box-shadow:0 0 0 0 rgba(201,162,78,0)}}
+</style>
+</head>
+<body>
+
+<header class="header" id="header">
+  <div class="container nav">
+    <a href="#top" class="logo-wrap"><img src="{{LOGO_URL}}" alt="{{BUSINESS_NAME}}" loading="eager"></a>
+    <ul class="nav-links">
+      <li><a href="#story">הסיפור</a></li>
+      <li><a href="#pastries">המאפים</a></li>
+      <li><a href="#coffee">קפה</a></li>
+      <li><a href="#gallery">גלריה</a></li>
+      <li><a href="#menu">תפריט</a></li>
+      <li><a href="#place">המקום</a></li>
+      <li><a href="#faq">שאלות</a></li>
+      <li><a href="#contact">צור קשר</a></li>
+    </ul>
+    <a href="tel:+972{{PHONE_INTL}}" class="btn btn-primary nav-cta">להזמנות · {{PHONE_HUMAN}}</a>
+    <button class="hamburger" id="hamburger" aria-label="תפריט"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#story">הסיפור</a></li>
+    <li><a href="#pastries">המאפים</a></li>
+    <li><a href="#coffee">קפה בובו</a></li>
+    <li><a href="#gallery">גלריה</a></li>
+    <li><a href="#menu">תפריט</a></li>
+    <li><a href="#place">המקום</a></li>
+    <li><a href="#faq">שאלות נפוצות</a></li>
+    <li><a href="#contact">צור קשר</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg">
+    <img src="{{HERO_3_IMAGE}}" alt="" class="active" loading="eager">
+    <img src="{{HERO_2_IMAGE}}" alt="" loading="lazy">
+    <img src="{{HERO_1_IMAGE}}" alt="" loading="lazy">
+    <img src="{{HERO_4_IMAGE}}" alt="" loading="lazy">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="container hero-content" data-reveal>
+    <div class="hero-tag">Pâtisserie · Café · {{ADDRESS_STREET}}, {{CITY}}</div>
+    <h1><span class="word-1">{{BUSINESS_NAME}}</span><span class="word-2">פטיסרי צרפתי של ביסקוטי</span></h1>
+    <p class="hero-sub">מאפים צרפתיים בעבודת יד, מבחר עצום של עוגות, וקפה בובו איכותי — בלב {{CITY}}.</p>
+    <div class="hero-actions">
+      <a href="tel:+972{{PHONE_INTL}}" class="btn btn-gold">להזמנות · {{PHONE_HUMAN}}</a>
+      <a href="#pastries" class="btn btn-ghost" style="color:#fff;border-color:rgba(255,255,255,.5)">לגלות את המאפים</a>
+    </div>
+    <div class="hero-meta">
+      <div class="hm-item"><strong>100%</strong><span>עבודת יד</span></div>
+      <div class="hm-item"><strong>בובו</strong><span>קפה איכותי</span></div>
+      <div class="hm-item"><strong>מבחר</strong><span>עצום של מאפים</span></div>
+      <div class="hm-item"><strong>טייק&nbsp;אווי</strong><span>וישיבה במקום</span></div>
+    </div>
+  </div>
+  <div class="hero-dots" role="tablist">
+    <button class="active" data-slide="0" aria-label="1"></button>
+    <button data-slide="1" aria-label="2"></button>
+    <button data-slide="2" aria-label="3"></button>
+    <button data-slide="3" aria-label="4"></button>
+  </div>
+  <div class="hero-scroll"><span>scroll</span><div class="line"></div></div>
+</section>
+
+<!-- BAND -->
+<div class="band" aria-hidden="true">
+  <div class="band-track" id="bandTrack">
+    <span class="bi">קרואסון חמאה צרפתי</span><span class="bi">מקרונים צבעוניים</span><span class="bi">עוגות בעבודת יד</span><span class="bi">קפה בובו איכותי</span><span class="bi">סלטים וכריכים טריים</span><span class="bi">פטיסרי צרפתי אמיתי</span>
+  </div>
+</div>
+
+<!-- STORY -->
+<section class="section" id="story">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-text">
+        <div data-reveal>
+          <span class="eyebrow">הסיפור</span>
+          <h2 class="section-heading">עבודת יד של<br><span class="italic gold">קונדיטור צרפתי.</span></h2>
+        </div>
+        <div data-reveal>
+          <p class="lead">"מאפה צרפתי אמיתי מתחיל בחמאה טובה, בסבלנות, וביד שמכירה את הבצק."</p>
+          <p>{{BUSINESS_NAME}} — הפטיסרי של ביסקוטי — נולד מאהבה למלאכת הקונדיטוריה הצרפתית. הקונדיטור הצרפתי <strong>{{OWNER_NAME}}</strong> יוצר כאן, בעבודת יד, מאפים ועוגות ברמה גבוהה במיוחד: קרואסונים חמאתיים, מקרונים, אקלרים, טארטים ועוגות שזה אמנות לאכול.</p>
+          <p>לצד המאפים — קפה בובו איכותי, מבחר סלטים וכריכים טריים, ופינת ישיבה נעימה בפנים ובחוץ. כל מה שצריך לרגע מתוק ומדויק באמצע היום.</p>
+          <div class="story-detail">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <span>{{ADDRESS_FULL}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="story-visual" data-reveal>
+        <img class="main-img" src="{{CHEF_IMAGE}}" alt="הקונדיטור בעבודה">
+        <div class="story-mini"><img src="{{PRODUCT_CROISSANT}}" alt="קרואסון"></div>
+        <div class="story-stat"><strong>★★★★★</strong><span>פטיסרי בוטיק</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="section alt has-bg" id="experience">
+  <div class="section-bg" style="background-image:url('{{DISPLAY_IMAGE}}')"></div>
+  <div class="container">
+    <div class="center" data-reveal>
+      <span class="eyebrow">מה תמצאו אצלנו</span>
+      <h2 class="section-heading">הכל <span class="italic gold">במקום אחד.</span></h2>
+      <p class="section-sub">פינה צרפתית קטנה ב{{CITY}} — מתוק, מלוח וקפה משובח.</p>
+    </div>
+    <div class="exp-grid">
+      <div class="exp-card" data-reveal>
+        <div class="exp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 13c0-4 3.5-7 8-7s8 3 8 7M3 13h18M5 13v4a2 2 0 002 2h10a2 2 0 002-2v-4"/></svg></div>
+        <h3>מאפים צרפתיים</h3>
+        <p>קרואסונים, אקלרים, מקרונים וטארטים — בעבודת יד, מחומרי גלם משובחים.</p>
+      </div>
+      <div class="exp-card" data-reveal>
+        <div class="exp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l2.5 5 5.5.8-4 3.9 1 5.5L12 21l-5-2.8 1-5.5-4-3.9 5.5-.8z"/></svg></div>
+        <h3>עוגות בעבודת יד</h3>
+        <p>מבחר עצום של עוגות ואנטרמה, וגם עוגות מעוצבות לאירועים ולהזמנה אישית.</p>
+      </div>
+      <div class="exp-card" data-reveal>
+        <div class="exp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 9h13v4a5 5 0 01-5 5H9a5 5 0 01-5-5zM17 10h2a2 2 0 010 4h-2M6 4v2M10 4v2M14 4v2"/></svg></div>
+        <h3>קפה בובו</h3>
+        <p>קפה ברמה גבוהה — אספרסו עשיר, קפוצ׳ינו עם חלב מוקצף וחליטות איכות.</p>
+      </div>
+      <div class="exp-card" data-reveal>
+        <div class="exp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11l9-8 9 8M5 10v9a1 1 0 001 1h12a1 1 0 001-1v-9M9 21v-6h6v6"/></svg></div>
+        <h3>סלטים וכריכים</h3>
+        <p>מנה מלוחה וטרייה לצד הקפה — סלטים עשירים וכריכים על מאפה הבית.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIGNATURE PASTRIES -->
+<section class="section" id="pastries">
+  <div class="container bleed">
+    <div class="center" data-reveal>
+      <span class="eyebrow">מאפי החתימה</span>
+      <h2 class="section-heading">מתוקים <span class="italic gold">שמספרים סיפור.</span></h2>
+      <p class="section-sub">מבחר קטן מתוך מה שמחכה לכם בויטרינה — מתחדש כל יום.</p>
+    </div>
+    <div class="dishes-grid">
+      <article class="dish-card" data-reveal><img src="{{PRODUCT_CROISSANT}}" alt="קרואסון חמאה"><div class="dish-info"><div class="dn">Viennoiserie</div><h4>קרואסון חמאה</h4><p>שכבות פריכות, חמאה צרפתית, אפייה יומית.</p></div></article>
+      <article class="dish-card" data-reveal><img src="{{PRODUCT_ECLAIR}}" alt="אקלר"><div class="dish-info"><div class="dn">Pâtisserie</div><h4>אקלר שוקולד</h4><p>בצק רבוך, קרם משובח, ציפוי מבריק.</p></div></article>
+      <article class="dish-card" data-reveal><img src="{{PRODUCT_MACARON}}" alt="מקרונים"><div class="dish-info"><div class="dn">Macaron</div><h4>מקרונים צרפתיים</h4><p>פריכים מבחוץ, רכים מבפנים, בשלל טעמים.</p></div></article>
+      <article class="dish-card" data-reveal><img src="{{PRODUCT_TART}}" alt="טארט פירות"><div class="dish-info"><div class="dn">Tarte</div><h4>טארט פירות</h4><p>בצק שקדים, קרם וניל, פירות טריים.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- COFFEE -->
+<section class="section alt" id="coffee">
+  <div class="container">
+    <div class="story-grid rev">
+      <div class="story-visual" data-reveal>
+        <img class="main-img" src="{{PRODUCT_LATTE}}" alt="קפה בובו">
+        <div class="story-mini"><img src="{{PRODUCT_ESPRESSO}}" alt="אספרסו"></div>
+      </div>
+      <div class="story-text">
+        <div data-reveal>
+          <span class="eyebrow">קפה בובו</span>
+          <h2 class="section-heading">קפה ברמה <span class="italic gold">גבוהה במיוחד.</span></h2>
+        </div>
+        <div data-reveal>
+          <p class="lead">הזוג המושלם לכל מאפה — קפה איכותי שמכבד את הכוס.</p>
+          <p>אנחנו מגישים קפה <strong>בובו</strong> — פולים נבחרים, חליטה מדויקת וחלב מוקצף בקפידה. בין אם זה אספרסו קצר וחזק בבוקר או קפוצ׳ינו רגוע אחר הצהריים — הקפה כאן הוא חלק מהחוויה, לא רק תוספת.</p>
+          <div class="story-detail">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 9h13v4a5 5 0 01-5 5H9a5 5 0 01-5-5zM17 10h2a2 2 0 010 4h-2"/></svg>
+            <span>אספרסו · קפוצ׳ינו · חליטות · שתייה קרה</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section" id="gallery">
+  <div class="container bleed">
+    <div class="center" data-reveal>
+      <span class="eyebrow">גלריה</span>
+      <h2 class="section-heading">רגעים <span class="italic gold">מתוקים.</span></h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="g-item g-1" data-reveal><img src="{{HERO_3_IMAGE}}" alt="מאפים וקפה" loading="lazy"></div>
+      <div class="g-item g-2" data-reveal><img src="{{PRODUCT_MACARON}}" alt="מקרונים" loading="lazy"></div>
+      <div class="g-item g-3" data-reveal><img src="{{PRODUCT_MILLEFEUILLE}}" alt="מיל פיי" loading="lazy"></div>
+      <div class="g-item g-4" data-reveal><img src="{{PRODUCT_LATTE}}" alt="קפה" loading="lazy"></div>
+      <div class="g-item g-5" data-reveal><img src="{{PRODUCT_CAKE}}" alt="עוגה" loading="lazy"></div>
+      <div class="g-item g-6" data-reveal><img src="{{DISPLAY_IMAGE}}" alt="ויטרינה" loading="lazy"></div>
+      <div class="g-item g-7" data-reveal><img src="{{PRODUCT_SALAD}}" alt="סלט" loading="lazy"></div>
+      <div class="g-item g-8" data-reveal><img src="{{PRODUCT_SANDWICH}}" alt="כריך" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PLACE (real photos) -->
+<section class="section place-section" id="place">
+  <div class="container bleed">
+    <div class="place-head">
+      <div class="ph-intro" data-reveal>
+        <span class="eyebrow">המקום</span>
+        <h2 class="section-heading">פינה צרפתית<br><span class="italic gold">ב{{CITY}}.</span></h2>
+      </div>
+      <div class="ph-intro" data-reveal>
+        <p>חלל חמים ומזמין עם ויטרינות מלאות בטוב, פינת ישיבה נעימה בפנים ובחוץ, ואפשרות לקחת איתכם הביתה. בואו לשבת עם קפה ומאפה, או קפצו לטייק אווי בדרך.</p>
+        <div class="place-feats">
+          <span>ישיבה בפנים</span><span>ישיבה בחוץ</span><span>טייק אווי</span><span>מבחר עוגות</span><span>קפה בובו</span>
+        </div>
+      </div>
+    </div>
+    <div class="mosaic">
+      <div class="pm-item pm-1" data-reveal><img src="{{PLACE_1_IMAGE}}" alt="חלל הפטיסרי"><span class="pm-label">החלל שלנו</span></div>
+      <div class="pm-item pm-2" data-reveal><img src="{{PLACE_2_IMAGE}}" alt="הויטרינה"><span class="pm-label">הויטרינה</span></div>
+      <div class="pm-item pm-3" data-reveal><img src="{{PLACE_3_IMAGE}}" alt="פינת ישיבה"><span class="pm-label">פינת ישיבה</span></div>
+      <div class="pm-item pm-4" data-reveal><img src="{{PLACE_4_IMAGE}}" alt="מבחר מאפים"><span class="pm-label">מבחר מאפים</span></div>
+      <div class="pm-item pm-5" data-reveal><img src="{{PLACE_5_IMAGE}}" alt="הדלפק"><span class="pm-label">הדלפק</span></div>
+      <div class="pm-item pm-6" data-reveal><img src="{{PLACE_6_IMAGE}}" alt="ישיבה בחוץ"><span class="pm-label">ישיבה בחוץ</span></div>
+      <div class="pm-item pm-7" data-reveal><img src="{{PLACE_7_IMAGE}}" alt="פינה מתוקה"><span class="pm-label">פינה מתוקה</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<section class="strip-section">
+  <div class="container bleed">
+    <div class="strip-head" data-reveal>
+      <div><span class="eyebrow">@lamaree</span><h3>טעימה מהיומיום</h3></div>
+      <span class="strip-meta italic">מתחדש כל בוקר · עקבו אחרינו</span>
+    </div>
+    <div class="strip-row">
+      <a class="strip-cell" data-reveal href="#gallery"><img src="{{PRODUCT_ECLAIR}}" alt="" loading="lazy"></a>
+      <a class="strip-cell" data-reveal href="#gallery"><img src="{{PRODUCT_ESPRESSO}}" alt="" loading="lazy"></a>
+      <a class="strip-cell" data-reveal href="#gallery"><img src="{{PRODUCT_TART}}" alt="" loading="lazy"></a>
+      <a class="strip-cell" data-reveal href="#gallery"><img src="{{PRODUCT_BEANS}}" alt="" loading="lazy"></a>
+      <a class="strip-cell" data-reveal href="#gallery"><img src="{{PRODUCT_CROISSANT}}" alt="" loading="lazy"></a>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="section menu-section has-bg" id="menu">
+  <div class="section-bg" style="background-image:url('{{PRODUCT_MACARON}}');opacity:.07"></div>
+  <div class="container">
+    <div class="center" data-reveal>
+      <span class="eyebrow">התפריט</span>
+      <h2 class="section-heading">מה <span class="italic gold">בויטרינה?</span></h2>
+      <p class="section-sub">טעימה מהתפריט — המבחר המלא מתחדש מדי יום.</p>
+    </div>
+    <div class="menu-tabs">
+      <button class="menu-tab active" data-tab="pastry">מאפים</button>
+      <button class="menu-tab" data-tab="cakes">עוגות</button>
+      <button class="menu-tab" data-tab="coffee">קפה ושתייה</button>
+      <button class="menu-tab" data-tab="savory">מלוח</button>
+    </div>
+
+    <div class="menu-panel active" data-panel="pastry">
+      <div>
+        <div class="menu-section-title">Viennoiserie · מאפי בוקר</div>
+        <div class="menu-item"><div class="mi-thumb"><img src="{{PRODUCT_CROISSANT}}" alt=""></div><div><div class="mi-name">קרואסון חמאה</div><div class="mi-desc">קלאסי · שקדים · שוקולד</div></div><span class="mi-price">★</span></div>
+        <div class="menu-item"><div class="mi-thumb"><img src="{{DISPLAY_IMAGE}}" alt=""></div><div><div class="mi-name">פן או שוקולה</div><div class="mi-desc">בצק עלים, חמאה, שוקולד מריר</div></div><span class="mi-price">★</span></div>
+      </div>
+      <div>
+        <div class="menu-section-title">Pâtisserie · מאפים</div>
+        <div class="menu-item"><div class="mi-thumb"><img src="{{PRODUCT_ECLAIR}}" alt=""></div><div><div class="mi-name">אקלר</div><div class="mi-desc">שוקולד · וניל · קפה</div></div><span class="mi-price">★</span></div>
+        <div class="menu-item"><div class="mi-thumb"><img src="{{PRODUCT_MACARON}}" alt=""></div><div><div class="mi-name">מקרונים</div><div class="mi-desc">מבחר טעמים מתחלף</div></div><span class="mi-price">★</span></div>
+        <div class="menu-item"><div class="mi-thumb"><img src="{{PRODUCT_TART}}" alt=""></div><div><div class="mi-name">טארט פירות</div><div class="mi-desc">קרם וניל, פירות טריים</div></div><span class="mi-price">★</span></div>
+      </div>
+    </div>
+
+    <div class="menu-panel" data-panel="cakes">
+      <div>
+        <div class="menu-section-title">עוגות אישיות</div>
+        <div class="menu-item"><div class="mi-thumb"><img src="{{PRODUCT_CAKE}}" alt=""></div><div><div class="mi-name">אנטרמה שוקולד</div><div class="mi-desc">שכבות מוס, גנאש, ציפוי מבריק</div></div><span class="mi-price">★</span></div>
+        <div class="menu-item"><div class="mi-thumb"><img src="{{PRODUCT_MILLEFEUILLE}}" alt=""></div><div><div class="mi-name">מיל פיי</div><div class="mi-desc">בצק עלים, קרם וניל, סוכר מנופה</div></div><span class="mi-price">★</span></div>
+      </div>
+      <div>
+        <div class="menu-section-title">עוגות אירוע</div>
+        <div class="menu-item"><div class="mi-thumb"><img src="{{PRODUCT_CAKE}}" alt=""></div><div><div class="mi-name">עוגות מעוצבות</div><div class="mi-desc">בהזמנה אישית לימי הולדת ואירועים</div></div><span class="mi-price">★</span></div>
+        <div class="menu-item"><div class="mi-thumb"><img src="{{DISPLAY_IMAGE}}" alt=""></div><div><div class="mi-name">מגשי אירוח</div><div class="mi-desc">מבחר מאפים ומתוקים לאירוח</div></div><span class="mi-price">★</span></div>
+      </div>
+    </div>
+
+    <div class="menu-panel" data-panel="coffee">
+      <div>
+        <div class="menu-section-title">קפה בובו</div>
+        <div class="menu-item"><div class="mi-thumb"><img src="{{PRODUCT_ESPRESSO}}" alt=""></div><div><div class="mi-name">אספרסו / קצר / ארוך</div><div class="mi-desc">פולים נבחרים, חליטה מדויקת</div></div><span class="mi-price">★</span></div>
+        <div class="menu-item"><div class="mi-thumb"><img src="{{PRODUCT_LATTE}}" alt=""></div><div><div class="mi-name">קפוצ׳ינו / לאטה</div><div class="mi-desc">חלב מוקצף בקפידה</div></div><span class="mi-price">★</span></div>
+      </div>
+      <div>
+        <div class="menu-section-title">עוד לשתות</div>
+        <div class="menu-item"><div class="mi-thumb"><img src="{{PRODUCT_BEANS}}" alt=""></div><div><div class="mi-name">חליטות תה</div><div class="mi-desc">מבחר חליטות איכות</div></div><span class="mi-price">★</span></div>
+        <div class="menu-item"><div class="mi-thumb"><img src="{{PRODUCT_LATTE}}" alt=""></div><div><div class="mi-name">שתייה קרה</div><div class="mi-desc">קפה קר, לימונדה, מיצים</div></div><span class="mi-price">★</span></div>
+      </div>
+    </div>
+
+    <div class="menu-panel" data-panel="savory">
+      <div>
+        <div class="menu-section-title">כריכים</div>
+        <div class="menu-item"><div class="mi-thumb"><img src="{{PRODUCT_SANDWICH}}" alt=""></div><div><div class="mi-name">כריך מאפה הבית</div><div class="mi-desc">על קרואסון או באגט טרי</div></div><span class="mi-price">★</span></div>
+      </div>
+      <div>
+        <div class="menu-section-title">סלטים</div>
+        <div class="menu-item"><div class="mi-thumb"><img src="{{PRODUCT_SALAD}}" alt=""></div><div><div class="mi-name">סלט הבית</div><div class="mi-desc">ירקות טריים, גבינות, רוטב הבית</div></div><span class="mi-price">★</span></div>
+      </div>
+    </div>
+
+    <div class="center" style="margin-top:46px" data-reveal>
+      <p class="section-sub" style="margin-bottom:22px">לעוגות אירוע, מגשי אירוח והזמנות אישיות — דברו איתנו.</p>
+      <a href="tel:+972{{PHONE_INTL}}" class="btn btn-primary">להזמנות · {{PHONE_HUMAN}}</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="section">
+  <div class="container">
+    <div class="center" data-reveal>
+      <span class="eyebrow">למה {{BUSINESS_NAME}}</span>
+      <h2 class="section-heading">לא סתם מאפייה. <span class="italic gold">פטיסרי.</span></h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-item" data-reveal><div class="why-num">01</div><div><h3>קונדיטור צרפתי</h3><p>{{OWNER_NAME}} — עבודת יד אמיתית, טכניקה צרפתית וקפדנות בכל פרט.</p></div></div>
+      <div class="why-item" data-reveal><div class="why-num">02</div><div><h3>רמה מאוד גבוהה</h3><p>מאפים ועוגות מחומרי גלם משובחים, ברמה שמרגישים בכל ביס.</p></div></div>
+      <div class="why-item" data-reveal><div class="why-num">03</div><div><h3>מבחר עצום</h3><p>ויטרינה מלאה במאפים, עוגות ומתוקים — תמיד יש מה לבחור.</p></div></div>
+      <div class="why-item" data-reveal><div class="why-num">04</div><div><h3>קפה בובו</h3><p>קפה איכותי שמשלים את החוויה — לא רק תוספת, אלא חלק מהסיפור.</p></div></div>
+      <div class="why-item" data-reveal><div class="why-num">05</div><div><h3>טרי כל יום</h3><p>אופים ומכינים מדי בוקר — מה שבויטרינה נעשה כאן, היום.</p></div></div>
+      <div class="why-item" data-reveal><div class="why-num">06</div><div><h3>בלב {{CITY}}</h3><p>פינת ישיבה נעימה בפנים ובחוץ, וגם טייק אווי מהיר בדרך.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section process-section">
+  <div class="container">
+    <div class="center" data-reveal>
+      <span class="eyebrow">איך זה נעשה</span>
+      <h2 class="section-heading">מהבצק <span class="italic" style="color:var(--gold-light)">ועד הויטרינה.</span></h2>
+    </div>
+    <div class="process-grid">
+      <div class="step" data-reveal><div class="step-num">1</div><h3>בחירת חומרים</h3><p>חמאה צרפתית, שוקולד משובח ופירות טריים — רק חומרי גלם איכותיים.</p></div>
+      <div class="step" data-reveal><div class="step-num">2</div><h3>עבודת יד</h3><p>הקונדיטור מכין כל מאפה ועוגה ביד, בטכניקה צרפתית קלאסית.</p></div>
+      <div class="step" data-reveal><div class="step-num">3</div><h3>אפייה יומית</h3><p>אופים מדי בוקר — טרי, פריך וחם, בדיוק כמו שצריך.</p></div>
+      <div class="step" data-reveal><div class="step-num">4</div><h3>אצלכם</h3><p>בויטרינה, על הצלחת עם קפה, או בטייק אווי הביתה.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section alt" id="testimonials">
+  <div class="container">
+    <div class="center" data-reveal>
+      <span class="eyebrow">המלצות</span>
+      <h2 class="section-heading">מה <span class="italic gold">אומרים?</span></h2>
+    </div>
+    <div class="test-grid">
+      <article class="test-card" data-reveal><div class="test-quote-mark">"</div><div class="stars">★★★★★</div><p class="test-text">הקרואסונים הכי טובים שאכלתי בארץ. חמאתי, פריך, מושלם. והקפה מעולה.</p><div class="test-author"><div class="test-avatar">ד</div><div><strong>דנה ל.</strong><span>{{CITY}}</span></div></div></article>
+      <article class="test-card" data-reveal><div class="test-quote-mark">"</div><div class="stars">★★★★★</div><p class="test-text">הזמנו עוגת יום הולדת מעוצבת — יפהפייה וטעימה בטירוף. רמה של פטיסרי צרפתי אמיתי.</p><div class="test-author"><div class="test-avatar">י</div><div><strong>יוסי מ.</strong><span>לקוח קבוע</span></div></div></article>
+      <article class="test-card" data-reveal><div class="test-quote-mark">"</div><div class="stars">★★★★★</div><p class="test-text">המקום המתוק שלי בעיר. מקרונים מושלמים, מבחר עצום, ויחס חם. ממליצה בחום!</p><div class="test-author"><div class="test-avatar">ש</div><div><strong>שירה כ.</strong><span>{{CITY}}</span></div></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- WAYS -->
+<section class="section ways-section">
+  <div class="container bleed">
+    <div class="center" data-reveal>
+      <span class="eyebrow">איך נהנים</span>
+      <h2 class="section-heading">לשבת, <span class="italic gold">או לקחת.</span></h2>
+      <p class="section-sub">ארבע דרכים ליהנות מ‑{{BUSINESS_NAME}} — בדיוק כמו שבא לכם.</p>
+    </div>
+    <div class="ways-row" data-reveal>
+      <div class="way-card">
+        <span class="way-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h13v3.5a4.5 4.5 0 0 1-4.5 4.5h-4A4.5 4.5 0 0 1 4 12.5z"/><path d="M17 10h2.2a2 2 0 0 1 0 4H17"/><path d="M4 20h13"/><path d="M8 3c-.6.8-.6 1.7 0 2.5M12 3c-.6.8-.6 1.7 0 2.5"/></svg></span>
+        <strong>ישיבה בפנים</strong><span>חלל חמים ונעים</span>
+      </div>
+      <div class="way-card">
+        <span class="way-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M3.5 11a8.5 8.5 0 0 1 17 0z"/><path d="M12 21a2.2 2.2 0 0 0 2.2-2.2"/><path d="M8 11v0M16 11v0"/></svg></span>
+        <strong>ישיבה בחוץ</strong><span>פינה על הרחוב</span>
+      </div>
+      <div class="way-card">
+        <span class="way-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8h11l-1 11.2a1.8 1.8 0 0 1-1.8 1.8H9.3a1.8 1.8 0 0 1-1.8-1.8z"/><path d="M5 8h14"/><path d="M9 5h6l1.2 3H7.8z"/><path d="M7.4 13.5h9.2"/></svg></span>
+        <strong>טייק אווי</strong><span>מהיר בדרך</span>
+      </div>
+      <div class="way-card">
+        <span class="way-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21h16v-6.5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2z"/><path d="M4 16.5c1.5 0 1.5 1.2 3 1.2s1.5-1.2 3-1.2 1.5 1.2 3 1.2 1.5-1.2 3-1.2 1.5 1.2 3 1.2"/><path d="M12 12.5V9"/><path d="M12 8.5c.7 0 1.2-.5 1.2-1.2C13.2 6.2 12 5 12 5s-1.2 1.2-1.2 2.3c0 .7.5 1.2 1.2 1.2z"/></svg></span>
+        <strong>הזמנות אישיות</strong><span>עוגות ומגשי אירוח</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="center" data-reveal>
+      <span class="eyebrow">שאלות נפוצות</span>
+      <h2 class="section-heading">כל מה <span class="italic gold">ששאלתם.</span></h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item" data-reveal><button class="faq-q">אפשר להזמין עוגה מעוצבת לאירוע?<span class="plus">+</span></button><div class="faq-a"><div class="faq-a-inner">בהחלט. אנחנו מכינים עוגות מעוצבות ומגשי אירוח בהזמנה אישית. מומלץ להזמין מראש — דברו איתנו בטלפון {{PHONE_HUMAN}}.</div></div></div>
+      <div class="faq-item" data-reveal><button class="faq-q">המאפים טריים?<span class="plus">+</span></button><div class="faq-a"><div class="faq-a-inner">כן. אנחנו אופים ומכינים מדי בוקר. מה שבויטרינה נעשה כאן, באותו היום, בעבודת יד.</div></div></div>
+      <div class="faq-item" data-reveal><button class="faq-q">יש ישיבה במקום?<span class="plus">+</span></button><div class="faq-a"><div class="faq-a-inner">יש פינת ישיבה נעימה גם בפנים וגם בחוץ — מושלם לקפה ומאפה. וכמובן אפשר גם טייק אווי.</div></div></div>
+      <div class="faq-item" data-reveal><button class="faq-q">איזה קפה אתם מגישים?<span class="plus">+</span></button><div class="faq-a"><div class="faq-a-inner">אנחנו מגישים קפה בובו איכותי — אספרסו, קפוצ׳ינו, לאטה, חליטות ושתייה קרה.</div></div></div>
+      <div class="faq-item" data-reveal><button class="faq-q">יש גם אוכל מלוח?<span class="plus">+</span></button><div class="faq-a"><div class="faq-a-inner">כן — מבחר סלטים טריים וכריכים על מאפה הבית, לצד הקפה והמתוקים.</div></div></div>
+      <div class="faq-item" data-reveal><button class="faq-q">איפה אתם נמצאים?<span class="plus">+</span></button><div class="faq-a"><div class="faq-a-inner">ברחוב {{ADDRESS_FULL}}. מוזמנים לקפוץ — או להתקשר להזמנה מראש.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section contact-section" id="contact">
+  <div class="container">
+    <div class="center" data-reveal>
+      <span class="eyebrow">צרו קשר</span>
+      <h2 class="section-heading">בואו <span class="italic gold">להתפנק.</span></h2>
+      <p class="section-sub">להזמנות, עוגות אירוע או כל שאלה — נשמח לשמוע מכם.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card" data-reveal>
+        <h3>השאירו פרטים</h3>
+        <form id="lmForm" novalidate>
+          <div class="form-row">
+            <div class="form-field"><label>שם מלא</label><input type="text" name="name" placeholder="השם שלכם"></div>
+            <div class="form-field"><label>טלפון</label><input type="tel" name="phone" placeholder="05X-XXXXXXX" dir="ltr"></div>
+          </div>
+          <div class="form-row full">
+            <div class="form-field"><label>נושא הפנייה</label>
+              <select name="subject"><option value="">בחרו…</option><option>הזמנת עוגה / אירוע</option><option>מגש אירוח</option><option>שאלה כללית</option></select>
+            </div>
+          </div>
+          <div class="form-row full">
+            <div class="form-field"><label>הודעה</label><textarea name="message" placeholder="ספרו לנו במה נוכל לעזור…"></textarea></div>
+          </div>
+          <button type="submit" class="btn btn-gold">שליחת פנייה</button>
+          <div class="form-status" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+      <div class="contact-info">
+        <a class="ci-row" href="tel:+972{{PHONE_INTL}}"><div class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.3 1l-2.2 2.3z"/></svg></div><div><strong>טלפון</strong><p dir="ltr">{{PHONE_HUMAN}}</p></div></a>
+        <a class="ci-row" href="https://waze.com/ul?q=יחזקאל%20קויפמן%202%20תל%20אביב" target="_blank" rel="noopener"><div class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-5.3-7-11a7 7 0 1114 0c0 5.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div><div><strong>כתובת</strong><p>{{ADDRESS_FULL}}</p></div></a>
+        <a class="ci-row" href="mailto:{{EMAIL}}"><div class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div><div><strong>אימייל</strong><p dir="ltr">{{EMAIL}}</p></div></a>
+        <div class="ci-row"><div class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div><div><strong>שעות</strong><p>פתוח כל יום · התקשרו לבירור שעות</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logo">{{BUSINESS_NAME}} <span>Pâtisserie</span></div>
+    <p class="footer-tag">פטיסרי צרפתי · עבודת יד · קפה בובו</p>
+    <ul class="footer-nav">
+      <li><a href="#story">הסיפור</a></li>
+      <li><a href="#pastries">המאפים</a></li>
+      <li><a href="#menu">תפריט</a></li>
+      <li><a href="#place">המקום</a></li>
+      <li><a href="#contact">צור קשר</a></li>
+    </ul>
+    <p style="color:rgba(255,255,255,.7)">{{ADDRESS_FULL}} · <a href="tel:+972{{PHONE_INTL}}" style="color:var(--gold-light)" dir="ltr">{{PHONE_HUMAN}}</a></p>
+    <p class="copyright">© 2026 {{BUSINESS_NAME}}. כל הזכויות שמורות.</p>
+  </div>
+</footer>
+
+<a href="tel:+972{{PHONE_INTL}}" class="call-float" aria-label="התקשרו"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.3 1l-2.2 2.3z"/></svg></a>
+
+<script>
+(function(){
+  'use strict';
+  var header=document.getElementById('header');
+  var onScroll=function(){ if(header) header.classList.toggle('scrolled', window.scrollY>8); };
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  var ham=document.getElementById('hamburger'), mm=document.getElementById('mobileMenu');
+  if(ham&&mm){ ham.addEventListener('click',function(){ var o=mm.classList.toggle('open'); ham.classList.toggle('open',o); });
+    mm.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){mm.classList.remove('open');ham.classList.remove('open');});}); }
+
+  /* hero slideshow */
+  var slides=document.querySelectorAll('.hero-bg img'), dots=document.querySelectorAll('.hero-dots button'), idx=0;
+  function go(n){ slides.forEach(function(s,i){s.classList.toggle('active',i===n);}); dots.forEach(function(d,i){d.classList.toggle('active',i===n);}); idx=n; }
+  dots.forEach(function(d){ d.addEventListener('click',function(){ go(+d.dataset.slide); }); });
+  if(slides.length>1) setInterval(function(){ go((idx+1)%slides.length); },5000);
+
+  /* band duplicate */
+  var bt=document.getElementById('bandTrack'); if(bt) bt.innerHTML+=bt.innerHTML;
+
+  /* reveal */
+  var rt=document.querySelectorAll('[data-reveal]');
+  if('IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -6% 0px',threshold:.05}); rt.forEach(function(el){io.observe(el);}); }
+  else rt.forEach(function(el){el.classList.add('in');});
+
+  /* menu tabs */
+  var tabs=document.querySelectorAll('.menu-tab'), panels=document.querySelectorAll('.menu-panel');
+  tabs.forEach(function(t){ t.addEventListener('click',function(){ tabs.forEach(function(x){x.classList.remove('active');}); panels.forEach(function(p){p.classList.remove('active');}); t.classList.add('active'); var p=document.querySelector('.menu-panel[data-panel="'+t.dataset.tab+'"]'); if(p)p.classList.add('active'); }); });
+
+  /* faq */
+  document.querySelectorAll('.faq-q').forEach(function(q){ q.addEventListener('click',function(){ var it=q.closest('.faq-item'); var open=it.classList.contains('open'); document.querySelectorAll('.faq-item').forEach(function(x){x.classList.remove('open');}); if(!open) it.classList.add('open'); }); });
+
+  /* smooth scroll offset */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){ a.addEventListener('click',function(e){ var id=a.getAttribute('href'); if(id.length<=1)return; var t=document.querySelector(id); if(!t)return; e.preventDefault(); var h=(header?header.offsetHeight:0)+12; window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-h,behavior:'smooth'}); }); });
+
+  /* contact form -> mailto */
+  var f=document.getElementById('lmForm');
+  if(f){ var st=f.querySelector('.form-status'); f.addEventListener('submit',function(e){ e.preventDefault();
+    var d=new FormData(f), name=(d.get('name')||'').trim(), phone=(d.get('phone')||'').trim(), subj=d.get('subject')||'', msg=(d.get('message')||'').trim();
+    if(name.length<2||!/^0\d{8,9}$/.test(phone.replace(/[\s\-()]/g,''))){ st.className='form-status err'; st.textContent='נא למלא שם וטלפון תקין'; return; }
+    var body='שם: '+name+'%0D%0Aטלפון: '+phone+(subj?('%0D%0Aנושא: '+subj):'')+(msg?('%0D%0A%0D%0A'+msg):'');
+    window.location.href='mailto:{{EMAIL}}?subject='+encodeURIComponent('פנייה מהאתר — '+(subj||'{{BUSINESS_NAME}}'))+'&body='+body;
+    st.className='form-status ok'; st.textContent='תודה! נפתח חלון מייל לשליחת הפנייה.'; f.reset();
+  }); }
+})();
+</script>
+</body>
+</html>

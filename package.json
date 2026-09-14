@@ -4,23 +4,21 @@
   "version": "0.0.0",
   "type": "module",
   "engines": {
-    "node": "22.x",
-    "npm": "10.x"
+    "node": "24.x"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "node scripts/dev.mjs",
     "build": "tsc -b && vite build",
-    "start": "node --env-file-if-exists=.env server.js",
-    "seed:admin": "node --env-file-if-exists=.env server/seedAdmin.js",
-    "heroku-postbuild": "npm run build",
+    "start": "node backend/server.js",
+    "heroku-postbuild": "npm run build && npm run install:backend",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "install:backend": "cd backend && PUPPETEER_SKIP_DOWNLOAD=true npm ci --omit=dev --no-audit --no-fund"
   },
   "dependencies": {
     "axios": "^1.15.2",
     "express": "^5.2.1",
     "framer-motion": "^12.38.0",
-    "http-proxy-middleware": "^3.0.3",
     "mongodb": "^6.21.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{BUSINESS_NAME}} | מערכת מימן (HHO) חכמה לרכבים ומשאיות — חיסכון בדלק</title>
+<meta name="description" content="{{BUSINESS_NAME}} — מערכת Hydrogen Generator חכמה לרכבים, משאיות וציי רכב. מייצרת מימן וחמצן ממים מטוהרים בזמן אמת, משלבת צ'יפ ביצועים המחובר ל-OBD, ומסייעת לחיסכון בדלק, תגובת מנוע טובה יותר והפחתת פליטות. ללא אגירת מימן, מתאים לבנזין/דיזל/LPG/היברידי.">
+<meta name="keywords" content="מערכת מימן לרכב, HHO, Hydrogen Generator, חיסכון בדלק, צ'יפ OBD, ציי רכב, משאיות, PEM, {{BUSINESS_NAME}}">
+<meta name="author" content="{{BUSINESS_NAME}}">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#0B1B3B">
+<link rel="canonical" href="https://igo-projects.netlify.app/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{BUSINESS_NAME}}">
+<meta property="og:locale" content="he_IL">
+<meta property="og:url" content="https://igo-projects.netlify.app/">
+<meta property="og:title" content="IGO | מערכת מימן חכמה לרכבים ומשאיות">
+<meta property="og:description" content="חיסכון בדלק, תגובת מנוע טובה יותר והפחתת פליטות — מערכת HHO חכמה שמייצרת מימן ממים בזמן אמת.">
+<meta property="og:image" content="https://igo-projects.netlify.app/{{HERO_IMAGE}}">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/favicon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Product","name":"{{PRODUCT_NAME_EN}}","brand":{"@type":"Brand","name":"{{BUSINESS_NAME}}"},"description":"מערכת מימן חכמה לרכבים ומשאיות המייצרת HHO ממים מטוהרים בזמן אמת, משולבת צ'יפ ביצועים המחובר ל-OBD.","category":"Automotive Hydrogen Generator"}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = { theme: { extend: {
+  colors: { navy:'#0B1B3B', blue:'#1E5BE6', blued:'#1442B8', cyan:'#22D3EE', ink:'#0A1326', soft:'#F2F6FD', body:'#3A465E' },
+  fontFamily: { sans:['Assistant','system-ui','sans-serif'] },
+} } };
+</script>
+<style>
+  html{scroll-behavior:smooth;overflow-x:clip}
+  body{font-family:'Assistant',system-ui,sans-serif;color:#3A465E;overflow-x:clip;background:#fff}
+  .grad{background:linear-gradient(120deg,#0B1B3B 0%,#1E5BE6 55%,#22D3EE 100%)}
+  .grad-d{background:linear-gradient(140deg,#0A1326 0%,#0B1B3B 50%,#11337a 100%)}
+  .grad-text{background:linear-gradient(110deg,#1E5BE6,#22D3EE);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .shimmer{background:linear-gradient(110deg,#1E5BE6,#22D3EE,#7ee8f5,#22D3EE,#1E5BE6);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 6s linear infinite}
+  @keyframes sh{to{background-position:200% center}}
+  .blob{position:absolute;border-radius:9999px;filter:blur(70px);z-index:0;pointer-events:none}
+  .aurora{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+  .aurora i{position:absolute;border-radius:50%;filter:blur(80px);opacity:.5;animation:aur 18s ease-in-out infinite}
+  .aurora i:nth-child(1){width:36rem;height:36rem;background:radial-gradient(circle,#1E5BE6,transparent 60%);top:-12rem;right:-8rem}
+  .aurora i:nth-child(2){width:32rem;height:32rem;background:radial-gradient(circle,#22D3EE,transparent 60%);bottom:-12rem;left:-6rem;animation-delay:-9s}
+  @keyframes aur{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-3rem,2.5rem) scale(1.16)}}
+  .grid-tex{position:absolute;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(30,91,230,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(30,91,230,.05) 1px,transparent 1px);background-size:42px 42px;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,#000,transparent);mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,#000,transparent)}
+  .deco{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .dotgrid{position:absolute;width:15rem;height:15rem;background-image:radial-gradient(currentColor 1.5px,transparent 1.5px);background-size:18px 18px;color:rgba(30,91,230,.16);-webkit-mask-image:radial-gradient(circle,#000,transparent 72%);mask-image:radial-gradient(circle,#000,transparent 72%)}
+  .ringdeco{position:absolute;border-radius:50%;border:1.5px dashed rgba(30,91,230,.16)}
+  .eyebrow{display:inline-flex;align-items:center;gap:.5rem;border-radius:9999px;padding:.4rem 1rem;font-size:.8rem;font-weight:800;color:#1E5BE6;background:linear-gradient(135deg,rgba(30,91,230,.12),rgba(34,211,238,.14));border:1px solid rgba(30,91,230,.2)}
+  .eyebrow.light{color:#7ee8f5;background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25)}
+  .glow{position:relative}
+  .glow::before{content:"";position:absolute;inset:-12%;background:radial-gradient(circle,rgba(30,91,230,.4),rgba(34,211,238,.28) 45%,transparent 68%);filter:blur(46px);z-index:-1}
+  .lift{transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s}
+  .lift:hover{transform:translateY(-6px);box-shadow:0 30px 60px -28px rgba(30,91,230,.4)}
+  .gb{position:relative;isolation:isolate}
+  .gb::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;background:linear-gradient(135deg,#1E5BE6,#22D3EE);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .35s;z-index:-1}
+  .gb:hover::before{opacity:1}
+  .svc-ic{display:grid;place-items:center;height:3.5rem;width:3.5rem;border-radius:1rem;background:linear-gradient(135deg,#1E5BE6,#22D3EE);color:#fff;box-shadow:0 12px 26px -10px rgba(30,91,230,.6)}
+  .svc-ic svg{width:26px;height:26px}
+  .mq{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+  .mq-track{display:flex;gap:1rem;width:max-content;animation:mq 44s linear infinite}
+  .mq:hover .mq-track{animation-play-state:paused}
+  @keyframes mq{to{transform:translateX(50%)}}
+  .chipmq{display:flex;gap:.8rem;width:max-content;animation:mq 30s linear infinite}
+  [data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .7s,transform .7s cubic-bezier(.22,1,.36,1)}
+  [data-reveal].in{opacity:1;transform:none}
+  details>summary{list-style:none}details>summary::-webkit-details-marker{display:none}
+  details[open] .faq-ico{transform:rotate(45deg)}
+  .gimg{border-radius:1.1rem;overflow:hidden;box-shadow:0 22px 46px -22px rgba(10,19,38,.5);cursor:zoom-in}
+  .gimg img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+  .gimg:hover img{transform:scale(1.06)}
+  #lb{position:fixed;inset:0;z-index:120;background:rgba(6,10,24,.94);display:none;align-items:center;justify-content:center;padding:5vw}
+  #lb.open{display:flex}#lb img{max-width:92vw;max-height:88vh;border-radius:1rem;box-shadow:0 30px 80px -20px #000}
+  .wa-float{position:fixed;bottom:1.1rem;left:1.1rem;z-index:90;display:grid;place-items:center;height:3.5rem;width:3.5rem;border-radius:9999px;background:#25D366;color:#fff;box-shadow:0 14px 30px -8px rgba(37,211,102,.6);animation:fl 4s ease-in-out infinite}
+  @keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  @media(prefers-reduced-motion:reduce){.aurora i,.shimmer,.mq-track,.chipmq,.wa-float{animation:none}[data-reveal]{opacity:1!important;transform:none!important}}
+</style>
+</head>
+<body class="bg-white">
+
+<!-- HEADER -->
+<header class="sticky top-0 z-50 w-full border-b border-black/5 bg-white/90 backdrop-blur">
+  <div class="mx-auto flex max-w-[1860px] items-center justify-between gap-4 px-5 py-2.5 md:px-8">
+    <a href="#top" class="flex items-center shrink-0"><img src="{{LOGO_URL}}" alt="{{BUSINESS_NAME}}" class="h-12 w-auto"></a>
+    <nav class="hidden items-center gap-6 text-sm font-semibold text-body lg:flex">
+      <a href="#how" class="hover:text-blue transition">איך זה עובד</a>
+      <a href="#products" class="hover:text-blue transition">מוצרים</a>
+      <a href="#tech" class="hover:text-blue transition">טכנולוגיה</a>
+      <a href="#results" class="hover:text-blue transition">תוצאות</a>
+      <a href="#audiences" class="hover:text-blue transition">למי מתאים</a>
+      <a href="#faq" class="hover:text-blue transition">שאלות</a>
+    </nav>
+    <div class="flex items-center gap-2">
+      <a href="#lead" class="hidden items-center gap-2 rounded-xl grad px-4 py-2 text-sm font-bold text-white shadow-md sm:inline-flex">בדיקת התאמה</a>
+      <button id="navToggle" aria-label="תפריט" aria-expanded="false" class="grid h-10 w-10 place-items-center rounded-lg ring-1 ring-black/10 lg:hidden">
+        <svg id="navOpen" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="navClose" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="hidden"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mnav" class="hidden border-t border-black/5 bg-white lg:hidden">
+    <nav class="mx-auto flex max-w-[1860px] flex-col px-5 py-2 text-sm font-semibold text-body">
+      <a href="#how" class="border-b border-black/5 py-3.5">איך זה עובד</a>
+      <a href="#products" class="border-b border-black/5 py-3.5">מוצרים</a>
+      <a href="#tech" class="border-b border-black/5 py-3.5">טכנולוגיה</a>
+      <a href="#results" class="border-b border-black/5 py-3.5">תוצאות</a>
+      <a href="#audiences" class="border-b border-black/5 py-3.5">למי מתאים</a>
+      <a href="#lead" class="py-3.5 font-extrabold text-blue">בדיקת התאמה</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="relative overflow-hidden bg-ink text-white">
+  <img src="{{HERO_IMAGE}}" alt="" class="absolute inset-0 h-full w-full object-cover">
+  <div class="relative mx-auto max-w-[1860px] px-5 py-24 md:px-8 md:py-32">
+    <div data-reveal class="max-w-3xl text-center lg:text-right" style="text-shadow:0 2px 20px rgba(0,0,0,.6)">
+      <span class="eyebrow light"><span class="relative flex h-2.5 w-2.5"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan opacity-75"></span><span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-cyan"></span></span>Hydrogen Generator · HHO חכם</span>
+      <h1 class="mt-6 text-4xl font-extrabold leading-[1.1] tracking-tight md:text-6xl" style="text-shadow:0 6px 30px rgba(0,0,0,.5)">חוסכים בדלק.<br>משפרים תגובת מנוע.<br><span class="shimmer">מפחיתים פליטות.</span></h1>
+      <p class="mx-auto mt-5 max-w-2xl text-lg text-white/90 lg:mx-0">מערכת HHO חכמה לרכבים ומשאיות — מייצרת מימן וחמצן ממים מטוהרים בזמן אמת, ומשלבת צ'יפ ביצועים המחובר ל‑OBD. ללא אגירת מימן.</p>
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+        <a href="#lead" class="rounded-xl grad px-7 py-3.5 font-extrabold text-white shadow-lg transition hover:scale-105">בדיקת התאמה לרכב שלי</a>
+        <a href="https://wa.me/{{PHONE_INTL}}?text=%D7%94%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%94%D7%A6%D7%A2%D7%AA%20%D7%9E%D7%97%D7%99%D7%A8%20%D7%9C%D7%A6%D7%99%20%D7%A8%D7%9B%D7%91" target="_blank" rel="noopener" class="rounded-xl bg-white/10 px-7 py-3.5 font-bold text-white ring-1 ring-white/40 backdrop-blur transition hover:bg-white/20">הצעת מחיר לצי רכב</a>
+      </div>
+      <div class="mt-12 grid max-w-2xl grid-cols-2 gap-5 border-t border-white/15 pt-8 sm:grid-cols-4">
+        <div><div class="text-2xl font-extrabold text-cyan md:text-3xl">15-20%</div><div class="mt-1 text-sm text-white/75">חיסכון דלק*</div></div>
+        <div><div class="text-2xl font-extrabold text-cyan md:text-3xl">בזמן אמת</div><div class="mt-1 text-sm text-white/75">ללא אגירת מימן</div></div>
+        <div><div class="text-2xl font-extrabold text-cyan md:text-3xl">OBD</div><div class="mt-1 text-sm text-white/75">צ'יפ ביצועים חכם</div></div>
+        <div><div class="text-2xl font-extrabold text-cyan md:text-3xl">PEM</div><div class="mt-1 text-sm text-white/75">ממים מטוהרים</div></div>
+      </div>
+      <p class="mt-3 text-xs text-white/50">* עד 15%–20% לפי נתוני יצרן, בכפוף לסוג רכב, התקנה ותנאי שימוש.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ADVANTAGES STRIP -->
+<section class="border-b border-black/5 bg-white py-8">
+  <div class="mx-auto grid max-w-[1860px] grid-cols-2 gap-4 px-5 text-center md:grid-cols-4 md:px-8" data-reveal>
+    <div class="flex items-center justify-center gap-2.5 text-sm font-bold text-navy"><span class="svc-ic !h-9 !w-9 !rounded-lg"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></span>בנזין · דיזל · LPG · היברידי</div>
+    <div class="flex items-center justify-center gap-2.5 text-sm font-bold text-navy"><span class="svc-ic !h-9 !w-9 !rounded-lg"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></span>ללא אגירת מימן</div>
+    <div class="flex items-center justify-center gap-2.5 text-sm font-bold text-navy"><span class="svc-ic !h-9 !w-9 !rounded-lg"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></span>התקנה לא פולשנית</div>
+    <div class="flex items-center justify-center gap-2.5 text-sm font-bold text-navy"><span class="svc-ic !h-9 !w-9 !rounded-lg"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></span>רכב פרטי · מסחרי · משאיות</div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="bg-soft py-16 md:py-24">
+  <div class="mx-auto grid max-w-[1500px] items-center gap-12 px-5 md:px-8 lg:grid-cols-2">
+    <div data-reveal class="glow relative"><div class="overflow-hidden rounded-3xl shadow-2xl ring-1 ring-black/5"><img src="{{EMISSIONS_IMAGE}}" alt="בעירה לא יעילה ופליטות" class="aspect-[4/3] w-full object-cover"></div></div>
+    <div data-reveal class="text-center lg:text-right">
+      <span class="eyebrow">הבעיה</span>
+      <h2 class="mt-4 text-3xl font-extrabold text-navy md:text-4xl">הדלק נשרף — <span class="grad-text">לא נשרף נכון</span></h2>
+      <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-body/85 lg:mx-0">צריכת דלק גבוהה במיוחד בעיר, בהאצות ובסל"ד נמוך. בעירה לא מלאה גורמת לבזבוז דלק, תגובת מנוע איטית, פליטות מוגברות והצטברות פיח במנוע.</p>
+      <ul class="mx-auto mt-6 grid max-w-md gap-3 text-right text-body lg:mx-0">
+        <li class="flex items-center gap-2.5"><span class="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-red-100 text-red-500"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M18 6 6 18M6 6l12 12"/></svg></span>בזבוז דלק והוצאות תפעול גבוהות</li>
+        <li class="flex items-center gap-2.5"><span class="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-red-100 text-red-500"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M18 6 6 18M6 6l12 12"/></svg></span>תגובת מנוע איטית ופליטות מוגברות</li>
+        <li class="flex items-center gap-2.5"><span class="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-red-100 text-red-500"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M18 6 6 18M6 6l12 12"/></svg></span>הצטברות פיח ושחיקת רכיבים</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="bg-white py-16 md:py-24">
+  <div class="mx-auto grid max-w-[1500px] items-center gap-12 px-5 md:px-8 lg:grid-cols-2">
+    <div data-reveal class="order-2 text-center lg:order-1 lg:text-right">
+      <span class="eyebrow">הפתרון</span>
+      <h2 class="mt-4 text-3xl font-extrabold text-navy md:text-4xl">בעירה <span class="grad-text">יעילה יותר</span> עם HHO</h2>
+      <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-body/85 lg:mx-0">High Tech IGO מוסיפה כמות מדודה של HHO לתהליך הבעירה. השילוב בין מחולל המימן, צ'יפ הביצועים והטרנספורמר עוזר למנוע לשרוף את הדלק בצורה יעילה יותר — ומכאן: חיסכון, תגובה ופחות פליטות.</p>
+      <div class="mx-auto mt-6 grid max-w-md grid-cols-3 gap-3 text-center lg:mx-0">
+        <div class="rounded-xl bg-soft p-4 ring-1 ring-black/5"><div class="font-extrabold grad-text">חיסכון</div><div class="mt-1 text-xs text-body/70">בדלק</div></div>
+        <div class="rounded-xl bg-soft p-4 ring-1 ring-black/5"><div class="font-extrabold grad-text">תגובה</div><div class="mt-1 text-xs text-body/70">טובה יותר</div></div>
+        <div class="rounded-xl bg-soft p-4 ring-1 ring-black/5"><div class="font-extrabold grad-text">פחות</div><div class="mt-1 text-xs text-body/70">פליטות</div></div>
+      </div>
+    </div>
+    <div data-reveal class="glow relative order-1 lg:order-2"><div class="overflow-hidden rounded-3xl shadow-2xl ring-1 ring-black/5"><img src="{{HYDROGEN_IMAGE}}" alt="ייצור מימן ממים" class="aspect-[4/3] w-full object-cover"></div></div>
+  </div>
+</section>
+
+<!-- BENEFITS IN DEPTH -->
+<section class="bg-soft py-16 md:py-24">
+  <div class="mx-auto max-w-[1860px] px-5 md:px-8">
+    <div class="text-center" data-reveal><span class="eyebrow">מה מרוויחים</span><h2 class="mt-4 text-3xl font-extrabold text-navy md:text-4xl">ארבעה רווחים <span class="grad-text">מיידיים</span></h2><p class="mx-auto mt-3 max-w-2xl text-lg text-body/80">לא רק חיסכון בכיס — שיפור אמיתי בדרך שבה המנוע עובד.</p></div>
+    <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" data-reveal>
+      <div class="gb lift overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5"><div class="h-40 overflow-hidden"><img src="images/savings.jpg" alt="חיסכון בדלק" class="h-full w-full object-cover transition duration-500 hover:scale-105"></div><div class="p-6 text-right"><div class="svc-ic !h-11 !w-11"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><h3 class="mt-4 text-lg font-extrabold text-navy">חיסכון בדלק</h3><p class="mt-2 text-sm leading-relaxed text-body/80">בעירה יעילה יותר = פחות ליטרים על אותו מסלול. משמעותי במיוחד בעיר ובציי רכב.</p></div></div>
+      <div class="gb lift overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5"><div class="h-40 overflow-hidden"><img src="{{DYNO_IMAGE}}" alt="תגובת מנוע" class="h-full w-full object-cover transition duration-500 hover:scale-105"></div><div class="p-6 text-right"><div class="svc-ic !h-11 !w-11"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></div><h3 class="mt-4 text-lg font-extrabold text-navy">תגובת מנוע</h3><p class="mt-2 text-sm leading-relaxed text-body/80">תחושת נהיגה חלקה יותר, האצות מהירות יותר ותגובה משופרת בסל"ד נמוך.</p></div></div>
+      <div class="gb lift overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5"><div class="h-40 overflow-hidden"><img src="{{ECO_IMAGE}}" alt="פחות פליטות" class="h-full w-full object-cover transition duration-500 hover:scale-105"></div><div class="p-6 text-right"><div class="svc-ic !h-11 !w-11"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M11 20a7 7 0 0 0 7-7c0-5-7-11-7-11M11 20A7 7 0 0 1 5 9M11 20v-9"/></svg></div><h3 class="mt-4 text-lg font-extrabold text-navy">פחות פליטות</h3><p class="mt-2 text-sm leading-relaxed text-body/80">בעירה מלאה יותר עשויה להפחית עשן, פיח ופליטות מזהמות — יתרון סביבתי ותפעולי.</p></div></div>
+      <div class="gb lift overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5"><div class="h-40 overflow-hidden"><img src="{{ENGINE_IMAGE}}" alt="שמירה על המנוע" class="h-full w-full object-cover transition duration-500 hover:scale-105"></div><div class="p-6 text-right"><div class="svc-ic !h-11 !w-11"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6z"/><path d="m9 12 2 2 4-4"/></svg></div><h3 class="mt-4 text-lg font-extrabold text-navy">שמירה על המנוע</h3><p class="mt-2 text-sm leading-relaxed text-body/80">פחות הצטברות פיח עשויה לתרום לנקיון המנוע ולהפחתת עלויות תחזוקה לאורך זמן.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" class="relative overflow-hidden grad-d py-16 text-white md:py-24">
+  <div class="aurora"><i></i><i></i></div>
+  <div class="deco"><div class="dotgrid" style="top:3rem;left:3rem;color:rgba(255,255,255,.12)"></div><div class="ringdeco" style="width:22rem;height:22rem;bottom:-7rem;right:-7rem;border-color:rgba(34,211,238,.25)"></div></div>
+  <div class="relative mx-auto max-w-[1860px] px-5 md:px-8">
+    <div class="text-center" data-reveal><span class="eyebrow light">איך זה עובד</span><h2 class="mt-4 text-3xl font-extrabold md:text-5xl">חמישה צעדים, <span style="color:#7ee8f5">בעירה חכמה</span></h2></div>
+    <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-5" data-reveal>
+      <div class="rounded-2xl bg-white/8 p-6 text-center ring-1 ring-white/15 backdrop-blur"><div class="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-white text-blue font-extrabold shadow-lg">1</div><h3 class="mt-4 font-bold">אלקטרוליזה PEM</h3><p class="mt-1.5 text-sm leading-snug text-white/80">מים מטוהרים עוברים אלקטרוליזה במערכת PEM.</p></div>
+      <div class="rounded-2xl bg-white/8 p-6 text-center ring-1 ring-white/15 backdrop-blur"><div class="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-white text-blue font-extrabold shadow-lg">2</div><h3 class="mt-4 font-bold">מימן וחמצן</h3><p class="mt-1.5 text-sm leading-snug text-white/80">נוצרים מימן וחמצן בכמות מדודה לשימוש מיידי.</p></div>
+      <div class="rounded-2xl bg-white/8 p-6 text-center ring-1 ring-white/15 backdrop-blur"><div class="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-white text-blue font-extrabold shadow-lg">3</div><h3 class="mt-4 font-bold">כניסה ליניקה</h3><p class="mt-1.5 text-sm leading-snug text-white/80">ה‑HHO נכנס דרך מערכת יניקת האוויר.</p></div>
+      <div class="rounded-2xl bg-white/8 p-6 text-center ring-1 ring-white/15 backdrop-blur"><div class="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-white text-blue font-extrabold shadow-lg">4</div><h3 class="mt-4 font-bold">צ'יפ OBD</h3><p class="mt-1.5 text-sm leading-snug text-white/80">צ'יפ הביצועים מתחבר ל‑OBD וקורא נתוני מנוע.</p></div>
+      <div class="rounded-2xl bg-white/8 p-6 text-center ring-1 ring-white/15 backdrop-blur"><div class="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-white text-blue font-extrabold shadow-lg">5</div><h3 class="mt-4 font-bold">אלגוריתם חכם</h3><p class="mt-1.5 text-sm leading-snug text-white/80">מסייע בתזמון הזרקה, הצתה והעברת הילוכים.</p></div>
+    </div>
+    <div class="mt-12 overflow-hidden rounded-2xl ring-1 ring-white/10" data-reveal><img src="{{CIRCUIT_IMAGE}}" alt="תרשים התקנת המערכת" class="w-full bg-white"></div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products" class="bg-soft py-16 md:py-24">
+  <div class="mx-auto max-w-[1860px] px-5 md:px-8">
+    <div class="text-center" data-reveal><span class="eyebrow">המוצרים</span><h2 class="mt-4 text-3xl font-extrabold text-navy md:text-4xl">קיט שמתאים <span class="grad-text">לרכב שלך</span></h2></div>
+    <div class="mt-12 grid gap-6 lg:grid-cols-2" data-reveal>
+      <div class="gb lift overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-black/5">
+        <div class="grid items-center gap-4 p-6 sm:grid-cols-2">
+          <div class="overflow-hidden rounded-2xl bg-soft"><img src="{{CAR_KIT_IMAGE}}" alt="IGO Car Kit" class="w-full object-contain"></div>
+          <div class="text-right"><span class="eyebrow">Car Kit</span><h3 class="mt-3 text-2xl font-extrabold text-navy">קיט לרכב</h3><p class="mt-2 text-sm leading-relaxed text-body/80">לרכבים פרטיים ומסחריים עד 7.0 ליטר לפי הקובץ. התקנה לא פולשנית, ייצור HHO בזמן אמת.</p><a href="#lead" class="mt-4 inline-block rounded-xl grad px-5 py-2.5 text-sm font-bold text-white">בדיקת התאמה</a></div>
+        </div>
+      </div>
+      <div class="gb lift overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-black/5">
+        <div class="grid items-center gap-4 p-6 sm:grid-cols-2">
+          <div class="overflow-hidden rounded-2xl bg-soft"><img src="images/truck-kit.jpg" alt="IGO Truck Kit" class="w-full object-contain"></div>
+          <div class="text-right"><span class="eyebrow">Truck Kit</span><h3 class="mt-3 text-2xl font-extrabold text-navy">קיט למשאיות</h3><p class="mt-2 text-sm leading-relaxed text-body/80">למשאיות וכלים כבדים עד 16.0 ליטר לפי הקובץ. מותאם לציי רכב עם צריכת דלק גבוהה.</p><a href="#lead" class="mt-4 inline-block rounded-xl grad px-5 py-2.5 text-sm font-bold text-white">הצעה לצי רכב</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section id="results" class="bg-white py-16 md:py-24">
+  <div class="mx-auto grid max-w-[1500px] items-center gap-12 px-5 md:px-8 lg:grid-cols-2">
+    <div data-reveal class="text-center lg:text-right">
+      <span class="eyebrow">תוצאות והוכחות</span>
+      <h2 class="mt-4 text-3xl font-extrabold text-navy md:text-4xl">המספרים <span class="grad-text">מהשטח</span></h2>
+      <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-body/85 lg:mx-0">לפי נתוני היצרן ומקרי שימוש, נמדד חיסכון ממוצע בדלק של כ‑15% במשאיות, ובמקרה נוסף אף 23%. אנו ממליצים על ציפייה זהירה: <strong>עד 15%–20% לפי נתוני יצרן</strong>, בכפוף לסוג רכב, התקנה ותנאי שימוש.</p>
+      <div class="mx-auto mt-7 grid max-w-md grid-cols-3 gap-3 text-center lg:mx-0">
+        <div class="rounded-2xl bg-soft p-5 ring-1 ring-black/5"><div class="text-3xl font-extrabold grad-text">~15%</div><div class="mt-1 text-xs text-body/70">חיסכון במשאיות*</div></div>
+        <div class="rounded-2xl bg-soft p-5 ring-1 ring-black/5"><div class="text-3xl font-extrabold grad-text">+25%</div><div class="mt-1 text-xs text-body/70">שיפור ביצועים*</div></div>
+        <div class="rounded-2xl bg-soft p-5 ring-1 ring-black/5"><div class="text-3xl font-extrabold grad-text">פחות</div><div class="mt-1 text-xs text-body/70">פליטות ופיח</div></div>
+      </div>
+      <p class="mt-3 text-xs text-body/50">* לפי נתוני יצרן ובכפוף לסוג רכב, התקנה ותנאי שימוש.</p>
+    </div>
+    <div data-reveal class="glow relative"><div class="overflow-hidden rounded-3xl shadow-2xl ring-1 ring-black/5"><img src="images/truck.jpg" alt="משאיות בדרך" class="aspect-[4/3] w-full object-cover"></div></div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="bg-soft py-16 md:py-24">
+  <div class="mx-auto max-w-[1280px] px-5 md:px-8">
+    <div class="text-center" data-reveal><span class="eyebrow">ההבדל</span><h2 class="mt-4 text-3xl font-extrabold text-navy md:text-4xl">עם IGO <span class="grad-text">מול בלי</span></h2></div>
+    <div class="mt-12 grid gap-6 md:grid-cols-2" data-reveal>
+      <div class="rounded-3xl border border-slate-200 bg-white p-7 md:p-8">
+        <div class="mb-5 inline-flex items-center gap-2 rounded-full bg-slate-100 px-4 py-1.5 text-sm font-bold text-slate-500">בלי IGO</div>
+        <ul class="space-y-3.5 text-slate-500">
+          <li class="flex items-start gap-3"><span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-slate-200 text-slate-400"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>בעירה לא מלאה ובזבוז דלק</li>
+          <li class="flex items-start gap-3"><span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-slate-200 text-slate-400"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>תגובת מנוע איטית בסל"ד נמוך</li>
+          <li class="flex items-start gap-3"><span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-slate-200 text-slate-400"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>פליטות והצטברות פיח מוגברות</li>
+          <li class="flex items-start gap-3"><span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-slate-200 text-slate-400"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>הוצאות דלק גבוהות בצי</li>
+        </ul>
+      </div>
+      <div class="relative overflow-hidden rounded-3xl grad-d p-7 text-white shadow-2xl md:p-8">
+        <div class="blob" style="width:14rem;height:14rem;background:#22D3EE;opacity:.3;top:-4rem;left:-3rem"></div>
+        <div class="relative">
+          <div class="mb-5 inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-sm font-bold">עם IGO</div>
+          <ul class="space-y-3.5">
+            <li class="flex items-start gap-3"><span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-cyan/25 text-cyan"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>בעירה יעילה יותר וחיסכון בדלק</li>
+            <li class="flex items-start gap-3"><span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-cyan/25 text-cyan"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>תגובת מנוע משופרת ותחושת נהיגה</li>
+            <li class="flex items-start gap-3"><span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-cyan/25 text-cyan"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>פוטנציאל להפחתת פליטות ופיח</li>
+            <li class="flex items-start gap-3"><span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-cyan/25 text-cyan"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>שליטה תפעולית והחזר השקעה בצי</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNOLOGY -->
+<section id="tech" class="bg-soft py-16 md:py-24">
+  <div class="mx-auto max-w-[1860px] px-5 md:px-8">
+    <div class="text-center" data-reveal><span class="eyebrow">הטכנולוגיה</span><h2 class="mt-4 text-3xl font-extrabold text-navy md:text-4xl">מה שמאחורי <span class="grad-text">המערכת</span></h2></div>
+    <div class="mt-12 grid items-center gap-10 lg:grid-cols-2" data-reveal>
+      <div class="glow relative"><div class="overflow-hidden rounded-3xl shadow-2xl ring-1 ring-black/5"><img src="{{CHIP_ALGO_IMAGE}}" alt="אלגוריתם הצ'יפ" class="aspect-[4/3] w-full object-cover"></div></div>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div class="lift rounded-2xl bg-white p-5 text-right ring-1 ring-black/5"><div class="svc-ic !h-11 !w-11"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg></div><h3 class="mt-3 font-extrabold text-navy">PEM Membrane</h3><p class="mt-1 text-sm text-body/80">ממברנת חילופי פרוטונים להפקת מימן יעילה.</p></div>
+        <div class="lift rounded-2xl bg-white p-5 text-right ring-1 ring-black/5"><div class="svc-ic !h-11 !w-11"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M12 2s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/></svg></div><h3 class="mt-3 font-extrabold text-navy">ממים מטוהרים</h3><p class="mt-1 text-sm text-body/80">הפקת מימן ללא כימיקלים — רק מים.</p></div>
+        <div class="lift rounded-2xl bg-white p-5 text-right ring-1 ring-black/5"><div class="svc-ic !h-11 !w-11"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></div><h3 class="mt-3 font-extrabold text-navy">בזמן אמת</h3><p class="mt-1 text-sm text-body/80">ייצור מיידי ללא אגירת מימן.</p></div>
+        <div class="lift rounded-2xl bg-white p-5 text-right ring-1 ring-black/5"><div class="svc-ic !h-11 !w-11"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><h3 class="mt-3 font-extrabold text-navy">צ'יפ OBD חכם</h3><p class="mt-1 text-sm text-body/80">קריאת נתוני מנוע וצריכת חשמל נמוכה.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTALLATION -->
+<section class="bg-white py-16 md:py-24">
+  <div class="mx-auto max-w-[1860px] px-5 md:px-8">
+    <div class="text-center" data-reveal><span class="eyebrow">התקנה</span><h2 class="mt-4 text-3xl font-extrabold text-navy md:text-4xl">שילוב <span class="grad-text">נקי ובטוח</span> במערכת הרכב</h2><p class="mx-auto mt-3 max-w-2xl text-lg text-body/80">מצבר, טרנספורמר, מיכל מים, מחולל מימן, משאבת מים וכניסה לצינור יניקת האוויר. קיימות הנחיות נפרדות לרכבי טורבו ולרכבים ללא טורבו.</p></div>
+    <div class="mt-12 grid grid-cols-2 gap-3 md:grid-cols-4" data-reveal>
+      <div class="gimg col-span-2 row-span-2" data-lb="{{CIRCUIT_IMAGE}}"><img src="{{CIRCUIT_IMAGE}}" alt="תרשים התקנה" loading="lazy" class="h-full min-h-[16rem] bg-white object-contain"></div>
+      <div class="gimg" data-lb="{{INSTALL_CAR_IMAGE}}"><img src="{{INSTALL_CAR_IMAGE}}" alt="התקנה ברכב" loading="lazy" class="h-44"></div>
+      <div class="gimg" data-lb="{{INSTALL_TRUCK_IMAGE}}"><img src="{{INSTALL_TRUCK_IMAGE}}" alt="התקנה במשאית" loading="lazy" class="h-44"></div>
+      <div class="gimg" data-lb="{{INSTALL_ENG_IMAGE}}"><img src="{{INSTALL_ENG_IMAGE}}" alt="התקנה בכלי הנדסי" loading="lazy" class="h-44"></div>
+      <div class="gimg" data-lb="images/obd-photo.jpg"><img src="images/obd-photo.jpg" alt="חיבור צ'יפ ל-OBD" loading="lazy" class="h-44"></div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCES -->
+<section id="audiences" class="bg-soft py-16 md:py-24">
+  <div class="mx-auto max-w-[1860px] px-5 md:px-8">
+    <div class="text-center" data-reveal><span class="eyebrow">למי זה מתאים</span><h2 class="mt-4 text-3xl font-extrabold text-navy md:text-4xl">כל מי ששורף <span class="grad-text">הרבה דלק</span></h2></div>
+    <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" data-reveal>
+      <div class="gb lift overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5"><div class="h-40 overflow-hidden"><img src="{{FLEET_IMAGE}}" alt="ציי רכב" class="h-full w-full object-cover transition duration-500 hover:scale-105"></div><div class="p-5 text-right"><h3 class="font-extrabold text-navy">בעלי ציי רכב</h3><p class="mt-1 text-sm text-body/80">חיסכון תפעולי לאורך זמן על פני כל הצי.</p></div></div>
+      <div class="gb lift overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5"><div class="h-40 overflow-hidden"><img src="images/truck.jpg" alt="הובלה ולוגיסטיקה" class="h-full w-full object-cover transition duration-500 hover:scale-105"></div><div class="p-5 text-right"><h3 class="font-extrabold text-navy">הובלה ולוגיסטיקה</h3><p class="mt-1 text-sm text-body/80">חברות הובלה, קירור והפצה שכל ליטר חשוב להן.</p></div></div>
+      <div class="gb lift overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5"><div class="h-40 overflow-hidden"><img src="{{CAR_IMAGE}}" alt="רכב מסחרי" class="h-full w-full object-cover transition duration-500 hover:scale-105"></div><div class="p-5 text-right"><h3 class="font-extrabold text-navy">רכב מסחרי</h3><p class="mt-1 text-sm text-body/80">בעלי רכבים מסחריים עם קילומטראז' גבוה.</p></div></div>
+      <div class="gb lift overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5"><div class="h-40 overflow-hidden"><img src="{{DASHBOARD_IMAGE}}" alt="רכב פרטי" class="h-full w-full object-cover transition duration-500 hover:scale-105"></div><div class="p-5 text-right"><h3 class="font-extrabold text-navy">לקוחות פרטיים</h3><p class="mt-1 text-sm text-body/80">רכבי בנזין/דיזל שרוצים לחסוך ולשפר ביצועים.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section class="bg-white py-16 md:py-24">
+  <div class="mx-auto max-w-[1860px] px-5 md:px-8">
+    <div class="text-center" data-reveal><span class="eyebrow">מקרי שימוש</span><h2 class="mt-4 text-3xl font-extrabold text-navy md:text-4xl">מהשטח, <span class="grad-text">לא מהמעבדה</span></h2><p class="mx-auto mt-3 max-w-2xl text-lg text-body/80">דוגמאות לאופן שבו IGO משתלבת אצל סוגי לקוחות שונים.</p></div>
+    <div class="mt-12 grid gap-6 md:grid-cols-3" data-reveal>
+      <div class="gb lift overflow-hidden rounded-2xl bg-soft shadow-sm ring-1 ring-black/5"><div class="h-44 overflow-hidden"><img src="{{NIGHTROAD_IMAGE}}" alt="משאית הובלה" class="h-full w-full object-cover transition duration-500 hover:scale-105"></div><div class="p-6 text-right"><div class="text-3xl font-extrabold grad-text">~15%</div><h3 class="mt-1 text-lg font-extrabold text-navy">משאית הובלה</h3><p class="mt-2 text-sm leading-relaxed text-body/80">חיסכון מדווח של כ‑15% בדלק במקרי שימוש במשאיות — חיסכון שמצטבר על קילומטראז' גבוה.*</p></div></div>
+      <div class="gb lift overflow-hidden rounded-2xl bg-soft shadow-sm ring-1 ring-black/5"><div class="h-44 overflow-hidden"><img src="{{LOGISTICS_IMAGE}}" alt="צי הפצה" class="h-full w-full object-cover transition duration-500 hover:scale-105"></div><div class="p-6 text-right"><div class="text-3xl font-extrabold grad-text">ROI</div><h3 class="mt-1 text-lg font-extrabold text-navy">צי הפצה ולוגיסטיקה</h3><p class="mt-2 text-sm leading-relaxed text-body/80">בדיקת החזר השקעה לפי קילומטראז', צריכת דלק חודשית ומספר רכבים — לכל הצי.</p></div></div>
+      <div class="gb lift overflow-hidden rounded-2xl bg-soft shadow-sm ring-1 ring-black/5"><div class="h-44 overflow-hidden"><img src="{{CITY_IMAGE}}" alt="רכב פרטי" class="h-full w-full object-cover transition duration-500 hover:scale-105"></div><div class="p-6 text-right"><div class="text-3xl font-extrabold grad-text">נהיגה</div><h3 class="mt-1 text-lg font-extrabold text-navy">רכב פרטי בעיר</h3><p class="mt-2 text-sm leading-relaxed text-body/80">דווקא בנהיגה עירונית עם הרבה עצירות — תגובת מנוע ותחושת נהיגה משופרת.</p></div></div>
+    </div>
+    <p class="mt-4 text-center text-xs text-body/50">* לפי נתוני יצרן ומקרי שימוש, בכפוף לסוג רכב, התקנה ותנאי שימוש.</p>
+  </div>
+</section>
+
+<!-- FLEET ROI BAND -->
+<section class="relative overflow-hidden grad py-16 text-center text-white md:py-20">
+  <div class="deco"><div class="dotgrid" style="top:2rem;right:3rem;color:rgba(255,255,255,.18)"></div><div class="dotgrid" style="bottom:2rem;left:3rem;color:rgba(255,255,255,.18)"></div></div>
+  <div class="relative mx-auto max-w-3xl px-5 md:px-8" data-reveal>
+    <h2 class="text-3xl font-extrabold md:text-5xl">מנהלים צי רכב?</h2>
+    <p class="mx-auto mt-4 max-w-xl text-lg text-white/95">נבנה לכם בדיקת ROI לפי קילומטראז', צריכת דלק חודשית ומספר רכבים — ונראה כמה אפשר לחסוך.</p>
+    <a href="https://wa.me/{{PHONE_INTL}}?text=%D7%94%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%91%D7%93%D7%99%D7%A7%D7%AA%20ROI%20%D7%9C%D7%A6%D7%99%20%D7%A8%D7%9B%D7%91" target="_blank" rel="noopener" class="mt-8 inline-block rounded-xl bg-navy px-8 py-4 font-extrabold text-white shadow-lg transition hover:scale-105">קבלו בדיקת ROI לצי</a>
+  </div>
+</section>
+
+<!-- ADS SHOWCASE -->
+<section class="bg-white py-16 md:py-20">
+  <div class="mx-auto max-w-3xl px-5 text-center md:px-8" data-reveal><span class="eyebrow">מהקמפיינים</span><h2 class="mt-4 text-3xl font-extrabold text-navy md:text-4xl">IGO <span class="grad-text">ברשת</span></h2></div>
+  <div class="mq mt-12" data-reveal><div class="mq-track">
+    <div class="gimg shrink-0" style="width:16rem;height:16rem" data-lb="{{AD_1_IMAGE}}"><img src="{{AD_1_IMAGE}}" alt="מודעת IGO" loading="lazy"></div>
+    <div class="gimg shrink-0" style="width:16rem;height:16rem" data-lb="{{AD_2_IMAGE}}"><img src="{{AD_2_IMAGE}}" alt="מודעת IGO" loading="lazy"></div>
+    <div class="gimg shrink-0" style="width:16rem;height:16rem" data-lb="{{AD_3_IMAGE}}"><img src="{{AD_3_IMAGE}}" alt="מודעת IGO" loading="lazy"></div>
+    <div class="gimg shrink-0" style="width:16rem;height:16rem" data-lb="{{AD_4_IMAGE}}"><img src="{{AD_4_IMAGE}}" alt="מודעת IGO" loading="lazy"></div>
+    <div class="gimg shrink-0" style="width:16rem;height:16rem" data-lb="{{AD_5_IMAGE}}"><img src="{{AD_5_IMAGE}}" alt="מודעת IGO" loading="lazy"></div>
+    <div class="gimg shrink-0" style="width:16rem;height:16rem" data-lb="{{AD_6_IMAGE}}"><img src="{{AD_6_IMAGE}}" alt="מודעת IGO" loading="lazy"></div>
+  </div></div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="bg-soft py-16 md:py-24">
+  <div class="mx-auto max-w-3xl px-5 md:px-8">
+    <div class="text-center" data-reveal><h2 class="text-3xl font-extrabold text-navy md:text-4xl">שאלות נפוצות</h2></div>
+    <div class="mt-10 space-y-3" data-reveal>
+      <details class="group rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5"><summary class="flex cursor-pointer items-center justify-between gap-3 text-right text-lg font-bold text-navy"><span>האם המערכת אוגרת מימן?</span><span class="faq-ico grid h-8 w-8 shrink-0 place-items-center rounded-full grad text-white transition"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><p class="mt-3 leading-relaxed text-body/80">לא. המימן מיוצר בזמן אמת ונכנס ישירות למנוע — ללא אגירת מימן.</p></details>
+      <details class="group rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5"><summary class="flex cursor-pointer items-center justify-between gap-3 text-right text-lg font-bold text-navy"><span>לאילו רכבים זה מתאים?</span><span class="faq-ico grid h-8 w-8 shrink-0 place-items-center rounded-full grad text-white transition"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><p class="mt-3 leading-relaxed text-body/80">לבנזין, דיזל, LPG והיברידי. יש לבדוק התאמה לפי נפח מנוע, סוג רכב וחיבור OBD.</p></details>
+      <details class="group rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5"><summary class="flex cursor-pointer items-center justify-between gap-3 text-right text-lg font-bold text-navy"><span>מה צריך למלא במערכת?</span><span class="faq-ico grid h-8 w-8 shrink-0 place-items-center rounded-full grad text-white transition"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><p class="mt-3 leading-relaxed text-body/80">מים מטוהרים או מים מזוקקים בלבד.</p></details>
+      <details class="group rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5"><summary class="flex cursor-pointer items-center justify-between gap-3 text-right text-lg font-bold text-navy"><span>האם זה מתאים לציי רכב?</span><span class="faq-ico grid h-8 w-8 shrink-0 place-items-center rounded-full grad text-white transition"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><p class="mt-3 leading-relaxed text-body/80">כן. אנו ממליצים על בדיקת ROI לפי קילומטראז', צריכת דלק חודשית ומספר רכבים בצי.</p></details>
+      <details class="group rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5"><summary class="flex cursor-pointer items-center justify-between gap-3 text-right text-lg font-bold text-navy"><span>כמה חיסכון אפשר לצפות?</span><span class="faq-ico grid h-8 w-8 shrink-0 place-items-center rounded-full grad text-white transition"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><p class="mt-3 leading-relaxed text-body/80">עד 15%–20% לפי נתוני יצרן, בכפוף לסוג רכב, התקנה ותנאי שימוש. ההתאמה נקבעת בבדיקה פרטנית.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- LEAD FORM + CONTACT -->
+<section id="lead" class="relative overflow-hidden grad-d py-20 text-white md:py-24">
+  <div class="aurora"><i></i><i></i></div>
+  <div class="relative mx-auto grid max-w-6xl items-start gap-10 px-5 md:px-8 lg:grid-cols-2">
+    <div data-reveal class="text-center lg:text-right">
+      <span class="eyebrow light">בדיקת התאמה</span>
+      <h2 class="mt-3 text-3xl font-extrabold md:text-5xl">נבדוק התאמה <span style="color:#7ee8f5">לרכב שלך</span></h2>
+      <p class="mx-auto mt-4 max-w-xl text-lg text-white/85 lg:mx-0">השאירו פרטים ונחזור אליכם עם בדיקת התאמה והצעה. לציי רכב — נבנה גם בדיקת ROI.</p>
+      <div class="mx-auto mt-8 grid max-w-md gap-3 text-right lg:mx-0">
+        <a href="tel:+{{PHONE_INTL}}" class="flex items-center justify-between gap-3 rounded-2xl bg-white/10 p-4 font-bold ring-1 ring-white/15"><span dir="ltr">{{PHONE_HUMAN}}</span><span class="svc-ic !h-10 !w-10"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.3 1l-2.2 2.3z"/></svg></span></a>
+        <a href="mailto:nazer_80@hotmail.com" class="flex items-center justify-between gap-3 rounded-2xl bg-white/10 p-4 font-semibold ring-1 ring-white/15"><span dir="ltr">nazer_80@hotmail.com</span><span class="svc-ic !h-10 !w-10"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span></a>
+        <div class="flex items-center justify-between gap-3 rounded-2xl bg-white/10 p-4 font-semibold ring-1 ring-white/15"><span>ג'דיידה מכר</span><span class="svc-ic !h-10 !w-10"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M12 21s-7-5.3-7-11a7 7 0 1 1 14 0c0 5.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span></div>
+      </div>
+    </div>
+    <form id="leadForm" novalidate data-reveal class="rounded-2xl bg-white p-6 text-navy shadow-2xl">
+      <div class="grid gap-3 sm:grid-cols-2">
+        <input id="leadName" name="name" type="text" required placeholder="שם מלא *" class="rounded-xl bg-soft px-4 py-3 text-right ring-1 ring-black/10 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue">
+        <input id="leadPhone" name="phone" type="tel" inputmode="tel" required placeholder="טלפון *" dir="ltr" class="rounded-xl bg-soft px-4 py-3 text-right ring-1 ring-black/10 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue">
+        <input name="vehicle" type="text" placeholder="סוג רכב / צי" class="rounded-xl bg-soft px-4 py-3 text-right ring-1 ring-black/10 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue">
+        <input name="year" type="text" placeholder="שנתון" class="rounded-xl bg-soft px-4 py-3 text-right ring-1 ring-black/10 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue">
+        <select name="fuel" class="rounded-xl bg-soft px-4 py-3 text-right ring-1 ring-black/10 focus:outline-none focus:ring-2 focus:ring-blue"><option value="">סוג דלק</option><option>בנזין</option><option>דיזל</option><option>LPG</option><option>היברידי</option></select>
+        <input name="engine" type="text" placeholder="נפח מנוע (ליטר)" class="rounded-xl bg-soft px-4 py-3 text-right ring-1 ring-black/10 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue">
+        <input name="km" type="text" placeholder="קילומטראז' חודשי" class="rounded-xl bg-soft px-4 py-3 text-right ring-1 ring-black/10 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue">
+        <input name="city" type="text" placeholder="עיר" class="rounded-xl bg-soft px-4 py-3 text-right ring-1 ring-black/10 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue">
+      </div>
+      <textarea name="notes" rows="2" placeholder="הערות" class="mt-3 w-full resize-none rounded-xl bg-soft px-4 py-3 text-right ring-1 ring-black/10 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue"></textarea>
+      <button id="leadBtn" type="submit" class="mt-3 w-full rounded-xl grad px-5 py-3.5 font-extrabold text-white shadow-md transition hover:opacity-90 active:scale-95">שליחה בוואטסאפ</button>
+      <p id="leadFb" class="mt-2.5 hidden text-center text-sm font-semibold text-blue"></p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-ink py-14 text-white/75">
+  <div class="mx-auto grid max-w-[1860px] gap-8 px-5 md:grid-cols-3 md:px-8">
+    <div>
+      <div class="inline-block rounded-xl bg-white p-2"><img src="{{LOGO_URL}}" alt="{{BUSINESS_NAME}}" class="h-12 w-auto"></div>
+      <p class="mt-4 max-w-xs text-sm leading-relaxed text-white/60">{{BUSINESS_NAME}} — מערכות Hydrogen Generator מתקדמות לרכבים, משאיות וציי רכב. חיסכון בדלק, תגובת מנוע והפחתת פליטות.</p>
+    </div>
+    <div>
+      <div class="mb-3 text-xs font-extrabold uppercase tracking-widest text-white/50">המערכת</div>
+      <ul class="space-y-1.5 text-sm">
+        <li><a href="#how" class="hover:text-white">איך זה עובד</a></li>
+        <li><a href="#products" class="hover:text-white">Car Kit · Truck Kit</a></li>
+        <li><a href="#tech" class="hover:text-white">טכנולוגיה</a></li>
+        <li><a href="#results" class="hover:text-white">תוצאות</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="mb-3 text-xs font-extrabold uppercase tracking-widest text-white/50">צור קשר</div>
+      <a href="tel:+{{PHONE_INTL}}" dir="ltr" class="block text-sm">{{PHONE_HUMAN}}</a>
+      <a href="mailto:nazer_80@hotmail.com" dir="ltr" class="mt-1 block text-sm">nazer_80@hotmail.com</a>
+      <div class="mt-1 text-sm">ג'דיידה מכר</div>
+    </div>
+  </div>
+  <div class="mx-auto mt-10 max-w-[1860px] border-t border-white/10 px-5 pt-6 text-center text-xs text-white/40 md:px-8">© 2026 {{BUSINESS_NAME}}. כל הזכויות שמורות. · הנתונים לפי נתוני יצרן ובכפוף לבדיקת התאמה.</div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/{{PHONE_INTL}}?text=%D7%94%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%91%D7%93%D7%99%D7%A7%D7%AA%20%D7%94%D7%AA%D7%90%D7%9E%D7%94" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.044z"/></svg></a>
+
+<div id="lb"><img alt=""></div>
+
+<script>
+(function(){
+  var t=document.getElementById('navToggle');
+  if(t){var m=document.getElementById('mnav'),o=document.getElementById('navOpen'),c=document.getElementById('navClose');
+    function set(open){m.classList.toggle('hidden',!open);o.classList.toggle('hidden',open);c.classList.toggle('hidden',!open);t.setAttribute('aria-expanded',open);}
+    t.addEventListener('click',function(){set(m.classList.contains('hidden'));});
+    m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){set(false);});});}
+  document.querySelectorAll('.mq-track,.chipmq').forEach(function(tr){tr.innerHTML+=tr.innerHTML;});
+  var faqs=document.querySelectorAll('#faq details');
+  faqs.forEach(function(d){d.addEventListener('toggle',function(){if(d.open)faqs.forEach(function(o){if(o!==d)o.open=false;});});});
+  var lb=document.getElementById('lb');
+  if(lb){var lbi=lb.querySelector('img');
+    document.querySelectorAll('[data-lb]').forEach(function(el){el.addEventListener('click',function(){lbi.src=el.getAttribute('data-lb');lb.classList.add('open');});});
+    lb.addEventListener('click',function(){lb.classList.remove('open');});}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+  document.querySelectorAll('[data-reveal]').forEach(function(el){io.observe(el);});
+  var f=document.getElementById('leadForm');
+  if(f){var nm=document.getElementById('leadName'),ph=document.getElementById('leadPhone'),bt=document.getElementById('leadBtn'),fb=document.getElementById('leadFb');
+    f.addEventListener('submit',function(e){e.preventDefault();
+      var d=new FormData(f),name=(d.get('name')||'').trim(),phone=(d.get('phone')||'').replace(/[\s\-()]/g,'');
+      if(name.length<2){fb.textContent='אנא הזינו שם';fb.style.color='#dc2626';fb.classList.remove('hidden');nm.focus();return;}
+      if(!/^0\d{8,9}$/.test(phone)){fb.textContent='אנא הזינו טלפון תקין';fb.style.color='#dc2626';fb.classList.remove('hidden');ph.focus();return;}
+      var lines=['היי IGO, בקשת בדיקת התאמה מהאתר:','שם: '+name,'טלפון: '+phone];
+      [['vehicle','סוג רכב/צי'],['year','שנתון'],['fuel','דלק'],['engine','נפח מנוע'],['km','ק"מ חודשי'],['city','עיר'],['notes','הערות']].forEach(function(p){var v=(d.get(p[0])||'').trim();if(v)lines.push(p[1]+': '+v);});
+      window.open('https://wa.me/{{PHONE_INTL}}?text='+encodeURIComponent(lines.join('\n')),'_blank');
+      fb.textContent='תודה! פותח וואטסאפ לשליחת הפרטים 🚗';fb.style.color='#1E5BE6';fb.classList.remove('hidden');f.reset();
+    });}
+})();
+</script>
+</body>
+</html>

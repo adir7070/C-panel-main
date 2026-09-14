@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WhatsApp API Manager</title>
+  <link rel="stylesheet" href="/wa/panel/css/style.css" />
+</head>
+<body>
+
+<nav>
+  <a href="/wa/panel/" class="logo">
+    <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+    WhatsApp API Manager
+  </a>
+  <button class="btn btn-secondary btn-sm" style="margin-left: auto;" onclick="openTokenModal()" title="Change admin token">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    Admin Token
+  </button>
+</nav>
+
+<div class="container">
+  <div class="page-header">
+    <h1>Sessions</h1>
+    <button class="btn btn-primary" onclick="openCreateModal()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      New Session
+    </button>
+  </div>
+
+  <div class="card">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Status</th>
+            <th>API Key</th>
+            <th>QR Link</th>
+            <th>Created</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="sessions-tbody">
+          <tr>
+            <td colspan="7">
+              <div class="empty-state">
+                <div class="spinner" style="margin: 0 auto;"></div>
+                <p>Loading sessions...</p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Admin Token Modal -->
+<div class="modal-overlay open" id="token-modal">
+  <div class="modal">
+    <h2>Admin Token</h2>
+    <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1rem;">
+      Enter the <code style="background: var(--bg); padding: 2px 6px; border-radius: 4px; font-size: 0.85em;">adir291200</code> value from your server environment.
+    </p>
+    <div class="form-group">
+      <label for="token-input">Admin Token</label>
+      <input type="password" id="token-input" placeholder="adir291200" autocomplete="off" />
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="saveToken()">Save &amp; Continue</button>
+    </div>
+  </div>
+</div>
+
+<!-- Create Session Modal -->
+<div class="modal-overlay" id="create-modal">
+  <div class="modal">
+    <h2>Create New Session</h2>
+    <div class="form-group">
+      <label for="session-name">Session Name</label>
+      <input type="text" id="session-name" placeholder="e.g. Marketing Bot, Support Line..." autocomplete="off" />
+    </div>
+    <div class="form-group">
+      <label for="session-phone">Phone Number</label>
+      <input type="text" id="session-phone" placeholder="972501234567" autocomplete="off" />
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeCreateModal()">Cancel</button>
+      <button class="btn btn-primary" id="create-btn" onclick="createSession()">Create</button>
+    </div>
+  </div>
+</div>
+
+<!-- Connect URL Modal (shown after creating session) -->
+<div class="modal-overlay" id="connect-modal">
+  <div class="modal">
+    <h2>Session Created!</h2>
+    <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1rem;">
+      Send this link to your client so they can scan the QR code:
+    </p>
+    <div class="form-group">
+      <input type="text" id="connect-url-input" readonly style="font-family: monospace; font-size: 0.82rem; color: var(--green);" />
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="copyConnectUrl()">Copy Link</button>
+      <button class="btn btn-primary" id="open-session-btn">Open Session</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="/wa/panel/js/dashboard.js"></script>
+</body>
+</html>

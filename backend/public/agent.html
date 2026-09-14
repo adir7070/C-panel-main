@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>window.location.replace('/agent/app');</script>
+    <title>Iconiq Pro Agent | מערכת ניהול</title>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-body: #e3e8ec;
+            --bg-sidebar: rgba(255, 255, 255, 0.85);
+            --bg-chat: #ffffff;
+            --primary: #00a884;
+            --primary-hover: #008f6f;
+            --text-main: #111b21;
+            --text-secondary: #667781;
+            --bubble-user: #ffffff;
+            --bubble-agent: #d9fdd3;
+            --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --danger: #ef4444;
+            --warning-bg: #fff3cd;
+            --warning-text: #856404;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Heebo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: linear-gradient(135deg, #e3e8ec 0%, #cbd5e1 100%);
+        }
+
+        /* מנגנון סאונד מוחבא */
+        audio {
+            display: none;
+        }
+
+        .app-container {
+            width: 95%;
+            height: 95%;
+            max-width: 1600px;
+            background: white;
+            display: flex;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            position: relative;
+        }
+
+        /* ─── SIDEBAR ─── */
+        .sidebar {
+            width: 320px;
+            background: var(--bg-sidebar);
+            backdrop-filter: blur(10px);
+            border-left: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            z-index: 2;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.5);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .brand {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        /* כפתור התראות */
+        .notif-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            padding: 8px;
+            border-radius: 50%;
+            transition: 0.2s;
+        }
+
+        .notif-btn:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .notif-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--text-secondary);
+        }
+
+        .notif-btn.active svg {
+            fill: var(--primary);
+        }
+
+        .notif-btn.blocked svg {
+            fill: var(--danger);
+        }
+
+        /* נקודה אדומה מהבהבת אם אין הרשאות */
+        .ping-dot {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 8px;
+            height: 8px;
+            background: var(--danger);
+            border-radius: 50%;
+            border: 1px solid white;
+            display: none;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .search-box {
+            padding: 15px 15px 8px;
+        }
+
+        .search-box input {
+            width: 100%;
+            background: #f0f2f5;
+            border: none;
+            border-radius: 12px;
+            padding: 10px 15px;
+            color: var(--text-main);
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .search-box input:focus {
+            box-shadow: 0 0 0 2px rgba(0, 168, 132, 0.2);
+            background: white;
+        }
+
+        /* ─── FILTER TABS ─── */
+        .filter-tabs {
+            display: flex;
+            padding: 0 15px 12px;
+            gap: 6px;
+        }
+
+        .filter-tab {
+            flex: 1;
+            padding: 6px 0;
+            border: none;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            background: #f0f2f5;
+            color: var(--text-secondary);
+            transition: 0.2s;
+            font-family: 'Heebo', sans-serif;
+        }
+
+        .filter-tab:hover {
+            background: #e2e8f0;
+        }
+
+        .filter-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .filter-tab.active-closed {
+            background: var(--danger);
+            color: white;
+        }
+
+        /* ─── STATUS DOT ─── */
+        .status-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-left: 6px;
+            border: 1.5px solid white;
+        }
+
+        .status-dot.open {
+            background: #22c55e;
+            box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+        }
+
+        .status-dot.closed {
+            background: #94a3b8;
+        }
+
+        /* ─── MAC MODAL ─── */
+        .mac-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .mac-modal {
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            max-width: 380px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            direction: rtl;
+        }
+
+        .mac-modal h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        .mac-modal p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 18px;
+        }
+
+        .mac-modal-steps {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 18px;
+            list-style: none;
+            counter-reset: step;
+        }
+
+        .mac-modal-steps li {
+            counter-increment: step;
+            font-size: 13px;
+            color: var(--text-main);
+            padding: 6px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            border-bottom: 1px solid #f0f2f5;
+        }
+
+        .mac-modal-steps li:last-child {
+            border-bottom: none;
+        }
+
+        .mac-modal-steps li::before {
+            content: counter(step);
+            background: var(--primary);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .mac-modal-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Heebo', sans-serif;
+        }
+
+        .mac-modal-btn:hover {
+            background: var(--primary-hover);
+        }
+
+        .user-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .user-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: 0.2s;
+            border-bottom: 1px solid transparent;
+        }
+
+        .user-item:hover {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .user-item.active {
+            background: #f0f2f5;
+            border-right: 4px solid var(--primary);
+        }
+
+        .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ddd 0%, #eee 100%);
+            color: #555;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-left: 15px;
+            flex-shrink: 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .user-info {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .user-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .user-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .user-time {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .user-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .last-msg {
+            font-size: 13px;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 140px;
+        }
+
+        .unread-badge {
+            background: var(--primary);
+            color: white;
+            min-width: 20px;
+            height: 20px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 6px;
+            box-shadow: 0 2px 5px rgba(0, 168, 132, 0.4);
+        }
+
+        /* ─── CHAT AREA ─── */
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #efeae2;
+            background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png");
+            position: relative;
+        }
+
+        .chat-header {
+            padding: 0 25px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-text {
+            margin-right: 15px;
+        }
+
+        .header-name {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--text-main);
+        }
+
+        .header-status {
+            font-size: 12px;
+            color: var(--primary);
+            margin-top: 2px;
+        }
+
+        .btn-close {
+            background: white;
+            border: 1px solid #ffdddd;
+            color: var(--danger);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-close:hover {
+            background: var(--danger);
+            color: white;
+            border-color: var(--danger);
+        }
+
+        .messages-box {
+            flex: 1;
+            padding: 25px 8%;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .message-row {
+            display: flex;
+            flex-direction: column;
+            max-width: 60%;
+            position: relative;
+            margin-bottom: 5px;
+        }
+
+        .message-row.user {
+            align-self: flex-start;
+        }
+
+        .message-row.agent {
+            align-self: flex-end;
+        }
+
+        .message-bubble {
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 14.5px;
+            line-height: 1.5;
+            color: var(--text-main);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .message-row.user .message-bubble {
+            background: var(--bubble-user);
+            border-top-right-radius: 0;
+        }
+
+        .message-row.agent .message-bubble {
+            background: var(--bubble-agent);
+            border-top-left-radius: 0;
+        }
+
+        .msg-time {
+            font-size: 10px;
+            color: #999;
+            margin-top: 4px;
+            float: left;
+            margin-left: -5px;
+            margin-right: 5px;
+        }
+
+        .input-area {
+            background: #f0f2f5;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        textarea {
+            flex: 1;
+            background: white;
+            border: none;
+            border-radius: 20px;
+            padding: 12px 18px;
+            color: var(--text-main);
+            font-size: 15px;
+            resize: none;
+            outline: none;
+            max-height: 100px;
+            min-height: 45px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .send-btn {
+            width: 45px;
+            height: 45px;
+            background: var(--primary);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .send-btn:hover {
+            background: var(--primary-hover);
+            transform: scale(1.05);
+        }
+
+        /* באנר הרשאות */
+        .permission-banner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--warning-bg);
+            color: var(--warning-text);
+            padding: 10px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            z-index: 10;
+            display: none;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        /* ─── SYSTEM DIVIDER ─── */
+        .msg-divider {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .msg-divider::before,
+        .msg-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .msg-divider span {
+            white-space: nowrap;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 11.5px;
+            font-weight: 600;
+        }
+
+        .msg-divider.closed span {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .msg-divider.reopened span {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        /* Empty State */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            opacity: 0.2;
+            margin-bottom: 20px;
+            fill: var(--text-main);
+        }
+
+        /* ─── CLIENT INFO MODAL ─── */
+        .client-modal {
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            max-width: 340px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            direction: rtl;
+        }
+
+        .client-modal-header {
+            background: linear-gradient(135deg, var(--primary) 0%, #00c49a 100%);
+            padding: 30px 20px 22px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .client-modal-avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.25);
+            color: white;
+            font-size: 32px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .client-modal-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .client-modal-body {
+            padding: 8px 20px 4px;
+        }
+
+        .client-modal-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f2f5;
+            font-size: 14px;
+            color: var(--text-main);
+        }
+
+        .client-modal-row:last-child {
+            border-bottom: none;
+        }
+
+        .client-modal-row-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-bottom: 2px;
+        }
+
+        .client-modal-row-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #f0f9f6;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .client-modal-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 14px 20px 18px;
+            background: #f8fafc;
+        }
+
+        .client-modal-stat {
+            background: white;
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .client-modal-stat-num {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .client-modal-stat-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        .client-modal-close {
+            display: block;
+            width: calc(100% - 40px);
+            margin: 0 20px 20px;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Heebo', sans-serif;
+        }
+
+        .client-modal-close:hover {
+            background: var(--primary-hover);
+        }
+
+        .header-info {
+            cursor: pointer;
+        }
+
+        .header-info:hover .header-name {
+            text-decoration: underline;
+        }
+
+        /* ─── IMAGE MESSAGES ─── */
+        .message-bubble.image-bubble {
+            padding: 5px;
+            background: transparent !important;
+            /* מבטל רקע ירוק/לבן כדי להבליט את התמונה */
+            box-shadow: none;
+        }
+
+        .chat-image {
+            display: block;
+            max-width: 100%;
+            width: 280px;
+            /* רוחב מקסימלי כמו בוואטסאפ */
+            height: auto;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            object-fit: cover;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-image:hover {
+            transform: scale(1.02);
+            opacity: 0.95;
+        }
+
+        /* התאמת השעה שתופיע על גבי התמונה או מתחתיה בצורה יפה */
+        .image-bubble .msg-time {
+            display: block;
+            text-align: right;
+            margin-top: 4px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 11px;
+            padding-right: 4px;
+            float: none;
+            /* ביטול ה-float שיש בטקסט רגיל */
+        }
+
+        /* ─── VIDEO MESSAGES ─── */
+        .video-thumb-wrapper {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background: #000;
+        }
+
+        .chat-video-thumb {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            pointer-events: none;
+        }
+
+        .play-icon-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.38);
+        }
+
+        .play-icon-overlay svg {
+            width: 52px;
+            height: 52px;
+            fill: white;
+            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
+        }
+
+        /* Video Modal */
+        .video-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-modal-overlay video {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        .video-modal-close {
+            position: absolute;
+            top: 18px;
+            left: 22px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 34px;
+            cursor: pointer;
+            line-height: 1;
+            opacity: 0.8;
+        }
+
+        .video-modal-close:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <audio id="notifSound"
+        src="data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//uQZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWgAAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAAA0AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uQZAAZAAZWAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"></audio>
+
+    <!-- Mac OS Notification Help Modal -->
+    <div id="macModal" class="mac-modal-overlay" style="display:none" onclick="if(event.target===this)closeMacModal()">
+        <div class="mac-modal">
+            <h3>הפעלת התראות ב-Mac</h3>
+            <p>הדפדפן אישר, אך macOS חוסם אותן. יש להפעיל ידנית:</p>
+            <ol class="mac-modal-steps">
+                <li>פתח <strong>System Settings</strong> (העדפות מערכת)</li>
+                <li>לחץ על <strong>Notifications</strong></li>
+                <li>חפש ובחר <strong>Google Chrome</strong> (או Safari/Firefox)</li>
+                <li>הפעל <strong>Allow Notifications</strong></li>
+                <li>שנה סגנון ל-<strong>Alerts</strong> (כדי שיישאר על המסך)</li>
+                <li>חזור לכאן וודא שהסמל ירוק</li>
+            </ol>
+            <button class="mac-modal-btn" onclick="closeMacModal()">הבנתי, סגור</button>
+        </div>
+    </div>
+
+    <!-- Client Info Modal -->
+    <div id="clientModal" class="mac-modal-overlay" style="display:none"
+        onclick="if(event.target===this)closeClientModal()">
+        <div class="client-modal">
+            <div class="client-modal-header">
+                <div class="client-modal-avatar" id="clientModalAvatar">?</div>
+                <div class="client-modal-name" id="clientModalName"></div>
+            </div>
+            <div class="client-modal-body">
+                <div class="client-modal-row">
+                    <div class="client-modal-row-icon">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                            <path
+                                d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="client-modal-row-label">טלפון</div>
+                        <div id="clientModalPhone"></div>
+                    </div>
+                </div>
+                <div class="client-modal-row">
+                    <div class="client-modal-row-icon">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                            <path
+                                d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="client-modal-row-label">מזהה לקוח</div>
+                        <div id="clientModalId"
+                            style="font-size:12px; color:var(--text-secondary); word-break:break-all;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="client-modal-stats">
+                <div class="client-modal-stat">
+                    <div class="client-modal-stat-num" id="clientModalMsgUser">—</div>
+                    <div class="client-modal-stat-label">הודעות מהלקוח</div>
+                </div>
+                <div class="client-modal-stat">
+                    <div class="client-modal-stat-num" id="clientModalMsgAgent">—</div>
+                    <div class="client-modal-stat-label">הודעות שנשלחו</div>
+                </div>
+            </div>
+            <button class="client-modal-close" onclick="closeClientModal()">סגור</button>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <div id="permBanner" class="permission-banner" onclick="requestPermission()">
+            🔔 לחץ כאן להפעלת התראות שולחן עבודה (חובה לאשר בדפדפן)
+        </div>
+
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand">Iconiq Agent</div>
+
+                <button class="notif-btn" id="notifBtn" onclick="requestPermission()" title="הגדרות התראה">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z" />
+                    </svg>
+                    <div class="ping-dot" id="pingDot"></div>
+                </button>
+            </div>
+
+            <div class="search-box">
+                <input type="text" placeholder="חיפוש לקוח..." oninput="filterUsers(this.value)">
+            </div>
+
+            <div class="filter-tabs">
+                <button class="filter-tab active" id="tab-all" onclick="setFilter('all')">הכל</button>
+                <button class="filter-tab" id="tab-open" onclick="setFilter('open')">פתוחות</button>
+                <button class="filter-tab" id="tab-unread" onclick="setFilter('unread')">לא נקרא</button>
+                <button class="filter-tab" id="tab-closed" onclick="setFilter('closed')">סגורות</button>
+            </div>
+
+            <div class="user-list" id="usersList">
+            </div>
+        </div>
+
+        <div class="chat-area" id="chatArea">
+            <div class="empty-state" id="emptyChat">
+                <svg viewBox="0 0 24 24">
+                    <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" />
+                </svg>
+                <h2>מרכז התמיכה</h2>
+                <p>בחר שיחה מהרשימה כדי להתחיל במענה</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const socket = io();
+
+        // State
+        let activeUserId = null;
+        let knownUsers = {};
+        let unreadCounts = {};
+        let currentFilter = 'all';
+        let currentSearch = '';
+
+        // ─── מערכת התראות חכמה ───
+
+        function checkPermission() {
+            const btn = document.getElementById('notifBtn');
+            const dot = document.getElementById('pingDot');
+            const banner = document.getElementById('permBanner');
+
+            if (!("Notification" in window)) {
+                console.log("דפדפן זה לא תומך בהתראות");
+                return;
+            }
+
+            if (Notification.permission === "granted") {
+                btn.classList.add('active');
+                btn.classList.remove('blocked');
+                dot.style.display = 'none';
+                banner.style.display = 'none';
+            }
+            else if (Notification.permission === "denied") {
+                btn.classList.add('blocked');
+                dot.style.display = 'none';
+                if (isMac) {
+                    // במק - כפתור הפעמון פותח הוראות
+                    btn.onclick = showMacModal;
+                    btn.title = 'לחץ להוראות הפעלת התראות ב-Mac';
+                    banner.style.display = 'block';
+                    banner.innerHTML = '🍎 macOS חוסם התראות — <u>לחץ להוראות הפעלה</u>';
+                    banner.onclick = showMacModal;
+                }
+            }
+            else {
+                // Default - טרם אושר
+                btn.classList.remove('active');
+                dot.style.display = 'block';
+                banner.style.display = 'block';
+            }
+        }
+
+        const isMac = navigator.platform.startsWith('Mac') || /Macintosh/.test(navigator.userAgent);
+
+        function requestPermission() {
+            unlockAudio();
+            if (!("Notification" in window)) return;
+
+            Notification.requestPermission().then(permission => {
+                checkPermission();
+                if (permission === "granted") {
+                    // בדיקה: אם במק ולא הופיעה התראת בדיקה - ייתכן ש-macOS חוסם
+                    if (isMac) {
+                        const test = new Notification("Iconiq Agent", {
+                            body: "ההתראות מופעלות! אם לא ראית חלון - ראה הגדרות Mac",
+                            icon: "https://cdn-icons-png.flaticon.com/512/1041/1041916.png"
+                        });
+                        setTimeout(() => {
+                            // אם לאחר 2 שניות המשתמש לא ראה כלום (לא ניתן לדעת בוודאות),
+                            // מציגים כפתור עזרה
+                        }, 2000);
+                    } else {
+                        new Notification("Iconiq Agent", {
+                            body: "ההתראות מופעלות בהצלחה!",
+                            icon: "https://cdn-icons-png.flaticon.com/512/1041/1041916.png"
+                        });
+                    }
+                    playSound();
+                }
+            });
+        }
+
+        function showMacModal() {
+            document.getElementById('macModal').style.display = 'flex';
+        }
+
+        function closeMacModal() {
+            document.getElementById('macModal').style.display = 'none';
+        }
+
+        function sendNotification(title, body, userId) {
+            // מנגן סאונד תמיד
+            playSound();
+
+            // שולח התראה ויזואלית רק אם יש אישור
+            if (Notification.permission === "granted") {
+                const notif = new Notification(title, {
+                    body: body,
+                    icon: "https://cdn-icons-png.flaticon.com/512/1041/1041916.png",
+                    dir: "rtl",
+                    tag: "iconiq-" + (userId || "msg"), // tag ייחודי לכל לקוח
+                    renotify: true // מבטיח שהחלון יציף שוב גם אם כבר יש התראה
+                });
+
+                notif.onclick = function () {
+                    window.focus();
+                    if (userId) selectUser(userId);
+                    this.close();
+                };
+            }
+        }
+
+        function updateTabTitle() {
+            const total = Object.values(unreadCounts).reduce((sum, n) => sum + (n || 0), 0);
+            document.title = total > 0
+                ? `(${total}) הודעות חדשות | Iconiq Agent`
+                : 'Iconiq Pro Agent | מערכת ניהול';
+        }
+
+        function playSoundOLD() {
+            const audio = document.getElementById('notifSound');
+            audio.currentTime = 0;
+            audio.play().catch(e => console.log("Sound blocked by browser policy until interaction"));
+        }
+        function playSound() {
+            const audio = document.getElementById('notifSound');
+            if (!audio) return;
+
+            // איפוס והפעלה
+            audio.currentTime = 0;
+
+            const playPromise = audio.play();
+
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.warn("השמעת סאונד נחסמה על ידי הדפדפן. מחכה לאינטראקציה ראשונה.");
+                });
+            }
+        }
+        // פונקציה לשחרור חסימת אודיו
+        function unlockAudio() {
+            const audio = document.getElementById('notifSound');
+
+            // מפעילים ומפסיקים מיד - זה מספיק כדי "לאשר" לדפדפן שהמשתמש מאשר סאונד
+            audio.play().then(() => {
+                audio.pause();
+                audio.currentTime = 0;
+                console.log("Audio unlocked successfully");
+
+                // הסרת המאזינים כדי לא להעמיס על המערכת
+                window.removeEventListener('click', unlockAudio);
+                window.removeEventListener('keydown', unlockAudio);
+                window.removeEventListener('touchstart', unlockAudio);
+            }).catch(e => {
+                // אם עדיין נחסם, ננסה שוב באינטראקציה הבאה
+            });
+        }
+
+        // הוספת מאזינים לאינטראקציה ראשונית
+        window.addEventListener('click', unlockAudio);
+        window.addEventListener('keydown', unlockAudio);
+        window.addEventListener('touchstart', unlockAudio);
+
+        // הפעלה ראשונית
+        checkPermission();
+
+        // ─── Socket Logic ───
+
+        socket.on('connect', () => {
+            socket.emit('join_agent', 'Admin');
+        });
+
+        socket.on('all_sessions', (sessions) => {
+            sessions.forEach(s => {
+                const lastMsg = s.messages?.length ? s.messages[s.messages.length - 1] : null;
+                let lastMsgText = '';
+                if (lastMsg && lastMsg.type !== 'system') {
+                    if (lastMsg.type === 'video' || lastMsg.videoUrl) lastMsgText = '🎥 סרטון';
+                    else if (lastMsg.type === 'image') lastMsgText = '📷 תמונה';
+                    else lastMsgText = lastMsg.text || '';
+                }
+                updateUserLocally(s._id, s.name, s.status, lastMsgText, s.updated_at);
+            });
+            renderUserList();
+        });
+
+        socket.on('receive_message', (data) => {
+            if (data.fromRole !== 'user') return;
+
+            const uid = data.userId;
+            const name = knownUsers[uid]?.name || `לקוח ${uid}`;
+            const isVideo = data.type === 'video' || data.videoUrl;
+            const isImage = !isVideo && data.type === 'image';
+            const lastMsgPreview = isVideo ? '🎥 סרטון' : isImage ? '📷 תמונה' : data.text;
+
+            updateUserLocally(uid, name, data.ticketStatus, lastMsgPreview, new Date());
+
+            // אם אני לא בשיחה הזו, או שהחלון ממוזער
+            if (activeUserId !== uid || document.hidden) {
+                unreadCounts[uid] = (unreadCounts[uid] || 0) + 1;
+                const notifBody = isVideo ? '🎥 סרטון חדש' : isImage ? '📷 תמונה חדשה' : data.text;
+                sendNotification(`💬 ${name}`, notifBody, uid);
+                updateTabTitle();
+            } else {
+                appendMessage(data);
+            }
+
+            renderUserList();
+        });
+
+        socket.on('user_info_updated', ({ userId, name, phone }) => {
+            if (!knownUsers[userId]) return;
+            knownUsers[userId].name = name;
+            if (phone) knownUsers[userId].phone = phone;
+            renderUserList();
+            if (activeUserId === userId) {
+                const headerName = document.querySelector('.header-name');
+                if (headerName) headerName.textContent = name;
+                const avatar = document.querySelector('.chat-header .avatar');
+                if (avatar) avatar.textContent = name[0];
+            }
+        });
+
+        function updateUserLocally(id, name, status, lastMsg, time) {
+            if (!knownUsers[id]) knownUsers[id] = { name: name || `לקוח ${id}` };
+            knownUsers[id].status = status || 'open';
+            knownUsers[id].lastMsg = lastMsg;
+            knownUsers[id].lastTime = time || new Date();
+        }
+
+        // ─── UI Logic ───
+
+        function renderUserList() {
+            const list = document.getElementById('usersList');
+            const sortedIds = Object.keys(knownUsers).sort((a, b) =>
+                new Date(knownUsers[b].lastTime) - new Date(knownUsers[a].lastTime)
+            );
+
+            let html = '';
+            sortedIds.forEach(id => {
+                const u = knownUsers[id];
+                // פילטר חיפוש
+                if (!u.name.includes(currentSearch)) return;
+                // פילטר סטטוס
+                if (currentFilter === 'open' && u.status === 'closed') return;
+                if (currentFilter === 'closed' && u.status !== 'closed') return;
+                if (currentFilter === 'unread' && (!unreadCounts[id] || unreadCounts[id] === 0)) return;
+
+                const activeClass = activeUserId === id ? 'active' : '';
+                const timeStr = new Date(u.lastTime).toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+                const unread = unreadCounts[id] > 0 ? `<div class="unread-badge">${unreadCounts[id]}</div>` : '';
+                const isClosed = u.status === 'closed';
+                const dotClass = isClosed ? 'closed' : 'open';
+
+                html += `
+                <div class="user-item ${activeClass}" onclick="selectUser('${id}')">
+                    <div class="avatar">${u.name[0]}</div>
+                    <div class="user-info">
+                        <div class="user-top">
+                            <span class="user-name">${u.name}</span>
+                            <span class="user-time">${timeStr}</span>
+                        </div>
+                        <div class="user-bottom">
+                            <span class="last-msg">${u.lastMsg || ''}</span>
+                            <div style="display:flex;align-items:center;gap:5px;">
+                                <div class="status-dot ${dotClass}" title="${isClosed ? 'פנייה סגורה' : 'פנייה פתוחה'}"></div>
+                                ${unread}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            });
+            list.innerHTML = html || `<div style="text-align:center;padding:30px;color:var(--text-secondary);font-size:13px;">אין פניות להצגה</div>`;
+        }
+
+        function filterUsers(val) {
+            currentSearch = val;
+            renderUserList();
+        }
+
+        function setFilter(f) {
+            currentFilter = f;
+            document.querySelectorAll('.filter-tab').forEach(t => {
+                t.className = 'filter-tab';
+            });
+            const tab = document.getElementById('tab-' + f);
+            tab.classList.add(f === 'closed' ? 'active-closed' : 'active');
+            renderUserList();
+        }
+        function openVideoModal(src) {
+            const overlay = document.createElement('div');
+            overlay.className = 'video-modal-overlay';
+            overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+            overlay.innerHTML = `
+                <button class="video-modal-close" onclick="this.closest('.video-modal-overlay').remove()">×</button>
+                <video src="${src}" controls autoplay></video>
+            `;
+            document.body.appendChild(overlay);
+        }
+
+        function handleVideoFileSelected(event) {
+            const file = event.target.files[0];
+            event.target.value = '';
+            if (file) sendVideoFile(file);
+        }
+
+        async function sendVideoFile(file) {
+            if (!activeUserId) return;
+            const box = document.getElementById('msgBox');
+            if (!box) return;
+
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'message-row agent';
+            loadingDiv.innerHTML = '<div class="message-bubble" style="color:var(--text-secondary);">📤 מעלה סרטון...</div>';
+            box.appendChild(loadingDiv);
+            box.scrollTop = box.scrollHeight;
+
+            const phone = knownUsers[activeUserId]?.phone || '';
+            const formData = new FormData();
+            formData.append('video', file);
+            formData.append('name', String(Date.now()));
+            if (phone && /^[0-9]{9,15}$/.test(phone)) formData.append('phone', phone);
+
+            try {
+                const res = await fetch('/api/upload-video', { method: 'POST', body: formData });
+                const data = await res.json();
+                loadingDiv.remove();
+
+                if (!data.success) {
+                    alert('שגיאה בהעלאת הסרטון: ' + (data.error || 'שגיאה לא ידועה'));
+                    return;
+                }
+
+                const videoUrl = data.url;
+                socket.emit('send_message_from_agent', {
+                    targetUserId: activeUserId,
+                    type: 'video',
+                    text: videoUrl,
+                    videoUrl: videoUrl
+                });
+                appendMessage({ type: 'video', text: videoUrl, videoUrl: videoUrl, fromRole: 'agent', createdAt: new Date() });
+            } catch (err) {
+                loadingDiv.remove();
+                alert('שגיאה בהעלאת הסרטון');
+                console.error(err);
+            }
+        }
+
+        function sendImageUrl() {
+            // שלב 1: בקשת URL מהמשתמש (בהמשך אפשר לשדרג להעלאת קובץ)
+            const url = prompt("הכנס קישור לתמונה (URL):");
+
+            if (!url || !url.trim()) return;
+
+            // בדיקה בסיסית שזה נראה כמו לינק
+            if (!url.startsWith('http')) {
+                alert('נא להכניס קישור תקין (מתחיל ב-http)');
+                return;
+            }
+
+            // שלב 2: שידור לשרת עם סוג אירוע ייעודי כפי שביקשת
+            socket.emit('send_image_from_agent', {
+                targetUserId: activeUserId,
+                imageUrl: url
+            });
+
+            // שלב 3: הצגה מידית אצלנו בצ'אט
+            appendMessage({
+                text: url,
+                fromRole: 'agent',
+                type: 'image', // חשוב! מגדיר שזו תמונה
+                createdAt: new Date()
+            });
+        }
+        function selectUser(id) {
+            activeUserId = id;
+            unreadCounts[id] = 0;
+            updateTabTitle();
+            renderUserList();
+
+            const u = knownUsers[id];
+            const isClosed = u.status === 'closed';
+
+            document.getElementById('chatArea').innerHTML = `
+    <div class="chat-header">
+        <div class="header-info" onclick="openClientModal()" title="פרטי לקוח">
+            <div class="avatar" style="width:40px; height:40px; margin-left:10px;">${u.name[0]}</div>
+            <div>
+                <div class="header-name">${u.name}</div>
+                <div class="header-status">${isClosed ? 'פנייה סגורה' : 'מחובר'}</div>
+            </div>
+        </div>
+        ${!isClosed ? `<button class="btn-close" onclick="closeTicket()">סגור פנייה</button>` : ''}
+    </div>
+    
+    <div class="messages-box" id="msgBox"></div>
+    
+    <div class="input-area" style="display:${isClosed ? 'none' : 'flex'}">
+        <input type="file" id="videoFileInput" accept="video/*" style="display:none" onchange="handleVideoFileSelected(event)">
+        <button class="notif-btn" onclick="sendImageUrl()" title="שלח תמונה" style="margin-left:5px;">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="#54656f"><path d="M19 7v2.99s-1.99.01-2 0V7h-3s.01-1.99 0-2h3V2h2v3h3v2h-3zm-3 4V8h-3V5H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-8h-3zM5 19l3-4 2 3 3-4 4 5H5z"/></svg>
+        </button>
+        <button class="notif-btn" onclick="document.getElementById('videoFileInput').click()" title="שלח סרטון" style="margin-left:5px;">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="#54656f"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+        </button>
+
+        <textarea id="msgInput" placeholder="הקלד הודעה..." onkeydown="checkEnter(event)"></textarea>
+
+        <button class="send-btn" onclick="send()">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
+    </div>
+    `;
+
+            socket.emit('agent_request_history', id);
+        }
+
+        function selectUserOLD(id) {
+            activeUserId = id;
+            unreadCounts[id] = 0;
+            updateTabTitle();
+            renderUserList();
+
+            const u = knownUsers[id];
+            const isClosed = u.status === 'closed';
+
+            document.getElementById('chatArea').innerHTML = `
+            <div class="chat-header">
+                <div class="header-info">
+                    <div class="avatar" style="width:40px; height:40px; margin-left:10px;">${u.name[0]}</div>
+                    <div>
+                        <div class="header-name">${u.name}</div>
+                        <div class="header-status">${isClosed ? 'פנייה סגורה' : 'מחובר'}</div>
+                    </div>
+                </div>
+                ${!isClosed ? `<button class="btn-close" onclick="closeTicket()">סגור פנייה</button>` : ''}
+            </div>
+            <div class="messages-box" id="msgBox"></div>
+            <div class="input-area" style="display:${isClosed ? 'none' : 'flex'}">
+                <textarea id="msgInput" placeholder="הקלד הודעה..." onkeydown="checkEnter(event)"></textarea>
+                <button class="send-btn" onclick="send()">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                </button>
+            </div>
+        `;
+
+            socket.emit('agent_request_history', id);
+        }
+
+        socket.on('agent_history_response', (data) => {
+            if (data.userId !== activeUserId) return;
+            const box = document.getElementById('msgBox');
+            box.innerHTML = '';
+            data.messages.forEach(m => appendMessage(m));
+            box.scrollTop = box.scrollHeight;
+
+            // ספירת הודעות לפרטי לקוח
+            if (knownUsers[data.userId]) {
+                const realMsgs = data.messages.filter(m => m.type !== 'system');
+                knownUsers[data.userId].msgCountUser = realMsgs.filter(m => m.fromRole === 'user').length;
+                knownUsers[data.userId].msgCountAgent = realMsgs.filter(m => m.fromRole === 'agent').length;
+            }
+        });
+
+        function appendMessageOLD(msg) {
+            const box = document.getElementById('msgBox');
+            if (!box) return;
+
+            // System divider (ticket closed / reopened)
+            if (msg.type === 'system') {
+                const div = document.createElement('div');
+                const isClosed = msg.event === 'ticket_closed';
+                div.className = `msg-divider ${isClosed ? 'closed' : 'reopened'}`;
+                div.innerHTML = `<span>${isClosed ? '🔒 הפנייה נסגרה' : '🔓 פנייה חדשה נפתחה'}</span>`;
+                box.appendChild(div);
+                box.scrollTop = box.scrollHeight;
+                return;
+            }
+
+            const role = msg.fromRole === 'agent' ? 'agent' : 'user';
+            const timeStr = new Date(msg.createdAt || Date.now()).toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+            const div = document.createElement('div');
+            div.className = `message-row ${role}`;
+            div.innerHTML = `
+            <div class="message-bubble">
+                ${msg.text}
+                <span class="msg-time">${timeStr}</span>
+            </div>
+        `;
+            box.appendChild(div);
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function appendMessage(msg) {
+            const box = document.getElementById('msgBox');
+            if (!box) return;
+
+            // הודעות מערכת (פתיחה/סגירה)
+            if (msg.type === 'system') {
+                const div = document.createElement('div');
+                const isClosed = msg.event === 'ticket_closed';
+                div.className = `msg-divider ${isClosed ? 'closed' : 'reopened'}`;
+                div.innerHTML = `<span>${isClosed ? '🔒 הפנייה נסגרה' : '🔓 פנייה חדשה נפתחה'}</span>`;
+                box.appendChild(div);
+                box.scrollTop = box.scrollHeight;
+                return;
+            }
+
+            const role = msg.fromRole === 'agent' ? 'agent' : 'user';
+            const timeStr = new Date(msg.createdAt || Date.now()).toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+
+            const div = document.createElement('div');
+            div.className = `message-row ${role}`;
+
+            const isVideo = (msg.type === 'video') || (msg.videoUrl) ||
+                (typeof msg.text === 'string' && /\.(mp4|mov|avi|mkv|webm|3gp)(\?|$)/i.test(msg.text));
+            const isImage = !isVideo && ((msg.type === 'image') || (typeof msg.text === 'string' && msg.text.match(/\.(jpeg|jpg|gif|png|webp)$/i)));
+
+            let bubbleContent = '';
+            let bubbleClass = 'message-bubble';
+
+            if (isVideo) {
+                const videoSrc = msg.videoUrl || msg.text;
+                bubbleClass += ' image-bubble';
+                bubbleContent = `
+            <div class="video-thumb-wrapper" onclick="openVideoModal('${videoSrc}')">
+                <video class="chat-video-thumb" src="${videoSrc}" preload="metadata" muted></video>
+                <div class="play-icon-overlay">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+            </div>
+            <span class="msg-time">${timeStr}</span>
+        `;
+            } else if (isImage) {
+                bubbleClass += ' image-bubble';
+                // לחיצה על התמונה תפתח אותה בחלון חדש
+                bubbleContent = `
+            <img src="${msg.text}" class="chat-image" onclick="window.open(this.src, '_blank')" alt="תמונה">
+            <span class="msg-time">${timeStr}</span>
+        `;
+            } else {
+                // הודעת טקסט רגילה
+                bubbleContent = `
+            ${msg.text}
+            <span class="msg-time">${timeStr}</span>
+        `;
+            }
+
+            div.innerHTML = `<div class="${bubbleClass}">${bubbleContent}</div>`;
+
+            box.appendChild(div);
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function send() {
+            const input = document.getElementById('msgInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            socket.emit('send_message_from_agent', { targetUserId: activeUserId, text });
+            appendMessage({ text, fromRole: 'agent', createdAt: new Date() });
+            input.value = '';
+        }
+
+        function closeTicket() {
+            if (confirm('לסגור פנייה?')) socket.emit('close_ticket', activeUserId);
+        }
+
+        socket.on('ticket_closed_confirmed', (data) => {
+            if (knownUsers[data.userId]) knownUsers[data.userId].status = 'closed';
+            if (activeUserId === data.userId) selectUser(activeUserId); // Refresh UI
+            renderUserList();
+        });
+
+        function checkEnter(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault(); send();
+            }
+        }
+
+        function openClientModal() {
+            if (!activeUserId) return;
+            const u = knownUsers[activeUserId];
+            document.getElementById('clientModalAvatar').textContent = u.name[0];
+            document.getElementById('clientModalName').textContent = u.name;
+            document.getElementById('clientModalPhone').textContent = u.phone || '—';
+            document.getElementById('clientModalId').textContent = activeUserId;
+            document.getElementById('clientModalMsgUser').textContent = u.msgCountUser ?? '—';
+            document.getElementById('clientModalMsgAgent').textContent = u.msgCountAgent ?? '—';
+            document.getElementById('clientModal').style.display = 'flex';
+        }
+
+        function closeClientModal() {
+            document.getElementById('clientModal').style.display = 'none';
+        }
+
+        // כשחוזרים לכרטיסייה - מנקה badge כמו ווצאפ
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden && activeUserId) {
+                unreadCounts[activeUserId] = 0;
+                updateTabTitle();
+                renderUserList();
+            }
+        });
+    </script>
+</body>
+
+</html>

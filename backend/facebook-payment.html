@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>הזנת פרטי אשראי - פייסבוק</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #1c1e21;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #606770;
+            font-size: 14px;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:active {
+            background-color: #166fe5;
+        }
+
+        #message-box {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            display: none;
+            word-break: break-all;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-container">
+        <h2>הוספת אמצעי תשלום</h2>
+        <p>לצורך שמירה על אבטחת פרטיך, הזנת כרטיס האשראי תתבצע ישירות בחלון מאובטח של פייסבוק.</p>
+
+        <button id="submitBtn" onclick="openFacebookPaymentDialog()">הוסף אשראי לפייסבוק</button>
+
+        <div id="message-box"></div>
+    </div>
+
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '1468993904253047', // חובה להכניס את ה-App ID שלך
+                cookie: true,
+                xfbml: false,
+                version: 'v19.0'
+            });
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        function showMessage(text, isError) {
+            const msgBox = document.getElementById('message-box');
+            msgBox.style.display = 'block';
+            msgBox.className = isError ? 'error' : 'success';
+            msgBox.innerHTML = text;
+        }
+
+        function openFacebookPaymentDialog() {
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = "טוען...";
+            btn.disabled = true;
+
+            // שלב 1: בקשת התחברות (Login) כדי לקבל את ה-User Token ההכרחי
+            FB.login(function (authResponse) {
+                if (authResponse.authResponse) {
+
+                    // שלב 2: פתיחת הדיאלוג הרשמי של התשלומים
+                    FB.ui({
+                        method: 'ads_payment',
+                        account_id: '1468993904253047', // מזהה חשבון המודעות שלך (ללא קידומת act_)
+                        display: 'popup'
+                    }, function (paymentResponse) {
+                        btn.innerText = "הוסף אשראי לפייסבוק";
+                        btn.disabled = false;
+
+                        if (paymentResponse && !paymentResponse.error_message) {
+                            showMessage("<strong>מעולה!</strong><br>הכרטיס נוסף ושויך לחשבון בהצלחה.", false);
+
+                            // דיווח חזרה לאפליקציית ה-React Native
+                            if (window.ReactNativeWebView) {
+                                window.ReactNativeWebView.postMessage(JSON.stringify({ status: 'success' }));
+                            }
+                        } else {
+                            const errorMsg = paymentResponse.error_message || "הפעולה בוטלה על ידי המשתמש.";
+                            showMessage(`<strong>שגיאה:</strong><br>${errorMsg}`, true);
+
+                            if (window.ReactNativeWebView) {
+                                window.ReactNativeWebView.postMessage(JSON.stringify({ status: 'error', errorMessage: errorMsg }));
+                            }
+                        }
+                    });
+
+                } else {
+                    btn.innerText = "הוסף אשראי לפייסבוק";
+                    btn.disabled = false;
+                    showMessage("<strong>שגיאה:</strong><br>יש לאשר את ההתחברות לפייסבוק כדי להמשיך.", true);
+                }
+            }, { scope: 'ads_management' }); // אנו מבקשים מראש את ההרשאה לניהול מודעות כדי לפעול על החשבון
+        }
+    </script>
+</body>
+
+</html>

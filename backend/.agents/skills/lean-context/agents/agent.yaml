@@ -1,0 +1,7 @@
+interface:
+  display_name: "Lean Context"
+  short_description: "Token-efficient coding mode with narrow reads, small patches, and compact answers"
+  default_prompt: "Handle this task with strict token discipline: start from the user-named files, avoid broad repository scans, keep updates terse, make the smallest safe change, and verify only as much as needed."
+
+# Agent-agnostic skill - works with any LLM provider.
+# No provider-specific configuration required.

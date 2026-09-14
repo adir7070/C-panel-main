@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{BUSINESS_NAME}} | אינסטלטור מוסמך – פתיחת סתימות, אסלות, ברזים ונזילות</title>
+<meta name="description" content="{{BUSINESS_NAME}} — שירותי אינסטלציה מקצועיים מאינסטלטור מוסמך. פתיחת סתימות, תיקון אסלות סמויות, התקנת ברזים, תיקון נזילות, ברי מים וטוחני אשפה. עבודה נקייה, מהירה ואמינה. זמינות לקריאות דחופות.">
+<meta name="keywords" content="אינסטלטור, פתיחת סתימות, אסלה סמויה, התקנת ברזים, תיקון נזילות, בר מים, טוחן אשפה, {{BUSINESS_NAME}}, {{CITY}}">
+<meta name="author" content="{{BUSINESS_NAME}}">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#134495">
+<link rel="canonical" href="https://maim-tzahim.netlify.app/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{BUSINESS_NAME}}">
+<meta property="og:locale" content="he_IL">
+<meta property="og:url" content="https://maim-tzahim.netlify.app/">
+<meta property="og:title" content="{{BUSINESS_NAME}} | אינסטלטור מוסמך">
+<meta property="og:description" content="שירותי אינסטלציה מקצועיים: פתיחת סתימות, אסלות, ברזים, נזילות, ברי מים וטוחני אשפה. עבודה נקייה ואמינה.">
+<meta property="og:image" content="https://maim-tzahim.netlify.app/{{HERO_IMAGE}}">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/favicon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org","@type":"Plumber",
+  "name":"{{BUSINESS_NAME}}","description":"שירותי אינסטלציה מקצועיים מאינסטלטור מוסמך.",
+  "telephone":"+972-50-975-5483","email":"{{EMAIL}}",
+  "address":{"@type":"PostalAddress","addressLocality":"{{CITY}}","addressCountry":"IL"},
+  "areaServed":"IL","priceRange":"₪₪","image":"https://maim-tzahim.netlify.app/{{HERO_IMAGE}}"
+}
+</script>
+</head>
+<body>
+<a href="#main" class="skip-link">דלג לתוכן</a>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-track">
+    <a href="tel:+{{PHONE_INTL}}"><span class="dot"></span> {{PHONE_HUMAN}}</a>
+    <a href="https://wa.me/{{PHONE_INTL}}"><span class="dot"></span> וואטסאפ זמין</a>
+    <a href="#contact"><span class="dot"></span> {{CITY}} והסביבה</a>
+    <a href="#contact"><span class="dot"></span> זמינות לקריאות דחופות</a>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="header-row">
+    <div class="header-left">
+      <nav class="nav" aria-label="ניווט ראשי">
+        <a href="#services">שירותים</a>
+        <a href="#about">עלינו</a>
+        <a href="#process">איך עובדים</a>
+        <a href="#work">עבודות</a>
+        <a href="#faq">שאלות</a>
+        <a href="#contact">צור קשר</a>
+      </nav>
+    </div>
+    <a href="#main" class="brand" aria-label="{{BUSINESS_NAME}}"><img src="{{LOGO_URL}}" alt="{{BUSINESS_NAME}} – אינסטלציה"></a>
+    <div class="header-right">
+      <a href="tel:+{{PHONE_INTL}}" class="header-info"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.3 1l-2.2 2.3z"/></svg><strong>{{PHONE_HUMAN}}</strong></a>
+      <a href="https://wa.me/{{PHONE_INTL}}" class="btn btn-gold header-cta">לתיאום מהיר</a>
+      <button class="nav-toggle" aria-label="תפריט" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"><img src="{{HERO_IMAGE}}" alt="אינסטלטור מקצועי בעבודה על צנרת כרום"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <h1>
+        <span class="h1-line">{{HERO_TITLE_TOP}}</span>
+        <span class="h1-grad">{{HERO_TITLE_GRAD}}</span>
+      </h1>
+      <p class="lead">פתיחת סתימות, תיקון אסלות סמויות, התקנת ברזים, תיקון נזילות, ברי מים וטוחני אשפה — עבודה מקצועית מקצה לקצה, עם ציוד ייעודי, מינימום נזק לרכוש וזמינות גבוהה לקריאות דחופות.</p>
+      <div class="hero-cta-row">
+        <a href="https://wa.me/{{PHONE_INTL}}" class="btn btn-gold btn-lg">לתיאום בוואטסאפ</a>
+        <a href="tel:+{{PHONE_INTL}}" class="btn btn-ghost-light btn-lg">חייגו עכשיו</a>
+      </div>
+      <ul class="hero-bullets">
+        <li><span class="bul-ico">✓</span> אינסטלטור בעל תעודה</li>
+        <li><span class="bul-ico">✓</span> עבודה נקייה ומדויקת</li>
+        <li><span class="bul-ico">✓</span> זמינות לתקלות דחופות</li>
+        <li><span class="bul-ico">✓</span> מחירים הוגנים</li>
+      </ul>
+    </div>
+  </div>
+  <div class="hero-scroll"><a href="#stats" aria-label="גלול למטה"><span></span></a></div>
+</section>
+
+<!-- STATS -->
+<section class="stats-strip" id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item"><div class="stat-num">מוסמך</div><div class="stat-lbl">אינסטלטור בעל תעודה</div></div>
+      <div class="stat-item"><div class="stat-num">A–Z</div><div class="stat-lbl">פתרון מקצה לקצה</div></div>
+      <div class="stat-item"><div class="stat-num">מהיר</div><div class="stat-lbl">זמינות לדחופים</div></div>
+      <div class="stat-item"><div class="stat-num">נקי</div><div class="stat-lbl">מינימום נזק לרכוש</div></div>
+      <div class="stat-item"><div class="stat-num">★★★★★</div><div class="stat-lbl">שירות אמין</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section about-section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img">
+        <img src="{{ABOUT_IMAGE}}" alt="אינסטלטור {{BUSINESS_NAME}} בעבודה">
+        <div class="about-img-badge"><strong>✓</strong><span>אינסטלטור מוסמך</span></div>
+      </div>
+      <div class="about-copy">
+        <span class="pill pill-light">קצת עלינו</span>
+        <h2>אינסטלציה מקצועית, <span class="grad">בלי כאב ראש</span></h2>
+        <p class="lede">{{BUSINESS_NAME}} הוא שירות אינסטלציה מקצועי בהובלת אינסטלטור בעל תעודה מהמכללה למקצועות. אנחנו מאתרים ומתקנים את התקלה במהירות, בעבודה נקייה ומדויקת.</p>
+        <ul class="about-list">
+          <li><strong>פתרון מקצה לקצה</strong> — מאיתור התקלה ועד תיקון מלא וניקיון אחריו.</li>
+          <li><strong>ציוד ייעודי ומתקדם</strong> — ספירלות חשמליות, סמארט כבל ושטיפת קווים.</li>
+          <li><strong>שמירה על הרכוש</strong> — עבודה זהירה עם מינימום נזק לבית.</li>
+          <li><strong>זמינות גבוהה</strong> — מענה מהיר גם לקריאות דחופות.</li>
+        </ul>
+        <a href="https://wa.me/{{PHONE_INTL}}" class="btn btn-gold">דברו איתנו</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES (dark) -->
+<section class="section section-dark" id="services">
+  <div class="container">
+    <div class="section-head section-head-center light">
+      <span class="pill pill-light">השירותים שלנו</span>
+      <h2>כל פתרונות האינסטלציה <span class="grad">תחת קורת גג אחת</span></h2>
+      <p class="lede">מהתקלה הקטנה ועד הפרויקט המורכב — אנחנו כאן.</p>
+    </div>
+    <div class="srv-grid">
+      <div class="srv-card">
+        <div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/></svg></div>
+        <h3>פתיחת סתימות</h3>
+        <p>מטבחים, מקלחות, שירותים וקווי ביוב — בעזרת ספירלות חשמליות, סמארט כבל ושטיפת קווים, ללא נזק.</p>
+      </div>
+      <div class="srv-card">
+        <div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="3" width="14" height="8" rx="2"/><path d="M7 11v8a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-8M12 7h.01"/></svg></div>
+        <h3>תיקון אסלות סמויות</h3>
+        <p>החלפת לחצנים, מנגנוני הדחה, מצופים, אטמים וחלקי חילוף — אבחון מהיר ותיקון מדויק.</p>
+      </div>
+      <div class="srv-card">
+        <div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v6M9 6h6M5 12h14l-1 8H6z"/></svg></div>
+        <h3>התקנת בידה</h3>
+        <p>התקנת מערכת שטיפה (בידה) לאסלות סמויות ורגילות — ניקיון והיגיינה בלי צורך במקלחת.</p>
+      </div>
+      <div class="srv-card">
+        <div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="3" width="12" height="9" rx="2"/><path d="M8 12v7a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-7"/></svg></div>
+        <h3>התקנת ותיקון אסלות</h3>
+        <p>אסלות רגילות ומונובלוק — התקנה, החלפה ותיקון כולל כל רכיבי המערכת.</p>
+      </div>
+      <div class="srv-card">
+        <div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 4h6v3H9zM12 7v4M7 11h10v3a5 5 0 0 1-10 0z"/></svg></div>
+        <h3>ברזים מכל הסוגים</h3>
+        <p>התקנה ותיקון ברזים במטבח, במקלחת, בשירותים ובגינה — מכל הדגמים.</p>
+      </div>
+      <div class="srv-card">
+        <div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h10v4H4zM14 9h3l3 3v4M7 11v6M11 11v6"/></svg></div>
+        <h3>פיצוצים ונזילות</h3>
+        <p>תיקון נזילות ופיצוצים בצנרת גלויה בבית ובגינה — ברזל, SP ופקסגול.</p>
+      </div>
+      <div class="srv-card">
+        <div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="7" y="4" width="10" height="14" rx="2"/><path d="M10 18v3M14 18v3M10 8h4"/></svg></div>
+        <h3>התקנת ברי מים</h3>
+        <p>התקנת ברי מים כולל התחברות למערכת קיימת וקידוח בשיש או בכיור לפי הצורך.</p>
+      </div>
+      <div class="srv-card">
+        <div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 4h8l-1 6H9zM7 10h10v3a5 5 0 0 1-5 5 5 5 0 0 1-5-5z"/></svg></div>
+        <h3>התקנת טוחני אשפה</h3>
+        <p>טוחן שמותקן מתחת לכיור וטוחן את האשפה ישירות למערכת הביוב. <strong>החל מ‑450 ₪ כולל אביזרים.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERTISE -->
+<section class="section">
+  <div class="container">
+    <div class="expertise-grid">
+      <div class="expertise-img"><img src="{{EXPERTISE_IMAGE}}" alt="ציוד אינסטלציה מקצועי"></div>
+      <div class="expertise-copy">
+        <span class="pill pill-light">מקצועיות</span>
+        <h2>ציוד ייעודי <span class="grad">וידע מקצועי</span></h2>
+        <p class="lede">אנחנו עובדים עם הכלים המתקדמים בתחום — ספירלות חשמליות, סמארט כבל ושטיפת קווים — כדי לאתר ולפתור כל תקלה במהירות, בלי לפרק מיותר ובלי נזק.</p>
+        <p>מאסלות סמויות מורכבות ועד פיצוצים בצנרת ברזל, SP ופקסגול — לכל בעיה יש פתרון מדויק, וכל עבודה נסגרת בבדיקה ובניקיון.</p>
+        <div class="expertise-stats">
+          <div class="ex-stat"><strong>8+</strong><span>תחומי התמחות</span></div>
+          <div class="ex-stat"><strong>נקי</strong><span>מינימום נזק</span></div>
+          <div class="ex-stat"><strong>מהיר</strong><span>זמינות לדחופים</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="section why-section">
+  <div class="container">
+    <div class="section-head section-head-center">
+      <span class="pill pill-light">למה אנחנו</span>
+      <h2>הסיבות לבחור ב<span class="grad">{{BUSINESS_NAME}}</span></h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-num">01</div><h3>אינסטלטור מוסמך</h3><p>בעל תעודה מהמכללה למקצועות — ידע, ניסיון ועבודה לפי הספר.</p></div>
+      <div class="why-card"><div class="why-num">02</div><h3>פתרון מקצה לקצה</h3><p>מאיתור התקלה ועד תיקון מלא — בלי לגלגל אתכם לאף אחד אחר.</p></div>
+      <div class="why-card"><div class="why-num">03</div><h3>עבודה נקייה</h3><p>שמירה על הרכוש שלכם, סדר וניקיון בסיום העבודה.</p></div>
+      <div class="why-card"><div class="why-num">04</div><h3>זריזות וזמינות</h3><p>מענה מהיר וזמינות גבוהה גם לקריאות דחופות.</p></div>
+      <div class="why-card"><div class="why-num">05</div><h3>ציוד מתקדם</h3><p>ספירלות חשמליות, סמארט כבל ושטיפת קווים לתקלות הקשות ביותר.</p></div>
+      <div class="why-card"><div class="why-num">06</div><h3>מחירים הוגנים</h3><p>תמחור שקוף והוגן, בלי הפתעות בסוף העבודה.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section" id="process">
+  <div class="container">
+    <div class="section-head section-head-center">
+      <span class="pill pill-light">איך עובדים</span>
+      <h2>תהליך פשוט <span class="grad">ומסודר</span></h2>
+    </div>
+    <div class="process-timeline">
+      <div class="proc-line"></div>
+      <div class="proc-step"><div class="proc-num">1</div><div class="proc-body"><h3>קריאה ותיאום</h3><p>מתקשרים או שולחים וואטסאפ, מתארים את התקלה ומתאמים הגעה.</p><span class="proc-time">מענה מהיר</span></div></div>
+      <div class="proc-step"><div class="proc-num">2</div><div class="proc-body"><h3>איתור ואבחון</h3><p>מאתרים את מקור התקלה בעזרת ציוד ייעודי ומסבירים בדיוק מה צריך.</p><span class="proc-time">שקיפות מלאה</span></div></div>
+      <div class="proc-step"><div class="proc-num">3</div><div class="proc-body"><h3>תיקון מקצועי</h3><p>מבצעים את העבודה במקצועיות ובמדויק, עם חלקי חילוף איכותיים.</p><span class="proc-time">עבודה מדויקת</span></div></div>
+      <div class="proc-step"><div class="proc-num">4</div><div class="proc-body"><h3>ניקיון ובדיקה</h3><p>בודקים שהכל עובד מושלם ומשאירים את המקום נקי ומסודר.</p><span class="proc-time">נקי ומסודר</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK GALLERY -->
+<section class="section section-cream" id="work">
+  <div class="container">
+    <div class="section-head section-head-center">
+      <span class="pill pill-light">עבודות ודוגמאות</span>
+      <h2>הצצה <span class="grad">לעבודה שלנו</span></h2>
+      <p class="lede">תיעוד אמיתי מהשטח ודוגמאות לשירותים שאנחנו מספקים.</p>
+    </div>
+    <div class="projects-grid">
+      <div class="proj-card proj-large"><img src="{{GALLERY_3_IMAGE}}" alt="החלפת והתקנת ברזים"><div class="proj-overlay"><span class="proj-tag">ברזים</span><h3>החלפת והתקנת ברזים</h3><p>כרום מבריק, מים זורמים, עבודה נקייה</p></div></div>
+      <div class="proj-card"><img src="{{GALLERY_1_IMAGE}}" alt="פתיחת סתימות"><div class="proj-overlay"><span class="proj-tag">סתימות</span><h3>פתיחת סתימות</h3></div></div>
+      <div class="proj-card"><img src="{{GALLERY_2_IMAGE}}" alt="אסלות סמויות"><div class="proj-overlay"><span class="proj-tag">אסלות</span><h3>אסלות סמויות</h3></div></div>
+      <div class="proj-card"><img src="{{GALLERY_7_IMAGE}}" alt="התקנת בידה"><div class="proj-overlay"><span class="proj-tag">בידה</span><h3>התקנת בידה</h3></div></div>
+      <div class="proj-card"><img src="{{GALLERY_5_IMAGE}}" alt="התקנת בר מים"><div class="proj-overlay"><span class="proj-tag">ברי מים</span><h3>התקנת בר מים</h3></div></div>
+      <div class="proj-card"><img src="{{GALLERY_6_IMAGE}}" alt="טוחן אשפה"><div class="proj-overlay"><span class="proj-tag">טוחני אשפה</span><h3>טוחן אשפה</h3></div></div>
+      <div class="proj-card"><img src="{{GALLERY_4_IMAGE}}" alt="תיקון נזילות"><div class="proj-overlay"><span class="proj-tag">נזילות</span><h3>תיקון נזילות</h3></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ADS MARQUEE -->
+<section class="section">
+  <div class="container">
+    <div class="section-head section-head-center">
+      <span class="pill pill-light">מבצעים וקמפיינים</span>
+      <h2>הצצה <span class="grad">לפרסומים שלנו</span></h2>
+      <p class="lede">השירותים והמבצעים של {{BUSINESS_NAME}} — כפי שאתם רואים אותם ברשת.</p>
+    </div>
+  </div>
+  <div class="ad-mq">
+    <div class="ad-mq-track">
+      <div class="ad-slide"><img src="{{AD_1_IMAGE}}" alt="מבצע {{BUSINESS_NAME}}" loading="lazy"></div>
+      <div class="ad-slide"><img src="{{AD_2_IMAGE}}" alt="מבצע {{BUSINESS_NAME}}" loading="lazy"></div>
+      <div class="ad-slide"><img src="{{AD_3_IMAGE}}" alt="מבצע {{BUSINESS_NAME}}" loading="lazy"></div>
+      <div class="ad-slide"><img src="{{AD_4_IMAGE}}" alt="מבצע {{BUSINESS_NAME}}" loading="lazy"></div>
+      <div class="ad-slide"><img src="{{AD_5_IMAGE}}" alt="מבצע {{BUSINESS_NAME}}" loading="lazy"></div>
+      <div class="ad-slide"><img src="{{AD_6_IMAGE}}" alt="מבצע {{BUSINESS_NAME}}" loading="lazy"></div>
+      <div class="ad-slide"><img src="{{AD_7_IMAGE}}" alt="מבצע {{BUSINESS_NAME}}" loading="lazy"></div>
+      <div class="ad-slide"><img src="{{AD_8_IMAGE}}" alt="מבצע {{BUSINESS_NAME}}" loading="lazy"></div>
+      <div class="ad-slide"><img src="{{AD_9_IMAGE}}" alt="מבצע {{BUSINESS_NAME}}" loading="lazy"></div>
+      <div class="ad-slide"><img src="{{AD_10_IMAGE}}" alt="מבצע {{BUSINESS_NAME}}" loading="lazy"></div>
+      <div class="ad-slide"><img src="{{AD_11_IMAGE}}" alt="מבצע {{BUSINESS_NAME}}" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="section compare-section">
+  <div class="container">
+    <div class="section-head section-head-center">
+      <span class="pill pill-light">ההבדל</span>
+      <h2>{{BUSINESS_NAME}} מול <span class="grad">אינסטלטור מזדמן</span></h2>
+    </div>
+    <div class="compare-table">
+      <div class="ct-row ct-head"><div></div><div class="ct-col-bad">אינסטלטור מזדמן</div><div class="ct-col-good">{{BUSINESS_NAME}}</div></div>
+      <div class="ct-row"><div class="ct-label">הסמכה</div><div class="ct-col-bad">לא תמיד מוסמך</div><div class="ct-col-good">אינסטלטור בעל תעודה</div></div>
+      <div class="ct-row"><div class="ct-label">ציוד</div><div class="ct-col-bad">בסיסי</div><div class="ct-col-good">ספירלות, סמארט כבל, שטיפת קווים</div></div>
+      <div class="ct-row"><div class="ct-label">עבודה</div><div class="ct-col-bad">משאיר לכלוך</div><div class="ct-col-good">נקייה, עם שמירה על הרכוש</div></div>
+      <div class="ct-row"><div class="ct-label">זמינות</div><div class="ct-col-bad">לא צפויה</div><div class="ct-col-good">מהירה, גם לדחופים</div></div>
+      <div class="ct-row"><div class="ct-label">מחיר</div><div class="ct-col-bad">הפתעות בסוף</div><div class="ct-col-good">הוגן ושקוף מראש</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="section">
+  <div class="container">
+    <div class="section-head section-head-center">
+      <span class="pill pill-light">הערכים שלנו</span>
+      <h2>מה שחשוב <span class="grad">לנו</span></h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6z"/></svg></div><h3>אמינות</h3><p>מה שסיכמנו — זה מה שקורה, בלי הפתעות.</p></div>
+      <div class="value-card"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></div><h3>זריזות</h3><p>מענה מהיר וטיפול יעיל בתקלה.</p></div>
+      <div class="value-card"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 6 9 17l-5-5"/></svg></div><h3>מקצועיות</h3><p>עבודה לפי הספר עם ידע וניסיון.</p></div>
+      <div class="value-card"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div><h3>שירות</h3><p>יחס אישי וליווי עד שהכל עובד מושלם.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section testimonials-section">
+  <div class="container">
+    <div class="section-head section-head-center">
+      <span class="pill pill-light">לקוחות ממליצים</span>
+      <h2>מה <span class="grad">אומרים עלינו</span></h2>
+    </div>
+    <div class="t-carousel">
+      <button class="t-arrow t-prev" aria-label="הקודם">‹</button>
+      <div class="t-track">
+        <div class="tst"><div class="tst-stars">★★★★★</div><p>הגיע מהר, פתח סתימה קשה במטבח בלי שום לכלוך. מקצועי ואדיב, ממליץ בחום!</p><div class="tst-by"><strong>אבי כ.</strong><span>לקוח פרטי</span></div></div>
+        <div class="tst"><div class="tst-stars">★★★★★</div><p>תיקן לנו אסלה סמויה שאינסטלטור אחר לא הצליח. מחיר הוגן והסביר הכל בסבלנות.</p><div class="tst-by"><strong>משפחת לוי</strong><span>{{CITY}}</span></div></div>
+        <div class="tst"><div class="tst-stars">★★★★★</div><p>התקנת בר מים וטוחן אשפה — עבודה נקייה ומסודרת, הגיע בזמן ובמחיר שסוכם.</p><div class="tst-by"><strong>רונית מ.</strong><span>לקוחה פרטית</span></div></div>
+        <div class="tst"><div class="tst-stars">★★★★★</div><p>נזילה בצנרת בגינה תוקנה תוך זמן קצר. שירות אמין ומקצועי, נשמור את המספר.</p><div class="tst-by"><strong>יוסי ב.</strong><span>לקוח פרטי</span></div></div>
+      </div>
+      <button class="t-arrow t-next" aria-label="הבא">›</button>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-head section-head-center">
+      <span class="pill pill-light">שאלות נפוצות</span>
+      <h2>כל מה <span class="grad">ששאלתם</span></h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item"><summary>כמה מהר אתם מגיעים?</summary><div class="faq-body">אנחנו שומרים על זמינות גבוהה ומשתדלים להגיע במהירות, במיוחד בקריאות דחופות. הכי טוב להתקשר או לשלוח וואטסאפ ונתאם הגעה.</div></details>
+      <details class="faq-item"><summary>אתם פותחים גם סתימות קשות?</summary><div class="faq-body">כן. אנחנו מתמודדים עם סתימות קשות בעזרת ספירלות חשמליות, סמארט כבל ושטיפת קווים — <strong>ללא נזק</strong> לצנרת ולרכוש.</div></details>
+      <details class="faq-item"><summary>כמה עולה התקנת טוחן אשפה?</summary><div class="faq-body">התקנת טוחן אשפה מתחילה ב‑<strong>450 ₪ כולל אביזרים</strong>. הטוחן מותקן מתחת לכיור המטבח ומחובר ישירות למערכת הביוב.</div></details>
+      <details class="faq-item"><summary>אתם מתקנים אסלות סמויות מכל הסוגים?</summary><div class="faq-body">כן — החלפת לחצנים, מנגנוני הדחה, מצופים, אטמים, מושב אסלה וחלקי חילוף נוספים. המחיר נקבע לפי רכיבי המערכת והתקלה.</div></details>
+      <details class="faq-item"><summary>באילו אזורים אתם נותנים שירות?</summary><div class="faq-body">אנחנו פועלים ב{{CITY}} ובסביבה. מוזמנים לבדוק איתנו לגבי האזור שלכם בטלפון או בוואטסאפ.</div></details>
+      <details class="faq-item"><summary>אפשר לקבל הצעת מחיר מראש?</summary><div class="faq-body">בהחלט. ספרו לנו מה התקלה ונשמח לתת הערכת מחיר. אנחנו עובדים בשקיפות מלאה — בלי הפתעות בסוף.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <div class="container cta-inner">
+    <div class="cta-copy">
+      <span class="pill pill-light cta-pill">תקלת אינסטלציה?</span>
+      <h2>אל תחכו שהתקלה תחמיר</h2>
+      <p>אינסטלטור מוסמך, עבודה נקייה וזמינות מהירה — במרחק שיחה אחת.</p>
+    </div>
+    <div class="cta-actions">
+      <a href="https://wa.me/{{PHONE_INTL}}" class="btn-cta-main">שלחו הודעה בוואטסאפ</a>
+      <a href="tel:+{{PHONE_INTL}}" class="btn-cta-ghost">{{PHONE_HUMAN}}</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="section-head section-head-center">
+      <span class="pill pill-light">צור קשר</span>
+      <h2>דברו <span class="grad">איתנו</span></h2>
+      <p class="lede">השאירו פרטים ונחזור אליכם, או צרו קשר ישירות בכל אחת מהדרכים.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card"><div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.3 1l-2.2 2.3z"/></svg></div><h3>טלפון</h3><a href="tel:+{{PHONE_INTL}}" dir="ltr">{{PHONE_HUMAN}}</a><span>זמינים לקריאות דחופות</span></div>
+      <div class="contact-card"><div class="contact-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24z"/></svg></div><h3>וואטסאפ</h3><a href="https://wa.me/{{PHONE_INTL}}">שליחת הודעה</a><span>מענה מהיר</span></div>
+      <div class="contact-card"><div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div><h3>אימייל</h3><a href="mailto:{{EMAIL}}" dir="ltr">{{EMAIL}}</a><span>נחזור אליכם בהקדם</span></div>
+      <div class="contact-card"><div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-5.3-7-11a7 7 0 1 1 14 0c0 5.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div><h3>אזור שירות</h3><strong>{{CITY}} והסביבה</strong><span>בדקו איתנו לגבי אזורכם</span></div>
+    </div>
+
+    <div class="contact-form-wrap">
+      <div class="contact-form-grid">
+        <div class="contact-form-side">
+          <h3>השאירו פרטים</h3>
+          <p>מלאו את הטופס ונחזור אליכם בוואטסאפ עם כל הפרטים.</p>
+          <ul class="form-perks">
+            <li><span>✓</span> אינסטלטור מוסמך</li>
+            <li><span>✓</span> עבודה נקייה ומדויקת</li>
+            <li><span>✓</span> זמינות לקריאות דחופות</li>
+            <li><span>✓</span> מחירים הוגנים ושקופים</li>
+          </ul>
+          <div class="form-hours">
+            <div class="form-hours-head"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><strong>שעות פעילות</strong></div>
+            <ul class="form-hours-list">
+              <li><span>א׳–ה׳</span><span>08:00–18:00</span></li>
+              <li><span>ו׳</span><span>08:00–13:00</span></li>
+              <li class="off"><span>שבת</span><span>סגור</span></li>
+              <li><span>דחופים</span><span>בתיאום</span></li>
+            </ul>
+          </div>
+        </div>
+        <form class="contact-form" id="rm-form" novalidate>
+          <div class="form-row">
+            <label class="form-field"><span>שם מלא <em>*</em></span><input type="text" name="name" placeholder="השם שלכם" autocomplete="name"></label>
+            <label class="form-field"><span>טלפון <em>*</em></span><input type="tel" name="phone" placeholder="05X-XXXXXXX" dir="ltr" autocomplete="tel"></label>
+          </div>
+          <div class="form-row">
+            <label class="form-field"><span>סוג השירות</span>
+              <select name="service">
+                <option value="">בחרו שירות…</option>
+                <option>פתיחת סתימות</option>
+                <option>תיקון אסלה סמויה</option>
+                <option>התקנת בידה</option>
+                <option>התקנת/תיקון אסלה</option>
+                <option>ברזים</option>
+                <option>תיקון נזילה / פיצוץ</option>
+                <option>התקנת בר מים</option>
+                <option>התקנת טוחן אשפה</option>
+                <option>אחר</option>
+              </select>
+            </label>
+            <label class="form-field"><span>יישוב</span><input type="text" name="city" placeholder="העיר / היישוב שלכם"></label>
+          </div>
+          <label class="form-field"><span>פרטים נוספים</span><textarea name="message" placeholder="ספרו לנו על התקלה…"></textarea></label>
+          <label class="form-check"><input type="checkbox" name="consent"> אני מאשר/ת קבלת פנייה חוזרת בוואטסאפ/טלפון.</label>
+          <button type="submit" class="btn btn-gold form-submit">שליחה בוואטסאפ</button>
+          <div class="form-status" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img src="{{LOGO_URL}}" alt="{{BUSINESS_NAME}}" class="footer-logo">
+        <p>שירותי אינסטלציה מקצועיים מאינסטלטור מוסמך — פתרון מהיר, נקי ואמין לכל תקלה.</p>
+      </div>
+      <div>
+        <h4>שירותים</h4>
+        <ul>
+          <li><a href="#services">פתיחת סתימות</a></li>
+          <li><a href="#services">אסלות סמויות</a></li>
+          <li><a href="#services">ברזים ונזילות</a></li>
+          <li><a href="#services">ברי מים וטוחני אשפה</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>ניווט</h4>
+        <ul>
+          <li><a href="#about">עלינו</a></li>
+          <li><a href="#process">איך עובדים</a></li>
+          <li><a href="#work">עבודות</a></li>
+          <li><a href="#faq">שאלות נפוצות</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>צור קשר</h4>
+        <ul class="contact-list">
+          <li><a href="tel:+{{PHONE_INTL}}" dir="ltr"><strong>{{PHONE_HUMAN}}</strong></a></li>
+          <li><a href="mailto:{{EMAIL}}" dir="ltr">{{EMAIL}}</a></li>
+          <li><strong>{{CITY}} והסביבה</strong></li>
+        </ul>
+        <div class="footer-socials">
+          <a href="https://wa.me/{{PHONE_INTL}}" aria-label="וואטסאפ"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24z"/></svg></a>
+          <a href="tel:+{{PHONE_INTL}}" aria-label="טלפון"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.3 1l-2.2 2.3z"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 {{BUSINESS_NAME}} – אינסטלציה. כל הזכויות שמורות.</span>
+      <span>אינסטלטור מוסמך · {{CITY}} והסביבה</span>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/{{PHONE_INTL}}" class="float-wa" aria-label="וואטסאפ"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.044z"/></svg></a>
+
+<!-- WA LEAD GATE -->
+<div class="wa-gate" id="wa-gate" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="wa-gate-backdrop"></div>
+  <div class="wa-gate-card">
+    <button class="wa-gate-close" aria-label="סגור">×</button>
+    <div class="wa-gate-icon"><svg viewBox="0 0 24 24" fill="#fff"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24z"/></svg></div>
+    <h3>רגע לפני שמתחילים</h3>
+    <p>השאירו מספר טלפון ונחזור אליכם גם אם השיחה תתנתק — ואז נמשיך בוואטסאפ.</p>
+    <form id="wa-gate-form">
+      <input type="tel" id="wa-gate-phone" placeholder="מספר טלפון" dir="ltr" autocomplete="tel">
+      <button type="submit" class="btn btn-gold">המשך לוואטסאפ</button>
+    </form>
+    <button class="wa-gate-skip">המשך בלי להשאיר טלפון</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# OS / editors
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+.vscode/
+.idea/
+
+# Build artifacts
+node_modules/
+dist/
+*.log
+
+# Deploy bundles (built locally, uploaded to Netlify)
+*.zip
+deploy/

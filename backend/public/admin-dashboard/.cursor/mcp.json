@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "context-brain": {
+      "command": "/Users/admin/Desktop/server/context-brain/target/release/context-brain",
+      "args": ["serve", "--project", "/Users/admin/Desktop/server/adminDashboard"]
+    }
+  }
+}

@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{BUSINESS_NAME}} — באנו לחגוג 🎉 | האפליקציה לאיסוף כסף בהפתעה לאירועים</title>
+  <meta name="description" content="פותחים אירוע, כולם שמים, והחוגג מקבל את כל ההפתעה ביום שלו. בלי לרדוף אחרי אנשים, בלי בלגן בקבוצה. {{BUSINESS_NAME}} — הדרך החדשה של חברים לאסוף כסף ולהפתיע מישהו שחוגג." />
+  <meta name="keywords" content="{{BUSINESS_NAME}}, {{BUSINESS_NAME_HE}}, איסוף כסף, מתנה קבוצתית, הפתעה, יום הולדת, מסיבת גיוס, מסיבת שחרור, אירוע חברתי, אפליקציה, קבוצת וואטסאפ, מתנה לחבר" />
+  <meta name="author" content="{{BUSINESS_NAME}}" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="theme-color" content="#7A1FB8" />
+  <meta name="color-scheme" content="light" />
+
+  <!-- Canonical (UPDATE this domain when you have a real one) -->
+  <link rel="canonical" href="{{WEBSITE_URL}}" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="{{BUSINESS_NAME}}" />
+  <meta property="og:locale" content="he_IL" />
+  <meta property="og:url" content="{{WEBSITE_URL}}" />
+  <meta property="og:title" content="{{BUSINESS_NAME}} — באנו לחגוג 🎉" />
+  <meta property="og:description" content="פותחים אירוע. כולם שמים. החוגג מקבל הפתעה. בלי לרדוף אחרי אנשים בקבוצה." />
+  <meta property="og:image" content="{{WEBSITE_URL}}{{OG_IMAGE_URL}}" />
+  <meta property="og:image:secure_url" content="{{WEBSITE_URL}}{{OG_IMAGE_URL}}" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:alt" content="{{BUSINESS_NAME}} — באנו לחגוג" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{BUSINESS_NAME}} — באנו לחגוג 🎉" />
+  <meta name="twitter:description" content="פותחים אירוע. כולם שמים. החוגג מקבל הפתעה." />
+  <meta name="twitter:image" content="{{WEBSITE_URL}}{{OG_IMAGE_URL}}" />
+  <meta name="twitter:image:alt" content="{{BUSINESS_NAME}} — באנו לחגוג" />
+
+  <!-- Icons & PWA -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="{{ICON_192_URL}}" sizes="192x192" type="image/png" />
+  <link rel="apple-touch-icon" href="{{ICON_APPLE_URL}}" />
+  <link rel="manifest" href="site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="{{BUSINESS_NAME}}" />
+  <meta name="application-name" content="{{BUSINESS_NAME}}" />
+
+  <!-- LLMs / AI crawlers -->
+  <link rel="llms" href="/llms.txt" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- ============ STRUCTURED DATA (JSON-LD) ============ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "{{WEBSITE_URL}}#org",
+        "name": "{{BUSINESS_NAME}}",
+        "alternateName": "{{BUSINESS_NAME_HE}}",
+        "url": "{{WEBSITE_URL}}",
+        "logo": "{{WEBSITE_URL}}{{ICON_512_URL}}",
+        "image": "{{WEBSITE_URL}}{{OG_IMAGE_URL}}",
+        "slogan": "באנו לחגוג",
+        "description": "{{BUSINESS_NAME}} היא אפליקציה חברתית לאיסוף כסף בהפתעה לאירועים — פותחים אירוע, כולם שמים, והחוגג מקבל הפתעה ביום שלו.",
+        "areaServed": "IL"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "{{WEBSITE_URL}}#website",
+        "url": "{{WEBSITE_URL}}",
+        "name": "{{BUSINESS_NAME}}",
+        "inLanguage": "he-IL",
+        "publisher": { "@id": "{{WEBSITE_URL}}#org" }
+      },
+      {
+        "@type": "MobileApplication",
+        "name": "{{BUSINESS_NAME}}",
+        "operatingSystem": "iOS, Android",
+        "applicationCategory": "SocialNetworkingApplication",
+        "inLanguage": "he-IL",
+        "description": "אפליקציה לאיסוף כסף קבוצתי בהפתעה לאירועים: ימי הולדת, גיוס, שחרור ועוד. פותחים אירוע, מזמינים חברים, אוספים כסף, והחוגג מקבל את ההפתעה ביום שלו.",
+        "url": "{{WEBSITE_URL}}",
+        "image": "{{WEBSITE_URL}}{{OG_IMAGE_URL}}",
+        "publisher": { "@id": "{{WEBSITE_URL}}#org" },
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ILS" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "למה לא פשוט ביט?", "acceptedAnswer": { "@type": "Answer", "text": "ביט מעביר כסף. {{BUSINESS_NAME}} מארגנת את כל האירוע: פותחת קבוצה, אוספת מכולם, שומרת על ההפתעה ומביאה לחוגג רגע מרגש. זה לא העברה — זו חוויה." } },
+          { "@type": "Question", "name": "הכסף באמת בטוח?", "acceptedAnswer": { "@type": "Answer", "text": "בהחלט. כל תשלום עובר מאובטח ומוצפן, רואים בכל רגע כמה נאסף ולאן הכסף הולך, והוא מגיע לחוגג ביום האירוע. אם האירוע מתבטל — אפשר לקבל החזר." } },
+          { "@type": "Question", "name": "החוגג יודע שפתחו לו אירוע?", "acceptedAnswer": { "@type": "Answer", "text": "לא! זה כל הקסם. החוגג לא חלק מהתהליך — ביום עצמו הוא מקבל את כל ההפתעה בבת אחת." } },
+          { "@type": "Question", "name": "אני מתחת לגיל 18, אפשר?", "acceptedAnswer": { "@type": "Answer", "text": "{{BUSINESS_NAME}} בנויה בדיוק בשביל הקהל הצעיר. אנחנו דואגים שכל ההיבטים של תשלומים והרשאות יהיו מסודרים ובטוחים. פרטים מלאים יגיעו עם ההשקה." } },
+          { "@type": "Question", "name": "לאילו אירועים זה מתאים?", "acceptedAnswer": { "@type": "Answer", "text": "לכל סיבה לחגוג: ימי הולדת, יום הולדת 18, מסיבת גיוס, שחרור, סוף שנה, מתנה לחבר שטס או עובר דירה — בכל פעם שמישהו חוגג." } }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+<!-- ============ SVG ICON SPRITE ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="ig" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7A1FB8"/><stop offset="0.55" stop-color="#C71FA8"/><stop offset="1" stop-color="#FF1E8E"/>
+    </linearGradient>
+    <linearGradient id="igw" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#C77BFF"/><stop offset="1" stop-color="#FF7AC0"/>
+    </linearGradient>
+  </defs>
+  <g fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+    <symbol id="i-chase" viewBox="0 0 24 24"><circle cx="13" cy="4" r="2"/><path d="M12 22l2-6 3 2 2 4"/><path d="M5 12l4-1 3 3-1 4"/><path d="M9 11l2-4 3 1 2 3"/><path d="M2 9h3M2 13h4M2 17h3"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></symbol>
+    <symbol id="i-awkward" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 15c1.2-1 5.8-1 7 0"/><path d="M8.5 9.5h.01M15.5 9.5h.01"/></symbol>
+    <symbol id="i-heartbreak" viewBox="0 0 24 24"><path d="M19 13.6c1.5-1.5 2.5-3 2.5-5.1A4.4 4.4 0 0 0 12 5 4.4 4.4 0 0 0 2.5 8.5C2.5 13 12 21 12 21s3.6-2.8 7-7.4Z"/><path d="M12 5l-2 4 3 2.5-2 3.5"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 10-12h-7l1-8Z"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-secret" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7c2 0 3.8.5 5.4 1.4M22 12s-3.6 7-10 7c-2 0-3.8-.5-5.4-1.4"/><path d="M9.6 9.6a3 3 0 0 0 4.2 4.2"/><path d="M3 3l18 18"/></symbol>
+    <symbol id="i-party" viewBox="0 0 24 24"><path d="M5.5 11 2 22l11-3.5Z"/><path d="M13 6.5 17.5 11"/><path d="M14 3c1 1 1 2.5 0 3.5M19 8c1 1 2.5 1 3.5 0M18 3.5h.01M21.5 12h.01"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14-4.5L3 9"/><path d="M3 4v5h5"/><path d="M4 13a8 8 0 0 0 14 4.5L21 15"/><path d="M21 20v-5h-5"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.5 8 8 11 4.5-3 8-6 8-11V5l-8-3Z"/><path d="M9 12l2 2 4-4"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="M12 15v2"/></symbol>
+    <symbol id="i-eyecheck" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7"/><path d="M9 17l2 2 4-4"/></symbol>
+    <symbol id="i-cake" viewBox="0 0 24 24"><path d="M4 21h16"/><path d="M5 21v-7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v7"/><path d="M3 16c1.4 1 2.8 1 4.2 0s2.8-1 4.2 0 2.8 1 4.2 0 2.8-1 4.2 0"/><path d="M12 8V5"/><circle cx="12" cy="3.5" r="1"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6 .7-4.4 4 1.2 6L12 16.9 6.6 19.4l1.2-6-4.4-4 6-.7Z"/></symbol>
+    <symbol id="i-plane" viewBox="0 0 24 24"><path d="M10.2 13.8 3 11.5l.4-1.3 4.3.4 2.5-2.5L4 5.7l.5-1.5 7.4 1.3 3-3C16.4 1 18 1 18.6 1.6c.6.6.6 2.2-1 3.7l-3 3 1.3 7.4-1.5.5-2.4-6.2-2.5 2.5.4 4.3-1.3.4Z"/></symbol>
+    <symbol id="i-cap" viewBox="0 0 24 24"><path d="M22 9 12 5 2 9l10 4 10-4Z"/><path d="M6 11v5c0 1.2 2.7 3 6 3s6-1.8 6-3v-5"/><path d="M22 9v5"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-6h4v6"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 13.6c1.5-1.5 2.5-3 2.5-5.1A4.4 4.4 0 0 0 12 5 4.4 4.4 0 0 0 2.5 8.5C2.5 13 12 21 12 21s4.1-3.2 7-7Z"/></symbol>
+    <symbol id="i-bag" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M12 12v3"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9.5h18M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 5a3.5 3.5 0 0 1 0 7"/><path d="M18.5 20a6.5 6.5 0 0 0-3-5.6"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></symbol>
+    <symbol id="i-coins" viewBox="0 0 24 24"><ellipse cx="9" cy="6.5" rx="6" ry="3"/><path d="M3 6.5v5c0 1.6 2.7 3 6 3"/><path d="M3 11.5c0 1.6 2.7 3 6 3"/><circle cx="16" cy="15" r="5.5"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5 15.4 17M15.4 7 8.6 10.5"/></symbol>
+    <symbol id="i-quote" viewBox="0 0 24 24"><path d="M9 7H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h2.5l-1.5 5M19 7h-4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h2.5l-1.5 5"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7Z"/><path d="M19 16l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7Z"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path d="M3 21l1.6-4.2A8.4 8.4 0 1 1 8 20.3L3 21Z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5"/><path d="M9 9.5c0-.6.4-1 .9-1l1.1.2.6 1.4-.7.8c.4.7 1 1.3 1.7 1.7l.8-.7 1.4.6.2 1.1c0 .5-.4.9-1 .9"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4"/></symbol>
+    <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M5 15c-1.5 1-2 5-2 5s4-.5 5-2c.5-.9.4-2-.4-2.6-.8-.6-1.9-.7-2.6 0Z"/><path d="M9 14l-3-3c1-5 5-9 12-9 0 7-4 11-9 12Z"/><circle cx="15" cy="8" r="1.6"/></symbol>
+  </g>
+</svg>
+
+<!-- scroll progress -->
+<div class="scrollbar" id="scrollbar" aria-hidden="true"></div>
+
+<!-- ====================== NAV ====================== -->
+<header class="nav" id="nav">
+  <div class="container nav__inner">
+    <a href="#top" class="nav__brand" aria-label="{{BUSINESS_NAME}}"><img src="favicon.svg" alt="{{BUSINESS_NAME}}" class="nav__logo" /></a>
+    <nav class="nav__links" id="navLinks">
+      <a href="#what">מה זה</a>
+      <a href="#how">איך זה עובד</a>
+      <a href="#tour">האפליקציה</a>
+      <a href="#why">למה {{BUSINESS_NAME}}</a>
+      <a href="#compare">השוואה</a>
+      <a href="#events">אירועים</a>
+      <a href="#faq">שאלות</a>
+    </nav>
+    <div class="nav__cta">
+      <a href="#join" class="btn btn--pink btn--sm">יאללה {{BUSINESS_NAME}}</a>
+      <button class="nav__burger" id="burger" aria-label="תפריט"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- ====================== 1 · HERO ====================== -->
+<section class="hero" id="top">
+  <div class="hero__bgimg" style="background-image:url('{{HERO_GLOW_IMAGE}}')" aria-hidden="true"></div>
+  <div class="hero__bg" aria-hidden="true"><span class="blob blob--1"></span><span class="blob blob--2"></span><span class="blob blob--3"></span></div>
+  <div class="confetti" id="confetti" aria-hidden="true"></div>
+
+  <div class="container hero__inner">
+    <div class="hero__copy reveal">
+      <span class="eyebrow"><svg class="ic"><use href="#i-spark"/></svg> באנו לחגוג</span>
+      <h1 class="hero__title">יש יום הולדת?<br /><span class="grad-text">תעשו לו {{BUSINESS_NAME}}</span></h1>
+      <p class="hero__sub">פותחים אירוע, מזמינים את החבר׳ה, כולם שמים — והחוגג מקבל את <strong>כל ההפתעה</strong> ביום שלו. בלי לרדוף אחרי אנשים. בלי בלגן בקבוצה.</p>
+      <form class="hero__form" id="heroForm">
+        <input type="email" inputmode="email" required placeholder="המייל שלך" aria-label="אימייל" />
+        <button type="submit" class="btn btn--pink">הצטרפו לראשונים <svg class="ic"><use href="#i-arrow"/></svg></button>
+      </form>
+      <p class="hero__formnote" id="heroFormNote">היו מהראשונים שמקבלים גישה כש‑{{BUSINESS_NAME}} עולה לאוויר.</p>
+      <div class="hero__proof">
+        <div class="avatars" aria-hidden="true"><span style="--i:0"></span><span style="--i:1"></span><span style="--i:2"></span><span style="--i:3"></span><span style="--i:4"></span></div>
+        <p>מצטרפים ל‑<strong>1,000 הראשונים</strong> בישראל</p>
+      </div>
+    </div>
+
+    <div class="hero__phone reveal" data-delay="1">
+      <img src="{{ICON_3D_GIFT}}" class="float-sticker fs--gift" alt="" data-depth="22" />
+      <img src="{{ICON_3D_HEART}}" class="float-sticker fs--heart" alt="" data-depth="-16" />
+      <img src="{{ICON_3D_COINS}}" class="float-sticker fs--coins" alt="" data-depth="30" />
+      <div class="sticker sticker--pill" aria-hidden="true">כולם בפנים 🎉</div>
+      <div class="phone" id="phone">
+        <div class="phone__notch"></div>
+        <div class="phone__screen">
+          <div class="app">
+            <div class="app__top"><svg class="ic app__back"><use href="#i-arrow"/></svg><span class="app__title">פתיחת אירוע</span><span class="app__y"><img src="favicon.svg" alt="" /></span></div>
+            <div class="app__field"><label>שם האירוע</label><div class="app__input">יום הולדת לאלון 🎂</div></div>
+            <div class="app__row"><div class="app__field"><label>תאריך</label><div class="app__input">19 / 06</div></div><div class="app__field"><label>יעד איסוף</label><div class="app__input">₪600</div></div></div>
+            <div class="app__field"><label>מי שם?</label><div class="app__people"><span></span><span></span><span></span><span></span><em>+9</em></div></div>
+            <div class="app__progress"><div class="app__bar"><i style="--w:72%"></i></div><div class="app__progress-meta"><span>₪430 נאספו</span><span>72%</span></div></div>
+            <button class="app__cta"><svg class="ic"><use href="#i-wa"/></svg> שליחה לוואטסאפ</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a href="#stats" class="hero__scroll" aria-label="גלילה"><span></span></a>
+</section>
+
+<!-- ====================== 2 · EVENTS MARQUEE ====================== -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track" data-marquee>
+    <span>יום הולדת 18</span><i>•</i><span>מסיבת גיוס</span><i>•</i><span>מסיבת שחרור</span><i>•</i><span>מתנה לחבר הכי טוב</span><i>•</i><span>מסיבת סוף שנה</span><i>•</i><span>טיסה גדולה</span><i>•</i><span>יום הולדת 16</span><i>•</i><span>אירוע כיתה</span><i>•</i>
+    <span>יום הולדת 18</span><i>•</i><span>מסיבת גיוס</span><i>•</i><span>מסיבת שחרור</span><i>•</i><span>מתנה לחבר הכי טוב</span><i>•</i><span>מסיבת סוף שנה</span><i>•</i><span>טיסה גדולה</span><i>•</i><span>יום הולדת 16</span><i>•</i><span>אירוע כיתה</span><i>•</i>
+  </div>
+</div>
+
+<!-- ====================== 3 · STATS ====================== -->
+<section class="stats" id="stats">
+  <div class="container stats__grid">
+    <div class="stat reveal"><span class="stat__num" data-count="1000" data-suffix="+">0</span><span class="stat__lbl">חברים ראשונים בישראל</span></div>
+    <div class="stat reveal" data-delay="1"><span class="stat__num" data-count="60" data-suffix=" שנ׳">0</span><span class="stat__lbl">לפתיחת אירוע</span></div>
+    <div class="stat reveal" data-delay="2"><span class="stat__num" data-count="30" data-suffix="">0</span><span class="stat__lbl">חברים מצטרפים לאירוע</span></div>
+    <div class="stat reveal" data-delay="3"><span class="stat__num" data-count="100" data-suffix="%">0</span><span class="stat__lbl">הפתעה. החוגג לא יודע</span></div>
+  </div>
+</section>
+
+<!-- ====================== 4 · WHAT IS {{BUSINESS_NAME}} ====================== -->
+<section class="section what" id="what">
+  <div class="container what__inner">
+    <div class="what__media reveal">
+      <img src="{{ICON_3D_PHONE}}" alt="אפליקציית {{BUSINESS_NAME}}" class="what__img" loading="lazy" />
+      <div class="orbit-badge ob--1"><svg class="ic"><use href="#i-users"/></svg></div>
+      <div class="orbit-badge ob--2"><svg class="ic"><use href="#i-coins"/></svg></div>
+      <div class="orbit-badge ob--3"><svg class="ic"><use href="#i-heart"/></svg></div>
+    </div>
+    <div class="what__copy reveal" data-delay="1">
+      <span class="tag">מה זה {{BUSINESS_NAME}}?</span>
+      <h2>לא עוד אפליקציית תשלומים. <span class="grad-text">חוויה חברתית.</span></h2>
+      <p class="section__lead">{{BUSINESS_NAME}} מאפשרת לפתוח אירוע לחבר, לאסוף כסף מכל המשתתפים, ולהעביר לחוגג את ההפתעה ביום האירוע. כל התהליך במקום אחד — מסודר, מהיר וכיפי.</p>
+      <ul class="ticks">
+        <li><svg class="ic"><use href="#i-check"/></svg> פותחים אירוע עבור מישהו שחוגג</li>
+        <li><svg class="ic"><use href="#i-check"/></svg> מזמינים חברים בלינק אחד לוואטסאפ</li>
+        <li><svg class="ic"><use href="#i-check"/></svg> כל אחד שם את החלק שלו, הכל שקוף</li>
+        <li><svg class="ic"><use href="#i-check"/></svg> ביום האירוע — הפתעה אחת מכל החברים</li>
+      </ul>
+      <a href="#how" class="btn btn--ghost">ככה זה עובד <svg class="ic"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== 5 · PROBLEM (WhatsApp chaos) ====================== -->
+<section class="section problem" id="problem">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="tag tag--pink">מכירים את זה?</span>
+      <h2>קבוצה אחת. 47 הודעות. <span class="grad-text">אפס סדר.</span></h2>
+      <p class="section__lead">תמיד מישהו "שוכח", תמיד צריך להזכיר, ותמיד האחריות נופלת עליך. במקום רגע מרגש — זה הופך למשימה מעיקה.</p>
+    </div>
+    <div class="problem__grid">
+      <div class="problem__shot reveal">
+        <img src="{{CREATIVE_MSG47}}" alt="בלגן בקבוצת וואטסאפ" loading="lazy" />
+      </div>
+      <div class="reveal" data-delay="1">
+        <div class="chat">
+          <div class="chat__head"><span class="chat__avatar"></span><div><strong>החבר׳ה של אלון 🎉</strong><small>14 חברים · מקלידים…</small></div></div>
+          <div class="chat__body">
+            <div class="bubble">נו מי נכנס? 👀</div>
+            <div class="bubble bubble--me">אני אעביר בערב 🙈</div>
+            <div class="bubble">מי שולח? לאן מעבירים?</div>
+            <div class="bubble bubble--me">שכחתי את המתנה...</div>
+            <div class="bubble">די עם התזכורות 😤</div>
+          </div>
+          <span class="chat__badge">+33 לא נקראו</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== 6 · PAIN POINTS ====================== -->
+<section class="section pains-sec">
+  <div class="container">
+    <div class="pains">
+      <div class="pain reveal"><span class="pain__ico"><svg class="ic"><use href="#i-chase"/></svg></span><h3>נמאס לרדוף אחרי כולם</h3><p>מזכירים שוב ושוב, ועדיין מישהו לא שילם בזמן.</p></div>
+      <div class="pain reveal" data-delay="1"><span class="pain__ico"><svg class="ic"><use href="#i-list"/></svg></span><h3>אי אפשר לעקוב מי שילם</h3><p>בלגן של העברות, מזומן ו"תרשום אותי, אחי".</p></div>
+      <div class="pain reveal" data-delay="2"><span class="pain__ico"><svg class="ic"><use href="#i-awkward"/></svg></span><h3>מביך להזכיר</h3><p>אף אחד לא אוהב להיות זה שרודף אחרי כסף.</p></div>
+      <div class="pain reveal" data-delay="3"><span class="pain__ico"><svg class="ic"><use href="#i-heartbreak"/></svg></span><h3>ההפתעה מתפספסת</h3><p>הקסם הולך לאיבוד בתוך הבלגן בקבוצה.</p></div>
+    </div>
+    <p class="problem__turn reveal">יש דרך הרבה יותר פשוטה <svg class="ic ic--lg"><use href="#i-arrow"/></svg></p>
+  </div>
+</section>
+
+<!-- ====================== 7 · HOW IT WORKS ====================== -->
+<section class="section how" id="how">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="tag">ככה זה עובד</span>
+      <h2>פותחים אירוע, כולם שמים, <span class="grad-text">החוגג מקבל הפתעה</span></h2>
+      <p class="section__lead">ארבעה צעדים פשוטים. פחות מדקה ואתם בפנים.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><span class="step__num">1</span><div class="step__media"><img src="{{ICON_3D_BALLOONS}}" alt="" loading="lazy"/></div><h3>פותחים אירוע</h3><p>בוחרים את החוגג, תאריך וכמה אוספים. לוקח פחות מדקה.</p></div>
+      <div class="step reveal" data-delay="1"><span class="step__num">2</span><div class="step__media"><img src="{{ICON_3D_LINK}}" alt="" loading="lazy"/></div><h3>מביאים את החבר׳ה</h3><p>שולחים לינק לקבוצה — וכולם מצטרפים בלחיצה.</p></div>
+      <div class="step reveal" data-delay="2"><span class="step__num">3</span><div class="step__media"><img src="{{ICON_3D_COINS}}" alt="" loading="lazy"/></div><h3>כולם שמים</h3><p>כל אחד שם את החלק שלו. רואים מי כבר בפנים.</p></div>
+      <div class="step reveal" data-delay="3"><span class="step__num">4</span><div class="step__media"><img src="{{ICON_3D_GIFT}}" alt="" loading="lazy"/></div><h3>החוגג מקבל הפתעה</h3><p>ביום האירוע — כל האהבה של החבר׳ה, בבת אחת.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== 8 · PRODUCT TOUR (alternating) ====================== -->
+<section class="section tour" id="tour">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="tag tag--pink">סיור באפליקציה</span>
+      <h2>ככה זה <span class="grad-text">נראה ומרגיש</span></h2>
+      <p class="section__lead">כל מסך נבנה כדי שתרגישו חלק מהחגיגה — לא מתוך טבלת אקסל.</p>
+    </div>
+
+    <div class="feature">
+      <div class="feature__media reveal"><img src="{{CREATIVE_BIRTHDAY}}" alt="מסך פתיחת אירוע" loading="lazy"/></div>
+      <div class="feature__copy reveal" data-delay="1">
+        <span class="feature__step">01 · פתיחת אירוע</span>
+        <h3>למי עושים {{BUSINESS_NAME}}?</h3>
+        <p>בוחרים את החוגג, תאריך האירוע וכמה תרצו לאסוף. טקסט הזמנה מוכן מחכה לכם — רק לשתף.</p>
+        <ul class="ticks"><li><svg class="ic"><use href="#i-check"/></svg> פתיחה תוך פחות מדקה</li><li><svg class="ic"><use href="#i-check"/></svg> יעד איסוף גמיש</li></ul>
+      </div>
+    </div>
+
+    <div class="feature feature--rev">
+      <div class="feature__media reveal"><img src="{{CREATIVE_ALLIN}}" alt="מסך משתתפים" loading="lazy"/></div>
+      <div class="feature__copy reveal" data-delay="1">
+        <span class="feature__step">02 · מי כבר בפנים</span>
+        <h3>כולם כבר בפנים, רק אתה נשארת</h3>
+        <p>סטטוס ברור בזמן אמת — מי השתתף ומי עוד צריך תזכורת קטנה. תחושת קבוצה אמיתית ו‑FOMO בריא.</p>
+        <ul class="ticks"><li><svg class="ic"><use href="#i-check"/></svg> מעקב חי אחרי כל משתתף</li><li><svg class="ic"><use href="#i-check"/></svg> תזכורות עדינות, אוטומטיות</li></ul>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature__media reveal"><img src="{{CREATIVE_ORDER}}" alt="סדר בבלגן" loading="lazy"/></div>
+      <div class="feature__copy reveal" data-delay="1">
+        <span class="feature__step">03 · סוגרים מתנה</span>
+        <h3>{{BUSINESS_NAME}} עושה לכם סדר בבלאגן</h3>
+        <p>כל הכסף מתרכז במקום אחד, שקוף ובטוח. ביום האירוע הכל מוכן — אתם רק נהנים מהרגע.</p>
+        <ul class="ticks"><li><svg class="ic"><use href="#i-check"/></svg> איסוף מרוכז ומסודר</li><li><svg class="ic"><use href="#i-check"/></svg> ברכות והודעות מכולם</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== 9 · WHY / VALUE ====================== -->
+<section class="section why" id="why">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="tag">למה {{BUSINESS_NAME}}</span>
+      <h2>לא עוד "אני אעביר בערב" <span class="grad-text">🙄</span></h2>
+      <p class="section__lead">{{BUSINESS_NAME}} לא רק מעבירה כסף — היא בונה את כל הרגע החברתי מסביב להפתעה.</p>
+    </div>
+    <div class="bento">
+      <article class="card card--feat b-lg reveal">
+        <div class="card__feat-top">
+          <div class="card__ico card__ico--lg"><svg class="ic"><use href="#i-chase"/></svg></div>
+          <span class="card__badge">הכי מבוקש</span>
+        </div>
+        <h3>בלי לרדוף אחרי אנשים</h3>
+        <p>תזכורות עדינות נשלחות אוטומטית, סטטוס שקוף לכולם — ואתם כבר לא "המעצבנים" של הקבוצה. פשוט פותחים, משתפים, ונהנים מהרגע.</p>
+        <img src="{{ICON_3D_COINS}}" class="card__feat-img" alt="" loading="lazy"/>
+      </article>
+      <article class="card b-wide reveal"><div class="card__ico"><svg class="ic"><use href="#i-eye"/></svg></div><h3>רואים מי כבר בפנים</h3><p>סטטוס ברור בזמן אמת — מי שם, מי צריך תזכורת. אפס בלגן.</p></article>
+      <article class="card b-sm reveal"><div class="card__ico"><svg class="ic"><use href="#i-secret"/></svg></div><h3>החוגג עוד לא יודע</h3><p>כל הקסם נשמר עד היום עצמו.</p></article>
+      <article class="card b-sm reveal"><div class="card__ico"><svg class="ic"><use href="#i-bolt"/></svg></div><h3>שיתוף בלחיצה</h3><p>טקסט מוכן + לינק לוואטסאפ.</p></article>
+      <article class="card b-wide reveal"><div class="card__ico"><svg class="ic"><use href="#i-party"/></svg></div><h3>חוויה חגיגית</h3><p>כרטיס אירוע ממותג, ברכות, קונפטי ורגע מרגש — לא טבלת אקסל.</p></article>
+      <article class="card b-wide reveal"><div class="card__ico"><svg class="ic"><use href="#i-refresh"/></svg></div><h3>תורכם להפתיע</h3><p>קיבלת {{BUSINESS_NAME}}? פותחים אירוע למישהו אחר בלחיצה אחת.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== 10 · COMPARISON ====================== -->
+<section class="section compare" id="compare">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="tag tag--pink">למה לא פשוט ביט?</span>
+      <h2>ביט מעביר כסף. <span class="grad-text">{{BUSINESS_NAME}} מארגנת הפתעה.</span></h2>
+      <p class="section__lead">ההבדל הוא לא בהעברת הכסף — אלא בכל החוויה מסביב.</p>
+    </div>
+    <div class="ctable reveal">
+      <div class="ctable__head">
+        <div class="ctable__feat">מה באמת קורה</div>
+        <div class="ctable__col ctable__col--yassu"><img src="favicon.svg" alt="{{BUSINESS_NAME}}"/></div>
+        <div class="ctable__col">קבוצת וואטסאפ</div>
+        <div class="ctable__col">ביט / העברה</div>
+        <div class="ctable__col">מזומן</div>
+      </div>
+      <div class="ctable__row"><div class="ctable__feat">איסוף מרוכז במקום אחד</div><div class="cy"><svg class="ic"><use href="#i-check"/></svg></div><div class="cn"><svg class="ic"><use href="#i-x"/></svg></div><div class="cn"><svg class="ic"><use href="#i-x"/></svg></div><div class="cn"><svg class="ic"><use href="#i-x"/></svg></div></div>
+      <div class="ctable__row"><div class="ctable__feat">רואים מי שילם ומי לא</div><div class="cy"><svg class="ic"><use href="#i-check"/></svg></div><div class="cn"><svg class="ic"><use href="#i-x"/></svg></div><div class="cn"><svg class="ic"><use href="#i-x"/></svg></div><div class="cn"><svg class="ic"><use href="#i-x"/></svg></div></div>
+      <div class="ctable__row"><div class="ctable__feat">תזכורות אוטומטיות ועדינות</div><div class="cy"><svg class="ic"><use href="#i-check"/></svg></div><div class="cn"><svg class="ic"><use href="#i-x"/></svg></div><div class="cn"><svg class="ic"><use href="#i-x"/></svg></div><div class="cn"><svg class="ic"><use href="#i-x"/></svg></div></div>
+      <div class="ctable__row"><div class="ctable__feat">הפתעה — החוגג לא יודע</div><div class="cy"><svg class="ic"><use href="#i-check"/></svg></div><div class="cn"><svg class="ic"><use href="#i-x"/></svg></div><div class="cn"><svg class="ic"><use href="#i-x"/></svg></div><div class="cm">תלוי</div></div>
+      <div class="ctable__row"><div class="ctable__feat">חוויה חגיגית ורגע מרגש</div><div class="cy"><svg class="ic"><use href="#i-check"/></svg></div><div class="cn"><svg class="ic"><use href="#i-x"/></svg></div><div class="cn"><svg class="ic"><use href="#i-x"/></svg></div><div class="cn"><svg class="ic"><use href="#i-x"/></svg></div></div>
+      <div class="ctable__row"><div class="ctable__feat">שיתוף לוואטסאפ בלחיצה</div><div class="cy"><svg class="ic"><use href="#i-check"/></svg></div><div class="cm">חלקי</div><div class="cn"><svg class="ic"><use href="#i-x"/></svg></div><div class="cn"><svg class="ic"><use href="#i-x"/></svg></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== 11 · PERSONAS ====================== -->
+<section class="section forwho" id="forwho">
+  <div class="container">
+    <div class="section__head reveal"><span class="tag">למי זה מתאים</span><h2>כל החבר׳ה <span class="grad-text">במקום אחד</span></h2></div>
+    <div class="persona">
+      <article class="persona__card persona__card--organizer reveal">
+        <span class="persona__ico"><svg class="ic"><use href="#i-star"/></svg></span>
+        <h3>המארגנים</h3><p>אתם תמיד אלה שפותחים את הקבוצה ודואגים למתנה? {{BUSINESS_NAME}} עושה לכם את החיים קלים.</p>
+        <span class="persona__chip">"סוף סוף מסודר"</span>
+      </article>
+      <article class="persona__card persona__card--joiner reveal" data-delay="1">
+        <span class="persona__ico"><svg class="ic"><use href="#i-users"/></svg></span>
+        <h3>המשתתפים</h3><p>כולם כבר בפנים — נשאר רק לשים את החלק שלך. מהיר, פשוט, בלי להסתבך.</p>
+        <span class="persona__chip">"לא יוצאים לא זורמים"</span>
+      </article>
+      <article class="persona__card persona__card--celebrant reveal" data-delay="2">
+        <span class="persona__ico"><svg class="ic"><use href="#i-heart"/></svg></span>
+        <h3>החוגגים</h3><p>הרגע שבו מגלים שכולם חשבו עליך. עשו לך {{BUSINESS_NAME}}? עכשיו תורך להפתיע מישהו אחר.</p>
+        <span class="persona__chip">"לא ראיתי את זה בא"</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== 12 · EVENTS GRID ====================== -->
+<section class="section events" id="events">
+  <div class="container">
+    <div class="section__head reveal"><span class="tag tag--pink">לכל סיבה לחגוג</span><h2>מתי פותחים <span class="grad-text">{{BUSINESS_NAME}}?</span></h2><p class="section__lead">בכל פעם שמישהו חוגג — יש סיבה לפתוח אירוע.</p></div>
+    <div class="egrid">
+      <div class="ev reveal"><svg class="ic"><use href="#i-cake"/></svg><span>יום הולדת</span></div>
+      <div class="ev reveal" data-delay="1"><svg class="ic"><use href="#i-spark"/></svg><span>יום הולדת 18</span></div>
+      <div class="ev reveal" data-delay="2"><svg class="ic"><use href="#i-star"/></svg><span>מסיבת גיוס</span></div>
+      <div class="ev reveal" data-delay="3"><svg class="ic"><use href="#i-party"/></svg><span>מסיבת שחרור</span></div>
+      <div class="ev reveal"><svg class="ic"><use href="#i-heart"/></svg><span>לחבר הכי טוב</span></div>
+      <div class="ev reveal" data-delay="1"><svg class="ic"><use href="#i-plane"/></svg><span>טיסה גדולה</span></div>
+      <div class="ev reveal" data-delay="2"><svg class="ic"><use href="#i-cap"/></svg><span>סוף שנה</span></div>
+      <div class="ev reveal" data-delay="3"><svg class="ic"><use href="#i-home"/></svg><span>מעבר דירה</span></div>
+      <div class="ev reveal"><svg class="ic"><use href="#i-users"/></svg><span>אירוע כיתה</span></div>
+      <div class="ev reveal" data-delay="1"><svg class="ic"><use href="#i-bag"/></svg><span>פרק חדש</span></div>
+      <div class="ev reveal" data-delay="2"><svg class="ic"><use href="#i-calendar"/></svg><span>כל אירוע</span></div>
+      <div class="ev ev--more reveal" data-delay="3"><svg class="ic"><use href="#i-plus"/></svg><span>ועוד המון</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== 13 · GROWTH ENGINE ====================== -->
+<section class="section growth aurora">
+  <div class="container growth__inner">
+    <div class="growth__copy reveal">
+      <span class="tag tag--ghost">מנוע הצמיחה</span>
+      <h2>כל אירוע מביא <span class="grad-text-light">עוד אירוע</span></h2>
+      <p class="section__lead section__lead--light">מארגן אחד מזמין 5–30 חברים. חלקם מכירים את {{BUSINESS_NAME}} בפעם הראשונה — ואחרי שהשתתפו, הם פותחים אירוע משלהם. ככה זה מתפשט.</p>
+      <ul class="ticks ticks--light">
+        <li><svg class="ic"><use href="#i-check"/></svg> מארגן פותח אירוע ומשתף לוואטסאפ</li>
+        <li><svg class="ic"><use href="#i-check"/></svg> משתתפים נכנסים, שמים, ונרשמים</li>
+        <li><svg class="ic"><use href="#i-check"/></svg> החוגג מקבל הפתעה ומשתף הלאה</li>
+        <li><svg class="ic"><use href="#i-check"/></svg> מישהו מהם פותח אירוע חדש — והמעגל חוזר</li>
+      </ul>
+    </div>
+    <div class="growth__viz reveal" data-delay="1">
+      <div class="orbit">
+        <div class="orbit__ring orbit__ring--1"></div>
+        <div class="orbit__ring orbit__ring--2"></div>
+        <div class="orbit__core"><img src="favicon.svg" alt="{{BUSINESS_NAME}}"/></div>
+        <div class="orbit__node n1"><svg class="ic"><use href="#i-user"/></svg></div>
+        <div class="orbit__node n2"><svg class="ic"><use href="#i-share"/></svg></div>
+        <div class="orbit__node n3"><svg class="ic"><use href="#i-users"/></svg></div>
+        <div class="orbit__node n4"><svg class="ic"><use href="#i-coins"/></svg></div>
+        <div class="orbit__node n5"><svg class="ic"><use href="#i-heart"/></svg></div>
+        <div class="orbit__node n6"><svg class="ic"><use href="#i-refresh"/></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== 14 · EMOTIONAL MOMENT ====================== -->
+<section class="section moment reveal">
+  <div class="moment__img" style="background-image:url('{{CREATIVE_REVEAL}}')" aria-hidden="true"></div>
+  <div class="confetti confetti--soft" id="confetti2" aria-hidden="true"></div>
+  <div class="container moment__inner">
+    <svg class="moment__q ic"><use href="#i-quote"/></svg>
+    <p class="moment__quote">כי הרגע הכי כיף הוא לראות מישהו <span class="grad-text-light">מגלה שכולם חשבו עליו.</span></p>
+    <p class="moment__sub">הפתעה אחת. מכל החברים.</p>
+  </div>
+</section>
+
+<!-- ====================== 15 · TRUST ====================== -->
+<section class="section trust aurora" id="trust">
+  <div class="container">
+    <div class="section__head section__head--light reveal">
+      <span class="tag tag--ghost">בלי דאגות</span>
+      <h2>הכסף שלכם <span class="grad-text-light">בידיים בטוחות</span></h2>
+      <p class="section__lead section__lead--light">80% חגיגה, 20% ראש שקט. כי כשמדובר בכסף — חשוב לדעת שהכל מסודר.</p>
+    </div>
+    <div class="trust__grid">
+      <div class="trust__item reveal"><div class="trust__media"><img src="{{ICON_3D_SHIELD}}" alt="" loading="lazy"/></div><h3>תשלום מאובטח</h3><p>כל תשלום עובר מוצפן ובטוח. בלי להעביר מספרי חשבון בקבוצה.</p></div>
+      <div class="trust__item reveal" data-delay="1"><div class="trust__media"><img src="{{ICON_3D_BELL}}" alt="" loading="lazy"/></div><h3>שקיפות מלאה</h3><p>רואים כמה נאסף, מי השתתף ולאן הכסף הולך. שום דבר לא מתחבא.</p></div>
+      <div class="trust__item reveal" data-delay="2"><div class="trust__media"><img src="{{ICON_3D_TROPHY}}" alt="" loading="lazy"/></div><h3>מגיע בזמן</h3><p>הכסף משוחרר לחוגג ביום האירוע. ואם משהו משתבש — אפשר לבטל ולקבל החזר.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== 16 · TESTIMONIALS ====================== -->
+<section class="section quotes">
+  <div class="container">
+    <div class="section__head reveal"><span class="tag">החבר׳ה אומרים</span><h2>זה כבר <span class="grad-text">בשפה שלהם</span></h2></div>
+    <div class="quotes__grid">
+      <figure class="qcard reveal"><svg class="ic qcard__q"><use href="#i-quote"/></svg><blockquote>"סוף סוף לא אני זאת שרודפת אחרי כולם. פתחתי {{BUSINESS_NAME_HE}} לאלה ותוך שעה כולם היו בפנים."</blockquote><figcaption><span class="qcard__av"></span><div><strong>נועה</strong><small>המארגנת של החבורה</small></div></figcaption></figure>
+      <figure class="qcard reveal" data-delay="1"><svg class="ic qcard__q"><use href="#i-quote"/></svg><blockquote>"קיבלתי לינק בוואטסאפ, שמתי את החלק שלי ב‑10 שניות. לא יצאתי לא זורם וזהו."</blockquote><figcaption><span class="qcard__av qcard__av--2"></span><div><strong>איתי</strong><small>משתתף</small></div></figcaption></figure>
+      <figure class="qcard reveal" data-delay="2"><svg class="ic qcard__q"><use href="#i-quote"/></svg><blockquote>"לא ראיתי את זה בא. כל החבר׳ה הרימו לי הפתעה ליום הולדת — הרגע הכי מרגש."</blockquote><figcaption><span class="qcard__av qcard__av--3"></span><div><strong>שני</strong><small>חוגגת</small></div></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== 17 · SLANG MARQUEE ====================== -->
+<div class="marquee marquee--alt" aria-hidden="true">
+  <div class="marquee__track marquee__track--rev" data-marquee>
+    <span>עשו לי {{BUSINESS_NAME_HE}}</span><i>✦</i><span>כולם בפנים</span><i>✦</i><span>נו מי שם?</span><i>✦</i><span>יאללה תרימו לו</span><i>✦</i><span>בואו נפתח לו {{BUSINESS_NAME_HE}}</span><i>✦</i><span>סוגרים מתנה</span><i>✦</i><span>החוגג עוד לא יודע</span><i>✦</i>
+    <span>עשו לי {{BUSINESS_NAME_HE}}</span><i>✦</i><span>כולם בפנים</span><i>✦</i><span>נו מי שם?</span><i>✦</i><span>יאללה תרימו לו</span><i>✦</i><span>בואו נפתח לו {{BUSINESS_NAME_HE}}</span><i>✦</i><span>סוגרים מתנה</span><i>✦</i><span>החוגג עוד לא יודע</span><i>✦</i>
+  </div>
+</div>
+
+<!-- ====================== 18 · STICKERS ====================== -->
+<section class="section stickers">
+  <div class="container">
+    <div class="section__head reveal"><span class="tag tag--pink">{{BUSINESS_NAME}} Stickers</span><h2>שפה שהופכת <span class="grad-text">להרגל</span></h2><p class="section__lead">סטיקרים, ביטויים וריאקשנים שמלווים אתכם מהאפליקציה ועד הסטורי.</p></div>
+    <div class="stk reveal">
+      <span class="stk__chip">עשו לי {{BUSINESS_NAME}}</span>
+      <span class="stk__chip stk__chip--alt">כולם בפנים</span>
+      <span class="stk__chip">פתחו לי הפתעה</span>
+      <span class="stk__chip stk__chip--alt">לא לשכוח לשים</span>
+      <span class="stk__chip">החוגג עוד לא יודע 🤫</span>
+      <span class="stk__chip stk__chip--alt">החבר׳ה הכי טובים</span>
+      <span class="stk__chip">לא ראיתי את זה בא</span>
+      <span class="stk__chip stk__chip--alt">יאללה {{BUSINESS_NAME}}</span>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== 19 · CREATIVE GALLERY ====================== -->
+<section class="section gallery" id="gallery">
+  <div class="container">
+    <div class="section__head reveal"><span class="tag">קמפיין</span><h2>{{BUSINESS_NAME}} <span class="grad-text">בשטח</span></h2><p class="section__lead">ככה זה נראה כשמדברים בשפה של הנוער.</p></div>
+  </div>
+  <div class="gal" id="gal">
+    <div class="gal__track">
+      <img src="{{CREATIVE_BIRTHDAY}}" alt="" loading="lazy"/>
+      <img src="{{CREATIVE_SURPRISE}}" alt="" loading="lazy"/>
+      <img src="{{CREATIVE_AVATARS}}" alt="" loading="lazy"/>
+      <img src="{{CREATIVE_PARTY}}" alt="" loading="lazy"/>
+      <img src="{{CREATIVE_POV}}" alt="" loading="lazy"/>
+      <img src="{{CREATIVE_REVEAL}}" alt="" loading="lazy"/>
+      <img src="{{CREATIVE_ORDER}}" alt="" loading="lazy"/>
+      <img src="{{CREATIVE_CHASE}}" alt="" loading="lazy"/>
+      <img src="{{CREATIVE_WHATSAPP}}" alt="" loading="lazy"/>
+      <img src="{{CREATIVE_MSG14}}" alt="" loading="lazy"/>
+      <img src="{{CREATIVE_ORGANIZER}}" alt="" loading="lazy"/>
+      <img src="{{CREATIVE_ALLIN}}" alt="" loading="lazy"/>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== 20 · JOIN / CTA ====================== -->
+<section class="section join" id="join">
+  <div class="container">
+    <div class="join__card reveal" style="background-image:url('{{CTA_BAND_IMAGE}}')">
+      <div class="confetti" id="confetti3" aria-hidden="true"></div>
+      <img src="{{ICON_3D_ROCKET}}" class="join__rocket" alt="" loading="lazy"/>
+      <div class="join__content">
+        <span class="tag tag--ghost">עולה לאוויר בקרוב</span>
+        <h2 class="join__title">מישהו חוגג? <span class="grad-text-light">{{BUSINESS_NAME}}!</span></h2>
+        <p class="join__sub">הצטרפו ל‑1,000 הראשונים בישראל וקבלו גישה ראשונים כש‑{{BUSINESS_NAME}} עולה לאוויר.</p>
+        <form class="join__form" id="joinForm">
+          <input type="email" inputmode="email" required placeholder="המייל שלך" aria-label="אימייל" />
+          <button type="submit" class="btn btn--white">יאללה, אני בפנים <svg class="ic"><use href="#i-arrow"/></svg></button>
+        </form>
+        <p class="join__note" id="joinNote">בלי ספאם. רק עדכון אחד — שאפשר להוריד את האפליקציה.</p>
+        <div class="stores">
+          <span class="store"><span class="store__ico"></span><span class="store__txt"><small>בקרוב ב‑</small><strong>App Store</strong></span></span>
+          <span class="store"><span class="store__ico store__ico--play"></span><span class="store__txt"><small>בקרוב ב‑</small><strong>Google Play</strong></span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== 21 · FAQ ====================== -->
+<section class="section faq" id="faq">
+  <div class="container container--narrow">
+    <div class="section__head reveal"><span class="tag">שאלות שכולם שואלים</span><h2>אז <span class="grad-text">מה הסיפור?</span></h2></div>
+    <div class="acc reveal">
+      <details><summary>למה לא פשוט ביט? <span class="acc__plus"></span></summary><p>ביט מעביר כסף. {{BUSINESS_NAME}} מארגנת את כל האירוע: פותחת קבוצה, אוספת מכולם, שומרת על ההפתעה ומביאה לחוגג רגע מרגש. זה לא העברה — זו חוויה.</p></details>
+      <details><summary>הכסף באמת בטוח? <span class="acc__plus"></span></summary><p>בהחלט. כל תשלום עובר מאובטח ומוצפן, רואים בכל רגע כמה נאסף ולאן הכסף הולך, והוא מגיע לחוגג ביום האירוע. אם האירוע מתבטל — אפשר לקבל החזר.</p></details>
+      <details><summary>החוגג יודע שפתחו לו אירוע? <span class="acc__plus"></span></summary><p>לא! זה כל הקסם. החוגג לא חלק מהתהליך — ביום עצמו הוא מקבל את כל ההפתעה בבת אחת. רגע ששווה לצלם.</p></details>
+      <details><summary>אני מתחת לגיל 18, אפשר? <span class="acc__plus"></span></summary><p>{{BUSINESS_NAME}} בנויה בדיוק בשביל הקהל הצעיר. אנחנו דואגים שכל ההיבטים של תשלומים והרשאות יהיו מסודרים ובטוחים. פרטים מלאים יגיעו עם ההשקה.</p></details>
+      <details><summary>לאילו אירועים זה מתאים? <span class="acc__plus"></span></summary><p>לכל סיבה לחגוג: ימי הולדת, יום הולדת 18, מסיבת גיוס, שחרור, סוף שנה, מתנה לחבר שטס או עובר דירה — בכל פעם שמישהו חוגג.</p></details>
+      <details><summary>כמה זה עולה? <span class="acc__plus"></span></summary><p>פתיחת אירוע והצטרפות הן חוויה פשוטה וברורה. את כל הפרטים על העלויות נחשוף עם ההשקה — בלי הפתעות (חוץ מההפתעה לחוגג 😉).</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== FOOTER ====================== -->
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <img src="favicon.svg" alt="{{BUSINESS_NAME}}" class="footer__logo" />
+      <p class="footer__tag">באנו לחגוג 🎉</p>
+      <p class="footer__line">הדרך החדשה של חברים לאסוף כסף ולהפתיע מישהו שחוגג.</p>
+      <form class="footer__form" id="footerForm">
+        <input type="email" inputmode="email" required placeholder="המייל שלך" aria-label="אימייל"/>
+        <button type="submit" class="btn btn--pink btn--sm">הצטרפו</button>
+      </form>
+      <p class="footer__note" id="footerNote"></p>
+    </div>
+    <nav class="footer__col"><h4>ניווט</h4><a href="#what">מה זה {{BUSINESS_NAME}}</a><a href="#how">איך זה עובד</a><a href="#tour">האפליקציה</a><a href="#why">למה {{BUSINESS_NAME}}</a></nav>
+    <nav class="footer__col"><h4>עוד</h4><a href="#compare">השוואה לביט</a><a href="#events">אירועים</a><a href="#gallery">קמפיין</a><a href="#faq">שאלות</a></nav>
+    <nav class="footer__col"><h4>עקבו</h4><a href="#">אינסטגרם</a><a href="#">טיקטוק</a><a href="#">וואטסאפ</a><a href="#join">הצטרפות</a></nav>
+  </div>
+  <div class="footer__bottom container">
+    <span>© <span id="year"></span> {{BUSINESS_NAME}} · כל הזכויות שמורות</span>
+    <span class="footer__made">נבנה באהבה ובהמון קונפטי</span>
+  </div>
+</footer>
+
+<button class="totop" id="totop" aria-label="חזרה למעלה"><svg class="ic"><use href="#i-arrow"/></svg></button>
+
+<script src="script.js"></script>
+</body>
+</html>

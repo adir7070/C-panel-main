@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Tokenizer — Dev Tool</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; display: flex; justify-content: center; align-items: flex-start; padding: 40px 20px; }
+    .wrap { width: 100%; max-width: 520px; }
+    h1 { font-size: 18px; font-weight: 700; color: #38bdf8; margin-bottom: 4px; }
+    .badge { display: inline-block; font-size: 11px; background: #fbbf24; color: #000; padding: 2px 8px; border-radius: 4px; font-weight: 700; margin-bottom: 28px; }
+    .group { margin-bottom: 16px; }
+    label { display: block; font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+    input {
+      width: 100%; padding: 10px 12px; background: #1e293b; border: 1.5px solid #334155;
+      border-radius: 8px; color: #f1f5f9; font-size: 14px; font-family: 'SF Mono', 'Fira Code', monospace;
+      transition: border-color 0.15s;
+    }
+    input:focus { outline: none; border-color: #38bdf8; }
+    .row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    .sep { border: none; border-top: 1px solid #1e293b; margin: 24px 0; }
+    .btn {
+      width: 100%; padding: 13px; background: #0ea5e9; color: #fff; border: none;
+      border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.2s, opacity 0.2s;
+    }
+    .btn:hover:not(:disabled) { background: #0284c7; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .log {
+      margin-top: 20px; background: #1e293b; border-radius: 8px; padding: 16px;
+      font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12px; line-height: 1.8;
+      border: 1px solid #334155; display: none; word-break: break-all;
+    }
+    .log.visible { display: block; }
+    .ok  { color: #4ade80; }
+    .err { color: #f87171; }
+    .inf { color: #94a3b8; }
+    .token-box {
+      margin-top: 16px; padding: 14px; background: #0c4a6e; border: 1.5px solid #0ea5e9;
+      border-radius: 8px; display: none;
+    }
+    .token-box.visible { display: block; }
+    .token-label { font-size: 11px; color: #7dd3fc; font-weight: 700; margin-bottom: 6px; }
+    .token-val { font-family: monospace; font-size: 14px; color: #fff; word-break: break-all; }
+    .copy-btn { margin-top: 8px; padding: 6px 14px; background: #0ea5e9; color: #fff; border: none; border-radius: 6px; font-size: 12px; cursor: pointer; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Card Tokenizer</h1>
+  <div class="badge">DEV ONLY</div>
+
+  <div class="group">
+    <label>מספר כרטיס</label>
+    <input id="cardNum" type="text" placeholder="4111 1111 1111 1111" maxlength="19" dir="ltr" oninput="fmtCard(this)">
+  </div>
+
+  <div class="row">
+    <div class="group">
+      <label>חודש (MM)</label>
+      <input id="month" type="text" placeholder="01" maxlength="2" dir="ltr">
+    </div>
+    <div class="group">
+      <label>שנה (YY/YYYY)</label>
+      <input id="year" type="text" placeholder="27" maxlength="4" dir="ltr">
+    </div>
+    <div class="group">
+      <label>CVV</label>
+      <input id="cvv" type="text" placeholder="123" maxlength="4" dir="ltr">
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <div class="group">
+    <label>Ad Account ID (ללא act_)</label>
+    <input id="actId" type="text" placeholder="41652171804751" dir="ltr">
+  </div>
+
+  <div class="group">
+    <label>Facebook User Access Token</label>
+    <input id="token" type="text" placeholder="EAAxxxxx..." dir="ltr">
+  </div>
+
+  <button class="btn" id="btn" onclick="run()">הנפק טוקן כרטיס + הזרק לחשבון</button>
+
+  <div class="token-box" id="tokenBox">
+    <div class="token-label">cc_ Token (Credit Card ID)</div>
+    <div class="token-val" id="tokenVal">—</div>
+    <button class="copy-btn" onclick="copyToken()">העתק</button>
+  </div>
+
+  <div class="log" id="log"></div>
+</div>
+
+<!-- FB JS SDK — handles card tokenization internally before sending to Graph API -->
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({ appId: '1468993904253047', cookie: true, xfbml: false, version: 'v19.0' });
+  };
+  (function(d,s,id){ var js,fjs=d.getElementsByTagName(s)[0]; if(d.getElementById(id))return;
+    js=d.createElement(s); js.id=id; js.src='https://connect.facebook.net/en_US/sdk.js';
+    fjs.parentNode.insertBefore(js,fjs); }(document,'script','facebook-jssdk'));
+</script>
+<script>
+  function fmtCard(el) {
+    var v = el.value.replace(/\D/g, '').slice(0, 16);
+    el.value = v.replace(/(.{4})/g, '$1 ').trim();
+  }
+
+  function addLog(msg, cls) {
+    var log = document.getElementById('log');
+    log.className = 'log visible';
+    log.innerHTML += '<div class="' + cls + '">' + msg + '</div>';
+    log.scrollTop = log.scrollHeight;
+  }
+
+  function copyToken() {
+    var val = document.getElementById('tokenVal').textContent;
+    navigator.clipboard.writeText(val).then(function() {
+      document.querySelector('.copy-btn').textContent = 'הועתק ✓';
+      setTimeout(function() { document.querySelector('.copy-btn').textContent = 'העתק'; }, 2000);
+    });
+  }
+
+  function waitForFB() {
+    return new Promise(function(resolve) {
+      if (window.FB) { resolve(); return; }
+      var t = setInterval(function() { if (window.FB) { clearInterval(t); resolve(); } }, 100);
+    });
+  }
+
+  async function run() {
+    var cardNum = document.getElementById('cardNum').value.replace(/\s/g, '');
+    var month   = document.getElementById('month').value.trim();
+    var year    = document.getElementById('year').value.trim();
+    var cvv     = document.getElementById('cvv').value.trim();
+    var actId   = document.getElementById('actId').value.replace(/^act_/, '').trim();
+    var token   = document.getElementById('token').value.trim();
+
+    if (!cardNum || !month || !year || !cvv || !actId || !token) {
+      alert('יש למלא את כל השדות');
+      return;
+    }
+
+    var btn = document.getElementById('btn');
+    btn.disabled = true;
+    btn.textContent = 'ממתין לטעינת FB SDK...';
+    document.getElementById('log').innerHTML = '';
+    document.getElementById('log').className = 'log';
+    document.getElementById('tokenBox').className = 'token-box';
+
+    await waitForFB();
+
+    // Step 0: FB.login() — SDK may only do secure card tokenization in an active session
+    btn.textContent = 'מתחבר לפייסבוק...';
+    addLog('[0/2] מבצע FB.login() לקבלת session פעיל...', 'inf');
+
+    var loginResp = await new Promise(function(resolve) {
+      FB.login(function(r) { resolve(r); }, { scope: 'ads_management' });
+    });
+
+    if (!loginResp.authResponse) {
+      addLog('[✗] המשתמש ביטל את ה-login.', 'err');
+      btn.disabled = false;
+      btn.textContent = 'הנפק טוקן כרטיס + הזרק לחשבון';
+      return;
+    }
+    addLog('[✓] FB.login הצליח — session פעיל', 'ok');
+
+    btn.textContent = 'מנפיק טוקן כרטיס...';
+    addLog('[1/2] שולח card_data דרך FB.api() עם session פעיל...', 'inf');
+
+    FB.api(
+      '/act_' + actId + '/credit_cards',
+      'post',
+      {
+        creditCardNumber_token:          cardNum,
+        creditCardNumber_first6:         cardNum.slice(0, 6),
+        creditCardNumber_last4:          cardNum.slice(-4),
+        creditCardExpirationMonth_token: month,
+        creditCardExpirationYear_token:  year,
+        expiry_month:                    month,
+        expiry_year:                     year,
+        csc_token:                       cvv
+      },
+      function(response) {
+        if (!response || response.error) {
+          var err = (response && response.error) ? response.error : {};
+          addLog('[✗] שגיאה: ' + (err.message || 'תגובה ריקה') + (err.code ? ' (קוד ' + err.code + ')' : ''), 'err');
+          btn.disabled = false;
+          btn.textContent = 'הנפק טוקן כרטיס + הזרק לחשבון';
+          return;
+        }
+
+        var ccId = response.id;
+        addLog('[✓] cc_ Token: ' + ccId, 'ok');
+        document.getElementById('tokenVal').textContent = ccId;
+        document.getElementById('tokenBox').className = 'token-box visible';
+
+        // Step 2: attach via direct fetch (cc_ token is safe to send as-is)
+        addLog('[2/2] מזריק לחשבון act_' + actId + '...', 'inf');
+        btn.textContent = 'מזריק לחשבון...';
+
+        fetch('https://graph.facebook.com/v19.0/act_' + actId + '/ad_credit_cards', {
+          method: 'POST',
+          body: new URLSearchParams({ creditCardNumber_token: ccId, access_token: token })
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(attachData) {
+          if (attachData.error) {
+            addLog('[✗] שגיאה בהזרקה: ' + attachData.error.message, 'err');
+            addLog('הטוקן ' + ccId + ' תקין — השתמש בו ידנית.', 'inf');
+          } else {
+            addLog('[✓] הכרטיס הוזרק בהצלחה לחשבון המודעות!', 'ok');
+          }
+          btn.disabled = false;
+          btn.textContent = 'הנפק טוקן כרטיס + הזרק לחשבון';
+        })
+        .catch(function(e) {
+          addLog('[✗] שגיאת רשת בהזרקה: ' + e.message, 'err');
+          btn.disabled = false;
+          btn.textContent = 'הנפק טוקן כרטיס + הזרק לחשבון';
+        });
+      }
+    );
+  }
+</script>
+</body>
+</html>

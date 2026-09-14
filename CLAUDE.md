@@ -5,80 +5,91 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-npm run dev          # Vite dev server with HMR (proxies /api/* to VITE_API_URL)
-npm run build        # tsc -b && vite build → outputs to dist/
-npm run lint         # ESLint across entire codebase
-npm start            # Express server (loads .env): SPA + local backend + /api proxy
-npm run seed:admin -- --name admin --password 'secret' [--role admin|supervisor|account_manager]
+npm run dev              # backend/server.js on PORT (API + sockets + panel routes) + Vite with HMR proxying to it
+npm run build            # tsc -b && vite build → outputs to dist/
+npm run lint             # ESLint (backend/ is ignored)
+npm start                # node backend/server.js — the production process: API, sockets, panel routes, dist/
+npm run install:backend  # npm ci --omit=dev inside backend/ (Heroku runs it after the build)
 ```
 
-Local dev needs a MongoDB on `MONGO_URI`. Start it with the DEFAULT dbpath —
+First-time setup: `npm ci && cd backend && npm ci`. Local dev needs a MongoDB on
+`MONGO_URI`. Start it with the DEFAULT dbpath —
 `mongod --dbpath /Users/a1234/data/db` — that is where the `dashen` database lives.
+Local env: root `.env` (see `.env.example`) plus `backend/.env.development`
+(both git-ignored; root `.env` wins for keys set in both).
 No test suite exists in this repo.
 
 TypeScript strict mode is enforced (`noUnusedLocals`, `noUnusedParameters`) — the build fails on unused declarations.
 
 ## Architecture
 
-### Runtime topology
+### Runtime topology — one repo, one process
 This repo is the Dashen Media Tech ops panel (formerly Iconiq — that company
 closed; all Iconiq/Make.com/Kliq-app/Fireberry branding and hard dependencies
-have been removed, see "Migration notes" below). It is a React SPA plus an
-Express server (`server.js`) that:
-1. Serves the Vite-built SPA from `dist/`
-2. **Local backend (MongoDB, in this repo — `server/db.js`, `server/auth.js`, `server/leads.js`):**
-   panel login (`POST /api/agents/login`, `GET /api/agents/me`), the managers
-   lists the admin UI needs, and the whole leads pipeline (`/api/leads/*`,
-   public intake at `POST /api/leads/intake` guarded by `x-api-key: LEADS_INTAKE_KEY`).
-   Toggled by `LOCAL_AUTH` (login) and `LOCAL_LEADS` (leads pipeline), both on by default.
-3. Proxies every other `/api/**` → `API_TARGET` (your external backend's origin — set it in `.env`)
-4. Runs the WOW-ads generation prompts locally (`POST /api/local-ads/generate`, see `server/localAdsPipeline.js`) instead of forwarding to Make.com
-5. Exchanges Facebook OAuth codes directly (`GET /auth/facebook/callback`, see `server/facebookOAuth.js`) instead of forwarding to a Make.com webhook
-6. Falls back all other routes to `index.html` (SPA routing)
+have been removed, see "Migration notes" below). It holds both halves and runs
+them as ONE Node process:
 
-Everything else the panel calls (clients, campaigns, wallet, WOW products,
-chats… — ~130 `/api/cpanel/*` endpoints, see `docs/API-ENDPOINTS.md`) is
-served by the **real backend**: the user's local clone of `iconiq-server`
-(`~/Documents/GitHub/iconiq/iconiq-server`, Express 5 CJS monolith). Local
-topology that works:
+- `src/` — the React SPA (Vite → `dist/`).
+- `backend/` — the Express 5 CommonJS backend, merged in on 2026-09-14 from
+  the former separate `backend/` repo. `backend/package.json` must stay
+  `"type": "commonjs"` with its own lockfile and `node_modules` (the root is
+  ESM). **`backend/server.js` is the entry point**: every backend `/api/*`
+  route (~130 `/api/cpanel/*` endpoints, see `docs/API-ENDPOINTS.md`),
+  socket.io, crons, the client-notify worker.
+- `server/` — the panel's own ESM server modules. `backend/server.js`
+  `require()`s `server/panel.js`, which has two hooks (Express answers in
+  registration order):
+  1. `mountPanelRoutes(app)` — BEFORE the backend's `/api` router: the leads
+     pipeline (`server/leads.js`, `/api/leads/*`, public intake
+     `POST /api/leads/intake` guarded by `x-api-key: LEADS_INTAKE_KEY`),
+     `POST /api/local-ads/generate` (`server/localAdsPipeline.js`, reads
+     `campaign.md`), `GET /auth/facebook/callback`, `/generated`.
+  2. `mountPanelSpa(app)` — AFTER every backend route: JSON 404 + JSON error
+     handler for `/api`, `dist/` static, GET `index.html` fallback for client
+     routes (the Cardcom return page is one of them).
 
-| process | port | how |
-|---|---|---|
-| iconiq-server | 3900 | `cd ~/Documents/GitHub/iconiq/iconiq-server && NODE_ENV=development node server.js` (reads its gitignored `.env.development`: local `MONGO_URI=…/dashen`, `DISABLE_WHOAPP=true`, `DISABLE_WOW_BETA=true`, `SERVER_BASE_URL=http://localhost:3900`, `CPANEL_BASE_URL=http://localhost:3910`) |
-| this repo | 3910 | `npm start` with `API_TARGET=http://localhost:3900`, `LOCAL_AUTH=0`, `LOCAL_LEADS=1`, `MONGO_URI=…/dashen` (the SAME database) |
+Login is the backend's (`POST /api/agents/login`, opaque `agents.token`,
+password = sha256(pw + "iconiq2024")); `server/auth.js` `requireAuth` checks
+that same token. The leads router attaches auth PER ROUTE, never router-wide,
+so the backend's public `/api/leads/*` endpoints (wa-click beacon, referral,
+posts, `?page_id=` Facebook leads) fall through to `backend/routes/leads.routes.js`.
+Moving a lead to בתהליך / לסלוק / לקוח פעיל runs `syncLeadToClient()` in
+`server/leads.js`, which writes exactly what the backend's Fireberry-free
+client creation writes (`cpanel_clients`, `support_chats`) plus a
+`business_profiles` seed — so the lead shows up in "כל הלקוחות" and opens as a
+client with the איפיון pre-filled.
 
-With `LOCAL_AUTH=0` the backend owns login (opaque `agents.token`,
-password = sha256(pw + "iconiq2024")); the leads module validates that token
-against the shared `agents` collection. Moving a lead to
-בתהליך / לסלוק / לקוח פעיל runs `syncLeadToClient()` in `server/leads.js`,
-which writes exactly what the backend's Fireberry-free client creation
-writes (`cpanel_clients`, `support_chats`) plus a `business_profiles` seed —
-so the lead shows up in "כל הלקוחות" and opens as a client with the איפיון
-pre-filled. Standalone mode (`LOCAL_AUTH=1`, no backend) still works for
-login + leads only.
+The SPA calls `/api` and opens socket.io on its own origin — leave
+`VITE_API_BASE` / `VITE_SOCKET_URL` unset. The process runs from the repo
+root: backend code must resolve files from `__dirname`, never `process.cwd()`.
 
 ### Production (Heroku + Atlas)
-Both apps run on Heroku (region eu, heroku-24) against ONE MongoDB Atlas database:
+One Heroku app, `dashen-cpanel` (region eu, heroku-24, Basic dyno) —
+https://dashen-cpanel-b76c272f93dd.herokuapp.com — auto-deployed by Heroku's
+GitHub integration from `main` of adir7070/C-panel-main (no GitHub Actions).
 
-| process | Heroku app | origin | GitHub |
-|---|---|---|---|
-| this repo | `dashen-cpanel` | https://dashen-cpanel-b76c272f93dd.herokuapp.com | adir7070/C-panel-main |
-| backend | `dashen-server` | https://dashen-server-9b097b27a93a.herokuapp.com | adir7070/iconiq-server |
-
-- **Deploys:** Heroku's GitHub integration auto-deploys `main` of each repo; there are no GitHub Actions.
-- **Backend repo history:** adir7070/iconiq-server starts from a fresh history. The old IconiqMotion repo had the Iconiq production `.env` and Google/Facebook credential files committed. It is kept locally as the `iconiq-legacy` remote. Never push it anywhere.
-- **Database:** Atlas `cluster0.tjiqrcj`, database `dashen`. `MONGO_URI` must be identical on both apps and end in `/dashen`. Both apps call `db()` with no name, so a path-less URI silently uses `test`, and then the backend's `initAdmin` runs against an empty DB.
-- **C-panel config vars:**
-  - `LOCAL_AUTH=0`, `LOCAL_LEADS=1`, `LEADS_INTAKE_KEY`.
-  - `API_TARGET` and `VITE_SOCKET_URL` = the backend origin (no `/api`, no trailing slash).
-  - `VITE_*` values are baked in at build time: changing one needs a new push. Never set `VITE_API_BASE`.
-- **Backend config vars:**
-  - Values are the Dashen ones from `.env.development`, never the old Iconiq `.env`. In production the backend loads no `.env` file at all.
-  - Required: `MONGO_URI`, `SERVER_BASE_URL` and `BASE_URL` (backend origin), `CPANEL_BASE_URL` (C-panel origin), `DISABLE_WHOAPP=true`, `DISABLE_WOW_BETA=true`.
-  - Keep `AWS_MONGO_URI` and `PEER_SERVER_URL` unset.
-  - Chrome for PDFs comes from the `heroku-community/chrome-for-testing` buildpack (`PUPPETEER_EXECUTABLE_PATH`).
-- **Backend dynos:** run exactly ONE. Its node-cron jobs and timers have no locks.
-- **Legacy Make.com webhooks:** env-gated and off (`PURCHASE_WEBHOOK_URL`, `WEBHOOK_URL`, `CARDCOM_LEGACY_NOTIFY_URL`). In production the first admin is only created from `INIT_ADMIN_PASSWORD`.
+- **Build:** `Procfile` is `web: node backend/server.js`; `heroku-postbuild` builds
+  the SPA, then `npm ci --omit=dev` in `backend/`. Buildpacks:
+  `heroku-community/chrome-for-testing` (Chrome for PDFs, `PUPPETEER_EXECUTABLE_PATH`),
+  then `heroku/nodejs`. Only the ROOT `.slugignore` counts (backend patterns are
+  prefixed `/backend/`).
+- **Database:** Atlas `cluster0.tjiqrcj`, database `dashen`. `MONGO_URI` must end
+  in `/dashen` — the code calls `db()` with no name, so a path-less URI silently
+  uses `test`, and then `initAdmin` runs against an empty DB.
+- **Config vars:** Dashen values only, never the old Iconiq `.env`; production
+  loads no `.env` file at all. `SERVER_BASE_URL` = `BASE_URL` = `CPANEL_BASE_URL` =
+  the app's own origin. `DISABLE_WHOAPP=true`, `DISABLE_WOW_BETA=true`,
+  `NODE_ENV=production`, `LEADS_INTAKE_KEY`, `GREEN_API_*`. Keep `AWS_MONGO_URI`
+  and `PEER_SERVER_URL` unset. `VITE_*` values are baked in at build time —
+  changing one needs a new push.
+- **Dynos:** exactly ONE web dyno — the backend's node-cron jobs and timers
+  have no locks.
+- **Legacy Make.com webhooks:** env-gated and off (`PURCHASE_WEBHOOK_URL`,
+  `WEBHOOK_URL`, `CARDCOM_LEGACY_NOTIFY_URL`). In production the first admin is
+  only created from `INIT_ADMIN_PASSWORD`.
+- **Retired:** the separate `dashen-server` Heroku app and the adir7070/iconiq-server
+  repo (superseded by `backend/`). The old IconiqMotion repo had Iconiq
+  production secrets committed — never reuse it.
 
 ### Leads (local)
 - Statuses: `new` חדש · `call_again` להתקשר שוב · `not_relevant` לא רלוונטי ·
@@ -95,7 +106,7 @@ Both apps run on Heroku (region eu, heroku-24) against ONE MongoDB Atlas databas
   `/api/packages/contract-pay` → `contractPaySuccess`, plus the in-contract
   coin add-on → `contractCoinsSuccess` in `controllers/packages.controller.js`).
 - Every one of them applies the payment through
-  `iconiq-server/services/purchase-sync.service.js`, in a crash-safe order:
+  `backend/services/purchase-sync.service.js`, in a crash-safe order:
   lock row in `package_transactions` (status crediting→done, unique index on
   `lowProfileId`) → `creditUserOnce` (users upsert — lead-born clients have
   no users doc; conditional on `creditedPayments`) → `recordRevenue`
@@ -121,7 +132,7 @@ Both apps run on Heroku (region eu, heroku-24) against ONE MongoDB Atlas databas
 
 ### Automatic client WhatsApp messages (Green API)
 - Outbox: triggers insert into `client_notifications` (unique `dedupeKey`);
-  the worker in `iconiq-server/services/client-notify.service.js` renders
+  the worker in `backend/services/client-notify.service.js` renders
   the Hebrew text (every message ends with "צוות דשן") and sends it via
   `services/greenapi.service.js` (`05…` is converted to `972…`).
 - Triggers:
@@ -152,12 +163,12 @@ Both apps run on Heroku (region eu, heroku-24) against ONE MongoDB Atlas databas
 
 ### Migration notes (Iconiq → Dashen Media Tech)
 - Iconiq closed; all UI branding now reads "דשן מדיה טק" / "Dashen Media Tech".
-- No hardcoded `iconiqmedia.co.il` host remains anywhere — `API_TARGET` /
-  `VITE_API_URL` / `VITE_SOCKET_URL` / `FB_*` are all required env vars now,
+- No hardcoded `iconiqmedia.co.il` host remains anywhere — `SERVER_BASE_URL` /
+  `BASE_URL` / `CPANEL_BASE_URL` / `FB_*` are all required env vars now,
   see `.env.example`.
 - The WOW-ads "Generate Again" flow and the Facebook OAuth reconnect flow
   used to proxy through Make.com webhooks; both now run locally in
-  `server.js` (see points 3–4 above). `campaign.md` is read verbatim at
+  `server/panel.js` (see "Runtime topology" above). `campaign.md` is read verbatim at
   runtime as the Gemini system prompt — edit that file to change the
   creative pipeline's behavior without touching code.
 - Features that only made sense with the old "Kliq" consumer mobile app
@@ -170,7 +181,7 @@ Both apps run on Heroku (region eu, heroku-24) against ONE MongoDB Atlas databas
 - **Fireberry (the old CRM) is fully gone — both repos.** In this repo: the
   Fireberry-embedded `/embed/:tab/:phone` iframe page, "import from Fireberry" /
   "sync assignments" on the admin clients page, and the Fireberry-fed leads
-  distribution. In `iconiq-server`: `getClientFbCredentials`, `addClient`,
+  distribution. In `backend/`: `getClientFbCredentials`, `addClient`,
   `getAppData` and `getClientFbDebug` are MongoDB-only; the Fireberry admin
   endpoints, the `listClients` CRM fallback, the Fireberry-shaped
   lead-distribution endpoints and the `fireberry_customers` index are deleted;
@@ -188,7 +199,7 @@ Both apps run on Heroku (region eu, heroku-24) against ONE MongoDB Atlas databas
 ### Facebook / Meta: switched off
 Every per-client Meta credential used to live in Fireberry, so no client has a
 usable token today. Rather than let ~28 Graph-backed routes fail each in their
-own way, `middlewares/fb-gate.middleware.js` in `iconiq-server` answers them all
+own way, `middlewares/fb-gate.middleware.js` in `backend/` answers them all
 with `503 { error: "fb_unavailable" }`. In this repo `isFbUnavailable(err)`
 (exported from `src/api/client.ts`, also re-thrown by `softFetch` and surfaced
 as `errorCode` by `useApi`) turns that into a calm `<FeatureUnavailable />`
