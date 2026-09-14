@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "context-brain": {
+      "command": "C:\\Users\\Goals\\Desktop\\contexa-brain-mcp\\target\\release\\context-brain.exe",
+      "args": ["serve", "--project", "C:\\Users\\Goals\\Desktop\\cpanel"]
+    }
+  }
+}
