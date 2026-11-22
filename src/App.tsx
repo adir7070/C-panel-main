@@ -16,6 +16,7 @@ import { TasksPage } from "./pages/TasksPage";
 import { AppointmentsPage } from "./pages/AppointmentsPage";
 import { LogsPage } from "./pages/LogsPage";
 import { LeadsPage } from "./pages/LeadsPage";
+import { LeadDetailPage } from "./pages/LeadDetailPage";
 import { BroadcastPage } from "./pages/BroadcastPage";
 import { PipelinePage } from "./pages/PipelinePage";
 import { DigestPage } from "./pages/DigestPage";
@@ -145,6 +146,22 @@ function AnimatedRoutes() {
             element={
               <Protected>
                 <LeadsPage />
+              </Protected>
+            }
+          />
+          <Route
+            path='/leads/:id'
+            element={
+              <Protected>
+                <LeadDetailPage />
+              </Protected>
+            }
+          />
+          <Route
+            path='/leads/:id/:tab'
+            element={
+              <Protected>
+                <LeadDetailPage />
               </Protected>
             }
           />

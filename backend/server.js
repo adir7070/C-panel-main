@@ -669,23 +669,15 @@ async function boot() {
     console.error("[Startup] initAdmin:", e.message);
   }
 
-  /* Products catalog — seed the BillingTab defaults if collection is empty.
+  /* Products catalog — insert any of the 64 sales-kit services that are
+     missing (service-catalog.data.js). The old item/prebuilt/social/coins
+     products are no longer seeded.
      Must run AFTER connectDB() (the controller's eager call may have fired
      before the DB was ready). */
   try {
     await require("./services/cpanel-products.service").seedDefaults();
   } catch (e) {
     console.error("[Startup] cpanel-products seedDefaults:", e.message);
-  }
-  try {
-    await require("./services/cpanel-products.service").refreshSocialDefaults();
-  } catch (e) {
-    console.error("[Startup] cpanel-products refreshSocialDefaults:", e.message);
-  }
-  try {
-    await require("./services/cpanel-products.service").deactivateAppCoinsFromCpanel();
-  } catch (e) {
-    console.error("[Startup] cpanel-products deactivateAppCoinsFromCpanel:", e.message);
   }
 
   try {

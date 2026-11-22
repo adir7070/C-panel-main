@@ -170,12 +170,10 @@ const COL = () => getDB().collection("personal_packages");
 
 /* ── helpers ──────────────────────────────────────────────────────────── */
 
-function maxDiscountForAgent(agent) {
-  const phone = String(agent?.phone || "").replace(/\D/g, "");
-  if (agent?.name === "admin-boss") return 100;
-  if (phone.endsWith("542587070")) return 100;
-  if (agent?.role === "admin") return 100;
-  return 20;
+/* Sales kit: the maximum discount is 10% — for everyone, admins included
+   (user decision 2026-11-22). */
+function maxDiscountForAgent(_agent) {
+  return 10;
 }
 
 function computeFinalPrice(basePrice, discountPct, maxDiscount = 20) {
@@ -195,13 +193,9 @@ function validateDraft(body, maxDiscount = 20) {
 exports.list = async (req, res) => {
   try {
     const { phone } = req.params;
-    // Make sure the 3 subscription tiers (REGULAR/PRO/VIP) are present in this
-    // client's personal catalog (idempotent). Non-fatal if it fails.
-    try {
-      await require("../services/tier-subscription.service").ensureTierOffers(phone);
-    } catch (e) {
-      console.warn("[PersonalPackages] ensureTierOffers:", e.message);
-    }
+    /* The REGULAR/PRO/VIP tier offers are no longer seeded into every
+       catalog (tier-subscription.service ensureTierOffers) — removed
+       2026-11-22 at the user's request; new packages are coming. */
     const pkgs = await COL()
       .find({ phone, active: true })
       .sort({ createdAt: -1 })
@@ -326,6 +320,11 @@ exports.chargePersonalIframe = async (req, res) => {
 
     const pkg = await COL().findOne({ _id: new ObjectId(id), phone, active: true, purchased: false });
     if (!pkg) return res.status(404).json({ error: "חבילה אישית לא נמצאה או כבר נרכשה" });
+    /* A quote is setup + monthly — it must not go through this one-amount
+       charge. Its signing and charging flow is the next stage. */
+    if (pkg.kind === "quote") {
+      return res.status(409).json({ error: "quote_not_chargeable", message: "חיוב הצעת מחיר יתווסף בשלב החתימה והתשלום" });
+    }
 
     /* No fallback host — the old Iconiq servers are gone, and a silent
        fallback would send Cardcom's webhook and redirect nowhere. */

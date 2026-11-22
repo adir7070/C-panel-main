@@ -3,6 +3,10 @@ import express from "express";
 import { ObjectId } from "mongodb";
 import { getDb } from "./db.js";
 import { requireAuth, requireAdmin, serverError, agentIdQuery } from "./auth.js";
+/* CommonJS (backend/package.json) — shared with the backend's payment path,
+   so a lead converted by a status change and one converted by a payment get
+   exactly the same client records. */
+import leadClient from "../backend/services/lead-client.service.js";
 
 /* ── Lead model ───────────────────────────────────────────────────────
    {
@@ -14,6 +18,9 @@ import { requireAuth, requireAdmin, serverError, agentIdQuery } from "./auth.js"
      statusHistory: [{ from, to, by, byName, at }],
      activatedAt, activatedBy,
      duplicateOf: id of an earlier lead with the same phone (intake only),
+     answers: [{ question, answer }] — what the lead filled in (intake only),
+     tracking: { utm_source, fbclid, … } — ad/form tracking fields (intake only),
+     clientPhone, convertedAt: set once the lead became a client,
      raw: sanitized original intake payload (capped),
      createdAt, updatedAt
    } */
@@ -73,7 +80,7 @@ function cappedRaw(body) {
 function extractLead(body) {
   const b = body && typeof body === "object" && !Array.isArray(body) ? body : {};
   const name = str(b.name ?? b.fullName ?? b.full_name ?? b["שם"] ?? b["שם מלא"] ?? "", 200);
-  const phoneRaw = str(b.phone ?? b.tel ?? b.telephone ?? b.mobile ?? b["טלפון"] ?? b["נייד"] ?? "", 50);
+  const phoneRaw = str(b.phone ?? b.phone_number ?? b.tel ?? b.telephone ?? b.mobile ?? b["טלפון"] ?? b["נייד"] ?? b["מספר טלפון"] ?? "", 50);
   const phone = normalizePhone(phoneRaw);
   if (!name && !phone) return null;
   return {
@@ -89,12 +96,82 @@ function extractLead(body) {
   };
 }
 
+/* Every key extractLead() reads, plus fields that are never shown to the
+   team. Whatever else the payload carries is an answer the lead gave. */
+const CORE_KEYS = new Set([
+  "name", "fullName", "full_name", "שם", "שם מלא",
+  "phone", "phone_number", "tel", "telephone", "mobile", "טלפון", "נייד", "מספר טלפון",
+  "email", "אימייל", "מייל",
+  "business", "businessName", "company", "עסק", "שם העסק",
+  "field", "businessField", "industry", "תחום", "תחום עיסוק",
+  "source", "מקור",
+  "message", "notes", "text", "הודעה", "הערות",
+  "campaign", "campaignName",
+  "answers", "questions", "שאלות", "תשובות",
+  "api_key", "apiKey", "x-api-key", "key", "token", "secret", "password",
+]);
+/* Ad / form plumbing: kept, but shown apart from the answers. */
+const TRACKING_KEYS = new Set([
+  "fbclid", "gclid", "form_id", "formId", "form_name", "page_id", "ad_id", "ad_name",
+  "adset_id", "adset_name", "campaign_id", "leadgen_id", "created_time", "platform", "referrer", "landing_page", "url",
+]);
+const isTrackingKey = k => k.startsWith("utm_") || TRACKING_KEYS.has(k);
+const MAX_ANSWERS = 100;
+
+function answerText(v) {
+  if (v === undefined || v === null) return "";
+  if (Array.isArray(v)) return v.map(answerText).filter(Boolean).join(", ").slice(0, 2000);
+  if (typeof v === "object") return JSON.stringify(sanitizeRaw(v) ?? {}).slice(0, 2000);
+  if (typeof v === "boolean") return v ? "כן" : "לא";
+  return String(v).trim().slice(0, 2000);
+}
+
+/* The questions the lead answered, from either shape:
+     answers: [{ question, answer }]   (also {q,a} / {label,value} / Facebook's {name, values})
+     answers: { "<question>": "<answer>" }
+   plus any top-level field we don't otherwise understand ("budget": "5000"). */
+export function extractAnswers(body) {
+  const b = body && typeof body === "object" && !Array.isArray(body) ? body : {};
+  const answers = [];
+  const tracking = {};
+  const push = (q, a) => {
+    const question = str(q, 300);
+    const answer = answerText(a);
+    if (question && answer && answers.length < MAX_ANSWERS) answers.push({ question, answer });
+  };
+  const listed = b.answers ?? b.questions ?? b["שאלות"] ?? b["תשובות"];
+  if (Array.isArray(listed)) {
+    for (const it of listed) {
+      if (it && typeof it === "object") {
+        push(it.question ?? it.q ?? it.label ?? it.title ?? it.name ?? it["שאלה"], it.answer ?? it.a ?? it.value ?? it.values ?? it["תשובה"]);
+      }
+    }
+  } else if (listed && typeof listed === "object") {
+    for (const [k, v] of Object.entries(listed)) push(k, v);
+  }
+  for (const [k, v] of Object.entries(b)) {
+    if (CORE_KEYS.has(k) || k.startsWith("$") || k.startsWith("_") || k.includes(".")) continue;
+    if (isTrackingKey(k)) {
+      const t = answerText(v);
+      if (t && Object.keys(tracking).length < 30) tracking[k.slice(0, 100)] = t.slice(0, 500);
+    } else {
+      push(k, v);
+    }
+  }
+  return { answers, tracking };
+}
+
 export function buildLeadDoc(body, { source, assignedTo = null, assignedToName = null, keepRaw = false } = {}) {
   const core = extractLead(body);
   if (!core) return null;
   const now = new Date();
+  /* Only intake payloads (keepRaw) carry a questionnaire — a CSV import's
+     extra columns are not answers. */
+  const { answers, tracking } = keepRaw ? extractAnswers(body) : { answers: [], tracking: {} };
   return {
     ...core,
+    answers,
+    tracking,
     source: source || core.source || "intake",
     status: "new",
     assignedTo,
@@ -116,50 +193,18 @@ async function findAgent(db, agentId) {
 
 /* ── Lead → client sync ────────────────────────────────────────────────
    When a lead moves to בתהליך / לסלוק / לקוח פעיל it becomes a client in
-   the main backend's collections (same shared MongoDB): the exact writes
-   the backend's own Fireberry-free path does (cpanel_clients mapping +
-   support_chats owner), plus a business_profiles seed so the איפיון tab
-   opens pre-filled. Idempotent — re-running just refreshes the owner. */
+   the main backend's collections (same shared MongoDB). The writes live in
+   backend/services/lead-client.service.js — the payment path uses the same
+   code when a lead is charged straight from its catalog. Idempotent —
+   re-running just refreshes the owner. */
 export const CLIENT_STATUSES = new Set(["in_process", "to_charge", "active_client"]);
 
-async function syncLeadToClient(db, lead, actor) {
-  if (!lead.phone) return { skipped: "no_phone" };
-  const now = new Date();
+function syncLeadToClient(db, lead, actor) {
   // owner = the manager the lead is assigned to; fall back to whoever acted
-  const ownerId = lead.assignedTo || actor.id;
-  const ownerName = lead.assignedToName || actor.nickname || actor.name || "";
-  const name = lead.name || lead.business || lead.phone;
-
-  await db.collection("cpanel_clients").updateOne(
-    { phone: lead.phone },
-    {
-      $set: { agentId: String(ownerId), agentName: ownerName, phone: lead.phone, customerName: name, leadId: String(lead._id) },
-      $setOnInsert: { firebery1013Id: null, customerId: null, createdAt: now, source: "lead" },
-    },
-    { upsert: true },
-  );
-  await db.collection("support_chats").updateOne(
-    { phone: lead.phone },
-    {
-      $set: { accountManagerId: String(ownerId), accountManagerName: ownerName || null, updated_at: now },
-      $setOnInsert: { _id: lead.phone, phone: lead.phone, name, status: "open", created_at: now },
-    },
-    { upsert: true },
-  );
-  const profileSeed = { phone: lead.phone, updatedAt: now };
-  if (lead.business) profileSeed.businessName = lead.business;
-  if (lead.email) profileSeed.email = lead.email;
-  if (lead.field) profileSeed.businessField = lead.field;
-  await db.collection("business_profiles").updateOne(
-    { phone: lead.phone },
-    { $setOnInsert: { ...profileSeed, createdAt: now, businessPhone: lead.phone } },
-    { upsert: true },
-  );
-  await db.collection("leads").updateOne(
-    { _id: lead._id },
-    { $set: { clientPhone: lead.phone, convertedAt: lead.convertedAt || now, updatedAt: now } },
-  );
-  return { clientPhone: lead.phone };
+  return leadClient.syncLeadToClient(db, lead, {
+    id: lead.assignedTo || actor.id,
+    name: lead.assignedToName || actor.nickname || actor.name || "",
+  });
 }
 
 /* Welcome WhatsApp for a lead that just became "לקוח פעיל". Only queued
@@ -282,7 +327,7 @@ leadsRouter.get("/api/leads", fbLeadsRoute, requireAuth, async (req, res) => {
     const offset = Math.max(0, Number(req.query.offset) || 0);
     const col = db.collection("leads");
     const [rows, total] = await Promise.all([
-      col.find(q, { projection: { raw: 0 } }).sort({ createdAt: -1 }).skip(offset).limit(limit).toArray(),
+      col.find(q, { projection: { raw: 0, answers: 0, tracking: 0 } }).sort({ createdAt: -1 }).skip(offset).limit(limit).toArray(),
       col.countDocuments(q),
     ]);
     res.json({ leads: rows.map(d => serialize(d)), total });
@@ -423,12 +468,40 @@ async function loadScoped(db, req, res) {
   return lead;
 }
 
+/* GET /api/leads/for-client/:phone — the lead(s) a client came from, for the
+   "מקור הליד" card on the client page. Allowed for admins, the client's
+   manager (cpanel_clients) and the manager the lead is assigned to.
+   (The backend owns GET /api/leads/by-phone/:phone — different data.) */
+leadsRouter.get("/api/leads/for-client/:phone", requireAuth, async (req, res) => {
+  const phone = normalizePhone(req.params.phone);
+  if (!phone) return res.json({ leads: [] });
+  try {
+    const db = await getDb();
+    const q = { $or: [{ phone }, { clientPhone: phone }], statusHistory: { $exists: true } };
+    if (req.agent.role !== "admin") {
+      const owns = await db.collection("cpanel_clients").findOne({ phone, agentId: req.agent.id }, { projection: { _id: 1 } });
+      if (!owns) q.assignedTo = req.agent.id;
+    }
+    const rows = await db.collection("leads").find(q).sort({ createdAt: -1 }).limit(20).toArray();
+    res.json({ leads: rows.map(d => serialize(withAnswers(d))) });
+  } catch (err) {
+    serverError(res, err, "leads/for-client");
+  }
+});
+
+/* Intake leads stored before answers were extracted still have their raw
+   payload — derive the answers from it on read. */
+function withAnswers(lead) {
+  if (lead.answers || !lead.raw || lead.raw._truncated) return lead;
+  return { ...lead, ...extractAnswers(lead.raw) };
+}
+
 // GET /api/leads/:id  (includes the sanitized raw intake payload)
 leadsRouter.get("/api/leads/:id", idRoute, requireAuth, async (req, res) => {
   try {
     const db = await getDb();
     const lead = await loadScoped(db, req, res);
-    if (lead) res.json({ lead: serialize(lead, { withRaw: true }) });
+    if (lead) res.json({ lead: serialize(withAnswers(lead), { withRaw: true }) });
   } catch (err) {
     serverError(res, err, "leads/get");
   }
@@ -447,7 +520,13 @@ leadsRouter.patch("/api/leads/:id", idRoute, requireAuth, async (req, res) => {
       if (body[k] !== undefined) $set[k] = str(body[k], 200);
     }
     if (body.message !== undefined) $set.message = str(body.message, 2000);
-    if (body.phone !== undefined) { $set.phoneRaw = str(body.phone, 50); $set.phone = normalizePhone(body.phone); }
+    if (body.phone !== undefined && normalizePhone(body.phone) !== lead.phone) {
+      /* The client, its catalog and payments are all keyed by this phone. */
+      if (lead.clientPhone) {
+        return res.status(409).json({ error: "phone_locked", message: "הליד כבר נפתח כלקוח — אי אפשר לשנות לו טלפון" });
+      }
+      $set.phoneRaw = str(body.phone, 50); $set.phone = normalizePhone(body.phone);
+    }
     if (body.status !== undefined) {
       if (!LEAD_STATUSES.includes(body.status)) {
         return res.status(400).json({ error: "bad_status", message: `סטטוס לא חוקי. אפשרויות: ${LEAD_STATUSES.join(", ")}` });

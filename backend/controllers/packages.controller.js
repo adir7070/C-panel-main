@@ -1474,6 +1474,7 @@ exports.contractPay = async (req, res) => {
 
     if (!pkg) return res.status(404).json({ error: "חבילה אישית לא נמצאה" });
     if (pkg.purchased) return res.status(400).json({ error: "החבילה כבר שולמה" });
+    if (pkg.kind === "quote") return res.status(409).json({ error: "quote_not_chargeable", message: "חיוב הצעת מחיר יתווסף בשלב החתימה והתשלום" });
     if (coinPackageId && !coinPkg) return res.status(404).json({ error: "חבילת מטבעות לא נמצאה" });
 
     const baseUrl    = requiredEnv("SERVER_BASE_URL");

@@ -16,6 +16,9 @@ export const LEAD_STATUSES: LeadStatus[] = [
   "new", "call_again", "not_relevant", "in_process", "to_charge", "active_client",
 ];
 
+/** Statuses that open the lead as a client (server/leads.js CLIENT_STATUSES). */
+export const CLIENT_LEAD_STATUSES: LeadStatus[] = ["in_process", "to_charge", "active_client"];
+
 export const LEAD_STATUS_LABEL: Record<LeadStatus, string> = {
   new:           "חדש",
   call_again:    "להתקשר שוב",
@@ -50,6 +53,12 @@ export interface LeadStatusChange {
   at: string;
 }
 
+/** One question the lead answered on the intake form. */
+export interface LeadAnswer {
+  question: string;
+  answer: string;
+}
+
 export interface Lead {
   id: string;
   name: string;
@@ -69,6 +78,13 @@ export interface Lead {
   activatedAt: string | null;
   activatedBy: string | null;
   duplicateOf?: string | null;
+  /** Intake questionnaire — only on getLead / getLeadsForClient, not in the list. */
+  answers?: LeadAnswer[];
+  /** utm_* / fbclid / form ids that came with the intake payload. */
+  tracking?: Record<string, string>;
+  /** Set once the lead became a client (בתהליך / לסלוק / לקוח פעיל, or a payment). */
+  clientPhone?: string | null;
+  convertedAt?: string | null;
   raw?: Record<string, unknown>;
   createdAt: string;
   updatedAt: string;
@@ -98,6 +114,11 @@ export function getLeadStats() {
 
 export function getLead(id: string) {
   return req<{ lead: Lead }>(`/leads/${encodeURIComponent(id)}`);
+}
+
+/** The lead(s) a client came from — the "מקור הליד" card on the client page. */
+export function getLeadsForClient(phone: string) {
+  return req<{ leads: Lead[] }>(`/leads/for-client/${encodeURIComponent(phone)}`);
 }
 
 export type LeadPatch = Partial<Pick<Lead, "name" | "phone" | "email" | "business" | "field" | "message" | "campaign" | "source" | "status">> & {

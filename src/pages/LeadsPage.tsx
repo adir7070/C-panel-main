@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
-  listLeads, getLeadStats, updateLead, addLeadNote, activateLead, deleteLead, importLeads,
-  LEAD_STATUSES, LEAD_STATUS_LABEL, LEAD_STATUS_COLOR, formatLeadDate, waLink,
+  listLeads, getLeadStats, updateLead, importLeads,
+  LEAD_STATUSES, LEAD_STATUS_LABEL, LEAD_STATUS_COLOR, formatLeadDate,
   type Lead, type LeadStatus,
 } from "../api/leads";
 import { getAccountManagers, type AccountManager } from "../api/client";
@@ -18,17 +19,21 @@ import { EmptyState } from "../components/ui/EmptyState";
 import { Modal } from "../components/ui/Modal";
 import { Field } from "../components/ui/Field";
 import { Input, Textarea } from "../components/ui/Input";
+import { PhoneLinks, StatusSelect } from "../components/leads/LeadParts";
 
 /**
  * LeadsPage — the agency's own incoming-leads pipeline (prospective
  * clients), served by the local leads API in server/leads.js.
  *   • intake lands via POST /api/leads/intake (see admin "לידים לחלוקה")
  *   • managers see the leads assigned to them; admins see everything
- *   • each lead: status (6 states), notes, "make active client"
+ *   • each lead: status (6 states) inline; clicking a row opens the lead
+ *     screen (LeadDetailPage, /leads/:id) — details, intake answers,
+ *     notes, history and the personal catalog
  */
 export function LeadsPage() {
   const { agent } = useAuth();
   const toast = useToast();
+  const navigate = useNavigate();
   const isAdmin = agent?.role === "admin";
 
   /* Filters */
@@ -56,11 +61,6 @@ export function LeadsPage() {
   const { data: managersData } = useApi(managersFetcher, [managersFetcher]);
   const managers = useMemo(() => managersData ?? [], [managersData]);
 
-  /* Selected lead (detail modal). We keep the row that was clicked as a
-     snapshot and prefer the fresh copy whenever it is still in the list —
-     so the modal shows live data but doesn't slam shut when a status
-     change pushes the lead out of the current filter. */
-  const [openSnapshot, setOpenSnapshot] = useState<Lead | null>(null);
   const [newOpen, setNewOpen] = useState(false);
   const leads = useMemo(() => data?.leads ?? [], [data]);
 
@@ -75,11 +75,12 @@ export function LeadsPage() {
     return p && l.status === p.prev ? { ...l, status: p.status } : l;
   }, [localPatch]);
 
-  const openLead = useMemo(() => {
-    if (!openSnapshot) return null;
-    const fresh = leads.find(l => l.id === openSnapshot.id);
-    return fresh ? view(fresh) : openSnapshot;
-  }, [openSnapshot, leads, view]);
+  /* ⌘/Ctrl-click opens the lead screen in a new tab. */
+  function openLead(e: React.MouseEvent, id: string) {
+    const url = `/leads/${id}`;
+    if (e.metaKey || e.ctrlKey) window.open(url, "_blank");
+    else navigate(url);
+  }
 
   async function changeStatus(lead: Lead, status: LeadStatus) {
     if (status === lead.status) return;
@@ -195,7 +196,7 @@ export function LeadsPage() {
                     return (
                       <tr
                         key={l.id}
-                        onClick={() => setOpenSnapshot(l)}
+                        onClick={e => openLead(e, l.id)}
                         style={{ borderTop: "1px solid var(--rule)", cursor: "pointer" }}
                         onMouseEnter={e => (e.currentTarget.style.background = "var(--bg-tint)")}
                         onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
@@ -239,25 +240,6 @@ export function LeadsPage() {
         )}
       </section>
 
-      {/* ── Detail modal ── */}
-      <Modal
-        open={!!openLead}
-        onClose={() => setOpenSnapshot(null)}
-        size="lg"
-        eyebrow={openLead ? LEAD_STATUS_LABEL[openLead.status] : undefined}
-        title={openLead?.name || "ליד"}
-      >
-        {openLead && (
-          <LeadDetail
-            lead={openLead}
-            isAdmin={isAdmin}
-            managers={managers}
-            onChanged={reload}
-            onDeleted={() => { setOpenSnapshot(null); reload(); }}
-          />
-        )}
-      </Modal>
-
       {/* ── Manual lead ── */}
       <Modal open={newOpen} onClose={() => setNewOpen(false)} eyebrow="ליד ידני" title="הוספת ליד">
         {newOpen && (
@@ -269,171 +251,6 @@ export function LeadsPage() {
         )}
       </Modal>
     </Layout>
-  );
-}
-
-/* ── Detail panel ────────────────────────────────────────────────────── */
-
-function LeadDetail({ lead, isAdmin, managers, onChanged, onDeleted }: {
-  lead: Lead;
-  isAdmin: boolean;
-  managers: AccountManager[];
-  onChanged: () => void;
-  onDeleted: () => void;
-}) {
-  const toast = useToast();
-  const [busy, setBusy] = useState<string | null>(null);
-  const [noteText, setNoteText] = useState("");
-
-  async function run(key: string, fn: () => Promise<unknown>, okMsg: string) {
-    setBusy(key);
-    try {
-      await fn();
-      toast.ok(okMsg);
-      onChanged();
-    } catch (err) {
-      toast.error(err instanceof Error ? err.message : "שגיאה");
-    } finally {
-      setBusy(null);
-    }
-  }
-
-  return (
-    <div style={{ display: "grid", gap: "var(--s-5)", padding: "var(--s-2) 0" }}>
-      {/* Contact block */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "var(--s-3)" }}>
-        <KV label="טלפון"><PhoneLinks phone={lead.phone} /></KV>
-        <KV label="אימייל">{lead.email ? <a href={`mailto:${lead.email}`} dir="ltr">{lead.email}</a> : "—"}</KV>
-        <KV label="עסק">{lead.business || "—"}</KV>
-        <KV label="תחום">{lead.field || "—"}</KV>
-        <KV label="מקור">{lead.source || "—"}{lead.campaign ? ` · ${lead.campaign}` : ""}</KV>
-        <KV label="נוצר">{formatLeadDate(lead.createdAt)}</KV>
-        {isAdmin && <KV label="משויך ל">{lead.assignedToName || "לא משויך"}</KV>}
-        {lead.activatedAt && <KV label="הפך ללקוח פעיל">{formatLeadDate(lead.activatedAt)}</KV>}
-      </div>
-
-      {lead.message && (
-        <div className="card" style={{ background: "var(--bg-tint)", padding: "var(--s-3) var(--s-4)" }}>
-          <p className="t-eyebrow" style={{ marginBottom: 4 }}>הודעה מהליד</p>
-          <p className="t-body" style={{ whiteSpace: "pre-wrap", margin: 0 }}>{lead.message}</p>
-        </div>
-      )}
-
-      {/* Status */}
-      <div>
-        <p className="t-eyebrow" style={{ marginBottom: 8 }}>סטטוס</p>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-          {LEAD_STATUSES.map(s => {
-            const active = lead.status === s;
-            return (
-              <button
-                key={s}
-                type="button"
-                disabled={!!busy}
-                onClick={() => !active && run(`status:${s}`, () => updateLead(lead.id, { status: s }), `סטטוס עודכן: ${LEAD_STATUS_LABEL[s]}`)}
-                style={{
-                  padding: "6px 12px", borderRadius: 99, cursor: active ? "default" : "pointer",
-                  border: `1.5px solid ${LEAD_STATUS_COLOR[s]}`,
-                  background: active ? LEAD_STATUS_COLOR[s] : "transparent",
-                  color: active ? "#fff" : LEAD_STATUS_COLOR[s],
-                  fontSize: 12, fontWeight: 700,
-                }}
-              >
-                {LEAD_STATUS_LABEL[s]}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Primary actions */}
-      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
-        {lead.status !== "active_client" && (
-          <Button
-            loading={busy === "activate"}
-            disabled={!!busy}
-            onClick={() => run("activate", () => activateLead(lead.id), "הליד הפך ללקוח פעיל")}
-            style={{ background: "linear-gradient(135deg, #16a34a 0%, #15803d 100%)", color: "#fff", border: "none" }}
-          >
-            ✓ הפוך ללקוח פעיל
-          </Button>
-        )}
-        {isAdmin && (
-          <select
-            className="input"
-            style={{ maxWidth: 240 }}
-            value={lead.assignedTo ?? ""}
-            disabled={!!busy}
-            onChange={e => run("assign", () => updateLead(lead.id, { assignedTo: e.target.value || null }), "השיוך עודכן")}
-          >
-            <option value="">— לא משויך —</option>
-            {managers.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
-          </select>
-        )}
-        {isAdmin && (
-          <Button
-            variant="danger"
-            size="sm"
-            disabled={!!busy}
-            style={{ marginInlineStart: "auto" }}
-            onClick={() => {
-              if (!window.confirm(`למחוק את הליד "${lead.name}" לצמיתות?`)) return;
-              run("delete", () => deleteLead(lead.id).then(onDeleted), "הליד נמחק");
-            }}
-          >
-            מחק
-          </Button>
-        )}
-      </div>
-
-      {/* Notes */}
-      <div>
-        <p className="t-eyebrow" style={{ marginBottom: 8 }}>הערות · {lead.notes?.length ?? 0}</p>
-        <div style={{ display: "grid", gap: 8, maxHeight: 260, overflowY: "auto" }}>
-          {(lead.notes ?? []).length === 0 && <p className="t-meta">אין הערות עדיין.</p>}
-          {[...(lead.notes ?? [])].reverse().map(n => (
-            <div key={n.id} className="card" style={{ padding: "var(--s-3)", background: "var(--paper)" }}>
-              <p className="t-meta" style={{ fontSize: 11, marginBottom: 4 }}>
-                <strong style={{ color: "var(--ink)" }}>{n.byName}</strong> · {formatLeadDate(n.at)}
-              </p>
-              <p className="t-body" style={{ whiteSpace: "pre-wrap", margin: 0 }}>{n.text}</p>
-            </div>
-          ))}
-        </div>
-        <div style={{ display: "grid", gap: 8, marginTop: 10 }}>
-          <Textarea
-            rows={3}
-            value={noteText}
-            onChange={e => setNoteText(e.target.value)}
-            placeholder="הוסף הערה על השיחה / הסיכום / המשך טיפול…"
-          />
-          <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            <Button
-              size="sm"
-              loading={busy === "note"}
-              disabled={!!busy || !noteText.trim()}
-              onClick={() => run("note", async () => { await addLeadNote(lead.id, noteText.trim()); setNoteText(""); }, "ההערה נוספה")}
-            >
-              הוסף הערה
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      {/* History */}
-      {(lead.statusHistory ?? []).length > 0 && (
-        <div>
-          <p className="t-eyebrow" style={{ marginBottom: 6 }}>היסטוריית סטטוס</p>
-          <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gap: 4 }}>
-            {[...lead.statusHistory].reverse().map((h, i) => (
-              <li key={i} className="t-meta" style={{ fontSize: 11 }}>
-                {formatLeadDate(h.at)} · {h.byName}: {LEAD_STATUS_LABEL[h.from] ?? h.from} → <strong style={{ color: LEAD_STATUS_COLOR[h.to] }}>{LEAD_STATUS_LABEL[h.to] ?? h.to}</strong>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </div>
   );
 }
 
@@ -506,51 +323,6 @@ function StatusPill({ label, count, color, active, onClick }: { label: string; c
       {label}
       <span className="num" dir="ltr" style={{ fontWeight: 800, color }}>{count.toLocaleString("he-IL")}</span>
     </button>
-  );
-}
-
-function StatusSelect({ value, onChange }: { value: LeadStatus; onChange: (s: LeadStatus) => void }) {
-  const color = LEAD_STATUS_COLOR[value];
-  return (
-    <select
-      value={value}
-      onChange={e => onChange(e.target.value as LeadStatus)}
-      style={{
-        padding: "4px 8px", borderRadius: 99, fontSize: 12, fontWeight: 700, cursor: "pointer",
-        border: `1.5px solid ${color}`, color, background: `${color}12`,
-      }}
-    >
-      {LEAD_STATUSES.map(s => <option key={s} value={s}>{LEAD_STATUS_LABEL[s]}</option>)}
-    </select>
-  );
-}
-
-function PhoneLinks({ phone }: { phone: string }) {
-  if (!phone) return <span className="t-meta">—</span>;
-  return (
-    <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
-      <a href={`tel:${phone}`} dir="ltr" className="num" style={{ fontSize: 12, color: "var(--ink)", textDecoration: "none" }}>{phone}</a>
-      <a
-        href={waLink(phone)}
-        target="_blank"
-        rel="noreferrer"
-        title="פתח WhatsApp"
-        style={{
-          display: "inline-flex", alignItems: "center", justifyContent: "center",
-          width: 22, height: 22, borderRadius: 99, background: "#25D366", color: "#fff",
-          fontSize: 11, fontWeight: 800, textDecoration: "none",
-        }}
-      >W</a>
-    </span>
-  );
-}
-
-function KV({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <div>
-      <p className="t-eyebrow" style={{ marginBottom: 2 }}>{label}</p>
-      <div style={{ color: "var(--ink)", fontSize: 13 }}>{children}</div>
-    </div>
   );
 }
 

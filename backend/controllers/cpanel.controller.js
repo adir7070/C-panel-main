@@ -57,7 +57,9 @@ exports.authMiddleware = async (req, res, next) => {
  * Rules:
  *   • role === "admin"           → always allowed (full visibility)
  *   • role === "account_manager" → only if cpanel_clients has a row mapping
- *                                  this phone to this agent's _id.
+ *                                  this phone to this agent's _id — or, while
+ *                                  no one owns the phone as a client, a panel
+ *                                  lead with that phone is assigned to them.
  *
  * On denial we return 403 with a stable `error: "not_your_client"` code and
  * a Hebrew message + the assigned manager's name (when we can resolve it),
@@ -95,11 +97,20 @@ exports.requireClientAccess = async (req, res, next) => {
     );
     if (mapping) return next();
 
+    const otherMapping = await cpanelClientsCol().findOne({ phone }, { projection: { agentId: 1 } });
+
+    /* Not a client yet, but a panel lead assigned to this manager: the lead
+       screen opens its personal catalog (quote, contract, charge) before the
+       lead is converted. Once anyone owns the phone as a client, the
+       ownership rule above decides. */
+    if (!otherMapping && await require("../services/lead-client.service").isAssignedLead(getDB(), phone, req.agent._id)) {
+      return next();
+    }
+
     /* Owned by another manager (or not assigned yet) — surface who, so the
        cpanel popup can say "בטיפול: סנדי" instead of a vague rejection. */
     let assignedManagerName = null;
     try {
-      const otherMapping = await cpanelClientsCol().findOne({ phone }, { projection: { agentId: 1 } });
       if (otherMapping?.agentId) {
         const otherAgent = await agentsCol().findOne(
           { _id: otherMapping.agentId },
@@ -4316,7 +4327,11 @@ exports.buildDigestItems = buildDigestItems;
 exports.listProducts = async (_req, res) => {
   try {
     const catalog = await productsSvc.listAll();
-    res.json(catalog);
+    /* The quote builder's one-click starting points and "combinations
+       that work together" — both from the sales kit. */
+    const { QUICK_STARTS, COMBOS } = require("../services/service-catalog.data");
+    const { MAX_DISCOUNT_PCT, VAT_PCT } = require("../services/quote.service");
+    res.json({ ...catalog, quickStarts: QUICK_STARTS, combos: COMBOS, quoteRules: { maxDiscountPct: MAX_DISCOUNT_PCT, vatPct: VAT_PCT } });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

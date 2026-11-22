@@ -4,7 +4,6 @@ import { EmptyState } from "../ui/EmptyState";
 import { Button } from "../ui/Button";
 import { Modal } from "../ui/Modal";
 import { useToast } from "../../context/ToastContext";
-import { useAuth } from "../../context/AuthContext";
 import {
   getPersonalCatalog,
   createPersonalPackage,
@@ -23,6 +22,9 @@ import {
   type CoinRedemption,
 } from "../../api/client";
 import { usePurchaseSync, announcePurchase } from "../../hooks/usePurchaseSync";
+import { openQuoteDocument, type Quote } from "../../api/quotes";
+import { QuoteBuilder } from "../quotes/QuoteBuilder";
+import { QuoteCard } from "../quotes/QuoteCard";
 
 function formatIls(n?: number) {
   return new Intl.NumberFormat("he-IL", {
@@ -40,20 +42,6 @@ function formatPrice(n: number | undefined, currencyCode?: number) {
     currency: currencyCode === 2 ? "USD" : "ILS",
     maximumFractionDigits: 0,
   }).format(n || 0);
-}
-
-function emptyDraft(): PersonalPackageDraft {
-  return {
-    name: "חבילה מותאמת אישית",
-    items: {},
-    bullets: [],
-    basePrice: 0,
-    discountPct: 0,
-    finalPrice: 0,
-    coins: 0,
-    notes: "",
-    active: true,
-  };
 }
 
 /* ── Main tab ─────────────────────────────────────────────────────────── */
@@ -78,8 +66,11 @@ export function PersonalCatalogTab({ phone }: { phone: string }) {
   );
   const checkPaymentRef = useRef<(() => void) | null>(null);
   const toast = useToast();
-  const { agent } = useAuth();
-  const maxDiscount = (agent?.name === "admin-boss" || (agent?.phone ?? "").replace(/\D/g, "").endsWith("542587070")) ? 100 : 20;
+  /* sales kit: at most 10% discount, for everyone (server enforces it too) */
+  const maxDiscount = 10;
+  /* New quotes are built in QuoteBuilder (Dashen format); `editing` below
+     only edits older packages. */
+  const [builder, setBuilder] = useState<{ quote: Quote | null } | null>(null);
 
   /* Coin balance for the coin-redeem flow. Refreshed by reload()
      alongside the catalog so the banner stays in sync after a
@@ -139,6 +130,25 @@ export function PersonalCatalogTab({ phone }: { phone: string }) {
     try {
       await deletePersonalPackage(phone, pkg._id);
       toast.ok("החבילה נמחקה");
+      reload();
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "מחיקה נכשלה");
+    }
+  }
+
+  async function handleViewQuote(id: string) {
+    try {
+      await openQuoteDocument(phone, id);
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "לא ניתן להציג את ההצעה");
+    }
+  }
+
+  async function handleDeleteQuote(q: Quote) {
+    if (!window.confirm(`למחוק את הצעת המחיר ${q.quoteNo}?`)) return;
+    try {
+      await deletePersonalPackage(phone, q._id);
+      toast.ok("ההצעה נמחקה");
       reload();
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "מחיקה נכשלה");
@@ -257,6 +267,10 @@ export function PersonalCatalogTab({ phone }: { phone: string }) {
     };
   }, [awaitingKey, phone]);
 
+  /* Dashen-format quotes first, older packages (pre-2026-11-22) after. */
+  const quotes = packages.filter(p => p.kind === "quote") as unknown as Quote[];
+  const legacyPackages = packages.filter(p => p.kind !== "quote");
+
   if (loading) return <Spinner label='טוען קטלוג אישי' />;
   if (error)
     return (
@@ -279,7 +293,7 @@ export function PersonalCatalogTab({ phone }: { phone: string }) {
           <p
             className='t-meta'
             style={{ fontSize: 11, marginTop: 2 }}>
-            חבילות מותאמות ללקוח זה — גלויות לו באפליקציה לרכישה
+            הצעות מחיר ללקוח זה, לפי המחירון של דשן מדיה טק
           </p>
         </div>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
@@ -296,8 +310,8 @@ export function PersonalCatalogTab({ phone }: { phone: string }) {
           {packages.length > 0 && (
             <Button
               size='sm'
-              onClick={() => setEditing({ pkg: emptyDraft(), isNew: true })}>
-              + חבילה חדשה
+              onClick={() => setBuilder({ quote: null })}>
+              + הצעת מחיר חדשה
             </Button>
           )}
         </div>
@@ -329,13 +343,13 @@ export function PersonalCatalogTab({ phone }: { phone: string }) {
 
       {packages.length === 0 ? (
         <EmptyState
-          title='אין חבילות אישיות'
-          meta="לחץ על '+ חבילה חדשה' כדי ליצור את הראשונה"
+          title='אין עדיין הצעות מחיר'
+          meta="בנו הצעת מחיר מתוך 64 השירותים של המחירון — הקמה, חודשי, הנחה ותנאים."
           action={
             <Button
               size='sm'
-              onClick={() => setEditing({ pkg: emptyDraft(), isNew: true })}>
-              + חבילה חדשה
+              onClick={() => setBuilder({ quote: null })}>
+              + הצעת מחיר חדשה
             </Button>
           }
         />
@@ -350,7 +364,19 @@ export function PersonalCatalogTab({ phone }: { phone: string }) {
               <Button size='sm' variant='ghost' onClick={() => setAwaitingIds([])}>הפסק להמתין</Button>
             </div>
           )}
-          {packages.map((pkg) => (
+          {quotes.map((q) => (
+            <QuoteCard
+              key={q._id}
+              quote={q}
+              onView={() => handleViewQuote(q._id)}
+              onEdit={() => setBuilder({ quote: q })}
+              onDelete={() => handleDeleteQuote(q)}
+            />
+          ))}
+          {legacyPackages.length > 0 && quotes.length > 0 && (
+            <p className='t-eyebrow' style={{ margin: "var(--s-3) 0 0" }}>חבילות קודמות</p>
+          )}
+          {legacyPackages.map((pkg) => (
             <PackageCard
               key={pkg._id}
               pkg={pkg}
@@ -381,6 +407,19 @@ export function PersonalCatalogTab({ phone }: { phone: string }) {
                 ? (editing.pkg as PersonalPackage)._id
                 : undefined;
             handleSave(draft, id);
+          }}
+        />
+      )}
+
+      {builder && (
+        <QuoteBuilder
+          phone={phone}
+          quote={builder.quote}
+          onClose={() => setBuilder(null)}
+          onSaved={(saved, { preview }) => {
+            setBuilder(null);
+            reload({ silent: true });
+            if (preview) handleViewQuote(saved._id);
           }}
         />
       )}

@@ -8,6 +8,7 @@ const wowOrganic  = require("../controllers/wow-organic-ads.controller");
 const wowLp       = require("../controllers/wow-lp.controller");
 const meetingsCtrl = require("../controllers/cpanel-meetings.controller");
 const personalPkgCtrl = require("../controllers/personal-packages.controller");
+const quotesCtrl = require("../controllers/quotes.controller");
 const fbConnect = require("../controllers/fb-connect.controller");
 const fbGate = require("../middlewares/fb-gate.middleware");
 
@@ -183,6 +184,12 @@ router.put("/clients/:phone/tier",   c.setClientTier);
 // users.activePackage (covers customers who paid before paymentNotify
 // learned to write activePackage).
 /* ── Personal catalog (per-agent, per-client) ───────────────────────── */
+/* Quotes in the Dashen format (kind "quote" in personal_packages) — listed
+   and deleted through the personal-catalog endpoints below. */
+router.get   ("/clients/:phone/quotes/defaults",              quotesCtrl.defaults);
+router.post  ("/clients/:phone/quotes",                       quotesCtrl.create);
+router.patch ("/clients/:phone/quotes/:id",                   quotesCtrl.update);
+router.get   ("/clients/:phone/quotes/:id/document",          quotesCtrl.document);
 router.get   ("/clients/:phone/personal-catalog",             personalPkgCtrl.list);
 router.post  ("/clients/:phone/personal-catalog",             personalPkgCtrl.create);
 router.patch ("/clients/:phone/personal-catalog/:id",         personalPkgCtrl.update);

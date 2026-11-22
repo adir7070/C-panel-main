@@ -50,8 +50,12 @@ async function markPaymentDone(db, lowProfileId) {
 }
 
 /* Clients created from a lead have no users doc — create a minimal one so
-   the credit has somewhere to land. */
+   the credit has somewhere to land. A lead charged straight from its lead
+   screen may not be a client at all yet: create the client first (owner =
+   the lead's manager), so the users name, the revenue row's owner and
+   "כל הלקוחות" all see it. */
 async function ensureUserDoc(db, phone) {
+  await require("./lead-client.service").ensureClientFromLead(db, phone);
   const client = await db.collection("cpanel_clients").findOne({ phone }, { projection: { customerName: 1 } });
   try {
     await db.collection("users").updateOne(

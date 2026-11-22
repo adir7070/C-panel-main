@@ -34,6 +34,7 @@ import { Badge } from "../components/ui/Badge";
 import { Input } from "../components/ui/Input";
 
 import { PackageStatusBanner } from "../components/client-detail/PackageStatusBanner";
+import { LeadOriginCard } from "../components/client-detail/LeadOriginCard";
 import { OverviewTab } from "../components/tabs/OverviewTab";
 import { usePurchaseSync, announcePurchase } from "../hooks/usePurchaseSync";
 import { CampaignsTab } from "../components/tabs/CampaignsTab";
@@ -748,7 +749,13 @@ export function ClientDetailPage() {
             exit={reduce    ? undefined : { opacity: 0, y: -4 }}
             transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
-            {tab === "overview"         && <OverviewTab detail={detail} phone={decodedPhone} onDetailChange={setDetail} />}
+            {tab === "overview" && (
+              <div style={{ display: "grid", gap: "var(--s-6)", maxWidth: 880 }}>
+                {/* renders nothing unless this client came in as a lead */}
+                <LeadOriginCard phone={decodedPhone} refreshKey={syncTick} />
+                <OverviewTab detail={detail} phone={decodedPhone} onDetailChange={setDetail} />
+              </div>
+            )}
             {tab === "characterization" && <CharacterizationTab phone={decodedPhone} />}
             {tab === "campaigns"        && <CampaignsTab phone={decodedPhone} clientName={businessName} />}
             {tab === "leads"            && <LeadsTab phone={decodedPhone} />}

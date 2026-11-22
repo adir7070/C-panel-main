@@ -97,7 +97,78 @@ GitHub integration from `main` of adir7070/C-panel-main (no GitHub Actions).
 - Managers only see leads assigned to them; admins see all and distribute
   (`/admin/leads-distribution`: assign / round-robin). Each lead has notes,
   status history, and an "activate" action (→ `active_client`).
-- Frontend API in `src/api/leads.ts`; UI in `src/pages/LeadsPage.tsx`.
+- Frontend API in `src/api/leads.ts`; list in `src/pages/LeadsPage.tsx`.
+  Clicking a row opens the lead screen `src/pages/LeadDetailPage.tsx`
+  (`/leads/:id`, `/leads/:id/personal_catalog` deep-links the tab). It has
+  two tabs: "פרטי ליד" (the intake answers, message, contact details
+  editable until the lead is a client, notes, history) and "קטלוג אישי".
+  The catalog tab is the client page's own `PersonalCatalogTab` keyed by
+  phone, so a quote built on a lead is the client's catalog.
+- Intake answers: `POST /api/leads/intake` stores `answers: [{question, answer}]`
+  (`extractAnswers` in `server/leads.js`). They come from an explicit
+  `answers` list (also `{q,a}` / `{label,value}` / Facebook `{name, values}`),
+  from an `answers` object (`{question: answer}`), or from any unknown
+  top-level field. `utm_*` / fbclid / form ids go to `tracking`. Only intake
+  payloads get answers, not CSV imports. The list endpoint omits
+  `answers`/`tracking`; `GET /api/leads/:id` derives them from `raw` for older
+  leads.
+- Lead → client writes live in ONE place: `backend/services/lead-client.service.js`
+  (CommonJS, imported by `server/leads.js`). A manager can open
+  `/api/cpanel/clients/:phone/*` for a lead assigned to them while nobody owns
+  the phone as a client (`requireClientAccess` → `isAssignedLead`). That is
+  what makes the catalog usable on a "חדש" lead. A payment for a phone that
+  is still only a lead creates the client before crediting
+  (`purchase-sync.ensureUserDoc` → `ensureClientFromLead`; owner = the lead's
+  manager, else whoever built the quote).
+- Client page "פרופיל" tab shows a "מקור הליד" card (`LeadOriginCard`, from
+  `GET /api/leads/for-client/:phone`: admin, the client's manager, or the
+  lead's assignee). The backend already owns `/api/leads/by-phone/:phone`,
+  which returns different data.
+
+### Price list & quotes (הצעות מחיר)
+- **Catalog = the 64 services of the Dashen sales kit**, in 10 categories.
+  The single source is `backend/services/service-catalog.data.js`, which
+  also holds the kit's quick starts and "works well together" combos.
+  Services are stored in `cpanel_products` as `kind: "service"`. Boot
+  seeding (`cpanel-products.service.seedDefaults`) only inserts missing
+  keys, so a price edited in the DB survives restarts.
+- The old Iconiq products (`item` / `prebuilt` / `social` / `coins`) were
+  deleted at the user's request on 2026-11-22 and are no longer seeded.
+  `refreshSocialDefaults` is gone. Wiping them from a DB is a one-off:
+  `MONGO_URI=… node backend/scripts/replace-catalog-with-services.js --apply`
+  (dry run without `--apply`; it writes a JSON backup first).
+- Quotes are `personal_packages` docs with `kind: "quote"`:
+  - Each has setup lines (paid at signing) and monthly lines, quantity per
+    line, up to 10% discount, 18% VAT on top, `commitMonths` (default 3),
+    `validDays` (14), a global number per year (`2026-001`, from
+    `counters._id = "quote_no:<year>"`), and the "הוכן עבור" client details.
+  - The server resolves catalog lines and recomputes all totals on every
+    save (`services/quote.service.js`). `src/api/quotes.ts`
+    `computeQuoteTotals` mirrors it for the live preview.
+  - A line already in a quote keeps its quoted price when the catalog
+    price changes.
+- Max discount is **10% for everyone, admins included**
+  (`maxDiscountForAgent` → 10; user decision).
+- Routes (behind `requireClientAccess`):
+  - `/api/cpanel/clients/:phone/quotes`: `GET /defaults`, `POST`, `PATCH /:id`,
+    and `GET /:id/document`.
+  - The document is the printable "הצעת מחיר והסכם התקשרות" HTML in the
+    original deshen-quote-agreement layout and agreement text
+    (`services/quote-document.service.js`, logo in `backend/assets/`).
+  - List and delete go through `/personal-catalog`.
+- UI: `src/components/quotes/QuoteBuilder.tsx` is a full-screen builder.
+  - Smart search lives in `src/lib/serviceSearch.ts`: Hebrew normalization,
+    synonyms, one-typo tolerance and "עד 1000"-style price filters.
+  - Also: billing/role/category filters, quick starts, combo suggestions,
+    and keyboard control (`/`, ↑↓, Enter).
+  - `QuoteCard` sits in the "קטלוג אישי" tab, on both the client page and
+    the lead screen.
+- **Next stage (not built yet):** the client signs and pays a quote.
+  - The user chose an **automatic monthly charge**: setup at signing plus a
+    Cardcom token for the monthly amount.
+  - Until it's built, the one-amount charge paths refuse quotes
+    (`409 quote_not_chargeable` in `chargePersonalIframe` and `contractPay`).
+  - The quote card offers no "חייב" or "שלח חוזה".
 
 ### Charging → every screen
 - Charge paths the panel offers, all in the client page's "קטלוג אישי" tab:

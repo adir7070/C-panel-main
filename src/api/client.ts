@@ -2550,6 +2550,8 @@ export function closeReferralClient(phone: string) {
 
 export interface PersonalPackage {
   _id: string;
+  /** "quote" = a Dashen-format quote (src/api/quotes.ts); absent on older packages */
+  kind?: string;
   phone: string;
   agentId: string;
   name: string;
