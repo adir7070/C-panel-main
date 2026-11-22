@@ -21,6 +21,7 @@ export default defineConfig(({ mode }) => {
         '/lp-preview': toBackend,
         '/wow-ads-preview': toBackend,
         '/wow-organic-preview': toBackend,
+        '/sign': toBackend,
       },
     },
   }

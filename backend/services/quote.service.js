@@ -173,5 +173,5 @@ async function buildQuoteFields(body, { existing = null, phone }) {
 
 module.exports = {
   MAX_DISCOUNT_PCT, VAT_PCT, DEFAULTS, QuoteError,
-  computeTotals, nextQuoteNo, resolveLines, clientDefaults, buildQuoteFields, todayIL,
+  computeTotals, nextQuoteNo, resolveLines, clientDefaults, buildQuoteFields, todayIL, cleanClient,
 };

@@ -163,12 +163,33 @@ GitHub integration from `main` of adir7070/C-panel-main (no GitHub Actions).
     and keyboard control (`/`, ↑↓, Enter).
   - `QuoteCard` sits in the "קטלוג אישי" tab, on both the client page and
     the lead screen.
-- **Next stage (not built yet):** the client signs and pays a quote.
-  - The user chose an **automatic monthly charge**: setup at signing plus a
-    Cardcom token for the monthly amount.
-  - Until it's built, the one-amount charge paths refuse quotes
-    (`409 quote_not_chargeable` in `chargePersonalIframe` and `contractPay`).
-  - The quote card offers no "חייב" or "שלח חוזה".
+- **Signing.**
+  - "🔗 העתק קישור לחתימה" on the quote card: `POST …/quotes/:id/sign-link`
+    creates one secret `signToken` (32 random bytes) per quote.
+  - The client opens `/sign/<token>`: `routes/quote-sign.routes.js`, mounted at
+    the app root in `server.js`; Vite proxies `/sign` in dev.
+    - It's a mobile-first, vanilla HTML/JS page
+      (`services/quote-sign-page.service.js`) with 3 steps: the quote → the
+      client's details (missing ones flagged) → two consents + a finger
+      signature pad with a full-screen mode.
+  - On submit (`services/quote-sign.service.js`):
+    - Validates the details, the consents, a PNG signature of at most
+      400KB, the quote `version` (`updatedAt`) and expiry
+      (`quoteDate + validDays`, 410 after).
+    - Freezes the signed HTML into `signed_documents`: sha256, IP,
+      user-agent, the signature.
+    - Sets `personal_packages.signed`.
+  - A signed quote can't be edited or deleted (409 `quote_signed`).
+  - The panel shows the frozen copy via `GET …/quotes/:id/signed-document`.
+  - `/sign` responses send `Referrer-Policy: no-referrer` + `no-store` so the
+    token never leaks.
+  - Dashen's stamp + Netanel's signature (`backend/assets/deshen-stamp.png`,
+    cut from a photo) is on every quote document, together with ח.פ. 517319612.
+- **Payment after signing is not built.**
+  - The user chose an **automatic monthly charge** (setup at signing +
+    Cardcom token for the monthly amount) but hasn't specified the flow yet.
+  - The one-amount charge paths refuse quotes (`409 quote_not_chargeable` in
+    `chargePersonalIframe` and `contractPay`).
 
 ### Charging → every screen
 - Charge paths the panel offers, all in the client page's "קטלוג אישי" tab:

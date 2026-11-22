@@ -300,6 +300,9 @@ exports.remove = async (req, res) => {
 
     const existing = await COL().findOne({ _id: new ObjectId(id), phone });
     if (!existing) return res.status(404).json({ error: "not found" });
+    if (existing.kind === "quote" && existing.signed) {
+      return res.status(409).json({ error: "quote_signed", message: "הצעה חתומה אינה ניתנת למחיקה" });
+    }
 
     await COL().updateOne(
       { _id: new ObjectId(id) },

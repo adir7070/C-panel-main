@@ -22,7 +22,7 @@ import {
   type CoinRedemption,
 } from "../../api/client";
 import { usePurchaseSync, announcePurchase } from "../../hooks/usePurchaseSync";
-import { openQuoteDocument, type Quote } from "../../api/quotes";
+import { openQuoteDocument, createSignLink, type Quote } from "../../api/quotes";
 import { QuoteBuilder } from "../quotes/QuoteBuilder";
 import { QuoteCard } from "../quotes/QuoteCard";
 
@@ -136,11 +136,32 @@ export function PersonalCatalogTab({ phone }: { phone: string }) {
     }
   }
 
-  async function handleViewQuote(id: string) {
+  async function handleViewQuote(id: string, signed = false) {
     try {
-      await openQuoteDocument(phone, id);
+      await openQuoteDocument(phone, id, { signed });
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "לא ניתן להציג את ההצעה");
+    }
+  }
+
+  /* The client's signing link → clipboard (paste it in WhatsApp / SMS). */
+  async function handleCopySignLink(q: Quote) {
+    try {
+      const r = await createSignLink(phone, q._id);
+      const url = `${window.location.origin}${r.path}`;
+      let copied = false;
+      try {
+        await navigator.clipboard.writeText(url);
+        copied = true;
+      } catch { /* no clipboard permission — show it instead */ }
+      if (copied) {
+        toast.ok(r.expired ? "הקישור הועתק — שים לב: תוקף ההצעה פג, הלקוח לא יוכל לחתום עד שתעדכן את התאריך" : "הקישור לחתימה הועתק — אפשר להדביק ללקוח בוואטסאפ");
+      } else {
+        window.prompt("העתק את הקישור לחתימה:", url);
+      }
+      if (!q.signLinkAt) reload({ silent: true });
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "לא ניתן ליצור קישור");
     }
   }
 
@@ -224,6 +245,18 @@ export function PersonalCatalogTab({ phone }: { phone: string }) {
     if (ev.phone && ev.phone !== phone) return;
     reloadRef.current({ silent: true });
   });
+  /* A client signs from their own phone — coming back to this window shows
+     "נחתם" on the quote without a manual refresh. */
+  useEffect(() => {
+    let last = Date.now();
+    const onFocus = () => {
+      if (Date.now() - last < 5000) return;
+      last = Date.now();
+      reloadRef.current({ silent: true });
+    };
+    window.addEventListener("focus", onFocus);
+    return () => window.removeEventListener("focus", onFocus);
+  }, []);
 
   /* While Cardcom windows are open, ask the server to check their payment
      pages — Cardcom's webhook can't reach a local or firewalled server. */
@@ -369,6 +402,8 @@ export function PersonalCatalogTab({ phone }: { phone: string }) {
               key={q._id}
               quote={q}
               onView={() => handleViewQuote(q._id)}
+              onViewSigned={() => handleViewQuote(q._id, true)}
+              onCopyLink={() => handleCopySignLink(q)}
               onEdit={() => setBuilder({ quote: q })}
               onDelete={() => handleDeleteQuote(q)}
             />

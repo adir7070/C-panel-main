@@ -11,7 +11,7 @@ const path = require("path");
 
 const COMPANY = {
   legal: "דשן מדיה טק",
-  id: "",
+  id: "517319612",
   signer: "נתנאל דגמי",
   role: 'מנכ"ל',
   address: "יהושפט 11, רמת גן",
@@ -20,18 +20,22 @@ const COMPANY = {
   site: "deshen.co",
 };
 
-let logoDataUri = null;
-function logo() {
-  if (logoDataUri === null) {
+/* backend/assets images, inlined so the document is self-contained. */
+const assetCache = new Map();
+function asset(file) {
+  if (!assetCache.has(file)) {
     try {
-      const buf = fs.readFileSync(path.join(__dirname, "..", "assets", "deshen-quote-logo.png"));
-      logoDataUri = `data:image/png;base64,${buf.toString("base64")}`;
+      assetCache.set(file, `data:image/png;base64,${fs.readFileSync(path.join(__dirname, "..", "assets", file)).toString("base64")}`);
     } catch {
-      logoDataUri = "";
+      assetCache.set(file, "");
     }
   }
-  return logoDataUri;
+  return assetCache.get(file);
 }
+const logo = () => asset("deshen-quote-logo.png");
+/* Dashen's stamp + Netanel's signature — on every quote (user request
+   2026-11-22). Cut from a photo, paper made transparent. */
+const stamp = () => asset("deshen-stamp.png");
 
 const CSS = "*{box-sizing:border-box;margin:0;padding:0}\nhtml{-webkit-print-color-adjust:exact;print-color-adjust:exact}\nbody{font-family:'Heebo','Rubik',Arial,sans-serif;color:#16233A;font-size:14.5px;line-height:1.65;background:#E6ECF0}\nh1,h2,h3,h4,.big,.eyebrow,.num{font-family:'Rubik','Heebo',Arial,sans-serif}\n.wrap{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:22px;max-width:1340px;margin:0 auto;padding:22px}\n#doc{min-width:0}\n.page{background:#F8FAFB;padding:54px 56px;margin:0 0 22px;border-radius:14px;box-shadow:0 2px 14px rgba(12,35,71,.08);position:relative;overflow:hidden}\n.stripe{position:absolute;top:0;right:0;left:0;height:7px;display:flex} .stripe i{flex:1}\n.eyebrow{color:#0B7F8C;font-weight:700;font-size:12.5px;letter-spacing:.3px;margin-bottom:6px}\nh2{font-size:32px;font-weight:800;line-height:1.15;color:#0C2347;margin-bottom:14px}\nh3{font-size:17px;font-weight:700;color:#0C2347;margin:26px 0 10px}\nh4{font-size:14.5px;font-weight:700;color:#0C2347}\np{margin:0 0 10px} .lead{font-size:15px;color:#54627A;max-width:720px}\n.grid{display:grid;gap:12px;margin:12px 0} .g2{grid-template-columns:1fr 1fr} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)}\n.card{background:#EAF5F7;border-radius:10px;padding:14px 16px;break-inside:avoid} .card h4{margin-bottom:3px;display:flex;gap:8px;align-items:center} .card p{font-size:13px;color:#54627A;margin:0}\n.card.w{background:#fff;border:1px solid #D9E2E8}\n.badge{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;border-radius:50%;background:#0C2347;color:#fff;font-size:12px;font-weight:700;font-family:'Rubik',Arial;flex:none}\n.pill{display:inline-block;border-radius:20px;padding:1px 10px;font-size:11.5px;font-weight:700;white-space:nowrap}\n.p-m{background:#F2B63C;color:#0C2347} .p-s{background:#EAF5F7;color:#0B7F8C}\n.stat{background:#fff;border:1px solid #D9E2E8;border-radius:12px;padding:14px 16px;break-inside:avoid} .stat .big{font-size:28px;font-weight:800;color:#0B7F8C;line-height:1.15} .stat p{font-size:12.5px;color:#54627A;margin:3px 0 0}\n/* cover */\n.cover{min-height:1010px;display:flex;flex-direction:column}\n.cover .top{display:flex;justify-content:space-between;align-items:flex-start;margin-top:10px}\n.cover .logo{width:190px} .cover .qn{text-align:left;font-size:12.5px;color:#54627A} .cover .qn b{display:block;font-family:'Rubik',Arial;font-size:15px;color:#0C2347}\n.cover .mid{flex:1;display:flex;flex-direction:column;justify-content:center;padding:30px 0}\n.cover h1{font-size:54px;font-weight:800;color:#0C2347;line-height:1.08;margin:6px 0 10px} .cover h1 span{color:#12A5B5}\n.cover .for{font-family:'Rubik',Arial;font-size:22px;font-weight:700;color:#0C2347} .cover .sub{color:#54627A;margin-top:4px}\n.hero{background:#0C2347;color:#fff;border-radius:14px;padding:24px 28px;margin:24px 0 0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}\n.hero small{color:#C5D6E4;display:block;font-size:12.5px} .hero .big{font-size:27px;font-weight:800;white-space:nowrap} .hero .big.y{color:#F2B63C} .hero .n{font-size:11.5px;color:#9FB6CB}\n.meta{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;border-top:1px solid #D9E2E8;padding-top:16px} .meta small{color:#54627A;font-size:12px;display:block} .meta b{color:#0C2347}\n/* tables */\ntable{width:100%;border-collapse:collapse;margin:8px 0 4px;font-size:13.5px}\nth{text-align:right;font-family:'Rubik',Arial;font-size:11.5px;font-weight:700;color:#0B7F8C;padding:8px 8px;border-bottom:2px solid #0C2347}\ntd{padding:10px 8px;border-bottom:1px solid #D9E2E8;vertical-align:top} tr{break-inside:avoid} thead{display:table-header-group}\ntd.nm b{color:#0C2347;display:block} td.nm small{color:#54627A;font-size:12px}\ntd.c,th.c{text-align:center;width:60px} td.pr,th.pr{text-align:left;white-space:nowrap;width:110px} td.pr{font-family:'Rubik',Arial;font-weight:700;color:#0C2347} td.pr.t{color:#0B7F8C;font-weight:800}\n.sum{margin:10px 0 0 auto;width:min(100%,380px);border:1px solid #D9E2E8;border-radius:12px;overflow:hidden;break-inside:avoid;background:#fff}\n.sum .r{display:flex;justify-content:space-between;padding:9px 16px;border-bottom:1px solid #D9E2E8;font-size:13.5px} .sum .r span:last-child{font-family:'Rubik',Arial;font-weight:700;white-space:nowrap}\n.sum .r.d span:last-child{color:#B4472B} .sum .r.k{background:#0C2347;color:#fff;border:0;padding:12px 16px} .sum .r.k span:last-child{font-size:20px;font-weight:800} .sum .r.k small{display:block;color:#C5D6E4;font-size:11.5px;font-weight:400}\n.blockhd{display:flex;align-items:center;gap:10px;margin:26px 0 2px;break-after:avoid} .blockhd h4{font-size:17px}\n.commit{background:#EAF5F7;border-radius:14px;padding:18px 22px;margin-top:26px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;break-inside:avoid}\n.commit small{display:block;color:#54627A;font-size:12px} .commit b{font-family:'Rubik',Arial;font-size:20px;color:#0C2347} .commit .t b{color:#0B7F8C}\n.note{font-size:12.5px;color:#54627A;margin-top:10px}\n/* terms + process */\n.terms .card h4 .ic{width:26px;height:26px;border-radius:50%;background:#0C2347;color:#F2B63C;display:inline-flex;align-items:center;justify-content:center;font-size:13px;flex:none}\n.steps{margin:8px 0} .step{display:flex;gap:14px;align-items:flex-start;padding:11px 0;border-bottom:1px solid #D9E2E8;break-inside:avoid} .step b{min-width:150px;color:#0C2347} .step .t{color:#54627A;font-size:13.5px}\n/* agreement */\n.agr{font-size:13.6px;line-height:1.75;counter-reset:sec}\n.agr h3{counter-increment:sec;counter-reset:cl;margin:22px 0 6px;font-size:15.5px;break-after:avoid} .agr h3::before{content:counter(sec) \". \"}\n.agr ol{list-style:none} .agr li{counter-increment:cl;position:relative;padding:2px 42px 4px 0;text-align:justify}\n.agr li::before{content:counter(sec) \".\" counter(cl);position:absolute;right:0;top:2px;font-family:'Rubik',Arial;font-weight:700;color:#0B7F8C;font-size:12.5px}\n.parties{border:1px solid #D9E2E8;background:#fff;border-radius:12px;padding:16px 20px;margin:14px 0 18px}\n.parties .pt{display:grid;grid-template-columns:54px 1fr auto;gap:12px;padding:10px 0;border-top:1px solid #D9E2E8} .parties .pt .lbl{font-weight:700;color:#0C2347} .parties .pt .side{color:#54627A;font-size:12.5px;align-self:end}\n.center{text-align:center} .end{margin-top:22px}\n.bd{font-weight:700;color:#0C2347}\n.blank{display:inline-block;min-width:150px;border-bottom:1px solid #16233A;height:1.1em;vertical-align:baseline}\nmark.chk{background:#FDE9B8;color:inherit;border-radius:3px;padding:0 2px} body.nohl mark.chk{background:none;padding:0}\n/* signature */\n.sig{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:18px}\n.sig h4{font-size:17px;margin-bottom:6px} .fld{margin:16px 0 0} .fld small{display:block;font-family:'Rubik',Arial;font-weight:700;color:#0C2347;font-size:13px}\n.fld .ln{height:32px;overflow:hidden;white-space:nowrap;padding:4px 2px;border-bottom:3px solid transparent;border-image:linear-gradient(90deg,#2F84CF,#12A5B5) 1;font-size:14px}\n.fld.tall .ln{height:64px} .confirm b{white-space:nowrap}\n.confirm{background:#fff;border:1px solid #D9E2E8;border-radius:12px;padding:14px 18px;margin-top:20px;font-size:13.5px}\n.box{display:inline-block;width:13px;height:13px;border:1.5px solid #0C2347;border-radius:3px;vertical-align:-2px;margin-left:6px}\n\n@media print{\n body{background:#F8FAFB;font-size:10.3pt} #panel{display:none} .wrap{display:block;padding:0;max-width:none}\n .page{box-shadow:none;border-radius:0;margin:0;padding:0;overflow:visible;break-before:page} .page:first-child{break-before:auto}\n .stripe{display:none} .cover{min-height:250mm} .cover .stripe{display:flex;position:static;height:6px;margin-bottom:8mm}\n mark.chk{background:none;padding:0} h3{break-after:avoid} .agr{font-size:9.9pt} h2{font-size:23pt} .cover h1{font-size:38pt}\n}";
 const ABOUT_HTML = "<p class=\"lead\">דשן מדיה טק היא חברת טכנולוגיה שמתמחה בבינה מלאכותית (AI) ובפיתוח מוצרים ומערכות בהתאמה אישית לעסקים. אנחנו בונים אתרים, מערכות, פורטלים ואוטומציות שמותאמים בדיוק לצרכים של העסק. ולצד הטכנולוגיה, אנחנו גם חברת שיווק: קמפיינים, קידום אורגני ותוכן שמביאים לקוחות.</p>\n<div class=\"grid g4\"><div class=\"card\"><h4>שקיפות מלאה</h4><p>דיווח, נתונים ותהליכים גלויים כדי שתדעו בדיוק מה קורה.</p></div><div class=\"card\"><h4>חדשנות טכנולוגית</h4><p>כלים מתקדמים וטכנולוגיות עדכניות שמקנות יתרון.</p></div><div class=\"card\"><h4>שיתוף פעולה</h4><p>אנחנו עובדים יחד איתכם כשותפים אמיתיים לדרך.</p></div><div class=\"card\"><h4>ממוקדים בתוצאות</h4><p>כל פעילות מתוכננת כדי להביא תוצאות מדידות.</p></div></div>";
@@ -126,13 +130,30 @@ function agreement(q, T) {
   return `<section class="page agr"><div class="eyebrow">04 · ההסכם</div><h2>הסכם התקשרות למתן שירותים</h2>${body}</section>`;
 }
 
-function signature(q, T, L) {
+/* Israel-time "dd.mm.yyyy" and "HH:MM" of a Date. */
+function ilParts(date) {
+  const p = Object.fromEntries(new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Asia/Jerusalem", day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: false,
+  }).formatToParts(new Date(date)).map(x => [x.type, x.value]));
+  return { date: `${p.day}.${p.month}.${p.year}`, time: `${p.hour}:${p.minute}` };
+}
+
+/* signed: { at, name, role, signature (PNG data URL), ip, id } — present
+   only on the frozen copy saved when the client signs. */
+function signature(q, T, L, signed) {
   const C = q.client || {};
-  const f = (l, v, tall) => `<div class="fld${tall ? " tall" : ""}"><small>${l}</small><div class="ln">${v ? esc(v) : ""}</div></div>`;
+  const f = (l, v, tall, raw) => `<div class="fld${tall ? " tall" : ""}"><small>${l}</small><div class="ln">${raw || (v ? esc(v) : "")}</div></div>`;
+  const box = `<span class="box${signed ? " on" : ""}"></span>`;
+  const when = signed ? ilParts(signed.at) : null;
+  const sigImg = signed && /^data:image\/png;base64,[A-Za-z0-9+/=]+$/.test(signed.signature || "")
+    ? `<img class="sigimg" src="${signed.signature}" alt="חתימת הלקוח">` : "";
+  const audit = signed
+    ? `<div class="audit">נחתם אלקטרונית על ידי <b>${esc(signed.name)}</b>${signed.role ? `, ${esc(signed.role)}` : ""} בתאריך ${when.date} בשעה ${when.time} (שעון ישראל)${signed.ip ? ` · כתובת IP ${esc(signed.ip)}` : ""} · מזהה חתימה ${esc(signed.id || "")}</div>`
+    : "";
   return `<section class="page"><div class="eyebrow">05 · אישור וחתימה</div><h2>אישור וחתימה</h2><p class="lead">בחתימתם מאשרים הצדדים את הסכם ההתקשרות ואת נספח פירוט החיוב (הצעה מס׳ ${esc(q.quoteNo)} מיום ${dfmt(q.quoteDate)}).</p>
- <div class="confirm"><span class="box"></span>הלקוח מאשר שקרא את ההסכם ואת נספח פירוט החיוב, הבין אותם ומסכים לכל תנאיהם.<br><span class="box"></span>הלקוח מאשר תשלום של <b>${fm(T.setup.total)}</b> (כולל מע"מ) עבור שירותי ההקמה במועד החתימה${L.m.length ? `, ותשלום חודשי של <b>${fm(T.monthly.total)}</b> (כולל מע"מ) למשך ${esc(q.commitMonths)} חודשים לפחות` : ""}.</div>
- <div class="sig"><div><h4>הלקוח</h4>${f("שם העסק / הלקוח", C.name)}${f("ח.פ. / ע.מ.", C.id)}${f("כתובת", C.address)}${f("טלפון", C.phone)}${f('דוא"ל', C.email)}${f("שם החותם ותפקידו", [C.contact, C.role].filter(Boolean).join(", "))}${f("תאריך", "")}${f("חתימה וחותמת", "", 1)}</div>
- <div><h4>דשן מדיה טק</h4>${f("שם הישות", COMPANY.legal)}${f("ח.פ. / ע.מ.", COMPANY.id)}${f("כתובת", COMPANY.address)}${f("טלפון", COMPANY.phone)}${f('דוא"ל', COMPANY.email)}${f("שם החותם ותפקידו", `${COMPANY.signer}, ${COMPANY.role}`)}${f("תאריך", "")}${f("חתימה וחותמת", "", 1)}</div></div></section>`;
+ <div class="confirm">${box}הלקוח מאשר שקרא את ההסכם ואת נספח פירוט החיוב, הבין אותם ומסכים לכל תנאיהם.<br>${box}הלקוח מאשר תשלום של <b>${fm(T.setup.total)}</b> (כולל מע"מ) עבור שירותי ההקמה במועד החתימה${L.m.length ? `, ותשלום חודשי של <b>${fm(T.monthly.total)}</b> (כולל מע"מ) למשך ${esc(q.commitMonths)} חודשים לפחות` : ""}.</div>
+ <div class="sig"><div><h4>הלקוח</h4>${f("שם העסק / הלקוח", C.name)}${f("ח.פ. / ע.מ.", C.id)}${f("כתובת", C.address)}${f("טלפון", C.phone)}${f('דוא"ל', C.email)}${f("שם החותם ותפקידו", [C.contact, C.role].filter(Boolean).join(", "))}${f("תאריך", when ? when.date : "")}${f("חתימה וחותמת", "", 1, sigImg)}</div>
+ <div><h4>דשן מדיה טק</h4>${f("שם הישות", COMPANY.legal)}${f("ח.פ. / ע.מ.", COMPANY.id)}${f("כתובת", COMPANY.address)}${f("טלפון", COMPANY.phone)}${f('דוא"ל', COMPANY.email)}${f("שם החותם ותפקידו", `${COMPANY.signer}, ${COMPANY.role}`)}${f("תאריך", dfmt(q.quoteDate))}${f("חתימה וחותמת", "", 1, stamp() ? `<img class="stampimg" src="${stamp()}" alt="חותמת דשן מדיה טק">` : "")}</div></div>${audit}</section>`;
 }
 
 function pageCss(q) {
@@ -144,20 +165,25 @@ function pageCss(q) {
 const TOOLBAR_CSS = `.tb{position:sticky;top:0;z-index:5;display:flex;gap:8px;justify-content:center;padding:10px;background:rgba(230,236,240,.92);backdrop-filter:blur(6px)}
 .tb button{font-family:'Rubik',Arial;font-weight:700;font-size:13px;border:0;border-radius:18px;padding:8px 18px;cursor:pointer;background:#0C2347;color:#fff}
 .tb span{align-self:center;font-size:12.5px;color:#54627A}
+.tb .ok{color:#15803D;font-weight:700}
+.box.on{position:relative;background:#0C2347}.box.on::after{content:"✓";position:absolute;inset:-3px 0 0;color:#fff;font-size:11px;font-weight:800;text-align:center}
+.fld.tall .ln{display:flex;align-items:flex-end;height:auto;min-height:64px;overflow:visible}.sigimg{max-height:60px;max-width:100%;object-fit:contain}
+.stampimg{height:118px;max-width:100%;object-fit:contain;object-position:right bottom}
+.audit{margin-top:22px;padding:10px 14px;border:1px dashed #9FB6CB;border-radius:10px;font-size:12px;color:#54627A;background:#fff}
 @media screen{.wrap{display:block;max-width:900px}}
 @media print{.tb{display:none}}`;
 
-function renderQuoteHtml(q) {
+function renderQuoteHtml(q, { signed = null } = {}) {
   const T = q.totals;
   const L = split(q);
-  const title = `הצעת מחיר ${q.quoteNo}${q.client?.name ? " · " + q.client.name : ""}`;
+  const title = `${signed ? "הסכם חתום" : "הצעת מחיר"} ${q.quoteNo}${q.client?.name ? " · " + q.client.name : ""}`;
   return `<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)}</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400..800&family=Heebo:wght@400;500;700&display=swap">
 <style>${CSS}\n${TOOLBAR_CSS}</style><style>${pageCss(q)}</style></head><body class="nohl">
-<div class="tb"><button type="button" onclick="window.print()">הדפסה / שמירה כ-PDF</button><span>הצעה מס׳ ${esc(q.quoteNo)}</span></div>
-<div class="wrap"><main id="doc">${cover(q, T, L)}${included(L)}${billing(q, T, L)}${terms(q, T)}${agreement(q, T)}${signature(q, T, L)}</main></div>
+<div class="tb"><button type="button" onclick="window.print()">הדפסה / שמירה כ-PDF</button><span>הצעה מס׳ ${esc(q.quoteNo)}</span>${signed ? `<span class="ok">✓ נחתם ${ilParts(signed.at).date}</span>` : ""}</div>
+<div class="wrap"><main id="doc">${cover(q, T, L)}${included(L)}${billing(q, T, L)}${terms(q, T)}${agreement(q, T)}${signature(q, T, L, signed)}</main></div>
 </body></html>`;
 }
 
-module.exports = { renderQuoteHtml, COMPANY };
+module.exports = { renderQuoteHtml, COMPANY, logo, addDays, ilParts };

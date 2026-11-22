@@ -373,6 +373,9 @@ app.post('/api/internal/db-sync', async (req, res) => {
   }
 })();
 
+// Public quote signing (/sign/:token — the secret link is the only key)
+app.use(require("./routes/quote-sign.routes"));
+
 // Routes
 app.use("/api", require("./routes/api"));
 

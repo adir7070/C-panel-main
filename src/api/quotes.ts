@@ -91,6 +91,13 @@ export interface Quote {
   notes: string;
   totals: QuoteTotals;
   purchased: boolean;
+  /** Signing link (/sign/<signToken>) — created the first time it's copied. */
+  signToken?: string;
+  signLinkAt?: string;
+  lastViewedAt?: string;
+  viewCount?: number;
+  /** Set when the client signed — the frozen copy is in signed_documents. */
+  signed?: { at: string; name: string; role?: string; ip?: string; sha256?: string; signingId?: string } | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -149,14 +156,22 @@ export function updateQuote(phone: string, id: string, input: Partial<QuoteInput
   });
 }
 
-/** Opens the printable quote document in a new tab. The tab is opened
- *  synchronously (before the fetch) so pop-up blockers allow it. */
-export async function openQuoteDocument(phone: string, id: string) {
+export function createSignLink(phone: string, id: string) {
+  return req<{ token: string; path: string; signed: boolean; expired: boolean; validUntil: string }>(
+    `/cpanel/clients/${encodeURIComponent(phone)}/quotes/${encodeURIComponent(id)}/sign-link`,
+    { method: "POST" },
+  );
+}
+
+/** Opens the printable quote document — or, with `signed`, the frozen
+ *  signed copy — in a new tab. The tab is opened synchronously (before the
+ *  fetch) so pop-up blockers allow it. */
+export async function openQuoteDocument(phone: string, id: string, { signed = false } = {}) {
   const win = window.open("", "_blank");
   try {
     const token = localStorage.getItem("cpanel_token");
     const base = (import.meta.env.VITE_API_BASE as string | undefined) ?? "/api";
-    const res = await fetch(`${base}/cpanel/clients/${encodeURIComponent(phone)}/quotes/${encodeURIComponent(id)}/document`, {
+    const res = await fetch(`${base}/cpanel/clients/${encodeURIComponent(phone)}/quotes/${encodeURIComponent(id)}/${signed ? "signed-document" : "document"}`, {
       headers: token ? { Authorization: `Bearer ${token}` } : {},
     });
     if (!res.ok) throw new Error(`שגיאה ${res.status} בטעינת ההצעה`);

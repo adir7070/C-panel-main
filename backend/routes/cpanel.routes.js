@@ -190,6 +190,8 @@ router.get   ("/clients/:phone/quotes/defaults",              quotesCtrl.default
 router.post  ("/clients/:phone/quotes",                       quotesCtrl.create);
 router.patch ("/clients/:phone/quotes/:id",                   quotesCtrl.update);
 router.get   ("/clients/:phone/quotes/:id/document",          quotesCtrl.document);
+router.post  ("/clients/:phone/quotes/:id/sign-link",         quotesCtrl.signLink);
+router.get   ("/clients/:phone/quotes/:id/signed-document",   quotesCtrl.signedDocument);
 router.get   ("/clients/:phone/personal-catalog",             personalPkgCtrl.list);
 router.post  ("/clients/:phone/personal-catalog",             personalPkgCtrl.create);
 router.patch ("/clients/:phone/personal-catalog/:id",         personalPkgCtrl.update);
