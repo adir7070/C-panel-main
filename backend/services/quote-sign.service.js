@@ -78,7 +78,8 @@ async function recordView(quote) {
 function validateClient(input, existing) {
   const client = quotes.cleanClient(input || {}, existing || {});
   const errors = {};
-  const need = { name: "שם העסק / הלקוח", id: "ח.פ. / ע.מ.", address: "כתובת", phone: "טלפון", email: 'דוא"ל', contact: "שם החותם" };
+  /* ח.פ. / ע.מ. is optional — checked only when the client fills it in. */
+  const need = { name: "שם העסק / הלקוח", address: "כתובת", phone: "טלפון", email: 'דוא"ל', contact: "שם החותם" };
   for (const [k, label] of Object.entries(need)) if (!client[k]) errors[k] = `חסר ${label}`;
   const idDigits = client.id.replace(/\D/g, "");
   if (client.id && (idDigits.length < 5 || idDigits.length > 9)) errors.id = "מספר ח.פ. / ע.מ. צריך להכיל 5–9 ספרות";

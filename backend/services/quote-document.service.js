@@ -119,14 +119,20 @@ function terms(q, T) {
     `</div><h3>תהליך העבודה שלנו</h3>${PROCESS_HTML}</section>`;
 }
 
-function agreement(q, T) {
+const CLIENT_ID_PHRASE = ', ח.פ./ע.מ. <span class="bd" data-b="clientId"></span>';
+/* ח.פ. / ע.מ. is optional: a signed copy without one drops the phrase instead
+   of leaving an empty line. An unsigned copy keeps the line, to fill by hand. */
+const dropClientId = (C, signed) => !!signed && !String(C.id || "").trim();
+
+function agreement(q, T, signed) {
   const C = q.client || {};
   const b = {
     date: val(dfmt(q.quoteDate)), companyLegal: val(COMPANY.legal), companyId: val(COMPANY.id),
     client: val(C.name), clientId: val(C.id), clientAddress: val(C.address),
     vat: esc(T.vatPct) + "%", commit: esc(q.commitMonths) + " חודשים", notice: esc(q.noticeDays) + " יום",
   };
-  const body = AGREEMENT_HTML.replace(/<span class="bd" data-b="(\w+)"><\/span>/g, (_, k) => `<span class="bd">${b[k] ?? ""}</span>`);
+  const html = dropClientId(C, signed) ? AGREEMENT_HTML.replace(CLIENT_ID_PHRASE, "") : AGREEMENT_HTML;
+  const body = html.replace(/<span class="bd" data-b="(\w+)"><\/span>/g, (_, k) => `<span class="bd">${b[k] ?? ""}</span>`);
   return `<section class="page agr"><div class="eyebrow">04 · ההסכם</div><h2>הסכם התקשרות למתן שירותים</h2>${body}</section>`;
 }
 
@@ -152,7 +158,7 @@ function signature(q, T, L, signed) {
     : "";
   return `<section class="page"><div class="eyebrow">05 · אישור וחתימה</div><h2>אישור וחתימה</h2><p class="lead">בחתימתם מאשרים הצדדים את הסכם ההתקשרות ואת נספח פירוט החיוב (הצעה מס׳ ${esc(q.quoteNo)} מיום ${dfmt(q.quoteDate)}).</p>
  <div class="confirm">${box}הלקוח מאשר שקרא את ההסכם ואת נספח פירוט החיוב, הבין אותם ומסכים לכל תנאיהם.<br>${box}הלקוח מאשר תשלום של <b>${fm(T.setup.total)}</b> (כולל מע"מ) עבור שירותי ההקמה במועד החתימה${L.m.length ? `, ותשלום חודשי של <b>${fm(T.monthly.total)}</b> (כולל מע"מ) למשך ${esc(q.commitMonths)} חודשים לפחות` : ""}.</div>
- <div class="sig"><div><h4>הלקוח</h4>${f("שם העסק / הלקוח", C.name)}${f("ח.פ. / ע.מ.", C.id)}${f("כתובת", C.address)}${f("טלפון", C.phone)}${f('דוא"ל', C.email)}${f("שם החותם ותפקידו", [C.contact, C.role].filter(Boolean).join(", "))}${f("תאריך", when ? when.date : "")}${f("חתימה וחותמת", "", 1, sigImg)}</div>
+ <div class="sig"><div><h4>הלקוח</h4>${f("שם העסק / הלקוח", C.name)}${dropClientId(C, signed) ? "" : f("ח.פ. / ע.מ.", C.id)}${f("כתובת", C.address)}${f("טלפון", C.phone)}${f('דוא"ל', C.email)}${f("שם החותם ותפקידו", [C.contact, C.role].filter(Boolean).join(", "))}${f("תאריך", when ? when.date : "")}${f("חתימה וחותמת", "", 1, sigImg)}</div>
  <div><h4>דשן מדיה טק</h4>${f("שם הישות", COMPANY.legal)}${f("ח.פ. / ע.מ.", COMPANY.id)}${f("כתובת", COMPANY.address)}${f("טלפון", COMPANY.phone)}${f('דוא"ל', COMPANY.email)}${f("שם החותם ותפקידו", `${COMPANY.signer}, ${COMPANY.role}`)}${f("תאריך", dfmt(q.quoteDate))}${f("חתימה וחותמת", "", 1, stamp() ? `<img class="stampimg" src="${stamp()}" alt="חותמת דשן מדיה טק">` : "")}</div></div>${audit}</section>`;
 }
 
@@ -182,7 +188,7 @@ function renderQuoteHtml(q, { signed = null } = {}) {
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400..800&family=Heebo:wght@400;500;700&display=swap">
 <style>${CSS}\n${TOOLBAR_CSS}</style><style>${pageCss(q)}</style></head><body class="nohl">
 <div class="tb"><button type="button" onclick="window.print()">הדפסה / שמירה כ-PDF</button><span>הצעה מס׳ ${esc(q.quoteNo)}</span>${signed ? `<span class="ok">✓ נחתם ${ilParts(signed.at).date}</span>` : ""}</div>
-<div class="wrap"><main id="doc">${cover(q, T, L)}${included(L)}${billing(q, T, L)}${terms(q, T)}${agreement(q, T)}${signature(q, T, L, signed)}</main></div>
+<div class="wrap"><main id="doc">${cover(q, T, L)}${included(L)}${billing(q, T, L)}${terms(q, T)}${agreement(q, T, signed)}${signature(q, T, L, signed)}</main></div>
 </body></html>`;
 }
 

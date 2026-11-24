@@ -182,7 +182,7 @@ function renderSignPage(quote, { view, validUntil, token }) {
   <p class="lead">מילאנו מה שידענו. שדות שמסומנים "חסר" — נשמח שתשלימו.</p>
   <form id="form" novalidate autocomplete="on">
     ${field("name", "שם העסק / הלקוח", 'autocomplete="organization" enterkeyhint="next"')}
-    ${field("id", "ח.פ. / ע.מ.", 'inputmode="numeric" autocomplete="off" enterkeyhint="next" dir="ltr" style="text-align:right"')}
+    ${field("id", "ח.פ. / ע.מ. (לא חובה)", 'inputmode="numeric" autocomplete="off" enterkeyhint="next" dir="ltr" style="text-align:right"', false)}
     ${field("address", "כתובת", 'autocomplete="street-address" enterkeyhint="next"')}
     ${field("phone", "טלפון", 'type="tel" inputmode="tel" autocomplete="tel" enterkeyhint="next" dir="ltr" style="text-align:right"')}
     ${field("email", 'דוא"ל', 'type="email" inputmode="email" autocomplete="email" enterkeyhint="next" dir="ltr" style="text-align:right"')}
@@ -248,7 +248,7 @@ var D=JSON.parse(document.getElementById("data").textContent);
 if(D.view!=="sign")return;
 var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
 var step=1, idWarned="";
-var REQ=["name","id","address","phone","email","contact"];
+var REQ=["name","address","phone","email","contact"];
 var LABEL={1:"המשך להשלמת פרטים",2:"המשך לחתימה",3:"חתימה ואישור ההסכם"};
 
 /* ── steps ── */
@@ -303,7 +303,7 @@ function fillWho(){
   var c=client();
   $("#who").innerHTML="";
   var b=document.createElement("b"); b.textContent=c.contact+(c.role?", "+c.role:"");
-  var s=document.createElement("div"); s.style.color="var(--muted)"; s.textContent="בשם "+c.name+" · ח.פ./ע.מ. "+c.id;
+  var s=document.createElement("div"); s.style.color="var(--muted)"; s.textContent="בשם "+c.name+(c.id?" · ח.פ./ע.מ. "+c.id:"");
   $("#who").appendChild(b); $("#who").appendChild(s);
 }
 
