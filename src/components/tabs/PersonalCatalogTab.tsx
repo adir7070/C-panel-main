@@ -20,7 +20,9 @@ import {
   type ProductItem,
   type ProductCoins,
   type CoinRedemption,
+  agentMaxDiscount,
 } from "../../api/client";
+import { useAuth } from "../../context/AuthContext";
 import { usePurchaseSync, announcePurchase } from "../../hooks/usePurchaseSync";
 import { openQuoteDocument, createSignLink, type Quote } from "../../api/quotes";
 import { QuoteBuilder } from "../quotes/QuoteBuilder";
@@ -66,8 +68,10 @@ export function PersonalCatalogTab({ phone }: { phone: string }) {
   );
   const checkPaymentRef = useRef<(() => void) | null>(null);
   const toast = useToast();
-  /* sales kit: at most 10% discount, for everyone (server enforces it too) */
-  const maxDiscount = 10;
+  /* The user's own cap — 10% unless ניהול משתמשים set another (server
+     enforces the same rule). */
+  const { agent } = useAuth();
+  const maxDiscount = agentMaxDiscount(agent);
   /* New quotes are built in QuoteBuilder (Dashen format); `editing` below
      only edits older packages. */
   const [builder, setBuilder] = useState<{ quote: Quote | null } | null>(null);

@@ -38,7 +38,9 @@ import { AdminUsersPage } from "./pages/admin/AdminUsersPage";
 import { AdminInstructionsPage } from "./pages/admin/AdminInstructionsPage";
 import { AuditLogPage } from "./pages/admin/AuditLogPage";
 import { PersonalCatalogPage } from "./pages/PersonalCatalogPage";
+import { SalesDashboardPage } from "./pages/SalesDashboardPage";
 import { Spinner } from "./components/ui/Spinner";
+import { isSalesRole, salesCanOpen } from "./lib/roles";
 
 export default function App() {
   return (
@@ -400,11 +402,20 @@ function LoginGuard() {
 
 function Protected({ children }: { children: React.ReactNode }) {
   const { agent, loading } = useAuth();
+  const { pathname } = useLocation();
   if (loading) return <FullPageSpinner />;
   if (!agent)
     return (
       <Navigate
         to='/login'
+        replace
+      />
+    );
+  /* Sales users only get their screens (src/lib/roles.ts). */
+  if (isSalesRole(agent.role) && !salesCanOpen(pathname))
+    return (
+      <Navigate
+        to='/'
         replace
       />
     );
@@ -437,7 +448,8 @@ function OwnerOnly({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
-/** Root path: admins land on /admin, everyone else on the manager dashboard. */
+/** Root path: admins land on /admin, sales on the lead dashboard, everyone
+ *  else on the manager dashboard. */
 function RoleHome() {
   const { agent } = useAuth();
   if (agent?.role === "admin")
@@ -447,6 +459,7 @@ function RoleHome() {
         replace
       />
     );
+  if (isSalesRole(agent?.role)) return <SalesDashboardPage />;
   return <DashboardPage />;
 }
 

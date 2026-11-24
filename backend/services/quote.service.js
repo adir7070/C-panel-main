@@ -1,6 +1,7 @@
 /* Quotes in the Dashen format (deshen-quote-agreement): setup services paid
-   at signing + monthly services for a commitment period, a discount of at
-   most 10%, VAT on top. Stored in personal_packages with kind "quote" so the
+   at signing + monthly services for a commitment period, a discount capped
+   per user (10% unless the user's agents.maxDiscountPct says otherwise), VAT
+   on top. Stored in personal_packages with kind "quote" so the
    client's קטלוג אישי lists them next to older packages.
 
    The server is the source of truth for every number: lines are resolved
@@ -10,7 +11,7 @@
 
 const { getDB } = require("../config/db");
 
-const MAX_DISCOUNT_PCT = 10;   // sales kit: "הנחה מרבית במבצע 10%" — for everyone
+const MAX_DISCOUNT_PCT = 10;   // sales kit: "הנחה מרבית במבצע 10%" — the default for every user
 const VAT_PCT = 18;
 const MAX_LINES = 100;
 const DEFAULTS = { validDays: 14, commitMonths: 3, noticeDays: 30 };
@@ -25,13 +26,23 @@ const int = (v, min, max, dflt) => {
   return Number.isFinite(n) ? Math.min(max, Math.max(min, n)) : dflt;
 };
 
+/* The highest discount this panel user may give. Everyone gets the sales
+   kit's 10% unless their agents doc carries maxDiscountPct (0–100), which
+   ניהול משתמשים sets per user — admins are not exempt by role. */
+function maxDiscountFor(agent) {
+  const v = agent?.maxDiscountPct;
+  return typeof v === "number" && Number.isFinite(v) && v >= 0 && v <= 100 ? v : MAX_DISCOUNT_PCT;
+}
+
 /* Today in Israel as YYYY-MM-DD. */
 function todayIL() {
   return new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Jerusalem" }).format(new Date());
 }
 
+/* The cap is enforced where a quote is saved (buildQuoteFields), per user —
+   here the percentage is only kept in range. */
 function computeTotals(lines, { discountPct = 0, vatPct = VAT_PCT, commitMonths = DEFAULTS.commitMonths } = {}) {
-  const pct = Math.min(MAX_DISCOUNT_PCT, Math.max(0, Number(discountPct) || 0));
+  const pct = Math.min(100, Math.max(0, Number(discountPct) || 0));
   const block = monthly => {
     const its = lines.filter(l => (l.billing === "monthly") === monthly);
     const sub = its.reduce((s, l) => s + l.price * l.qty, 0);
@@ -141,11 +152,11 @@ async function clientDefaults(phone) {
 }
 
 /* Request body → the fields a quote stores (lines resolved, totals computed). */
-async function buildQuoteFields(body, { existing = null, phone }) {
+async function buildQuoteFields(body, { existing = null, phone, maxDiscountPct = MAX_DISCOUNT_PCT }) {
   const b = body || {};
   const discountPct = Number(b.discountPct ?? existing?.discountPct ?? 0) || 0;
-  if (discountPct < 0 || discountPct > MAX_DISCOUNT_PCT) {
-    throw new QuoteError(`ההנחה המרבית היא ${MAX_DISCOUNT_PCT}%`, "discount_too_high");
+  if (discountPct < 0 || discountPct > maxDiscountPct) {
+    throw new QuoteError(`ההנחה המרבית שלך היא ${maxDiscountPct}%`, "discount_too_high");
   }
   const lines = b.lines !== undefined ? await resolveLines(b.lines, existing?.lines || []) : (existing?.lines || []);
   const commitMonths = int(b.commitMonths ?? existing?.commitMonths, 1, 36, DEFAULTS.commitMonths);
@@ -172,6 +183,6 @@ async function buildQuoteFields(body, { existing = null, phone }) {
 }
 
 module.exports = {
-  MAX_DISCOUNT_PCT, VAT_PCT, DEFAULTS, QuoteError,
+  MAX_DISCOUNT_PCT, VAT_PCT, DEFAULTS, QuoteError, maxDiscountFor,
   computeTotals, nextQuoteNo, resolveLines, clientDefaults, buildQuoteFields, todayIL, cleanClient,
 };

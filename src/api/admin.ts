@@ -738,7 +738,7 @@ export function sendAdminBroadcast(payload: {
 
 /* ── Agent management (Tier A #5) ───────────────────────────────────── */
 
-export type AgentRole = "admin" | "supervisor" | "account_manager" | "finance";
+export type AgentRole = "admin" | "supervisor" | "account_manager" | "sales" | "finance";
 
 export interface AgentRow {
   id: string;
@@ -748,6 +748,8 @@ export interface AgentRow {
   phone: string | null;
   role: AgentRole;
   active: boolean;
+  /** Highest quote discount this user may give; null = the default 10%. */
+  maxDiscountPct: number | null;
   station: string | null;
   team: string | null;
   avatarUrl: string | null;
@@ -784,6 +786,7 @@ export function createAdminAgent(payload: {
   nickname?: string;
   email?: string;
   phone?: string;
+  maxDiscountPct?: number | null;
 }) {
   return req<{ success: boolean; agent: { id: string; name: string; nickname: string | null; role: AgentRole; active: boolean; createdAt: string } }>(
     "/cpanel/admin/agents",
@@ -795,6 +798,8 @@ export function updateAdminAgent(id: string, payload: Partial<{
   name: string; nickname: string; email: string; phone: string;
   role: AgentRole; active: boolean; password: string; station: string; team: string;
   bio: string;
+  /** null = back to the default 10%. */
+  maxDiscountPct: number | null;
 }>) {
   return req<{ success: boolean; id: string }>(
     `/cpanel/admin/agents/${encodeURIComponent(id)}`,

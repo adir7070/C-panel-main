@@ -291,7 +291,8 @@ function NewLeadForm({ isAdmin, managers, onDone }: { isAdmin: boolean; managers
       {isAdmin && (
         <Field label="שייך למנהל">
           <select className="input" value={assignedTo} onChange={e => setAssignedTo(e.target.value)}>
-            <option value="">— לא משויך —</option>
+            {/* Empty → the server applies the auto-assign user (if one is set on לידים לחלוקה). */}
+            <option value="">— שיוך אוטומטי (אם מוגדר) —</option>
             {managers.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
           </select>
         </Field>

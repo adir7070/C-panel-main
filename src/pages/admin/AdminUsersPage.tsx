@@ -21,6 +21,7 @@ const ROLE_LABEL: Record<AgentRole, string> = {
   admin:           "אדמין",
   supervisor:      "אחראי צוות",
   account_manager: "מנהל תיקים",
+  sales:           "מכירות",
   finance:         "פיננסים",
 };
 
@@ -28,8 +29,12 @@ const ROLE_COLOR: Record<AgentRole, string> = {
   admin:           "#E53935",
   supervisor:      "#7C3AED",
   account_manager: "var(--blue)",
+  sales:           "#EA580C",
   finance:         "#2E7D32",
 };
+
+/* The sales kit's cap; a user without agents.maxDiscountPct gets this. */
+const DEFAULT_MAX_DISCOUNT = 10;
 
 function formatDate(iso: string | null): string {
   if (!iso) return "—";
@@ -219,6 +224,11 @@ export function AdminUsersPage() {
                           color: ROLE_COLOR[a.role],
                           fontSize: 11, fontWeight: 700,
                         }}>{ROLE_LABEL[a.role]}</span>
+                        {a.maxDiscountPct !== null && a.maxDiscountPct !== DEFAULT_MAX_DISCOUNT && (
+                          <span className="t-meta" style={{ fontSize: 11, marginInlineStart: 6 }}>
+                            הנחה עד {a.maxDiscountPct}%
+                          </span>
+                        )}
                       </Td>
                       <Td><span dir="ltr" style={{ fontSize: 11, color: "var(--ink-2)" }}>{a.email || "—"}</span></Td>
                       <Td><span style={{ fontSize: 11, color: "var(--ink-3)" }}>{relativeTime(a.lastActiveAt || a.lastLogin)}</span></Td>
@@ -283,6 +293,10 @@ function AgentEditModal({
   const [role,     setRole]     = useState<AgentRole>(agent?.role || "account_manager");
   const [bio,      setBio]      = useState(agent?.bio      || "");
   const [password, setPassword] = useState("");
+  /* "" = the default 10% (nothing stored on the user). */
+  const [maxDiscount, setMaxDiscount] = useState(
+    agent?.maxDiscountPct !== null && agent?.maxDiscountPct !== undefined ? String(agent.maxDiscountPct) : "",
+  );
   const [busy, setBusy]         = useState(false);
   /* Avatar is its own micro-flow: upload happens immediately on file
      selection (no batching with the rest of the form save) so admins
@@ -312,6 +326,10 @@ function AgentEditModal({
 
   async function submit() {
     if (!name.trim())                            { toast.error("שם משתמש חובה"); return; }
+    const discountCap = maxDiscount.trim() === "" ? null : Number(maxDiscount);
+    if (discountCap !== null && (!Number.isFinite(discountCap) || discountCap < 0 || discountCap > 100)) {
+      toast.error("הנחה מקסימלית: מספר בין 0 ל-100, או ריק לברירת המחדל"); return;
+    }
     if (isNew && password.length < 6)            { toast.error("סיסמה חייבת לפחות 6 תווים"); return; }
     if (!isNew && password.length > 0 && password.length < 6) {
       toast.error("סיסמה חדשה חייבת לפחות 6 תווים"); return;
@@ -327,6 +345,7 @@ function AgentEditModal({
           nickname: nickname.trim() || undefined,
           email:    email.trim()    || undefined,
           phone:    phone.trim()    || undefined,
+          maxDiscountPct: discountCap,
         });
         toast.ok("משתמש נוצר");
       } else if (agent) {
@@ -337,6 +356,7 @@ function AgentEditModal({
           phone: phone.trim(),
           role,
           bio: bio.trim(),
+          maxDiscountPct: discountCap,
         };
         if (password.length >= 6) update.password = password;
         await updateAdminAgent(agent.id, update);
@@ -463,10 +483,33 @@ function AgentEditModal({
             onChange={e => setRole(e.target.value as AgentRole)}
             style={inputStyle}
           >
-            {(["account_manager", "supervisor", "finance", "admin"] as AgentRole[]).map(r => (
+            {(["sales", "account_manager", "supervisor", "finance", "admin"] as AgentRole[]).map(r => (
               <option key={r} value={r}>{ROLE_LABEL[r]}</option>
             ))}
           </select>
+        </Field>
+
+        {role === "sales" && (
+          <p className="t-meta" style={{ margin: "-4px 0 0", fontSize: 12 }}>
+            מכירות רואה דשבורד לידים, את הלידים שמשויכים אליו, את הלקוחות שנסגרו דרכו, משימות ופגישות.
+          </p>
+        )}
+
+        <Field
+          label="הנחה מקסימלית בהצעת מחיר (%)"
+          hint={`ריק = ברירת המחדל (${DEFAULT_MAX_DISCOUNT}%) · 100 = ללא הגבלה`}
+        >
+          <input
+            type="number"
+            min={0}
+            max={100}
+            step={1}
+            value={maxDiscount}
+            onChange={e => setMaxDiscount(e.target.value)}
+            placeholder={String(DEFAULT_MAX_DISCOUNT)}
+            dir="ltr"
+            style={inputStyle}
+          />
         </Field>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>

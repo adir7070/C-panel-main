@@ -39,7 +39,7 @@ exports.defaults = async (req, res) => {
       client: { id: "", role: "", ...(await quotes.clientDefaults(req.params.phone)) },
       quoteDate: quotes.todayIL(),
       ...quotes.DEFAULTS,
-      maxDiscountPct: quotes.MAX_DISCOUNT_PCT,
+      maxDiscountPct: quotes.maxDiscountFor(req.agent),
       vatPct: quotes.VAT_PCT,
     });
   } catch (err) {
@@ -51,7 +51,7 @@ exports.defaults = async (req, res) => {
 exports.create = async (req, res) => {
   try {
     const { phone } = req.params;
-    const fields = await quotes.buildQuoteFields(req.body, { phone });
+    const fields = await quotes.buildQuoteFields(req.body, { phone, maxDiscountPct: quotes.maxDiscountFor(req.agent) });
     const quoteNo = await quotes.nextQuoteNo(fields.quoteDate);
     const now = new Date();
     const doc = {
@@ -82,7 +82,7 @@ exports.update = async (req, res) => {
     if (!existing) return;
     if (existing.purchased) return res.status(409).json({ error: "quote_paid", message: "הצעה ששולמה אינה ניתנת לעריכה" });
     if (existing.signed) return res.status(409).json({ error: "quote_signed", message: "הצעה חתומה אינה ניתנת לעריכה — צרו הצעה חדשה" });
-    const fields = await quotes.buildQuoteFields(req.body, { existing, phone: existing.phone });
+    const fields = await quotes.buildQuoteFields(req.body, { existing, phone: existing.phone, maxDiscountPct: quotes.maxDiscountFor(req.agent) });
     const r = await COL().findOneAndUpdate(
       { _id: existing._id },
       { $set: { ...fields, updatedAt: new Date() } },

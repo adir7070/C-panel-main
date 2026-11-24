@@ -3,6 +3,7 @@ import { useShell } from "./Layout";
 import { useAuth } from "../../context/AuthContext";
 import { NotificationCenter } from "./NotificationCenter";
 import { IcoSearch } from "../icons/Icons";
+import { roleLabelEn } from "../../lib/roles";
 
 interface Props {
   eyebrow?: string;
@@ -91,7 +92,7 @@ export function Header({ eyebrow, title, meta, trailing, back, hideSearch }: Pro
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 0, lineHeight: 1.15 }}>
               <span style={{ fontSize: 12, fontWeight: 700, color: "var(--ink)" }}>{agent.nickname || agent.name}</span>
-              <span style={{ fontSize: 10, color: "var(--ink-3)", fontWeight: 500 }}>{roleLabel(agent.role)}</span>
+              <span style={{ fontSize: 10, color: "var(--ink-3)", fontWeight: 500 }}>{roleLabelEn(agent.role)}</span>
             </div>
           </div>
         )}
@@ -100,9 +101,3 @@ export function Header({ eyebrow, title, meta, trailing, back, hideSearch }: Pro
   );
 }
 
-function roleLabel(role: string): string {
-  if (role === "admin")      return "Administrator";
-  if (role === "supervisor") return "Supervisor";
-  if (role === "manager")    return "Account Manager";
-  return role;
-}

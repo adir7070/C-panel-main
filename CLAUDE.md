@@ -97,6 +97,13 @@ GitHub integration from `main` of adir7070/C-panel-main (no GitHub Actions).
 - Managers only see leads assigned to them; admins see all and distribute
   (`/admin/leads-distribution`: assign / round-robin). Each lead has notes,
   status history, and an "activate" action (→ `active_client`).
+- **Auto-assign:** `admin_settings.leadsAutoAssignTo` = an agent id. Every
+  intake lead, and every import/manual add that names no manager, goes
+  straight to that user (`autoAssignAgent` in `server/leads.js`). It is set
+  on `/admin/leads-distribution` (`GET`/`PUT /api/leads/auto-assign`, which can
+  also hand over every lead that is still unassigned). Since 2026-11-24 it
+  points at Gali (user decision: "for now").
+- `assignedToName` is the user's nickname when they have one ("גלי").
 - Frontend API in `src/api/leads.ts`; list in `src/pages/LeadsPage.tsx`.
   Clicking a row opens the lead screen `src/pages/LeadDetailPage.tsx`
   (`/leads/:id`, `/leads/:id/personal_catalog` deep-links the tab). It has
@@ -147,8 +154,14 @@ GitHub integration from `main` of adir7070/C-panel-main (no GitHub Actions).
     `computeQuoteTotals` mirrors it for the live preview.
   - A line already in a quote keeps its quoted price when the catalog
     price changes.
-- Max discount is **10% for everyone, admins included**
-  (`maxDiscountForAgent` → 10; user decision).
+- Max discount is **per user**: `agents.maxDiscountPct` (0–100, set in
+  ניהול משתמשים), absent = **10%**, admins included — the role grants
+  nothing. Netanel has 100 (no cap; user decision 2026-11-24).
+  `quote.service.maxDiscountFor(agent)` is the one rule; quotes, the old
+  personal packages, `/cpanel/products` `quoteRules` and the quote defaults
+  all use it, and `agentMaxDiscount()` in `src/api/client.ts` mirrors it.
+  The cap applies to whoever saves, so editing a quote someone else gave a
+  higher discount fails until the discount is lowered.
 - Routes (behind `requireClientAccess`):
   - `/api/cpanel/clients/:phone/quotes`: `GET /defaults`, `POST`, `PATCH /:id`,
     and `GET /:id/document`.
@@ -322,9 +335,19 @@ const { data, loading, error, reload } = useApi(
 
 ### Auth & routing (`src/App.tsx`, `src/context/AuthContext.tsx`)
 - Token stored in `localStorage.cpanel_token`; validated on mount via `GET /api/agents/me`
-- Three roles: `account_manager` → `supervisor` → `admin`
+- Roles: `sales` · `account_manager` → `supervisor` → `admin` (plus `finance`).
+  The backend scopes every non-admin the same way (own leads, own clients).
+- `sales` (מכירות, e.g. Gali): the menu and the router (`src/lib/roles.ts`)
+  only allow `/` (the lead dashboard `SalesDashboardPage`, data from
+  `GET /api/leads/dashboard`), `/leads`, `/clients`, `/tasks`,
+  `/appointments`; anything else redirects to `/`. They appear in the
+  assign-to lists (`/cpanel/account-managers` returns `account_manager` +
+  `sales`).
 - `<Protected>` wrapper guards all routes; admin routes additionally check `agent.role === "admin"`
-- Root `/` redirects to `/admin` (admins) or `/dashboard` (managers)
+- Root `/` redirects to `/admin` (admins), shows the lead dashboard (sales) or the manager dashboard (everyone else)
+- Users: `admin`, `netanel` (admin, no discount cap), `gali` (sales). They
+  were created by `backend/scripts/setup-sales-team.js` (idempotent;
+  passwords come from env vars and are never committed).
 
 ### State management
 No Redux/Zustand. State lives in:

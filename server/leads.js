@@ -188,7 +188,21 @@ export function buildLeadDoc(body, { source, assignedTo = null, assignedToName =
 
 async function findAgent(db, agentId) {
   if (!agentId) return null;
-  return db.collection("agents").findOne({ ...agentIdQuery(agentId), active: { $ne: false } }, { projection: { name: 1, nickname: 1 } });
+  return db.collection("agents").findOne({ ...agentIdQuery(agentId), active: { $ne: false } }, { projection: { name: 1, nickname: 1, role: 1 } });
+}
+
+/* What the lead list / lead screen show as "משויך ל" — the Hebrew nickname
+   when the user has one ("גלי"), else the login name. */
+const agentLabel = a => a.nickname || a.name;
+
+/* ── Auto-assign ───────────────────────────────────────────────────────
+   admin_settings.leadsAutoAssignTo = agentId: every lead that comes in
+   (intake, and imports that don't name a manager) goes straight to that
+   user. Set on /admin/leads-distribution. A missing or deactivated user
+   leaves new leads unassigned, as before. */
+async function autoAssignAgent(db) {
+  const settings = await db.collection("admin_settings").findOne({}, { projection: { leadsAutoAssignTo: 1 } });
+  return settings?.leadsAutoAssignTo ? findAgent(db, settings.leadsAutoAssignTo) : null;
 }
 
 /* ── Lead → client sync ────────────────────────────────────────────────
@@ -274,6 +288,8 @@ leadsRouter.post("/api/leads/intake", async (req, res) => {
   if (!doc) return res.status(400).json({ error: "bad_request", message: "נדרש לפחות טלפון או שם" });
   try {
     const db = await getDb();
+    const auto = await autoAssignAgent(db);
+    if (auto) { doc.assignedTo = String(auto._id); doc.assignedToName = agentLabel(auto); }
     if (doc.phone) {
       const dup = await db.collection("leads").findOne({ phone: doc.phone }, { projection: { _id: 1 } });
       if (dup) doc.duplicateOf = String(dup._id);
@@ -356,6 +372,134 @@ leadsRouter.get("/api/leads/stats", fbLeadsRoute, requireAuth, async (req, res) 
   }
 });
 
+/* ── Sales dashboard ───────────────────────────────────────────────────
+   GET /api/leads/dashboard — the numbers on a salesperson's home screen,
+   over the caller's own leads (admins: every lead) and the quotes they
+   built. Days are Israel calendar days. */
+const TZ = "Asia/Jerusalem";
+const DASH_DAYS = 14;
+const LIST_FIELDS = { name: 1, phone: 1, phoneRaw: 1, business: 1, field: 1, source: 1, status: 1, assignedToName: 1, createdAt: 1, updatedAt: 1 };
+const dayKey = date => ({ $dateToString: { format: "%Y-%m-%d", date, timezone: TZ } });
+const todayIL = () => new Intl.DateTimeFormat("en-CA", { timeZone: TZ }).format(new Date());
+
+leadsRouter.get("/api/leads/dashboard", requireAuth, async (req, res) => {
+  try {
+    const db = await getDb();
+    const today = todayIL();
+    const month = today.slice(0, 7);
+    /* Calendar arithmetic on a UTC noon anchor — immune to DST shifts. */
+    const anchor = Date.parse(`${today}T12:00:00Z`);
+    const days = Array.from({ length: 31 }, (_, i) => new Date(anchor - (30 - i) * 86_400_000).toISOString().slice(0, 10));
+    const since = new Date(Date.parse(`${days[0]}T00:00:00Z`) - 86_400_000); // a day of slack for the offset
+
+    const [agg] = await db.collection("leads").aggregate([
+      { $match: scopeFilter(req.agent) },
+      { $facet: {
+        byStatus:  [{ $group: { _id: "$status", n: { $sum: 1 } } }],
+        created:   [{ $match: { createdAt: { $gte: since } } }, { $group: { _id: dayKey("$createdAt"), n: { $sum: 1 } } }],
+        activated: [{ $match: { activatedAt: { $gte: since } } }, { $group: { _id: dayKey("$activatedAt"), n: { $sum: 1 } } }],
+        converted: [{ $match: { $or: [{ clientPhone: { $nin: [null, ""] } }, { status: { $in: [...CLIENT_STATUSES] } }] } }, { $count: "n" }],
+        fresh:     [{ $match: { status: "new" } }, { $sort: { createdAt: -1 } }, { $limit: 8 }, { $project: LIST_FIELDS }],
+        callAgain: [{ $match: { status: "call_again" } }, { $sort: { updatedAt: 1 } }, { $limit: 8 }, { $project: LIST_FIELDS }],
+        toCharge:  [{ $match: { status: "to_charge" } }, { $sort: { updatedAt: 1 } }, { $limit: 8 }, { $project: LIST_FIELDS }],
+      } },
+    ]).toArray();
+
+    const byStatus = Object.fromEntries(LEAD_STATUSES.map(st => [st, 0]));
+    let total = 0;
+    for (const r of agg.byStatus) { if (r._id in byStatus) byStatus[r._id] = r.n; total += r.n; }
+    const createdBy = Object.fromEntries(agg.created.map(r => [r._id, r.n]));
+    const activatedBy = Object.fromEntries(agg.activated.map(r => [r._id, r.n]));
+    const sum = (map, keys) => keys.reduce((n, k) => n + (map[k] || 0), 0);
+    const monthDays = days.filter(d => d.startsWith(month));
+    const converted = agg.converted[0]?.n || 0;
+
+    /* Quotes this user built (admins: all), from personal_packages. */
+    const quoteScope = req.agent.role === "admin" ? {} : { agentId: req.agent.id };
+    const [q] = await db.collection("personal_packages").aggregate([
+      { $match: { kind: "quote", active: { $ne: false }, ...quoteScope } },
+      { $group: {
+        _id: null,
+        total:      { $sum: 1 },
+        signed:     { $sum: { $cond: [{ $ifNull: ["$signed.at", false] }, 1, 0] } },
+        signedNet:  { $sum: { $cond: [{ $ifNull: ["$signed.at", false] }, { $ifNull: ["$totals.commitNet", 0] }, 0] } },
+        signedMonth: { $sum: { $cond: [{ $eq: [{ $substrCP: [{ $ifNull: [dayKey("$signed.at"), ""] }, 0, 7] }, month] }, 1, 0] } },
+      } },
+    ]).toArray();
+
+    res.json({
+      total,
+      byStatus,
+      converted,
+      conversionRate: total ? Math.round((converted / total) * 1000) / 10 : 0,
+      newToday: createdBy[today] || 0,
+      newWeek: sum(createdBy, days.slice(-7)),
+      newMonth: sum(createdBy, monthDays),
+      activatedMonth: sum(activatedBy, monthDays),
+      daily: days.slice(-DASH_DAYS).map(date => ({ date, created: createdBy[date] || 0, activated: activatedBy[date] || 0 })),
+      fresh: agg.fresh.map(d => serialize(d)),
+      callAgain: agg.callAgain.map(d => serialize(d)),
+      toCharge: agg.toCharge.map(d => serialize(d)),
+      quotes: {
+        total: q?.total || 0,
+        signed: q?.signed || 0,
+        pending: (q?.total || 0) - (q?.signed || 0),
+        signedNet: q?.signedNet || 0,
+        signedMonth: q?.signedMonth || 0,
+      },
+    });
+  } catch (err) {
+    serverError(res, err, "leads/dashboard");
+  }
+});
+
+/* ── Auto-assign setting (admin) ───────────────────────────────────────
+   GET  /api/leads/auto-assign → { agentId, agentName, unassigned }
+   PUT  /api/leads/auto-assign { agentId | null, assignExisting? }
+        assignExisting also hands that user every lead that is still
+        unassigned right now. */
+leadsRouter.get("/api/leads/auto-assign", requireAuth, requireAdmin, async (_req, res) => {
+  try {
+    const db = await getDb();
+    const [a, unassigned] = await Promise.all([
+      autoAssignAgent(db),
+      db.collection("leads").countDocuments({ assignedTo: null }),
+    ]);
+    res.json({ agentId: a ? String(a._id) : null, agentName: a ? agentLabel(a) : null, unassigned });
+  } catch (err) {
+    serverError(res, err, "leads/auto-assign:get");
+  }
+});
+
+leadsRouter.put("/api/leads/auto-assign", requireAuth, requireAdmin, async (req, res) => {
+  const { agentId, assignExisting } = req.body ?? {};
+  try {
+    const db = await getDb();
+    let a = null;
+    if (agentId) {
+      a = await findAgent(db, agentId);
+      if (!a) return res.status(400).json({ error: "bad_agent", message: "המשתמש לשיוך לא נמצא או לא פעיל" });
+      if (a.role === "admin") return res.status(400).json({ error: "bad_agent", message: "שיוך אוטומטי הוא לאיש מכירות או מנהל תיקים, לא לאדמין" });
+    }
+    await db.collection("admin_settings").updateOne(
+      {},
+      { $set: { leadsAutoAssignTo: a ? String(a._id) : null, leadsAutoAssignUpdatedAt: new Date(), leadsAutoAssignUpdatedBy: req.agent.id } },
+      { upsert: true },
+    );
+    let assigned = 0;
+    if (a && assignExisting) {
+      const r = await db.collection("leads").updateMany(
+        { assignedTo: null },
+        { $set: { assignedTo: String(a._id), assignedToName: agentLabel(a), updatedAt: new Date() } },
+      );
+      assigned = r.modifiedCount;
+    }
+    res.json({ ok: true, agentId: a ? String(a._id) : null, agentName: a ? agentLabel(a) : null, assigned });
+  } catch (err) {
+    serverError(res, err, "leads/auto-assign:put");
+  }
+});
+
 // POST /api/leads/import  { leads: [...], assignedTo? } → bulk create
 leadsRouter.post("/api/leads/import", requireAuth, async (req, res) => {
   const { leads, assignedTo } = req.body ?? {};
@@ -366,11 +510,14 @@ leadsRouter.post("/api/leads/import", requireAuth, async (req, res) => {
     const db = await getDb();
     let target = null, targetName = null;
     if (req.agent.role !== "admin") {
-      target = req.agent.id; targetName = req.agent.name; // managers can only import to themselves
+      target = req.agent.id; targetName = req.agent.nickname || req.agent.name; // managers can only import to themselves
     } else if (assignedTo) {
       const a = await findAgent(db, assignedTo);
       if (!a) return res.status(400).json({ error: "bad_agent", message: "המנהל לשיוך לא נמצא" });
-      target = String(a._id); targetName = a.name;
+      target = String(a._id); targetName = agentLabel(a);
+    } else {
+      const auto = await autoAssignAgent(db); // no manager picked → the auto-assign user, if set
+      if (auto) { target = String(auto._id); targetName = agentLabel(auto); }
     }
     const docs = leads.slice(0, 2000)
       .map(l => buildLeadDoc(l, { source: l?.source || "import", assignedTo: target, assignedToName: targetName }))
@@ -410,7 +557,7 @@ leadsRouter.post("/api/leads/assign", requireAuth, requireAdmin, async (req, res
     if (!a) return res.status(404).json({ error: "not_found", message: "המנהל לא נמצא" });
     const r = await db.collection("leads").updateMany(
       { _id: { $in: oids } },
-      { $set: { assignedTo: String(a._id), assignedToName: a.name, updatedAt: new Date() } },
+      { $set: { assignedTo: String(a._id), assignedToName: agentLabel(a), updatedAt: new Date() } },
     );
     res.json({ ok: true, assigned: r.modifiedCount, skipped: (Array.isArray(ids) ? ids.length : 0) - r.modifiedCount });
   } catch (err) {
@@ -431,7 +578,7 @@ leadsRouter.post("/api/leads/round-robin", requireAuth, requireAdmin, async (req
     const agentQuery = wanted.length
       ? { _id: { $in: wanted }, active: { $ne: false } }
       : { active: { $ne: false }, role: { $ne: "admin" } };
-    const agents = await db.collection("agents").find(agentQuery, { projection: { name: 1 } }).toArray();
+    const agents = await db.collection("agents").find(agentQuery, { projection: { name: 1, nickname: 1 } }).toArray();
     if (agents.length === 0) return res.status(400).json({ error: "no_agents", message: "אין מנהלים פעילים לחלוקה" });
     const loads = await db.collection("leads").aggregate([
       { $match: { assignedTo: { $in: agents.map(a => String(a._id)) } } },
@@ -447,11 +594,11 @@ leadsRouter.post("/api/leads/round-robin", requireAuth, requireAdmin, async (req
       const a = agents.slice().sort((x, y) => (load[String(x._id)] - load[String(y._id)]) || String(x.name).localeCompare(String(y.name)))[0];
       const r = await db.collection("leads").updateOne(
         { _id: oid },
-        { $set: { assignedTo: String(a._id), assignedToName: a.name, updatedAt: new Date() } },
+        { $set: { assignedTo: String(a._id), assignedToName: agentLabel(a), updatedAt: new Date() } },
       );
       if (r.matchedCount) {
         load[String(a._id)]++;
-        if (r.modifiedCount) { assigned++; distribution[a.name] = (distribution[a.name] || 0) + 1; }
+        if (r.modifiedCount) { assigned++; distribution[agentLabel(a)] = (distribution[agentLabel(a)] || 0) + 1; }
       }
     }
     res.json({ ok: true, assigned, skipped: oids.length - assigned, distribution });
@@ -542,7 +689,7 @@ leadsRouter.patch("/api/leads/:id", idRoute, requireAuth, async (req, res) => {
       if (body.assignedTo) {
         const a = await findAgent(db, body.assignedTo);
         if (!a) return res.status(400).json({ error: "bad_agent", message: "המנהל לשיוך לא נמצא" });
-        $set.assignedTo = String(a._id); $set.assignedToName = a.name;
+        $set.assignedTo = String(a._id); $set.assignedToName = agentLabel(a);
       } else {
         $set.assignedTo = null; $set.assignedToName = null;
       }

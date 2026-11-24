@@ -804,6 +804,14 @@ export interface Agent {
   nickname?: string;
   role: string;
   phone?: string;
+  /** Highest quote discount this user may give; absent = 10%. */
+  maxDiscountPct?: number;
+}
+
+/** Same rule as the backend's quote.service maxDiscountFor. */
+export function agentMaxDiscount(agent: Pick<Agent, "maxDiscountPct"> | null | undefined): number {
+  const v = agent?.maxDiscountPct;
+  return typeof v === "number" && Number.isFinite(v) && v >= 0 && v <= 100 ? v : 10;
 }
 
 export interface Client {

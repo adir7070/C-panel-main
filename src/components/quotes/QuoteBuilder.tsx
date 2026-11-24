@@ -433,14 +433,15 @@ export function QuoteBuilder({ phone, quote, onClose, onSaved }: {
               <div className="qb-card">
                 <h4>תנאים</h4>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-                  <MiniField label={`הנחה % (עד ${maxDiscount})`}>
+                  <MiniField label={maxDiscount >= 100 ? "הנחה %" : `הנחה % (עד ${maxDiscount})`}>
                     <div style={{ display: "flex", gap: 4 }}>
                       <Input
                         type="number" min={0} max={maxDiscount} value={discountPct}
                         onChange={e => { setDiscountPct(Math.max(0, Math.min(maxDiscount, Number(e.target.value) || 0))); touch(); }}
                         style={{ minWidth: 0 }}
                       />
-                      {[0, 5, maxDiscount].filter((v, i, a) => a.indexOf(v) === i).map(v => (
+                      {/* Quick picks: 0 / 5 / 10, plus the user's own cap when it is a modest one. */}
+                      {[0, 5, 10, ...(maxDiscount <= 30 ? [maxDiscount] : [])].filter((v, i, a) => v <= maxDiscount && a.indexOf(v) === i).map(v => (
                         <button key={v} type="button" className={`qb-chip${discountPct === v ? " on" : ""}`} style={{ padding: "4px 8px" }} onClick={() => { setDiscountPct(v); touch(); }}>{v}%</button>
                       ))}
                     </div>

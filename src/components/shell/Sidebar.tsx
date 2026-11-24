@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { isSalesRole, roleLabelEn, salesCanOpen } from "../../lib/roles";
 import dashenLogo from "../../assets/dashen-logo.jpg";
 import {
   IcoHome, IcoUsers, IcoChat, IcoBroadcast, IcoTarget,
@@ -96,8 +97,11 @@ export function Sidebar({ collapsed = false, onToggle }: Props) {
             || (agent?.phone ?? "").replace(/\D/g, "").endsWith("542587070");
           if (isAdmin && g.key !== "admin") return null;
           if (!isAdmin && g.key === "admin") return null;
+          /* Sales users get only their screens (src/lib/roles.ts). */
+          const isSales = isSalesRole(agent?.role);
 
-          const items = NAV.filter(n => n.group === g.key && (!n.adminOnly || isAdmin) && (!n.ownerOnly || isOwner));
+          const items = NAV.filter(n => n.group === g.key && (!n.adminOnly || isAdmin) && (!n.ownerOnly || isOwner)
+            && (!isSales || salesCanOpen(n.to)));
           if (!items.length) return null;
           return (
             <div key={g.key} className="side-group">
@@ -131,13 +135,7 @@ export function Sidebar({ collapsed = false, onToggle }: Props) {
             </div>
             <div className="side-agent-info">
               <p className="side-agent-name">{agent.nickname || agent.name}</p>
-              <p className="side-agent-role">
-                {agent.role === "admin"
-                  ? "Administrator"
-                  : agent.role === "supervisor"
-                  ? "Supervisor"
-                  : "Account Manager"}
-              </p>
+              <p className="side-agent-role">{roleLabelEn(agent.role)}</p>
             </div>
           </div>
           <button className="side-logout-full" onClick={logout} title="התנתקות" aria-label="התנתקות">

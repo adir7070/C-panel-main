@@ -2786,7 +2786,21 @@ function hashAgentPassword(password) {
   return crypto.createHash("sha256").update(password + "iconiq2024").digest("hex");
 }
 
-const VALID_AGENT_ROLES = ["admin", "supervisor", "account_manager", "finance"];
+/* "sales" (מכירות): works the leads assigned to them and the clients those
+   leads became — scoped like an account manager, with a smaller menu. */
+const VALID_AGENT_ROLES = ["admin", "supervisor", "account_manager", "sales", "finance"];
+
+/* agents.maxDiscountPct — the highest quote discount the user may give.
+   Absent = the sales kit's 10% (quote.service maxDiscountFor). The form
+   sends a number 0–100, or null / "" to go back to the default. Returns
+   undefined when the body doesn't touch it. */
+function parseMaxDiscount(v) {
+  if (v === undefined) return undefined;
+  if (v === null || v === "") return null;
+  const n = Number(v);
+  if (!Number.isFinite(n) || n < 0 || n > 100) throw new Error("maxDiscountPct must be a number between 0 and 100");
+  return Math.round(n * 10) / 10;
+}
 
 /* GET /admin/agents — all agents with safe projection. */
 /**
@@ -2818,6 +2832,7 @@ exports.listAdminAgents = async (req, res) => {
         phone:        a.phone || null,
         role:         a.role || "account_manager",
         active:       a.active !== false,
+        maxDiscountPct: typeof a.maxDiscountPct === "number" ? a.maxDiscountPct : null,
         station:      a.station || null,
         team:         a.team || null,
         avatarUrl:    safeAvatarUrl(a.avatarUrl),
@@ -2919,6 +2934,9 @@ exports.createAdminAgent = async (req, res) => {
     if (!VALID_AGENT_ROLES.includes(role)) {
       return res.status(400).json({ error: `role must be one of: ${VALID_AGENT_ROLES.join(", ")}` });
     }
+    let maxDiscountPct;
+    try { maxDiscountPct = parseMaxDiscount(req.body?.maxDiscountPct); }
+    catch (e) { return res.status(400).json({ error: e.message }); }
 
     const existing = await db.collection("agents").findOne({ name: String(name).trim() });
     if (existing) return res.status(409).json({ error: "username already taken" });
@@ -2938,13 +2956,14 @@ exports.createAdminAgent = async (req, res) => {
       createdAt: new Date(),
       createdBy: auditSvc.actorFromReq(req).id,
     };
+    if (typeof maxDiscountPct === "number") doc.maxDiscountPct = maxDiscountPct;
     await db.collection("agents").insertOne(doc);
 
     auditSvc.record({
       actor:  auditSvc.actorFromReq(req),
       action: "agent.create",
       target: { kind: "agent", id: doc._id, label: doc.nickname || doc.name },
-      after:  { name: doc.name, nickname: doc.nickname, role: doc.role, active: true },
+      after:  { name: doc.name, nickname: doc.nickname, role: doc.role, active: true, maxDiscountPct: doc.maxDiscountPct ?? null },
     });
 
     res.json({
@@ -2996,12 +3015,19 @@ exports.updateAdminAgent = async (req, res) => {
       if (password.length < 6) return res.status(400).json({ error: "password must be ≥ 6 chars" });
       $set.password = hashAgentPassword(password);
     }
+    let maxDiscountPct;
+    try { maxDiscountPct = parseMaxDiscount(req.body?.maxDiscountPct); }
+    catch (e) { return res.status(400).json({ error: e.message }); }
+    const update = { $set };
+    if (typeof maxDiscountPct === "number") $set.maxDiscountPct = maxDiscountPct;
+    else if (maxDiscountPct === null) update.$unset = { maxDiscountPct: "" };
 
-    await db.collection("agents").updateOne(agentFilter, { $set });
+    await db.collection("agents").updateOne(agentFilter, update);
 
     /* Snapshot diff (excluding password). */
     const auditableBefore = { ...before }; delete auditableBefore.password;
     const auditableAfter  = { ...auditableBefore, ...$set }; delete auditableAfter.password;
+    if (update.$unset) delete auditableAfter.maxDiscountPct;
     if (password) auditableAfter.password = "[updated]";
 
     auditSvc.record({

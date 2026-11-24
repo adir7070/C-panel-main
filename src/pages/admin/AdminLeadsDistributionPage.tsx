@@ -8,7 +8,7 @@ import { EmptyState } from "../../components/ui/EmptyState";
 import { Input } from "../../components/ui/Input";
 import { useToast } from "../../context/ToastContext";
 import { useApi } from "../../hooks/useApi";
-import { listLeads, assignLeads, roundRobinLeads, formatLeadDate, waLink, type Lead } from "../../api/leads";
+import { listLeads, assignLeads, roundRobinLeads, formatLeadDate, waLink, getAutoAssign, setAutoAssign, type Lead } from "../../api/leads";
 import { getAccountManagers, type AccountManager } from "../../api/client";
 
 /**
@@ -108,6 +108,35 @@ export function AdminLeadsDistributionPage() {
 
   const intakeUrl = `${window.location.origin}/api/leads/intake`;
 
+  /* Auto-assign: every incoming lead goes straight to one user. */
+  const autoFetcher = useCallback(() => getAutoAssign(), []);
+  const { data: auto, reload: reloadAuto } = useApi(autoFetcher, [autoFetcher]);
+  const [autoPick, setAutoPick] = useState<string | null>(null); // null = untouched
+  const autoValue = autoPick ?? auto?.agentId ?? "";
+  const [autoBusy, setAutoBusy] = useState(false);
+
+  async function saveAuto() {
+    const agentId = autoValue || null;
+    const pending = auto?.unassigned ?? 0;
+    const name = managers?.find(m => m.id === agentId)?.name ?? "";
+    const assignExisting = !!agentId && pending > 0
+      && confirm(`לשייך ל${name} גם את ${pending} הלידים שעדיין לא משויכים?`);
+    setAutoBusy(true);
+    try {
+      const r = await setAutoAssign(agentId, assignExisting);
+      toast.ok(agentId
+        ? `לידים חדשים ישויכו אוטומטית ל${r.agentName}${r.assigned ? ` · שויכו עכשיו ${r.assigned} לידים` : ""}`
+        : "השיוך האוטומטי כבוי — לידים חדשים יחכו כאן לחלוקה");
+      setAutoPick(null);
+      reloadAuto();
+      if (r.assigned) reload();
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "שגיאה בשמירה");
+    } finally {
+      setAutoBusy(false);
+    }
+  }
+
   return (
     <Layout
       header={
@@ -128,8 +157,29 @@ export function AdminLeadsDistributionPage() {
             <span className="mono" dir="ltr"> POST {intakeUrl} </span>
             עם JSON (<span className="mono">name, phone, email, business, field, message, source</span>) וכותרת
             <span className="mono" dir="ltr"> x-api-key </span> = הערך של <span className="mono">LEADS_INTAKE_KEY</span> ב-.env.
-            הליד נכנס לכאן כ"לא משויך" עד שתחלק אותו.
+            {auto?.agentId
+              ? <> הליד משויך אוטומטית ל<b>{auto.agentName}</b> (ראו למטה).</>
+              : <> הליד נכנס לכאן כ"לא משויך" עד שתחלק אותו.</>}
           </p>
+        </div>
+      </section>
+
+      {/* Auto-assign */}
+      <section className="section" style={{ marginTop: "var(--s-4)" }}>
+        <div className="card" style={{ padding: "var(--s-3) var(--s-4)", display: "flex", flexWrap: "wrap", alignItems: "center", gap: 10 }}>
+          <div style={{ flex: "1 1 260px" }}>
+            <p className="t-eyebrow">שיוך אוטומטי</p>
+            <p className="t-body" style={{ marginTop: 4, fontSize: 13 }}>
+              {auto?.agentId
+                ? <>כל ליד חדש (מהטופס, מ-Zapier או מהוספה ידנית בלי מנהל) משויך אוטומטית ל<b>{auto.agentName}</b>.</>
+                : "כבוי — לידים חדשים נכנסים כ\"לא משויך\" ומחכים לחלוקה ידנית."}
+            </p>
+          </div>
+          <select className="input" style={{ width: 200 }} value={autoValue} onChange={e => setAutoPick(e.target.value)} aria-label="שייך אוטומטית ל">
+            <option value="">— כבוי —</option>
+            {(managers ?? []).map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
+          </select>
+          <Button size="sm" onClick={saveAuto} loading={autoBusy} disabled={autoValue === (auto?.agentId ?? "")}>שמור</Button>
         </div>
       </section>
 

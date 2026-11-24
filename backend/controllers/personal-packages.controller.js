@@ -170,11 +170,10 @@ const COL = () => getDB().collection("personal_packages");
 
 /* ── helpers ──────────────────────────────────────────────────────────── */
 
-/* Sales kit: the maximum discount is 10% — for everyone, admins included
-   (user decision 2026-11-22). */
-function maxDiscountForAgent(_agent) {
-  return 10;
-}
+/* Sales kit: the maximum discount is 10% for every user, admins included
+   (user decision 2026-11-22) — unless ניהול משתמשים gave that user a
+   different cap (agents.maxDiscountPct; Netanel has 100, 2026-11-24). */
+const { maxDiscountFor: maxDiscountForAgent } = require("../services/quote.service");
 
 function computeFinalPrice(basePrice, discountPct, maxDiscount = 20) {
   const pct = Math.min(maxDiscount, Math.max(0, Number(discountPct) || 0));

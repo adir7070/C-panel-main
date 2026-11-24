@@ -161,6 +161,50 @@ export function roundRobinLeads(ids: string[], agentIds: string[] = []) {
   });
 }
 
+/* ── Sales dashboard (GET /api/leads/dashboard) ───────────────────────
+   Scoped to the caller's own leads and quotes (admins: everything). */
+export type DashboardLead = Pick<Lead, "id" | "name" | "phone" | "phoneRaw" | "business" | "field" | "source" | "status" | "assignedToName" | "createdAt" | "updatedAt">;
+
+export interface LeadDashboard {
+  total: number;
+  byStatus: Record<LeadStatus, number>;
+  /** Leads that became clients (בתהליך / לסלוק / לקוח פעיל, or paid). */
+  converted: number;
+  conversionRate: number;
+  newToday: number;
+  newWeek: number;
+  newMonth: number;
+  activatedMonth: number;
+  /** Last 14 Israel calendar days, oldest first. */
+  daily: { date: string; created: number; activated: number }[];
+  fresh: DashboardLead[];
+  callAgain: DashboardLead[];
+  toCharge: DashboardLead[];
+  quotes: { total: number; signed: number; pending: number; signedNet: number; signedMonth: number };
+}
+
+export function getLeadDashboard() {
+  return req<LeadDashboard>("/leads/dashboard");
+}
+
+/* ── Auto-assign (admin) — every incoming lead goes to this user ────── */
+export interface AutoAssignSetting {
+  agentId: string | null;
+  agentName: string | null;
+  unassigned?: number;
+}
+
+export function getAutoAssign() {
+  return req<AutoAssignSetting & { unassigned: number }>("/leads/auto-assign");
+}
+
+export function setAutoAssign(agentId: string | null, assignExisting = false) {
+  return req<AutoAssignSetting & { ok: boolean; assigned: number }>("/leads/auto-assign", {
+    method: "PUT",
+    body: JSON.stringify({ agentId, assignExisting }),
+  });
+}
+
 export interface ImportLead {
   name?: string;
   phone?: string;

@@ -2163,11 +2163,11 @@ exports.getMessages = async (req, res) => {
   }
 };
 
-// ── Get all agents with account_manager role (for assignment UI) ────
+// ── Agents a client or lead can be assigned to (account managers + sales) ─
 exports.getAccountManagers = async (req, res) => {
   try {
     const managers = await agentsCol()
-      .find({ role: "account_manager", active: { $ne: false } })
+      .find({ role: { $in: ["account_manager", "sales"] }, active: { $ne: false } })
       .project({ password: 0, token: 0 })
       .toArray();
     res.json(managers.map(m => ({ id: m._id, name: m.nickname || m.name, phone: m.phone || "" })));
@@ -4324,14 +4324,15 @@ exports.buildDigestItems = buildDigestItems;
 //  packages, and coin packages. Everything in the BillingTab reads here.
 // ──────────────────────────────────────────────────────────────────────
 
-exports.listProducts = async (_req, res) => {
+exports.listProducts = async (req, res) => {
   try {
     const catalog = await productsSvc.listAll();
     /* The quote builder's one-click starting points and "combinations
-       that work together" — both from the sales kit. */
+       that work together" — both from the sales kit. The discount cap is
+       the caller's own (agents.maxDiscountPct, default 10%). */
     const { QUICK_STARTS, COMBOS } = require("../services/service-catalog.data");
-    const { MAX_DISCOUNT_PCT, VAT_PCT } = require("../services/quote.service");
-    res.json({ ...catalog, quickStarts: QUICK_STARTS, combos: COMBOS, quoteRules: { maxDiscountPct: MAX_DISCOUNT_PCT, vatPct: VAT_PCT } });
+    const { maxDiscountFor, VAT_PCT } = require("../services/quote.service");
+    res.json({ ...catalog, quickStarts: QUICK_STARTS, combos: COMBOS, quoteRules: { maxDiscountPct: maxDiscountFor(req.agent), vatPct: VAT_PCT } });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
