@@ -321,6 +321,38 @@ GitHub integration from `main` of adir7070/C-panel-main (no GitHub Actions).
   shows the live instance state and a 24h count of sent / skipped / failed
   messages.
 
+### Call recordings (Extra Mobile)
+- Gali's sales line (05…) was ported to Extra Mobile (exm.co.il), which
+  records every call at network level and keeps the recordings. Built
+  2026-11-26: `backend/services/extra-calls.service.js` +
+  `controllers/calls.controller.js`.
+  - The API spec (OpenAPI YAML) is at `https://api.exm.co.il/spec/?v=1`,
+    Bearer `EXTRA_API_KEY`.
+- **Calls in.** `extra_calls`, `_id` = Extra's call id, so both paths are
+  idempotent.
+  - Extra's end-of-call automation → `POST /api/cpanel/calls/extra-webhook`.
+    The body carries only `{ id }`. The call is re-read via `POST /calls/`,
+    so a forged body can't inject data. When `EXTRA_WEBHOOK_SECRET` is set,
+    the request needs Bearer (or `x-webhook-secret`).
+  - The webhook always answers 2xx once authorized, because Extra disables
+    an automation after 3 failed deliveries.
+  - A 15-minute sync (`line_types: [5]`, mobile) backs it up; state lives in
+    `integration_state._id = "extra_calls"`.
+- **Direction.** `type` is `incoming` | `incoming_missed` | `outgoing` |
+  `outgoing_missed`. `numbers.caller` is the initiator and
+  `numbers.destination` the receiver, so `otherLocal` is the number Gali
+  talked to (`05…` form, matched to leads / clients by `phone`).
+- **Playback.** `GET /api/cpanel/calls/:id/recording` → a signed Extra URL
+  (`/calls/get-recording-urls/`, ttl 10 min, cached 8). Never ttl 0, which
+  makes the file public forever.
+- **Admins only** (user decision 2026-11-26): `/admin/calls`
+  (`AdminCallsPage`) and `CallsCard` on the lead screen and the client
+  "פרופיל" tab. The API answers 403 to everyone else.
+  - `GET /api/cpanel/calls/extra-status` is public: booleans and dates
+    only, never values.
+  - Setup for Claude in the browser: `docs/EXTRA-CALLS-SETUP.md` (template;
+    the copy sent to it has the secret filled in).
+
 ### Migration notes (Iconiq → Dashen Media Tech)
 - Iconiq closed; all UI branding now reads "דשן מדיה טק" / "Dashen Media Tech".
 - No hardcoded `iconiqmedia.co.il` host remains anywhere — `SERVER_BASE_URL` /

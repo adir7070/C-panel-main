@@ -35,6 +35,7 @@ import { Input } from "../components/ui/Input";
 
 import { PackageStatusBanner } from "../components/client-detail/PackageStatusBanner";
 import { LeadOriginCard } from "../components/client-detail/LeadOriginCard";
+import { CallsCard } from "../components/calls/CallsCard";
 import { OverviewTab } from "../components/tabs/OverviewTab";
 import { usePurchaseSync, announcePurchase } from "../hooks/usePurchaseSync";
 import { CampaignsTab } from "../components/tabs/CampaignsTab";
@@ -753,6 +754,8 @@ export function ClientDetailPage() {
               <div style={{ display: "grid", gap: "var(--s-6)", maxWidth: 880 }}>
                 {/* renders nothing unless this client came in as a lead */}
                 <LeadOriginCard phone={decodedPhone} refreshKey={syncTick} />
+                {/* admins only — the client's recorded calls with the sales line */}
+                <CallsCard phone={decodedPhone} />
                 <OverviewTab detail={detail} phone={decodedPhone} onDetailChange={setDetail} />
               </div>
             )}

@@ -3,7 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import { isSalesRole, roleLabelEn, salesCanOpen } from "../../lib/roles";
 import dashenLogo from "../../assets/dashen-logo.jpg";
 import {
-  IcoHome, IcoUsers, IcoChat, IcoBroadcast, IcoTarget,
+  IcoHome, IcoUsers, IcoChat, IcoBroadcast, IcoTarget, IcoPhone,
   IcoTasks, IcoCalendar, IcoActivity, IcoPipeline, IcoDigest, IcoLogOut, IcoBarChart, IcoCoin, IcoCheck,
 } from "../icons/Icons";
 
@@ -43,6 +43,7 @@ const NAV: NavItem[] = [
      own entry here too — otherwise an admin can only reach it by URL. */
   { to: "/leads",               label: "כל הלידים",       icon: <IcoTarget size={17} />,    group: "admin", adminOnly: true },
   { to: "/admin/leads-distribution", label: "לידים לחלוקה",  icon: <IcoTarget size={17} />,    group: "admin", adminOnly: true },
+  { to: "/admin/calls",             label: "הקלטות שיחות",   icon: <IcoPhone size={17} />,     group: "admin", adminOnly: true },
   { to: "/admin/finance/revenue",     label: "הכנסות",         icon: <IcoBarChart size={17} />,  group: "admin", adminOnly: true },
   { to: "/admin/integrations",      label: "בריאות אינטגרציות", icon: <IcoActivity size={17} />, group: "admin", adminOnly: true },
   { to: "/admin/broadcasts",        label: "הודעות רחבות",      icon: <IcoBroadcast size={17} />, group: "admin", adminOnly: true },

@@ -9,6 +9,7 @@ import {
 import { getAccountManagers, type AccountManager } from "../api/client";
 import { useApi } from "../hooks/useApi";
 import { useAuth } from "../context/AuthContext";
+import { CallsCard } from "../components/calls/CallsCard";
 import { useToast } from "../context/ToastContext";
 import { usePurchaseSync } from "../hooks/usePurchaseSync";
 import { Layout } from "../components/shell/Layout";
@@ -347,6 +348,8 @@ function DetailsTab({ lead, busy, run }: {
             <LeadNotesList notes={lead.notes ?? []} />
           </div>
         </LeadCard>
+
+        {lead.phone && <CallsCard phone={lead.phone} />}
 
         <LeadCard title="היסטוריית סטטוס" count={lead.statusHistory?.length ?? 0}>
           <LeadHistoryList history={lead.statusHistory ?? []} />

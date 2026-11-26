@@ -10,6 +10,7 @@ const meetingsCtrl = require("../controllers/cpanel-meetings.controller");
 const personalPkgCtrl = require("../controllers/personal-packages.controller");
 const quotesCtrl = require("../controllers/quotes.controller");
 const quotePayCtrl = require("../controllers/quote-payments.controller");
+const callsCtrl = require("../controllers/calls.controller");
 const fbConnect = require("../controllers/fb-connect.controller");
 const fbGate = require("../middlewares/fb-gate.middleware");
 
@@ -19,6 +20,9 @@ router.post("/payment-confirm-personal", personalPkgCtrl.paymentConfirm);
 // Signed-quote payments: Cardcom's webhook + a public setup check (booleans only)
 router.post("/quote-payment-webhook", quotePayCtrl.webhook);
 router.get ("/cardcom-status",        quotePayCtrl.cardcomStatus);
+// Call recordings (Extra Mobile): end-of-call webhook + a public setup check
+router.post("/calls/extra-webhook",   callsCtrl.webhook);
+router.get ("/calls/extra-status",    callsCtrl.status);
 
 // Cardcom iframe success/error redirect page — no auth (Cardcom redirects here)
 router.get("/payment-iframe-result", c.paymentIframeResult);
@@ -200,6 +204,9 @@ router.post  ("/clients/:phone/quotes/:id/pay",               quotePayCtrl.pay);
 router.post  ("/clients/:phone/quotes/:id/confirm-payment",   quotePayCtrl.confirmPayment);
 router.post  ("/clients/:phone/quotes/:id/billing",           quotePayCtrl.billing);
 router.get   ("/billing/alerts",                              quotePayCtrl.alerts);
+router.get   ("/calls",                                       callsCtrl.list);
+router.post  ("/calls/sync",                                  callsCtrl.sync);
+router.get   ("/calls/:id/recording",                         callsCtrl.recording);
 router.get   ("/clients/:phone/personal-catalog",             personalPkgCtrl.list);
 router.post  ("/clients/:phone/personal-catalog",             personalPkgCtrl.create);
 router.patch ("/clients/:phone/personal-catalog/:id",         personalPkgCtrl.update);

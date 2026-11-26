@@ -32,6 +32,7 @@ import { AdminEscalationsPage } from "./pages/admin/AdminEscalationsPage";
 import { AdminAgentUpdatesPage } from "./pages/admin/AdminAgentUpdatesPage";
 import { AdminRevenuePage } from "./pages/admin/AdminRevenuePage";
 import { AdminIntegrationsPage } from "./pages/admin/AdminIntegrationsPage";
+import { AdminCallsPage } from "./pages/admin/AdminCallsPage";
 import { AdminBroadcastsPage } from "./pages/admin/AdminBroadcastsPage";
 import { AdminReportsPage } from "./pages/admin/AdminReportsPage";
 import { AdminUsersPage } from "./pages/admin/AdminUsersPage";
@@ -308,6 +309,16 @@ function AnimatedRoutes() {
               <Protected>
                 <AdminOnly>
                   <AdminRevenuePage />
+                </AdminOnly>
+              </Protected>
+            }
+          />
+          <Route
+            path='/admin/calls'
+            element={
+              <Protected>
+                <AdminOnly>
+                  <AdminCallsPage />
                 </AdminOnly>
               </Protected>
             }

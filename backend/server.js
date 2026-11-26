@@ -778,6 +778,15 @@ async function boot() {
     console.error("[Startup] webinar subscription watchdog:", e.message);
   }
 
+  /* Call recordings from Extra Mobile: a 15-minute sync that backs up the
+     end-of-call webhook. Idle until EXTRA_API_KEY is set. */
+  try {
+    await require("./services/extra-calls.service").ensureIndexes();
+    require("./services/extra-calls.service").startExtraSync(15 * 60e3);
+  } catch (e) {
+    console.error("[Startup] extra calls:", e.message);
+  }
+
   /* Signed quotes: the monthly Cardcom token charge sweep. GATED — runs
      DRY (logs only) unless QUOTE_MONTHLY_BILLING=on. */
   try {
