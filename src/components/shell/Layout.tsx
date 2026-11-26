@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useState, type React
 import { Sidebar } from "./Sidebar";
 import { CommandPalette } from "./CommandPalette";
 import { PurchaseNotifier } from "./PurchaseNotifier";
+import { BillingAlertsBanner } from "./BillingAlertsBanner";
 
 interface ShellCtx {
   openCmdK: () => void;
@@ -64,6 +65,7 @@ export function Layout({ header, children }: Props) {
         <Sidebar collapsed={sidebarCollapsed} onToggle={toggleSidebar} />
         <div className="shell-main">
           {header}
+          <BillingAlertsBanner />
           <main className="shell-content">{children}</main>
         </div>
       </div>

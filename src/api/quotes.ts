@@ -98,9 +98,72 @@ export interface Quote {
   viewCount?: number;
   /** Set when the client signed — the frozen copy is in signed_documents. */
   signed?: { at: string; name: string; role?: string; ip?: string; sha256?: string; signingId?: string } | null;
+  /** The first payment (setup, plus month 1 when there are monthly lines). */
+  payment?: QuotePayment | null;
+  /** A payment made twice (two windows) — an admin refunds one in Cardcom. */
+  duplicatePayments?: QuotePayment[];
+  /** Monthly Cardcom token billing, once the first payment saved a card. */
+  billing?: QuoteBilling | null;
   createdAt: string;
   updatedAt: string;
 }
+
+export type PaymentMethod = "card" | "bit" | "applepay" | "googlepay";
+
+export interface QuotePayment {
+  status: "paid" | "suspended";
+  paidAt?: string;
+  at?: string;
+  amount?: number;
+  method: PaymentMethod;
+  last4?: string | null;
+  documentNumber?: number | string | null;
+  via?: string;
+}
+
+export type BillingStatus = "active" | "past_due" | "needs_card" | "stopped";
+
+export interface QuoteBilling {
+  status: BillingStatus;
+  amount: number;
+  chargesDone: number;
+  commitMonths: number | null;
+  nextChargeAt: string | null;
+  nextAttemptAt: string | null;
+  failedAttempts: number;
+  maxTries: number;
+  lastError: string | null;
+  lastFailedAt: string | null;
+  last4: string | null;
+  cardExpiry: string | null;
+  startedAt: string | null;
+  stoppedAt: string | null;
+  stoppedByName: string | null;
+  duplicateCharges: number;
+  /** false = the server runs the monthly sweep in dry-run (QUOTE_MONTHLY_BILLING off). */
+  live: boolean;
+}
+
+export interface BillingAlert extends QuoteBilling {
+  quoteId: string;
+  phone: string;
+  quoteNo: string;
+  clientName: string;
+}
+
+/** A failed monthly charge that the client can fix with a new card. */
+export function billingNeedsCard(b?: QuoteBilling | null) {
+  return !!b && (b.status === "past_due" || b.status === "needs_card" || (b.status === "active" && b.failedAttempts > 0));
+}
+
+/** The month that is due was not charged yet (resuming charges it). */
+export function billingOverdue(b?: QuoteBilling | null) {
+  return !!b?.nextChargeAt && new Date(b.nextChargeAt).getTime() <= Date.now();
+}
+
+export const PAYMENT_METHOD_LABEL: Record<PaymentMethod, string> = {
+  card: "כרטיס אשראי", bit: "ביט", applepay: "Apple Pay", googlepay: "Google Pay",
+};
 
 /** What the builder sends: catalog lines by key, custom lines in full. */
 export type QuoteLineInput =
@@ -154,6 +217,30 @@ export function updateQuote(phone: string, id: string, input: Partial<QuoteInput
     method: "PATCH",
     body: JSON.stringify(input),
   });
+}
+
+const quotePath = (phone: string, id: string) =>
+  `/cpanel/clients/${encodeURIComponent(phone)}/quotes/${encodeURIComponent(id)}`;
+
+/** A fresh Cardcom page for what the signed quote owes now: the first
+ *  payment, or a card update + the month that is due. */
+export function startQuotePayment(phone: string, id: string) {
+  return req<{ url: string; lowProfileId: string; kind: "first" | "card"; amount: number }>(`${quotePath(phone, id)}/pay`, { method: "POST" });
+}
+
+/** Asks the server to check the quote's open Cardcom pages. */
+export function confirmQuotePayment(phone: string, id: string) {
+  return req<{ status: "paid" | "suspended" | "pending" | "mismatch" | "unknown"; already?: boolean }>(`${quotePath(phone, id)}/confirm-payment`, { method: "POST" });
+}
+
+/** Admins only. */
+export function setQuoteBilling(phone: string, id: string, action: "stop" | "resume") {
+  return req<QuoteBilling>(`${quotePath(phone, id)}/billing`, { method: "POST", body: JSON.stringify({ action }) });
+}
+
+/** Monthly charges that failed / are past due — scoped to the user's clients. */
+export function getBillingAlerts(signal?: AbortSignal) {
+  return req<BillingAlert[]>("/cpanel/billing/alerts", { signal });
 }
 
 export function createSignLink(phone: string, id: string) {

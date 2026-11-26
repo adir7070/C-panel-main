@@ -778,6 +778,15 @@ async function boot() {
     console.error("[Startup] webinar subscription watchdog:", e.message);
   }
 
+  /* Signed quotes: the monthly Cardcom token charge sweep. GATED — runs
+     DRY (logs only) unless QUOTE_MONTHLY_BILLING=on. */
+  try {
+    await require("./services/quote-payment.service").ensureIndexes();
+    require("./services/quote-payment.service").startQuoteBilling(60 * 60e3);
+  } catch (e) {
+    console.error("[Startup] quote billing:", e.message);
+  }
+
   /* App subscription tiers (REGULAR/PRO/VIP) — monthly coin RESET + recurring
      charge sweep. Grandfathered (free) clients refresh their quota with no
      charge, even in DRY-RUN; paid tiers only charge when

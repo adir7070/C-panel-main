@@ -199,7 +199,8 @@ exports.list = async (req, res) => {
       .find({ phone, active: true })
       .sort({ createdAt: -1 })
       .toArray();
-    res.json(pkgs);
+    /* paid quotes carry their monthly billing (quote_subscriptions) */
+    res.json(await require("../services/quote-payment.service").attachBilling(pkgs));
   } catch (err) {
     console.error("[PersonalPackages] list:", err.message);
     res.status(500).json({ error: err.message });
@@ -358,6 +359,8 @@ exports.chargePersonalIframe = async (req, res) => {
       ISOCoinId:      pkg.currencyCode ?? 1,
       ProductName:    pkg.name,
       SuccessRedirectUrl: `${cpanelBaseUrl}/clients/${encodeURIComponent(phone)}/personal_catalog?personal_success=${id}`,
+      /* v11 requires FailedRedirectUrl (ErrorRedirectUrl is the legacy name) */
+      FailedRedirectUrl:  `${cpanelBaseUrl}/clients/${encodeURIComponent(phone)}/personal_catalog?personal_error=${id}`,
       ErrorRedirectUrl:   `${cpanelBaseUrl}/clients/${encodeURIComponent(phone)}/personal_catalog?personal_error=${id}`,
       WebHookUrl: `${serverBaseUrl}/api/cpanel/payment-confirm-personal?phone=${encodeURIComponent(phone)}&id=${id}`,
       ReturnValue:    `${phone}|cpanel_personal|${id}`,

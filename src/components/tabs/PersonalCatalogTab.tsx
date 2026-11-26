@@ -24,7 +24,7 @@ import {
 } from "../../api/client";
 import { useAuth } from "../../context/AuthContext";
 import { usePurchaseSync, announcePurchase } from "../../hooks/usePurchaseSync";
-import { openQuoteDocument, createSignLink, type Quote } from "../../api/quotes";
+import { openQuoteDocument, createSignLink, startQuotePayment, confirmQuotePayment, setQuoteBilling, billingNeedsCard, billingOverdue, type Quote } from "../../api/quotes";
 import { QuoteBuilder } from "../quotes/QuoteBuilder";
 import { QuoteCard } from "../quotes/QuoteCard";
 
@@ -67,6 +67,9 @@ export function PersonalCatalogTab({ phone }: { phone: string }) {
     [awaitingIds, packages],
   );
   const checkPaymentRef = useRef<(() => void) | null>(null);
+  /* Signed quotes with an open Cardcom window (first payment or card
+     update) — polled the same way until the payment lands. */
+  const [awaitingQuoteIds, setAwaitingQuoteIds] = useState<string[]>([]);
   const toast = useToast();
   /* The user's own cap — 10% unless ניהול משתמשים set another (server
      enforces the same rule). */
@@ -166,6 +169,64 @@ export function PersonalCatalogTab({ phone }: { phone: string }) {
       if (!q.signLinkAt) reload({ silent: true });
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "לא ניתן ליצור קישור");
+    }
+  }
+
+  /* "חייב עכשיו" / "עדכן כרטיס וחייב": the manager types the card on
+     Cardcom's page. The window is opened before the request so popup
+     blockers allow it. */
+  async function handleChargeQuote(q: Quote) {
+    if (chargingId) return;
+    setChargingId(q._id);
+    const win = window.open("", "_blank", "width=820,height=760");
+    try {
+      const r = await startQuotePayment(phone, q._id);
+      if (win) {
+        win.opener = null;
+        win.location.href = r.url;
+      } else {
+        window.open(r.url, "_blank", "noopener");
+      }
+      toast.warn("חלון התשלום של קרדקום נפתח — כשהתשלום יושלם ההצעה תתעדכן כאן לבד");
+      setAwaitingQuoteIds(ids => (ids.includes(q._id) ? ids : [...ids, q._id]));
+    } catch (e) {
+      win?.close();
+      toast.error(e instanceof Error ? e.message : "לא ניתן לפתוח דף תשלום");
+    } finally {
+      setChargingId(null);
+    }
+  }
+
+  /* The payment link is the signing link: once signed, /sign/<token>
+     offers the payment (or the card update after a failed monthly charge). */
+  async function handleCopyPayLink(q: Quote) {
+    const cardUpdate = billingNeedsCard(q.billing);
+    try {
+      const r = await createSignLink(phone, q._id);
+      const url = `${window.location.origin}${r.path}`;
+      try {
+        await navigator.clipboard.writeText(url);
+        toast.ok(cardUpdate ? "הקישור לעדכון כרטיס הועתק — אפשר להדביק ללקוח בוואטסאפ" : "הקישור לתשלום הועתק — אפשר להדביק ללקוח בוואטסאפ");
+      } catch {
+        window.prompt(cardUpdate ? "העתק את הקישור לעדכון כרטיס:" : "העתק את הקישור לתשלום:", url);
+      }
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "לא ניתן ליצור קישור");
+    }
+  }
+
+  async function handleQuoteBilling(q: Quote, action: "stop" | "resume") {
+    const overdue = billingOverdue(q.billing);
+    const msg = action === "stop"
+      ? `לעצור את החיוב החודשי של הצעה ${q.quoteNo}?\n\nלא יבוצעו חיובים נוספים עד שמנהל יחדש אותו.`
+      : `לחדש את החיוב החודשי של הצעה ${q.quoteNo}?${overdue ? "\n\nהחודש שבפיגור ייגבה בסבב החיובים הקרוב (תוך שעה)." : ""}`;
+    if (!window.confirm(msg)) return;
+    try {
+      await setQuoteBilling(phone, q._id, action);
+      toast.ok(action === "stop" ? "החיוב החודשי נעצר" : "החיוב החודשי חודש");
+      reload({ silent: true });
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "הפעולה נכשלה");
     }
   }
 
@@ -304,6 +365,45 @@ export function PersonalCatalogTab({ phone }: { phone: string }) {
     };
   }, [awaitingKey, phone]);
 
+  /* Same for signed quotes. Stops on paid / suspended or after 20 minutes. */
+  const awaitingQuoteKey = awaitingQuoteIds.join(",");
+  useEffect(() => {
+    const ids = awaitingQuoteKey ? awaitingQuoteKey.split(",") : [];
+    if (ids.length === 0) return;
+    let done = false;
+    let running = false;
+    const startedAt = Date.now();
+    const check = async () => {
+      if (done || running) return;
+      if (Date.now() - startedAt > 20 * 60_000) { done = true; setAwaitingQuoteIds([]); return; }
+      running = true;
+      try {
+        for (const id of ids) {
+          try {
+            const r = await confirmQuotePayment(phone, id);
+            if (done || (r.status !== "paid" && r.status !== "suspended")) continue;
+            setAwaitingQuoteIds(list => list.filter(x => x !== id));
+            if (r.status === "suspended") toastRef.current.warn("התקבל תשלום בביט שממתין לאישור בקרדקום");
+            else if (!r.already) {
+              toastRef.current.ok("התשלום התקבל ✓");
+              announcePurchase({ phone });
+            }
+            reloadRef.current({ silent: true });
+          } catch { /* transient — the next tick retries */ }
+        }
+      } finally {
+        running = false;
+      }
+    };
+    const timer = window.setInterval(check, 8000);
+    window.addEventListener("focus", check);
+    return () => {
+      done = true;
+      window.clearInterval(timer);
+      window.removeEventListener("focus", check);
+    };
+  }, [awaitingQuoteKey, phone]);
+
   /* Dashen-format quotes first, older packages (pre-2026-11-22) after. */
   const quotes = packages.filter(p => p.kind === "quote") as unknown as Quote[];
   const legacyPackages = packages.filter(p => p.kind !== "quote");
@@ -410,6 +510,12 @@ export function PersonalCatalogTab({ phone }: { phone: string }) {
               onCopyLink={() => handleCopySignLink(q)}
               onEdit={() => setBuilder({ quote: q })}
               onDelete={() => handleDeleteQuote(q)}
+              charging={chargingId === q._id}
+              canManageBilling={agent?.role === "admin"}
+              onCharge={() => handleChargeQuote(q)}
+              onCopyPayLink={() => handleCopyPayLink(q)}
+              onStopBilling={() => handleQuoteBilling(q, "stop")}
+              onResumeBilling={() => handleQuoteBilling(q, "resume")}
             />
           ))}
           {legacyPackages.length > 0 && quotes.length > 0 && (

@@ -96,6 +96,17 @@ ul.terms li::before{content:"✓";flex:none;width:22px;height:22px;border-radius
 @keyframes pop{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
 .done .btn{margin-top:18px}
 .contact{text-align:center;color:var(--muted);font-size:13px;margin-top:22px}
+.paybox{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px 18px;margin-top:18px;text-align:center;box-shadow:0 2px 14px rgba(12,35,71,.06)}
+.paybox h2{font-size:21px;color:var(--navy);margin-bottom:6px}
+.paybox .amt{margin:10px 0 4px}
+.paybox .amt b{display:block;font-family:'Rubik',Arial;font-size:34px;font-weight:800;color:var(--navy);line-height:1.1}
+.paybox .amt small{color:var(--muted);font-size:13px}
+.paybox .what{color:var(--ink);font-size:14.5px;margin:6px 0 2px}
+.paybox .methods{color:var(--teal);font-weight:700;font-size:13.5px;margin-bottom:14px}
+.paybox .note{color:var(--muted);font-size:12.5px;margin-top:10px}
+.paybox .alert{text-align:right;margin:0 0 12px}
+.paid{display:inline-block;background:#DCF5E6;color:#14532D;border-radius:12px;padding:8px 14px;font-weight:700;font-size:14.5px;margin-top:12px}
+.paid.wait{background:#FFF3CF;color:#8A5A00}
 .contact a{color:var(--teal);text-decoration:none;font-weight:700}
 .sheet{position:fixed;inset:0;z-index:50;background:#fff;display:flex;flex-direction:column}
 .sheet .hd{display:flex;align-items:center;gap:10px;padding:10px 12px calc(10px);padding-top:calc(10px + env(safe-area-inset-top));border-bottom:1px solid var(--line)}
@@ -118,8 +129,43 @@ function servicesHtml(lines, monthly) {
     <div class="p">${fm(l.price * l.qty)}${monthly ? '<small>לחודש</small>' : ""}</div></div>`).join("");
 }
 
+/* The payment box under "ההסכם נחתם". pay = quote-payment.payState():
+   "due" (first payment) or "card" (update the card + pay the month that
+   is due). In the "sign" view it is rendered hidden and shown by the
+   page's script once the signature is saved. */
+function paySection(quote, pay, view, paymentFailed) {
+  if (!pay || (pay.stage !== "due" && pay.stage !== "card")) return "";
+  const card = pay.stage === "card";
+  const email = quote.client?.email || "";
+  const bit = !pay.monthly && pay.amount <= 5000;
+  const methods = pay.monthly ? "תשלום בכרטיס אשראי" : `כרטיס אשראי${bit ? " · ביט" : ""} · Apple Pay · Google Pay`;
+  const what = card
+    ? `מהחודש הבא החיוב החודשי (${fm(pay.monthlyAmount)}) יעבור לכרטיס החדש.`
+    : pay.monthly
+      ? `שירותי ההקמה והחודש הראשון. מהחודש הבא יחויבו ${fm(pay.monthlyAmount)} בכל חודש, באותו כרטיס.`
+      : "תשלום חד-פעמי עבור שירותי ההקמה.";
+  return `
+<section id="pay" class="paybox"${view === "sign" ? " hidden" : ""}>
+  <h2>${card ? "עדכון אמצעי תשלום" : "תשלום"}</h2>
+  ${card ? `<p class="lead">החיוב החודשי האחרון לא עבר. אפשר לעדכן כרטיס אשראי ולשלם את חודש ${esc(pay.month)}.</p>` : ""}
+  <div class="amt"><b>${fm(pay.amount)}</b><small>כולל מע"מ</small></div>
+  <p class="what">${what}</p>
+  <p class="methods">${methods}</p>
+  ${paymentFailed ? '<div class="alert">התשלום לא הושלם. אפשר לנסות שוב.</div>' : ""}
+  <div class="alert" id="payErr" hidden role="alert"></div>
+  <button type="button" class="btn" id="payBtn">🔒 ${card ? "לעדכון כרטיס ותשלום" : "לתשלום מאובטח"}</button>
+  <p class="note">התשלום מתבצע בדף המאובטח של קרדקום.${email ? ` חשבונית מס קבלה תישלח ל-<bdi dir="ltr">${esc(email)}</bdi>.` : ""}</p>
+</section>`;
+}
+
+function paidNote(pay) {
+  if (pay?.stage === "paid") return '<p class="paid">✓ התשלום התקבל — חשבונית נשלחה במייל</p>';
+  if (pay?.stage === "suspended") return '<p class="paid wait">התשלום בביט התקבל ונמצא בבדיקה</p>';
+  return "";
+}
+
 /* view = "sign" | "signed" | "expired" */
-function renderSignPage(quote, { view, validUntil, token }) {
+function renderSignPage(quote, { view, validUntil, token, pay = null, paymentFailed = false }) {
   const T = quote.totals;
   const C = quote.client || {};
   const setupN = quote.lines.filter(l => l.billing !== "monthly").length;
@@ -158,8 +204,8 @@ function renderSignPage(quote, { view, validUntil, token }) {
     monthlyN ? (monthlyN === 1 ? "שירות חודשי אחד" : `${monthlyN} שירותים חודשיים`) : "",
   ].filter(Boolean).join(" ו")}. עברו עליה, השלימו פרטים וחתמו — זה לוקח דקה.</p>
   <div class="hero">
-    <small>לתשלום בחתימה (הקמה)</small>
-    <div class="big num">${fm(T.setup.total)}</div>
+    <small>${monthlyN ? "לתשלום בחתימה (הקמה + חודש ראשון)" : "לתשלום בחתימה (הקמה)"}</small>
+    <div class="big num">${fm(T.setup.total + (monthlyN ? T.monthly.total : 0))}</div>
     <div class="n">כולל מע"מ ${esc(T.vatPct)}%</div>
     ${monthlyN ? `<div class="row"><div><small>תשלום חודשי</small><b class="num">${fm(T.monthly.total)}</b><span class="n">כולל מע"מ · ${esc(quote.commitMonths)} חודשים לפחות</span></div>
     <div><small>סה"כ ל-${esc(quote.commitMonths)} חודשים</small><b class="num">${fm(T.commitTotal)}</b><span class="n">הקמה + ${esc(quote.commitMonths)} תשלומים</span></div></div>` : ""}
@@ -169,7 +215,7 @@ function renderSignPage(quote, { view, validUntil, token }) {
   <p class="note">המחירים לפני מע"מ${T.discountPct ? `, לפני הנחה של ${esc(T.discountPct)}% שכבר כלולה בסכומים למעלה` : ""}.</p>
   <div class="card"><h3>התנאים בקצרה</h3><ul class="terms">
     <li>תשלום ההקמה: 100% במועד החתימה</li>
-    ${monthlyN ? `<li>תשלום חודשי מראש, התחייבות ל-${esc(quote.commitMonths)} חודשים; אחר כך חודש-בחודש עם הודעה של ${esc(quote.noticeDays)} יום</li>` : ""}
+    ${monthlyN ? `<li>תשלום חודשי מראש: החודש הראשון בחתימה, ומשם חיוב אוטומטי בכרטיס האשראי באותו יום בכל חודש. התחייבות ל-${esc(quote.commitMonths)} חודשים; אחר כך חודש-בחודש עם הודעה של ${esc(quote.noticeDays)} יום</li>` : ""}
     <li>תקציב הפרסום לפלטפורמות (Meta, Google, TikTok) אינו כלול ומשולם ישירות על ידכם</li>
     <li>כל התוצרים, הדומיין וחשבונות הפרסום שלכם, אחרי תשלום מלא</li>
     <li>ההצעה בתוקף עד ${dfmt(validUntil)}</li>
@@ -208,8 +254,10 @@ function renderSignPage(quote, { view, validUntil, token }) {
   <div class="ic">✓</div>
   <h1 id="doneT">ההסכם נחתם בהצלחה</h1>
   <p class="lead" id="doneL">${view === "signed" ? `ההסכם נחתם ב-${esc(signedAt)}${quote.signed?.name ? ` על ידי ${esc(quote.signed.name)}` : ""}.` : ""} עותק חתום של ההסכם נשמר במערכת של דשן מדיה טק.</p>
-  <a class="btn" href="/sign/${esc(token)}/signed" target="_blank" rel="noopener">📄 הצגת ההסכם החתום</a>
+  ${view === "signed" ? paidNote(pay) : ""}
+  <a class="btn${pay && (pay.stage === "due" || pay.stage === "card") ? " sec" : ""}" href="/sign/${esc(token)}/signed" target="_blank" rel="noopener">📄 הצגת ההסכם החתום</a>
 </section>
+${paySection(quote, pay, view, paymentFailed)}
 
 <section id="expired"${view === "expired" ? "" : " hidden"} class="done">
   <div class="ic" style="background:#FFF3CF;color:#8A5A00">!</div>
@@ -238,7 +286,61 @@ function renderSignPage(quote, { view, validUntil, token }) {
 
 <script type="application/json" id="data">${json(data)}</script>
 <script>${CLIENT_JS}</script>
+<script>${PAY_JS}</script>
 </body></html>`;
+}
+
+/* "לתשלום" → the server creates a fresh Cardcom page (a page expires 20
+   minutes after it is opened) and the browser goes there. */
+const PAY_JS = String.raw`(function(){
+"use strict";
+var b=document.getElementById("payBtn"); if(!b) return;
+var D=JSON.parse(document.getElementById("data").textContent), e=document.getElementById("payErr"), busy=false;
+function stop(msg){ busy=false; b.disabled=false; b.innerHTML=b.getAttribute("data-label"); e.textContent=msg; e.hidden=false; }
+b.setAttribute("data-label", b.innerHTML);
+b.addEventListener("click",function(){
+  if(busy) return; busy=true; e.hidden=true; b.disabled=true; b.innerHTML='<span class="spin"></span> פותח את דף התשלום…';
+  fetch("/sign/"+encodeURIComponent(D.token)+"/pay",{method:"POST"})
+    .then(function(r){ return r.json().catch(function(){return {};}).then(function(j){ return {ok:r.ok,j:j}; }); })
+    .then(function(res){
+      if(res.ok && res.j.url){ location.href=res.j.url; return; }
+      if(res.j.error==="already_paid"){ location.reload(); return; }
+      stop(res.j.message||"לא ניתן לפתוח את דף התשלום כרגע — נסו שוב בעוד רגע");
+    })
+    .catch(function(){ stop("אין חיבור לאינטרנט — בדקו את החיבור ונסו שוב"); });
+});
+})();`;
+
+/* Where Cardcom sends the client (or the manager's popup) after paying:
+   GET /sign/<token>/paid. The server has already checked the payment; while
+   Cardcom is still settling, the page reloads itself a few times. */
+function renderPaidPage(quote, result, { token, tries = 0 }) {
+  const email = quote.client?.email || "";
+  let ic = "✓", bg = "#DCF5E6", color = "var(--green)", title, lead, refresh = "";
+  if (result.status === "paid") {
+    title = "התשלום התקבל — תודה!";
+    lead = `קיבלנו את התשלום עבור הצעה ${esc(quote.quoteNo)}.${email ? ` חשבונית מס קבלה נשלחה ל-<bdi dir="ltr">${esc(email)}</bdi>.` : ""} נציג של דשן מדיה טק ייצור איתכם קשר להמשך.`;
+  } else if (result.status === "suspended") {
+    ic = "…"; bg = "#FFF3CF"; color = "#8A5A00";
+    title = "התשלום בביט התקבל";
+    lead = "התשלום נמצא בבדיקה אצל חברת הסליקה. אין צורך לשלם שוב — נעדכן אתכם.";
+  } else if (tries < 8) {
+    ic = "…"; bg = "#E7EEF3"; color = "var(--navy)";
+    title = "מאמתים את התשלום…";
+    lead = "זה לוקח כמה שניות. אין לסגור את העמוד.";
+    refresh = `<meta http-equiv="refresh" content="3;url=/sign/${esc(token)}/paid?t=${tries + 1}">`;
+  } else {
+    ic = "!"; bg = "#FFF3CF"; color = "#8A5A00";
+    title = "התשלום עדיין בבדיקה";
+    lead = "אם חויבתם, אין צורך לשלם שוב — נציג של דשן מדיה טק יחזור אליכם.";
+  }
+  return `<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer"><meta name="robots" content="noindex,nofollow">${refresh}<title>${esc(title)} · דשן מדיה טק</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;700;800&family=Heebo:wght@400;500;700&display=swap">
+<style>${CSS}</style></head><body style="padding-bottom:0"><main class="wrap"><section class="done">
+<div class="ic" style="background:${bg};color:${color}">${ic}</div><h1>${esc(title)}</h1><p class="lead">${lead}</p>
+<a class="btn sec" href="/sign/${esc(token)}">חזרה להסכם</a>
+<p class="contact">שאלות? <a href="tel:${esc(COMPANY.phone.replace(/\D/g, ""))}" dir="ltr">${esc(COMPANY.phone)}</a></p></section></main></body></html>`;
 }
 
 /* Runs in the client's browser. */
@@ -371,7 +473,7 @@ function submit(){
       if(res.ok || (res.status===409 && res.b.error==="already_signed")){
         $("#prog").hidden=true; $("#bar").hidden=true; ["s1","s2","s3"].forEach(function(id){ $("#"+id).hidden=true; });
         if(!res.ok) $("#doneL").textContent="ההסכם כבר נחתם. עותק חתום שמור במערכת של דשן מדיה טק.";
-        $("#done").hidden=false; window.scrollTo({top:0}); return;
+        $("#done").hidden=false; var pb=$("#pay"); if(pb) pb.hidden=false; window.scrollTo({top:0}); return;
       }
       btn.textContent=LABEL[3]; updateNext();
       if(res.b.error==="missing_details" && res.b.fields){ show(2); Object.keys(res.b.fields).forEach(function(k){ setErr(k,res.b.fields[k]); }); return; }
@@ -397,4 +499,4 @@ function renderMessagePage(title, message) {
 <p class="contact">שאלות? <a href="tel:${esc(COMPANY.phone.replace(/\D/g, ""))}" dir="ltr">${esc(COMPANY.phone)}</a></p></section></main></body></html>`;
 }
 
-module.exports = { renderSignPage, renderMessagePage };
+module.exports = { renderSignPage, renderMessagePage, renderPaidPage };

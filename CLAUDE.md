@@ -212,11 +212,52 @@ GitHub integration from `main` of adir7070/C-panel-main (no GitHub Actions).
     token never leaks.
   - Dashen's stamp + Netanel's signature (`backend/assets/deshen-stamp.png`,
     cut from a photo) is on every quote document, together with ח.פ. 517319612.
-- **Payment after signing is not built.**
-  - The user chose an **automatic monthly charge** (setup at signing +
-    Cardcom token for the monthly amount) but hasn't specified the flow yet.
-  - The one-amount charge paths refuse quotes (`409 quote_not_chargeable` in
-    `chargePersonalIframe` and `contractPay`).
+- **Payment after signing** (`services/quote-payment.service.js`, Cardcom
+  REST v11 via `services/cardcom-v11.service.js`; built 2026-11-26).
+  - **First payment.** No monthly lines → `ChargeOnly` for the setup total;
+    card, Bit, Apple Pay and Google Pay are offered, as switched on per
+    terminal. With monthly lines → `ChargeAndCreateToken` (card only) for
+    setup + month 1. The token becomes a `quote_subscriptions` doc.
+  - **Who opens it.**
+    - The client: the signing page shows the payment right after signing.
+      `POST /sign/:token/pay` makes a fresh page; Cardcom returns to
+      `/sign/:token/paid`. The "payment link" is the same `/sign` link.
+    - A manager: "💳 חייב עכשיו" on `QuoteCard` → `POST …/quotes/:id/pay`
+      opens a popup, then polls `confirm-payment`.
+    - Pages are created on click because a Cardcom page expires 20 minutes
+      after it opens.
+  - **Applying a payment.** `POST /api/cpanel/quote-payment-webhook` is
+    public; the result is re-read with `GetLpResult` and keyed by the
+    `cpanel_pending_purchases` row (`kind: "quote"`). A per-row claim
+    (`finalizingAt`) plus purchase-sync's lock keep webhook, panel and
+    redirect from applying it twice. A real second payment lands in
+    `duplicatePayments`.
+  - **Invoices.** Cardcom issues a חשבונית מס קבלה per charge (`Document`,
+    VAT-inclusive lines) and emails it to the signer.
+  - **Monthly sweep.** Hourly; charges only with `QUOTE_MONTHLY_BILLING=on`,
+    otherwise it logs a dry run.
+    - Same day each month (clamped); continues after the commitment until
+      an admin stops it.
+    - `ExternalUniqTranId` is written to `quote_charges` before the call and
+      sent with `ExternalUniqUniqTranIdResponse:true`, so a retry after a
+      timeout never charges twice.
+    - A decline retries daily, 3 tries in all, then the subscription is
+      `past_due`.
+    - Failures show in `BillingAlertsBanner` (`GET /api/cpanel/billing/alerts`,
+      scoped to the manager's clients). The client's link then offers a card
+      update: `ChargeAndCreateToken` for the month that is due.
+  - **Permissions.** Anyone with client access can charge or copy the link;
+    only admins stop or resume (`POST …/quotes/:id/billing`).
+  - **Setup.** Config vars `CARDCOM_TERMINAL_NUMBER` / `CARDCOM_API_NAME` /
+    `CARDCOM_API_PASSWORD`, plus `CARDCOM_TOKEN_TERMINAL_NUMBER` if Cardcom
+    wants token charges on another terminal.
+    - `GET /api/cpanel/cardcom-status` (public, booleans only) says whether
+      they are set and accepted.
+    - Dashboard steps for Claude in the browser: `docs/CARDCOM-SETUP.md`.
+  - **Legacy paths.** The one-amount charges still refuse quotes (`409
+    quote_not_chargeable` in `chargePersonalIframe` and `contractPay`). The
+    old `cardcom.service.js` sends pre-v11 fields, so new code uses the v11
+    module.
 
 ### Charging → every screen
 - Charge paths the panel offers, all in the client page's "קטלוג אישי" tab:

@@ -9,12 +9,16 @@ const wowLp       = require("../controllers/wow-lp.controller");
 const meetingsCtrl = require("../controllers/cpanel-meetings.controller");
 const personalPkgCtrl = require("../controllers/personal-packages.controller");
 const quotesCtrl = require("../controllers/quotes.controller");
+const quotePayCtrl = require("../controllers/quote-payments.controller");
 const fbConnect = require("../controllers/fb-connect.controller");
 const fbGate = require("../middlewares/fb-gate.middleware");
 
 // Payment webhook — no auth (called by Cardcom)
 router.post("/payment-notify",           c.paymentNotify);
 router.post("/payment-confirm-personal", personalPkgCtrl.paymentConfirm);
+// Signed-quote payments: Cardcom's webhook + a public setup check (booleans only)
+router.post("/quote-payment-webhook", quotePayCtrl.webhook);
+router.get ("/cardcom-status",        quotePayCtrl.cardcomStatus);
 
 // Cardcom iframe success/error redirect page — no auth (Cardcom redirects here)
 router.get("/payment-iframe-result", c.paymentIframeResult);
@@ -192,6 +196,10 @@ router.patch ("/clients/:phone/quotes/:id",                   quotesCtrl.update)
 router.get   ("/clients/:phone/quotes/:id/document",          quotesCtrl.document);
 router.post  ("/clients/:phone/quotes/:id/sign-link",         quotesCtrl.signLink);
 router.get   ("/clients/:phone/quotes/:id/signed-document",   quotesCtrl.signedDocument);
+router.post  ("/clients/:phone/quotes/:id/pay",               quotePayCtrl.pay);
+router.post  ("/clients/:phone/quotes/:id/confirm-payment",   quotePayCtrl.confirmPayment);
+router.post  ("/clients/:phone/quotes/:id/billing",           quotePayCtrl.billing);
+router.get   ("/billing/alerts",                              quotePayCtrl.alerts);
 router.get   ("/clients/:phone/personal-catalog",             personalPkgCtrl.list);
 router.post  ("/clients/:phone/personal-catalog",             personalPkgCtrl.create);
 router.patch ("/clients/:phone/personal-catalog/:id",         personalPkgCtrl.update);
