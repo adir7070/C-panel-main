@@ -41,6 +41,9 @@ app.use((req, res, next) => {
 app.use(cors());
 // The public lead intake keeps its own 2mb cap (the first body parser to run wins).
 app.use("/api/leads/intake", bodyParser.json({ limit: "2mb" }));
+// Meta signs the exact bytes of every Lead Ads notification
+// (X-Hub-Signature-256), so the Facebook webhook keeps them as req.rawBody.
+app.use("/api/leads/facebook-webhook", bodyParser.json({ limit: "1mb", verify: (req, _res, buf) => { req.rawBody = buf; } }));
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 

@@ -103,6 +103,20 @@ GitHub integration from `main` of adir7070/C-panel-main (no GitHub Actions).
   on `/admin/leads-distribution` (`GET`/`PUT /api/leads/auto-assign`, which can
   also hand over every lead that is still unassigned). Since 2026-11-24 it
   points at Gali (user decision: "for now").
+- **Facebook Lead Ads** (`server/facebookLeads.js`, added 2026-11-26): the
+  user's own Meta app's Webhooks (Page object, `leadgen` field) call
+  `GET`/`POST /api/leads/facebook-webhook` for Dashen's own page only.
+  - The notification carries ids only, so the lead is read from the Graph
+    API with `FB_LEADS_PAGE_TOKEN`. It is saved through `insertIntakeLead()`,
+    the same path as the intake (source `facebook`, auto-assign, answers
+    labelled with the form's questions).
+  - `X-Hub-Signature-256` is checked with `FB_LEADS_APP_SECRET` against
+    `req.rawBody`; `backend/server.js` keeps the raw bytes for this path.
+  - `fb_leadgen_events` (`_id` = leadgen_id) makes Meta's retries land once.
+    A failed read answers 500, so Meta retries for up to 36h.
+  - Leads of any page other than `FB_LEADS_PAGE_ID` are ignored.
+  - `GET` without `hub.*` params returns which config vars are set.
+  - Meta setup steps (Claude in the browser): `docs/FACEBOOK-LEADS-SETUP.md`.
 - `assignedToName` is the user's nickname when they have one ("גלי").
 - Frontend API in `src/api/leads.ts`; list in `src/pages/LeadsPage.tsx`.
   Clicking a row opens the lead screen `src/pages/LeadDetailPage.tsx`

@@ -273,29 +273,41 @@ function keyMatches(given) {
   return a.length === b.length && crypto.timingSafeEqual(a, b);
 }
 
+/* Save one inbound lead the way the public intake does: auto-assign, flag a
+   phone that is already in the pipeline (duplicateOf), keep the answers and
+   the raw payload. Shared by POST /api/leads/intake and the Facebook Lead
+   Ads webhook (server/facebookLeads.js). Returns null when the payload has
+   neither a name nor a phone. */
+export async function insertIntakeLead(body, { source } = {}) {
+  const doc = buildLeadDoc(body, { source, keepRaw: true });
+  if (!doc) return null;
+  const db = await getDb();
+  const auto = await autoAssignAgent(db);
+  if (auto) { doc.assignedTo = String(auto._id); doc.assignedToName = agentLabel(auto); }
+  if (doc.phone) {
+    const dup = await db.collection("leads").findOne({ phone: doc.phone }, { projection: { _id: 1 } });
+    if (dup) doc.duplicateOf = String(dup._id);
+  }
+  const r = await db.collection("leads").insertOne(doc);
+  return { id: String(r.insertedId), duplicateOf: doc.duplicateOf ?? null };
+}
+
 export const leadsRouter = express.Router();
 /* JSON bodies are already parsed app-wide by the backend (backend/server.js). */
 
 /* ── Public intake ──────────────────────────────────────────────────────
    POST /api/leads/intake   header: x-api-key: <LEADS_INTAKE_KEY>
    Body: any JSON with at least a phone or a name. Wire landing pages,
-   Facebook lead-form forwarders, Zapier, etc. straight at this. */
+   Zapier etc. straight at this. Facebook Lead Ads come in through their
+   own webhook, POST /api/leads/facebook-webhook (server/facebookLeads.js). */
 leadsRouter.post("/api/leads/intake", async (req, res) => {
   if (!keyMatches(req.headers["x-api-key"])) {
     return res.status(401).json({ error: "unauthorized", message: "x-api-key שגוי" });
   }
-  const doc = buildLeadDoc(req.body, { source: req.query.source ? str(req.query.source, 100) : undefined, keepRaw: true });
-  if (!doc) return res.status(400).json({ error: "bad_request", message: "נדרש לפחות טלפון או שם" });
   try {
-    const db = await getDb();
-    const auto = await autoAssignAgent(db);
-    if (auto) { doc.assignedTo = String(auto._id); doc.assignedToName = agentLabel(auto); }
-    if (doc.phone) {
-      const dup = await db.collection("leads").findOne({ phone: doc.phone }, { projection: { _id: 1 } });
-      if (dup) doc.duplicateOf = String(dup._id);
-    }
-    const r = await db.collection("leads").insertOne(doc);
-    res.status(201).json({ ok: true, id: String(r.insertedId), duplicateOf: doc.duplicateOf ?? null });
+    const saved = await insertIntakeLead(req.body, { source: req.query.source ? str(req.query.source, 100) : undefined });
+    if (!saved) return res.status(400).json({ error: "bad_request", message: "נדרש לפחות טלפון או שם" });
+    res.status(201).json({ ok: true, ...saved });
   } catch (err) {
     serverError(res, err, "leads/intake");
   }

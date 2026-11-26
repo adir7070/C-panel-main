@@ -6,6 +6,7 @@ import { generateLocalAds, GENERATED_DIR } from "./localAdsPipeline.js";
 import { exchangeFacebookCode } from "./facebookOAuth.js";
 import { requireAuth } from "./auth.js";
 import { leadsRouter } from "./leads.js";
+import { facebookLeadsRouter } from "./facebookLeads.js";
 
 /* The panel's server code runs inside the backend process: backend/server.js
    requires this file and calls the two hooks below. Express answers in
@@ -26,6 +27,8 @@ export function mountPanelRoutes(app) {
   if (!process.env.LEADS_INTAKE_KEY) console.warn("[panel] LEADS_INTAKE_KEY is not set — POST /api/leads/intake is OPEN to anyone");
 
   // ── Leads pipeline (/api/leads/*) ─────────────────────────────────────
+  // Facebook Lead Ads webhook first: Meta calls it without a panel login.
+  app.use(facebookLeadsRouter);
   app.use(leadsRouter);
 
   // ── Local ad-generation pipeline ─────────────────────────────────────
